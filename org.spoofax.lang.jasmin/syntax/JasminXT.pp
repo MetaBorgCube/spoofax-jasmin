@@ -67,6 +67,7 @@
    JBCSignature              -- H [KW[".signature"] _1],
    FieldSig                  -- H [KW["signature"] _1],
    JBCMethodDesc             -- H hs=0 [KW["("] _1 KW[")"] _2],
+   JBCMethodDesc.1:iter-star -- _1,
    Reference                 -- H hs=0[KW["L"] _1 KW[";"]],
    Array                     -- H hs=0[KW["["] _1],
    JBCFieldRef               -- H [H hs=0 [_1 KW["/"] _2] _3],
