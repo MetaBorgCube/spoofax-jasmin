@@ -1,0 +1,66 @@
+module jasminxt
+
+imports
+	lib/editor-common.generated
+	lib/index-library.generated
+	lib/analysis-library.generated
+	lib/nbl-library.generated
+	lib/compilation-library.generated
+	
+	include/JasminXT
+
+	analysis/names/binding
+	analysis/names/check 
+	editor/resolve
+	editor/complete
+	editor/builders.meta
+	editor/builders
+	
+rules // Main editor interface (defined by editor/JasminXT-Builders and -References.esv)
+ 
+// Analyses the current program, returning a tuple with the analyzed AST, errors, warnings, notes and
+  // files that should be re-analyzed.
+  analyse:
+    (ast, path, project-path) -> (ast', errors, warnings, notes, filesToAnalyze')
+    with
+      (ast', filesToAnalyze)   := <analyze-top(|<language>)> (ast, path, project-path);
+      index-transaction(
+        errors                := <collect-all(editor-error, conc)> ast';
+        warnings              := <collect-all(editor-warning, conc)> ast';
+        notes                 := <collect-all(editor-note, conc)> ast'
+      );
+      filesToAnalyze'         := <index-filepairs-to-files> filesToAnalyze
+
+  // Main entry point for analyses, called when a single file is opened in the editor.
+  editor-analyse:
+    (ast, path, project-path) -> (ast', errors, warnings, notes)
+    with
+      editor-init;
+      (ast', errors, warnings, notes, filesToAnalyze) := <analyse> (ast, path, project-path);
+      <try(editor-queue-analysis)> <remove-all(?path)> filesToAnalyze
+      
+  // Main entry point for analyzes, called when multiple files have changed. 
+  editor-analyse:
+    files -> None()
+    where
+      not(is-tuple)
+    with
+      index-setup(|<language>, [<project-path>], ".");
+      disable-commit-and-compile // Disable compilation during analysis.
+    with
+      editor-queue-analysis
+    with
+      // Enable and trigger compilation after all files have been analysed.
+      <enable-commit-and-compile> <language>;
+      <trigger-commit-and-compile> <language>
+
+  // Queue parallel analysis for given list of files.
+  editor-queue-analysis = 
+    not(?[]); queue-strategy(|"editor-parallel-analyse", "Analyzing files")
+      
+  // Executes parallel analysis using the index library.
+  editor-parallel-analyse:
+    files -> None()
+    with
+      index-parallel-analyze-files(analyse)
+	 

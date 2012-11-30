@@ -1,0 +1,54 @@
+module binding
+
+imports
+  lib/analysis-library.generated
+  lib/analysis-library-internal.generated
+  lib/index-library.generated
+
+
+imports
+  include/JasminXT
+
+
+signature
+  constructors
+    Type        : DefDataKind
+    Import      : DefDataKind
+    Transitive  : ImportAnno
+    CurrentFile : ImportAnno
+
+  constructors
+    Label : Namespace
+
+
+rules
+
+  nam-get-scope-types :
+    JBCMethod(_, _, _, _) -> [Label()]
+
+
+rules
+
+  nam-get-definition-keys :
+    JBCLabel(l) -> [l]
+
+  nam-get-definitions :
+    JBCLabel(l) -> [(Label(), [l])]
+
+  nam-annotate-names(|paths__, path__):
+    JBCLabel(l) -> <JBCLabel(nam-annotate-def(|path__))>
+
+  nam-unique :
+    JBCLabel(l) -> <id>
+
+
+rules
+
+  nam-get-uses-keys :
+    LabelRef(l) -> [l]
+
+  nam-get-uses :
+    LabelRef(l) -> [(Label(), [l])]
+
+  nam-annotate-names(|paths__, path__):
+    LabelRef(l) -> <LabelRef(nam-annotate-use(|paths__, Label()))>

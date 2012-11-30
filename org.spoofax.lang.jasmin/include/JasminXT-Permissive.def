@@ -1,0 +1,643 @@
+definition
+
+module JasminXT-Directives
+imports lexical/JasminXT-Numbers lexical/JasminXT-Descriptors
+
+exports
+  sorts WATER WATERTOKEN WATERTOKENSTART WATERTOKENSEPARATOR WATERTOKENSTAR
+
+  lexical syntax
+    ~[A-Za-z0-9\_]                 -> WATERTOKENSTART     {recover, avoid}
+    WATERTOKENSTART [A-Za-z0-9\_]* -> WATERTOKEN          
+    ~[A-Za-z0-9\_\ \t\12\r\n\*]    -> WATERTOKENSEPARATOR {recover, avoid}
+    "*"                            -> WATERTOKENSTAR      {recover, avoid}
+    WATERTOKEN                     -> WATER               
+    WATERTOKENSEPARATOR            -> WATER               
+    WATERTOKENSTAR                 -> WATER               
+                                   -> WATEREOF            
+
+  lexical restrictions
+    WATERTOKEN -/- [A-Za-z0-9\_]
+    WATERTOKENSTAR -/- [\/]
+
+  context-free syntax
+    WATER -> LAYOUT {cons("WATER")}
+
+  (
+
+  sorts WATEREOF
+
+  lexical restrictions
+    WATEREOF -/- ~[]
+
+  lexical syntax
+    %% Lexical insertion recovery rules                       
+                                        -> ".limit"           {recover, cons("INSERTION")}
+                                        -> ".line"            {recover, cons("INSERTION")}
+                                        -> ".throws"          {recover, cons("INSERTION")}
+                                        -> ".catch"           {recover, cons("INSERTION")}
+                                        -> ".var"             {recover, cons("INSERTION")}
+                                        -> "invokenonvirtual" {recover, cons("INSERTION")}
+                                        -> "invokevirtual"    {recover, cons("INSERTION")}
+                                        -> "invokestatic"     {recover, cons("INSERTION")}
+                                        -> "invokeinterface"  {recover, cons("INSERTION")}
+                                        -> "$+"               {recover, cons("INSERTION")}
+                                        -> "$-"               {recover, cons("INSERTION")}
+                                        -> "ifeq"             {recover, cons("INSERTION")}
+                                        -> "iflt"             {recover, cons("INSERTION")}
+                                        -> "ifle"             {recover, cons("INSERTION")}
+                                        -> "ifne"             {recover, cons("INSERTION")}
+                                        -> "ifgt"             {recover, cons("INSERTION")}
+                                        -> "ifge"             {recover, cons("INSERTION")}
+                                        -> "ifnull"           {recover, cons("INSERTION")}
+                                        -> "ifnonnull"        {recover, cons("INSERTION")}
+                                        -> "if_icmpeq"        {recover, cons("INSERTION")}
+                                        -> "if_icmplt"        {recover, cons("INSERTION")}
+                                        -> "if_icmple"        {recover, cons("INSERTION")}
+                                        -> "if_icmpne"        {recover, cons("INSERTION")}
+                                        -> "if_icmpgt"        {recover, cons("INSERTION")}
+                                        -> "if_icmpge"        {recover, cons("INSERTION")}
+                                        -> "if_acmpeq"        {recover, cons("INSERTION")}
+                                        -> "if_acmpne"        {recover, cons("INSERTION")}
+                                        -> "tableswitch"      {recover, cons("INSERTION")}
+                                        -> "lookupswitch"     {recover, cons("INSERTION")}
+                                        -> "goto"             {recover, cons("INSERTION")}
+                                        -> "goto_w"           {recover, cons("INSERTION")}
+                                        -> "new"              {recover, cons("INSERTION")}
+                                        -> "newarray"         {recover, cons("INSERTION")}
+                                        -> "anewarray"        {recover, cons("INSERTION")}
+                                        -> "multianewarray"   {recover, cons("INSERTION")}
+                                        -> "getfield"         {recover, cons("INSERTION")}
+                                        -> "putfield"         {recover, cons("INSERTION")}
+                                        -> "getstatic"        {recover, cons("INSERTION")}
+                                        -> "putstatic"        {recover, cons("INSERTION")}
+                                        -> "checkcast"        {recover, cons("INSERTION")}
+                                        -> "instanceof"       {recover, cons("INSERTION")}
+                                        -> "iinc"             {recover, cons("INSERTION")}
+                                        -> "-"                {recover, cons("INSERTION")}
+                                        -> "bipush"           {recover, cons("INSERTION")}
+                                        -> "sipush"           {recover, cons("INSERTION")}
+                                        -> "ldc"              {recover, cons("INSERTION")}
+                                        -> "ldc2_w"           {recover, cons("INSERTION")}
+                                        -> "iload"            {recover, cons("INSERTION")}
+                                        -> "lload"            {recover, cons("INSERTION")}
+                                        -> "fload"            {recover, cons("INSERTION")}
+                                        -> "dload"            {recover, cons("INSERTION")}
+                                        -> "aload"            {recover, cons("INSERTION")}
+                                        -> "istore"           {recover, cons("INSERTION")}
+                                        -> "lstore"           {recover, cons("INSERTION")}
+                                        -> "fstore"           {recover, cons("INSERTION")}
+                                        -> "dstore"           {recover, cons("INSERTION")}
+                                        -> "astore"           {recover, cons("INSERTION")}
+                                        -> "method"           {recover, cons("INSERTION")}
+                                        -> ".method"          {recover, cons("INSERTION")}
+                                        -> "field"            {recover, cons("INSERTION")}
+                                        -> ".field"           {recover, cons("INSERTION")}
+                                        -> "signature"        {recover, cons("INSERTION")}
+                                        -> "="                {recover, cons("INSERTION")}
+    "'"                                 -> INSERTOPENQUOTE    {recover}
+    INSERTOPENQUOTE Identifier "\n"     -> SQIdentifier       {cons("INSERTEND")}
+    INSERTOPENQUOTE Identifier WATEREOF -> SQIdentifier       {cons("INSERTEND")}
+                                        -> ".bytecode"        {recover, cons("INSERTION")}
+                                        -> "."                {recover, cons("INSERTION")}
+                                        -> ".source"          {recover, cons("INSERTION")}
+                                        -> ".class"           {recover, cons("INSERTION")}
+                                        -> ".interface"       {recover, cons("INSERTION")}
+                                        -> ".super"           {recover, cons("INSERTION")}
+                                        -> ".implements"      {recover, cons("INSERTION")}
+                                        -> ".signature"       {recover, cons("INSERTION")}
+                                        -> ".enclosing"       {recover, cons("INSERTION")}
+
+  syntax
+    %% Kernel syntax insertion recovery rules   
+
+  )
+
+  (
+
+  context-free syntax
+    ".limit" "stack" Int                                                  -> Directive {cons("JBCLimitStack")}
+    ".limit" "locals" Int                                                 -> Directive {cons("JBCLimitLocals")}
+    ".line" Int                                                           -> Directive {cons("JBCLine")}
+    ".throws" ClassRef                                                    -> Directive {cons("JBCThrows")}
+    ".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef      -> Directive {cons("JBCCatch")}
+    ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef -> Directive {cons("JBCVarDecl")}
+
+  lexical restrictions
+    ".limit" "stack" "locals" ".line" ".throws" ".catch" "from" "to" "using"
+    ".var" "is" "from" "to" -/- ~[\ \t]
+
+  )
+
+module instructions/JasminXT-Synchronisation
+exports
+  context-free syntax
+    "monitorenter" -> Instruction {cons("MONITORENTER")}
+    "monitorexit"  -> Instruction {cons("MONITOREXIT")}
+
+module instructions/JasminXT-Exceptions
+exports
+  context-free syntax
+    "athrow" -> Instruction {cons("ATHROW")}
+
+module instructions/JasminXT-Methods
+imports lexical/JasminXT-Names lexical/JasminXT-Descriptors
+
+exports
+  context-free syntax
+    "invokenonvirtual" MethodRef    -> Instruction {cons("INVOKESPECIAL")}
+    "invokevirtual" MethodRef       -> Instruction {cons("INVOKEVIRTUAL")}
+    "invokestatic" MethodRef        -> Instruction {cons("INVOKESTATIC")}
+    "invokeinterface" MethodRef Int -> Instruction {cons("INVOKEINTERFACE")}
+    "return"                        -> Instruction {cons("RETURN")}
+    "ireturn"                       -> Instruction {cons("IRETURN")}
+    "lreturn"                       -> Instruction {cons("LRETURN")}
+    "freturn"                       -> Instruction {cons("FRETURN")}
+    "dreturn"                       -> Instruction {cons("DRETURN")}
+    "areturn"                       -> Instruction {cons("ARETURN")}
+
+  lexical restrictions
+    "invokenonvirtual" "invokevirtual" "invokestatic" "invokeinterface"
+    -/- ~[\ \t]
+
+module instructions/JasminXT-Control
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers
+
+exports
+  context-free syntax
+    Int       -> LabelRef  {cons("Absolute")}
+    "$+" Int  -> RelOffset {cons("RelativeFwd")}
+    "$-" Int  -> RelOffset {cons("RelativeBwd")}
+    LabelRef  -> Target    
+    RelOffset -> Target    
+
+  context-free syntax
+    "ifeq" Target                                        -> Instruction {cons("IFEQ")}
+    "iflt" Target                                        -> Instruction {cons("IFLT")}
+    "ifle" Target                                        -> Instruction {cons("IFLE")}
+    "ifne" Target                                        -> Instruction {cons("IFNE")}
+    "ifgt" Target                                        -> Instruction {cons("IFGT")}
+    "ifge" Target                                        -> Instruction {cons("IFGE")}
+    "ifnull" Target                                      -> Instruction {cons("IFNULL")}
+    "ifnonnull" Target                                   -> Instruction {cons("IFNONNULL")}
+    "if_icmpeq" Target                                   -> Instruction {cons("IF_ICMPEQ")}
+    "if_icmplt" Target                                   -> Instruction {cons("IF_ICMPLT")}
+    "if_icmple" Target                                   -> Instruction {cons("IF_ICMPLE")}
+    "if_icmpne" Target                                   -> Instruction {cons("IF_ICMPNE")}
+    "if_icmpgt" Target                                   -> Instruction {cons("IF_ICMPGT")}
+    "if_icmpge" Target                                   -> Instruction {cons("IF_ICMPGE")}
+    "if_acmpeq" Target                                   -> Instruction {cons("IF_ACMPEQ")}
+    "if_acmpne" Target                                   -> Instruction {cons("IF_ACMPNE")}
+    "tableswitch" Int TableEntry* "default" ":" LabelRef -> Instruction {cons("Table")}
+    "lookupswitch" LookupEntry* "default" ":" LabelRef   -> Instruction {cons("Lookup")}
+    LabelRef                                             -> TableEntry  {cons("Jump")}
+    Int ":" LabelRef                                     -> LookupEntry {cons("NPAIR")}
+    "goto" LabelRef                                      -> Instruction {cons("GOTO")}
+    "goto_w" LabelRef                                    -> Instruction {cons("GOTO_W")}
+
+  lexical restrictions
+    "ifeq" "iflt" "ifle" "ifne" "ifgt" "ifge" "ifnull" "ifnonnull" "if_icmpeq"
+    "if_icmplt" "if_icmple" "if_icmpne" "if_icmpgt" "if_icmpge" "if_acmpeq"
+    "if_acmpne" "tableswitch" "goto" "goto_w" -/- ~[\ \t]
+
+module instructions/JasminXT-Stack
+exports
+  context-free syntax
+    "pop"     -> Instruction {cons("POP")}
+    "pop2"    -> Instruction {cons("POP2")}
+    "dup"     -> Instruction {cons("DUP")}
+    "dup2"    -> Instruction {cons("DUP2")}
+    "dup_x1"  -> Instruction {cons("DUP_X1")}
+    "dup2_x1" -> Instruction {cons("DUP2_X1")}
+    "dup_x2"  -> Instruction {cons("DUP_X2")}
+    "dup2_x2" -> Instruction {cons("DUP2_X2")}
+    "swap"    -> Instruction {cons("SWAP")}
+
+module instructions/JasminXT-Objects
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers
+        lexical/JasminXT-Descriptors
+
+exports
+  context-free syntax
+    "new" ClassRef                 -> Instruction {cons("NEW")}
+    "newarray" BaseTypeName        -> Instruction {cons("NEWARRAY")}
+    "anewarray" ClassRef           -> Instruction {cons("ANEWARRAY")}
+    "anewarray" ArrayType          -> Instruction {cons("ANEWARRAY")}
+    "multianewarray" ArrayType Int -> Instruction {cons("MULTIANEWARRAY")}
+    "getfield" FieldRef            -> Instruction {cons("GETFIELD")}
+    "putfield" FieldRef            -> Instruction {cons("PUTFIELD")}
+    "getstatic" FieldRef           -> Instruction {cons("GETSTATIC")}
+    "putstatic" FieldRef           -> Instruction {cons("PUTSTATIC")}
+    "iaload"                       -> Instruction {cons("IALOAD")}
+    "laload"                       -> Instruction {cons("LALOAD")}
+    "baload"                       -> Instruction {cons("BALOAD")}
+    "caload"                       -> Instruction {cons("CALOAD")}
+    "saload"                       -> Instruction {cons("SALOAD")}
+    "faload"                       -> Instruction {cons("FALOAD")}
+    "daload"                       -> Instruction {cons("DALOAD")}
+    "aaload"                       -> Instruction {cons("AALOAD")}
+    "iastore"                      -> Instruction {cons("IASTORE")}
+    "lastore"                      -> Instruction {cons("LASTORE")}
+    "bastore"                      -> Instruction {cons("BASTORE")}
+    "castore"                      -> Instruction {cons("CASTORE")}
+    "sastore"                      -> Instruction {cons("SASTORE")}
+    "fastore"                      -> Instruction {cons("FASTORE")}
+    "dastore"                      -> Instruction {cons("DASTORE")}
+    "aastore"                      -> Instruction {cons("AASTORE")}
+    "arraylength"                  -> Instruction {cons("ARRAYLENGTH")}
+    "checkcast" ClassRef           -> Instruction {cons("CHECKCAST")}
+    "instanceof" ClassRef          -> Instruction {cons("INSTANCEOF")}
+
+  lexical restrictions
+    "new" "newarray" "anewarray" "multianewarray" "getfield" "putfield"
+    "getstatic" "putstatic" "checkcast" "instanceof" -/- ~[\ \t]
+
+module instructions/JasminXT-Conversion
+exports
+  context-free syntax
+    "i2l"       -> Instruction {cons("I2L")}
+    "i2f"       -> Instruction {cons("I2F")}
+    "i2d"       -> Instruction {cons("I2D")}
+    "l2f"       -> Instruction {cons("L2F")}
+    "l2d"       -> Instruction {cons("L2D")}
+    "f2d"       -> Instruction {cons("F2D")}
+    "int2byte"  -> Instruction {cons("I2B")}
+    "int2short" -> Instruction {cons("I2S")}
+    "int2char"  -> Instruction {cons("I2C")}
+    "l2i"       -> Instruction {cons("L2I")}
+    "f2i"       -> Instruction {cons("F2I")}
+    "f2l"       -> Instruction {cons("F2L")}
+    "d2i"       -> Instruction {cons("D2I")}
+    "d2l"       -> Instruction {cons("D2L")}
+    "d2f"       -> Instruction {cons("D2F")}
+
+module instructions/JasminXT-Arithmetic
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers
+
+exports
+  context-free syntax
+    "iadd"               -> Instruction {cons("IADD")}
+    "iand"               -> Instruction {cons("IAND")}
+    "idiv"               -> Instruction {cons("IDIV")}
+    "imul"               -> Instruction {cons("IMUL")}
+    "ineg"               -> Instruction {cons("INEG")}
+    "ior"                -> Instruction {cons("IOR")}
+    "irem"               -> Instruction {cons("IREM")}
+    "ishl"               -> Instruction {cons("ISHL")}
+    "ishr"               -> Instruction {cons("ISHR")}
+    "isub"               -> Instruction {cons("ISUB")}
+    "iushr"              -> Instruction {cons("IUSHR")}
+    "ixor"               -> Instruction {cons("IXOR")}
+    "ladd"               -> Instruction {cons("LADD")}
+    "land"               -> Instruction {cons("LAND")}
+    "ldiv"               -> Instruction {cons("LDIV")}
+    "lmul"               -> Instruction {cons("LMUL")}
+    "lneg"               -> Instruction {cons("LNEG")}
+    "lor"                -> Instruction {cons("LOR")}
+    "lrem"               -> Instruction {cons("LREM")}
+    "lshl"               -> Instruction {cons("LSHL")}
+    "lshr"               -> Instruction {cons("LSHR")}
+    "lsub"               -> Instruction {cons("LSUB")}
+    "lushr"              -> Instruction {cons("LUSHR")}
+    "lxor"               -> Instruction {cons("LXOR")}
+    "fadd"               -> Instruction {cons("FADD")}
+    "fdiv"               -> Instruction {cons("FDIV")}
+    "fmul"               -> Instruction {cons("FMUL")}
+    "fneg"               -> Instruction {cons("FNEG")}
+    "frem"               -> Instruction {cons("FREM")}
+    "fsub"               -> Instruction {cons("FSUB")}
+    "dadd"               -> Instruction {cons("DADD")}
+    "ddiv"               -> Instruction {cons("DDIV")}
+    "dmul"               -> Instruction {cons("DMUL")}
+    "dneg"               -> Instruction {cons("DNEG")}
+    "drem"               -> Instruction {cons("DREM")}
+    "dsub"               -> Instruction {cons("DSUB")}
+    "iinc" VarRef Amount -> Instruction {cons("IINC")}
+    Int                  -> Amount      
+    "-" Int              -> Amount      {cons("Neg")}
+    "fcmpg"              -> Instruction {cons("FCMPG")}
+    "fcmpl"              -> Instruction {cons("FCMPL")}
+    "dcmpg"              -> Instruction {cons("DCMPG")}
+    "dcmpl"              -> Instruction {cons("DCMPL")}
+    "lcmp"               -> Instruction {cons("LCMP")}
+
+  lexical restrictions
+    "iinc" -/- ~[\ \t]
+
+module instructions/JasminXT-LoadStore
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
+
+exports
+  context-free syntax
+    "bipush" Int      -> Instruction {cons("BIPUSH")}
+    "sipush" Int      -> Instruction {cons("SIPUSH")}
+    "iconst_m1"       -> Instruction {cons("ICONST_M1")}
+    "iconst_0"        -> Instruction {cons("ICONST_0")}
+    "iconst_1"        -> Instruction {cons("ICONST_1")}
+    "iconst_2"        -> Instruction {cons("ICONST_2")}
+    "iconst_3"        -> Instruction {cons("ICONST_3")}
+    "iconst_4"        -> Instruction {cons("ICONST_4")}
+    "iconst_5"        -> Instruction {cons("ICONST_5")}
+    "lconst_0"        -> Instruction {cons("LCONST_0")}
+    "lconst_1"        -> Instruction {cons("LCONST_1")}
+    "fconst_0"        -> Instruction {cons("FCONST_0")}
+    "fconst_1"        -> Instruction {cons("FCONST_1")}
+    "fconst_2"        -> Instruction {cons("FCONST_2")}
+    "dconst_0"        -> Instruction {cons("DCONST_0")}
+    "dconst_1"        -> Instruction {cons("DCONST_1")}
+    "aconst_null"     -> Instruction {cons("ACONST_NULL")}
+    "ldc" Constant    -> Instruction {cons("LDC")}
+    "ldc2_w" Constant -> Instruction {cons("LDC2_W")}
+
+  context-free syntax
+    "iload" VarRef  -> Instruction {cons("ILOAD")}
+    "lload" VarRef  -> Instruction {cons("LLOAD")}
+    "fload" VarRef  -> Instruction {cons("FLOAD")}
+    "dload" VarRef  -> Instruction {cons("DLOAD")}
+    "aload" VarRef  -> Instruction {cons("ALOAD")}
+    "iload_0"       -> Instruction {cons("ILOAD_0")}
+    "iload_1"       -> Instruction {cons("ILOAD_1")}
+    "iload_2"       -> Instruction {cons("ILOAD_2")}
+    "iload_3"       -> Instruction {cons("ILOAD_3")}
+    "aload_0"       -> Instruction {cons("ALOAD_0")}
+    "aload_1"       -> Instruction {cons("ALOAD_1")}
+    "aload_2"       -> Instruction {cons("ALOAD_2")}
+    "aload_3"       -> Instruction {cons("ALOAD_3")}
+    "lload_0"       -> Instruction {cons("LLOAD_0")}
+    "lload_1"       -> Instruction {cons("LLOAD_1")}
+    "lload_2"       -> Instruction {cons("LLOAD_2")}
+    "lload_3"       -> Instruction {cons("LLOAD_3")}
+    "dload_0"       -> Instruction {cons("DLOAD_0")}
+    "dload_1"       -> Instruction {cons("DLOAD_1")}
+    "dload_2"       -> Instruction {cons("DLOAD_2")}
+    "dload_3"       -> Instruction {cons("DLOAD_3")}
+    "fload_0"       -> Instruction {cons("FLOAD_0")}
+    "fload_1"       -> Instruction {cons("FLOAD_1")}
+    "fload_2"       -> Instruction {cons("FLOAD_2")}
+    "fload_3"       -> Instruction {cons("FLOAD_3")}
+    "istore" VarRef -> Instruction {cons("ISTORE")}
+    "lstore" VarRef -> Instruction {cons("LSTORE")}
+    "fstore" VarRef -> Instruction {cons("FSTORE")}
+    "dstore" VarRef -> Instruction {cons("DSTORE")}
+    "astore" VarRef -> Instruction {cons("ASTORE")}
+    "istore_0"      -> Instruction {cons("ISTORE_0")}
+    "istore_1"      -> Instruction {cons("ISTORE_1")}
+    "istore_2"      -> Instruction {cons("ISTORE_2")}
+    "istore_3"      -> Instruction {cons("ISTORE_3")}
+    "astore_0"      -> Instruction {cons("ASTORE_0")}
+    "astore_1"      -> Instruction {cons("ASTORE_1")}
+    "astore_2"      -> Instruction {cons("ASTORE_2")}
+    "astore_3"      -> Instruction {cons("ASTORE_3")}
+    "lstore_0"      -> Instruction {cons("LSTORE_0")}
+    "lstore_1"      -> Instruction {cons("LSTORE_1")}
+    "lstore_2"      -> Instruction {cons("LSTORE_2")}
+    "lstore_3"      -> Instruction {cons("LSTORE_3")}
+    "fstore_0"      -> Instruction {cons("FSTORE_0")}
+    "fstore_1"      -> Instruction {cons("FSTORE_1")}
+    "fstore_2"      -> Instruction {cons("FSTORE_2")}
+    "fstore_3"      -> Instruction {cons("FSTORE_3")}
+    "dstore_0"      -> Instruction {cons("DSTORE_0")}
+    "dstore_1"      -> Instruction {cons("DSTORE_1")}
+    "dstore_2"      -> Instruction {cons("DSTORE_2")}
+    "dstore_3"      -> Instruction {cons("DSTORE_3")}
+
+  lexical restrictions
+    "iload" "lload" "fload" "dload" "aload" "istore" "lstore" "fstore" "dstore"
+    "astore" -/- ~[\ \t]
+
+module instructions/JasminXT-Instructions
+imports instructions/JasminXT-LoadStore instructions/JasminXT-Arithmetic
+        instructions/JasminXT-Conversion instructions/JasminXT-Objects
+        instructions/JasminXT-Stack instructions/JasminXT-Control
+        instructions/JasminXT-Methods instructions/JasminXT-Exceptions
+        instructions/JasminXT-Synchronisation
+
+exports
+  context-free syntax
+    "nop"               -> Instruction   {cons("NOP")}
+    "breakpoint"        -> Instruction   {cons("BREAKPOINT")}
+    Int ":" Instruction -> PCInstruction {cons("PC")}
+    Instruction         -> PCInstruction 
+
+module JasminXT-Methods
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
+        lexical/JasminXT-Descriptors instructions/JasminXT-Instructions
+        JasminXT-Directives
+
+exports
+  context-free syntax
+    ".method" MethodAccess* MethodName MethodDescriptor Statement* ".end" "method" -> Method       {cons("JBCMethod"), scope([[]])}
+    "public"                                                                       -> MethodAccess {cons("PUBLIC")}
+    "private"                                                                      -> MethodAccess {cons("PRIVATE")}
+    "protected"                                                                    -> MethodAccess {cons("PROTECTED")}
+    "static"                                                                       -> MethodAccess {cons("STATIC")}
+    "final"                                                                        -> MethodAccess {cons("FINAL")}
+    "synchronized"                                                                 -> MethodAccess {cons("SYNCHRONIZED")}
+    "native"                                                                       -> MethodAccess {cons("NATIVE")}
+    "abstract"                                                                     -> MethodAccess {cons("ABSTRACT")}
+
+  context-free syntax
+    PCInstruction -> Statement 
+    Directive     -> Statement 
+    Label         -> Statement 
+    LabelName ":" -> Label     {cons("JBCLabel")}
+
+  lexical restrictions
+    ".method" ".end" "public" "private" "protected" "static" "final"
+    "synchronized" "native" "abstract" -/- ~[\ \t]
+
+module JasminXT-Fields
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
+        lexical/JasminXT-Descriptors lexical/JasminXT-Signatures
+
+exports
+  context-free syntax
+    ".field" FieldAccess* FieldName FieldDescriptor FieldSignatureSpec InitialValue       -> Field              {cons("JBCField")}
+    ".field" FieldAccess* FieldName FieldDescriptor InitialValue FieldExt* ".end" "field" -> Field              {cons("JBCExtField")}
+    ".signature" FieldSignature                                                           -> FieldExt           {cons("JBCSignature")}
+    ".deprecated"                                                                         -> FieldExt           {cons("JBCDeprecated")}
+    "signature" FieldSignature                                                            -> FieldSignatureSpec {cons("FieldSig")}
+                                                                                          -> FieldSignatureSpec {cons("None")}
+    "=" Constant                                                                          -> InitialValue       {cons("InitVal")}
+                                                                                          -> InitialValue       {cons("None")}
+    "public"                                                                              -> FieldAccess        {cons("PUBLIC")}
+    "private"                                                                             -> FieldAccess        {cons("PRIVATE")}
+    "protected"                                                                           -> FieldAccess        {cons("PROTECTED")}
+    "static"                                                                              -> FieldAccess        {cons("STATIC")}
+    "final"                                                                               -> FieldAccess        {cons("FINAL")}
+    "volatile"                                                                            -> FieldAccess        {cons("VOLATILE")}
+    "transient"                                                                           -> FieldAccess        {cons("TRANSIENT")}
+
+  lexical restrictions
+    ".field" ".end" ".signature" ".deprecated" "signature" "public" "private"
+    "protected" "static" "final" "volatile" "transient" -/- ~[\ \t]
+
+module lexical/JasminXT-Signatures
+imports lexical/JasminXT-Strings lexical/JasminXT-Descriptors
+
+exports
+  lexical syntax
+    String -> ClassSignature 
+    String -> FieldSignature 
+
+module lexical/JasminXT-Descriptors
+imports lexical/JasminXT-Names
+
+exports
+  context-free syntax
+    FieldType  -> FieldDescriptor     {cons("JBCFieldDesc")}
+    FieldType  -> ParameterDescriptor 
+    FieldType  -> ReturnDescriptor    
+    "V"        -> ReturnDescriptor    {cons("Void")}
+    BaseType   -> FieldType           
+    ObjectType -> FieldType           
+    ArrayType  -> FieldType           
+    "B"        -> BaseType            {cons("Byte")}
+    "C"        -> BaseType            {cons("Char")}
+    "D"        -> BaseType            {cons("Double")}
+    "F"        -> BaseType            {cons("Float")}
+    "I"        -> BaseType            {cons("Int")}
+    "J"        -> BaseType            {cons("Long")}
+    "S"        -> BaseType            {cons("Short")}
+    "Z"        -> BaseType            {cons("Boolean")}
+    FieldType  -> ComponentType       
+
+  syntax
+    "(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {cons("JBCMethodDesc")}
+    "L" <ClassRef-CF> ";"                                   -> <ObjectType-CF>       {cons("Reference")}
+    "[" <ComponentType-CF>                                  -> <ArrayType-CF>        {cons("Array")}
+
+module lexical/JasminXT-Strings
+exports
+  lexical syntax
+    '"' StringChar* '"'                          -> String     
+    ~[\"\\\n\r]                                  -> StringChar 
+    [\\] [nrtfb\"\'\\]                           -> StringChar 
+    [\\] 'u' HexDigit HexDigit HexDigit HexDigit -> StringChar 
+    [0-9a-fA-F]                                  -> HexDigit   
+
+  context-free syntax
+    String -> Constant 
+
+module lexical/JasminXT-Numbers
+exports
+  lexical syntax
+    [0-9] [0-9]* -> Int 
+
+  lexical restrictions
+    Int -/- [0-9]
+
+  context-free syntax
+    Int -> Constant 
+
+module lexical/JasminXT-Names
+imports lexical/JasminXT-Numbers lexical/JasminXT-Descriptors
+
+exports
+  lexical syntax
+    [A-Za-z] [A-Za-z0-9]*  -> Identifier    
+    Identifier             -> SQIdentifier  
+    "'" Identifier "'"     -> SQIdentifier  
+    {Identifier "/"}+      -> QualifiedName 
+    ~[\=\:\.\"\-\ \t\n\r]+ -> LabelName     
+
+  lexical restrictions
+    Identifier -/- [a-zA-Z0-9]
+    LabelName -/- ~[\=\:\.\"\-\ \t\n\r]
+
+  context-free syntax
+    QualifiedName -> ClassName  
+    Identifier    -> FieldName  
+    Identifier    -> MethodName 
+    "<init>"      -> MethodName {cons("Init")}
+    SQIdentifier  -> VarName    
+
+  context-free syntax
+    ClassName  -> ClassRef {cons("CRef")}
+    Int        -> VarRef   {cons("VarNum")}
+    LabelName  -> LabelRef {cons("LabelRef")}
+    FieldName  -> FRef     {cons("FRef")}
+    MethodName -> MRef     {cons("MRef")}
+
+  syntax
+    <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF> -> <FieldRef-CF>  {cons("JBCFieldRef")}
+    <ClassRef-CF> "/" <MRef-CF> <MethodDescriptor-CF>             -> <MethodRef-CF> {cons("JBCMethodRef")}
+
+  context-free syntax
+    "byte"    -> BaseTypeName {cons("ByteName")}
+    "char"    -> BaseTypeName {cons("CharName")}
+    "double"  -> BaseTypeName {cons("DoubleName")}
+    "float"   -> BaseTypeName {cons("FloatName")}
+    "int"     -> BaseTypeName {cons("IntName")}
+    "long"    -> BaseTypeName {cons("LongName")}
+    "short"   -> BaseTypeName {cons("ShortName")}
+    "boolean" -> BaseTypeName {cons("BooleanName")}
+
+module JasminXT-Header
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
+        lexical/JasminXT-Descriptors lexical/JasminXT-Signatures
+
+exports
+  context-free syntax
+    BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DeprecatedSpec -> JasminHeader {cons("JBCHeader")}
+
+  context-free syntax
+    ".bytecode" MajorVersion MinorVersion -> BytecodeSpec {cons("JBCVersion")}
+                                          -> BytecodeSpec {cons("None")}
+    Int                                   -> MajorVersion {cons("Major")}
+    "." Int                               -> MinorVersion {cons("Minor")}
+                                          -> MinorVersion {cons("None")}
+    ".source" String                      -> SourceSpec   {cons("JBCSource")}
+                                          -> SourceSpec   {cons("None")}
+
+  context-free syntax
+    ".class" ClassAccess* ClassName     -> ClassSpec      {cons("JBCClass")}
+    ".interface" ClassAccess* ClassName -> ClassSpec      {cons("JBCInterface")}
+    "public"                            -> ClassAccess    {cons("PUBLIC")}
+    "final"                             -> ClassAccess    {cons("FINAL")}
+    "interface"                         -> ClassAccess    {cons("INTERFACE")}
+    "abstract"                          -> ClassAccess    {cons("ABSTRACT")}
+    "super"                             -> ClassAccess    {cons("SUPER")}
+    ".super" ClassName                  -> SuperSpec      {cons("JBCSuper")}
+    ".implements" ClassName             -> ImplementsSpec {cons("JBCImplements")}
+
+  context-free syntax
+    ".signature" ClassSignature            -> SignatureSpec  {cons("JBCSignature")}
+                                           -> SignatureSpec  {cons("None")}
+    ".enclosing" "method" MethodDescriptor -> EnclosingSpec  {cons("JBCEnclosing")}
+                                           -> EnclosingSpec  {cons("None")}
+    ".deprecated"                          -> DeprecatedSpec {cons("JBCDeprecated")}
+                                           -> DeprecatedSpec {cons("None")}
+
+  lexical restrictions
+    ".bytecode" ".source" ".class" ".interface" "public" "final" "interface"
+    "abstract" "super" ".super" ".implements" ".signature" ".enclosing"
+    ".deprecated" -/- ~[\ \t]
+
+module lexical/JasminXT-Whitespace
+exports
+  lexical syntax
+    [\ \t\n\r]                       -> LAYOUT 
+    ";" [\n\r]                       -> LAYOUT 
+    ";" [\ \t] ~[\n\r]* [\n\r] | EOF -> LAYOUT 
+                                     -> EOF    
+
+  lexical restrictions
+    EOF -/- ~[]
+
+  context-free restrictions
+    LAYOUT? -/- [\ \t\n\r]
+    LAYOUT? -/- [\;] . [\ \t]
+    LAYOUT? -/- [\;] . [\n\r]
+
+module JasminXT
+imports lexical/JasminXT-Whitespace JasminXT-Header JasminXT-Fields
+        JasminXT-Methods
+
+exports
+  context-free start-symbols
+    Start
+
+  context-free syntax
+    JasminFile                  -> Start      
+    JasminHeader Field* Method* -> JasminFile {cons("JBCFile")}

@@ -1,0 +1,38 @@
+module editor/builders.meta
+
+imports
+	lib/editor-common.generated
+	lib/index-library.generated
+	lib/analysis-library.generated
+	
+rules
+	// Prints the abstract syntax ATerm of a selection.
+	generate-aterm:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			filename := <guarantee-extension(|"aterm")> path;
+			result	 := selected 
+				
+	/*
+	generate-reads:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			editor-init;
+			filename := <guarantee-extension(|"analyzed.aterm")> path;
+			(_, _, _, _, _, _, result) := <analyze-top> (selected, path, project-path)
+	*/
+			
+	// Prints the entries in the index of the current file.
+	index-currentfile:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			filename := <guarantee-extension(|"index.currentfile.aterm")> path;
+			result	 := <index-get-all-in-file> path
+			
+	// Prints the entries in the index of all files.
+	index-allfiles:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			index-setup(|<language>, [project-path], $[[project-path]/[path]]);
+			filename := <guarantee-extension(|"index.currentfile.aterm")> path;
+			result	 := <map(\filename -> FileEntries(filename, <index-get-all-in-file> filename)\)> <index-get-all-files>

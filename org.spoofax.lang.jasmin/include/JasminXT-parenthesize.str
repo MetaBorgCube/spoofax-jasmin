@@ -1,0 +1,10 @@
+module include/JasminXT-parenthesize
+
+imports
+  libstratego-lib
+
+
+strategies
+  io-JasminXT-parenthesize =
+    io-wrap(id)
+

@@ -1,0 +1,41 @@
+module editor/builders
+
+imports
+	lib/editor-common.generated
+	analysis/names/project
+	
+rules
+	
+	// Generates the Java class file
+	generate-class:
+		(selected, position, ast, path, project-path) -> None()
+		with
+			parentdir := <dirname> path ;
+			<try(call)> ("java", ["-jar", $[[<project-path>]/lib/jasmin.jar], "-d", parentdir, path])
+		where
+			cfname := <concat-strings ; guarantee-extension(|"class")> [project-path, "/", <dirname> path, "/", <class-name> ast] ;
+			<refresh-workspace-file> cfname
+			
+	execute-class:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			filename := <guarantee-extension(|"result.txt")> path
+		with
+			cname := <class-name ; string-replace(|"/",".")> ast ;
+			cpath := <concat-strings> [project-path, "/", <dirname> path] ;
+			<execute-java(|cpath) ; process-output> cname => result
+		
+	
+	process-output: Output(result, "") -> result
+
+	process-output: Output(result, error) -> $[[result] Runtime error: [error]]
+		where not (<""> error)
+		
+signature constructors
+	
+	Output: String * String -> Term
+
+strategies
+	
+	external execute-java(|path)
+	external execute-jasmin(|)

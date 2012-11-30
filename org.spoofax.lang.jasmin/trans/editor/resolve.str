@@ -1,0 +1,19 @@
+module editor/resolve
+
+imports
+	lib/editor-common.generated
+	lib/index-library.generated
+	lib/analysis-library.generated
+	include/JasminXT
+		
+rules
+
+	// Resolves a reference when the user control-clicks or presses F3 in the editor.
+  editor-resolve:
+    (node, position, ast, path, project-path) -> target
+    where
+      index-setup(|<language>, [project-path], $[[project-path]/[path]]);
+      index-transaction(
+        target := <index-lookup> node
+      )
+	
