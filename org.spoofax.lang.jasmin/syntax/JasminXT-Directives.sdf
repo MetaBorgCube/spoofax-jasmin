@@ -10,12 +10,12 @@ exports
 	context-free syntax
 		
 		".limit" "stack" Int 	-> Directive {"JBCLimitStack"}		
-		".limit" "locals" Int 	-> Directive {"JBCLimitLocals"}	
-		".line" Int				-> Directive {"JBCLine"}
+		".limit" "locals" Int -> Directive {"JBCLimitLocals"}	
+		".line" Int						-> Directive {"JBCLine"}
 		".throws" ClassRef		-> Directive {"JBCThrows"}
 		
 		".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef 			-> Directive {"JBCCatch"}
-		".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef 	-> Directive {"JBCVarDecl"}
+		".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef -> Directive {"JBCVarDecl"}
 		
 	lexical restrictions
 		

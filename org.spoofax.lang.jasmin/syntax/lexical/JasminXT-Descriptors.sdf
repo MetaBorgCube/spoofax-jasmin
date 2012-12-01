@@ -9,33 +9,32 @@ exports
 	
 	context-free syntax
 		
-		FieldType 	-> FieldDescriptor {"JBCFieldDesc"}
+		FieldType 	-> FieldDescriptor 			{"JBCFieldDesc"}	
 		
-		FieldType	-> ParameterDescriptor	
+		FieldType		-> ParameterDescriptor	
 		FieldType 	-> ReturnDescriptor
-		
-		"V"			-> ReturnDescriptor {"Void"}
+		"V"					-> ReturnDescriptor 		{"Void"}
 
-		BaseType	-> FieldType
+		BaseType		-> FieldType
 		ObjectType	-> FieldType
-		ArrayType	-> FieldType
+		ArrayType		-> FieldType
 
-		"B" 		-> BaseType {"Byte"}
-		"C" 		-> BaseType {"Char"}
-		"D" 		-> BaseType {"Double"}
-		"F" 		-> BaseType {"Float"}
-		"I" 		-> BaseType {"Int"}
-		"J" 		-> BaseType {"Long"}
-		"S" 		-> BaseType {"Short"}
-		"Z" 		-> BaseType {"Boolean"}
+		"B" 				-> BaseType {"Byte"}
+		"C" 				-> BaseType {"Char"}
+		"D" 		 		-> BaseType {"Double"}
+		"F" 		 		-> BaseType {"Float"}
+		"I" 		 		-> BaseType {"Int"}
+		"J" 		 		-> BaseType {"Long"}
+		"S" 		 		-> BaseType {"Short"}
+		"Z" 		 		-> BaseType {"Boolean"}
 
-		FieldType	-> ComponentType
+		FieldType		-> ComponentType
 		
 	syntax %% avoid whitespaces in method descriptors, reference types, array types
 		
 		"(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {"JBCMethodDesc"}
 				
-		"L" <ClassRef-CF> ";"	-> <ObjectType-CF> {"Reference"}	
+		"L" <ClassRef-CF> ";"		-> <ObjectType-CF> {"Reference"}	
 		"[" <ComponentType-CF> 	-> <ArrayType-CF>  {"Array"}
 		
 		

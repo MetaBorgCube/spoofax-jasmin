@@ -12,6 +12,9 @@ imports
 
 rules
 
+  nam-get-scope-types :
+    JBCMethod(_, _, _, _) -> [Label()]
+
   nam-get-def(|n) =
     fail
 

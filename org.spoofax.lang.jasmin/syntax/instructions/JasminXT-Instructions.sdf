@@ -19,4 +19,4 @@ exports
 		"breakpoint" -> Instruction {"BREAKPOINT"}
 
 		Int ":" Instruction -> PCInstruction {"PC"}
-				Instruction -> PCInstruction
+		Instruction 				-> PCInstruction

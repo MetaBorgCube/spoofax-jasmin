@@ -6,12 +6,22 @@ imports
 	
 namespaces
 
-	Label
+	Label 
+	Variable
 	
 rules
 
-	JBCMethod(_, _, _, _): scopes Label
+	JBCMethod(_, _, _, _): 
+		scopes Label, Variable
 	
-	JBCLabel(l): defines Label l
-	LabelRef(l): refers to Label l
+	JBCLabel(l): 
+		defines Label l
 	
+	LabelRef(l): 
+		refers to Label l
+	
+	JBCVarDecl(n, _, _, _, _): 
+		defines Variable n
+	
+	VarNum(n): 
+		refers to Variable n

@@ -18,13 +18,14 @@ signature
     CurrentFile : ImportAnno
 
   constructors
-    Label : Namespace
+    Label    : Namespace
+    Variable : Namespace
 
 
 rules
 
   nam-get-scope-types :
-    JBCMethod(_, _, _, _) -> [Label()]
+    JBCMethod(_, _, _, _) -> [Label(), Variable()]
 
 
 rules
@@ -52,3 +53,30 @@ rules
 
   nam-annotate-names(|paths__, path__):
     LabelRef(l) -> <LabelRef(nam-annotate-use(|paths__, Label()))>
+
+
+rules
+
+  nam-get-definition-keys :
+    JBCVarDecl(n, _, _, _, _) -> [n]
+
+  nam-get-definitions :
+    JBCVarDecl(n, _, _, _, _) -> [(Variable(), [n])]
+
+  nam-annotate-names(|paths__, path__):
+    JBCVarDecl(n, _, _, _, _) -> <JBCVarDecl(nam-annotate-def(|path__), id, id, id, id)>
+
+  nam-unique :
+    JBCVarDecl(n, _, _, _, _) -> <id>
+
+
+rules
+
+  nam-get-uses-keys :
+    VarNum(n) -> [n]
+
+  nam-get-uses :
+    VarNum(n) -> [(Variable(), [n])]
+
+  nam-annotate-names(|paths__, path__):
+    VarNum(n) -> <VarNum(nam-annotate-use(|paths__, Variable()))>

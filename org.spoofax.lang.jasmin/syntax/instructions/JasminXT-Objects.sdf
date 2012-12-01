@@ -12,8 +12,8 @@ exports
 		"new" ClassRef -> Instruction {"NEW"}
 		
 		"newarray"       BaseTypeName 	-> Instruction {"NEWARRAY"}
-		"anewarray"      ClassRef		-> Instruction {"ANEWARRAY"}
-		"anewarray"      ArrayType		-> Instruction {"ANEWARRAY"}
+		"anewarray"      ClassRef				-> Instruction {"ANEWARRAY"}
+		"anewarray"      ArrayType			-> Instruction {"ANEWARRAY"}
 		"multianewarray" ArrayType Int	-> Instruction {"MULTIANEWARRAY"}
 
 		"getfield"  FieldRef -> Instruction {"GETFIELD"}

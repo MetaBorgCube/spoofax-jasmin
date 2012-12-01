@@ -7,9 +7,9 @@ imports
 exports
 	context-free syntax
 				
-		"invokenonvirtual" MethodRef		-> Instruction {"INVOKESPECIAL"}
-		"invokevirtual"    MethodRef 		-> Instruction {"INVOKEVIRTUAL"}
-		"invokestatic"     MethodRef		-> Instruction {"INVOKESTATIC"}
+		"invokenonvirtual" MethodRef			-> Instruction {"INVOKESPECIAL"}
+		"invokevirtual"    MethodRef 			-> Instruction {"INVOKEVIRTUAL"}
+		"invokestatic"     MethodRef			-> Instruction {"INVOKESTATIC"}
 		"invokeinterface"  MethodRef Int	-> Instruction {"INVOKEINTERFACE"}
 		
 		"return"  -> Instruction {"RETURN"}   

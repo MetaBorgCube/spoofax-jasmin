@@ -50,7 +50,7 @@ exports
 		
 		"iinc" VarRef Amount -> Instruction {"IINC"}
     
-    	Int 	-> Amount
+    	Int 		-> Amount
     	"-" Int -> Amount {"Neg"}
     	
     	"fcmpg" -> Instruction {"FCMPG"}

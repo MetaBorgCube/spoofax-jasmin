@@ -11,12 +11,12 @@ exports
 	context-free syntax
 		
 		".limit" "stack" Int 	-> Directive {cons("JBCLimitStack")}		
-		".limit" "locals" Int 	-> Directive {cons("JBCLimitLocals")}	
-		".line" Int				-> Directive {cons("JBCLine")}
+		".limit" "locals" Int -> Directive {cons("JBCLimitLocals")}	
+		".line" Int						-> Directive {cons("JBCLine")}
 		".throws" ClassRef		-> Directive {cons("JBCThrows")}
 		
 		".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef 			-> Directive {cons("JBCCatch")}
-		".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef 	-> Directive {cons("JBCVarDecl")}
+		".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef -> Directive {cons("JBCVarDecl")}
 		
 	lexical restrictions
 		
@@ -60,9 +60,9 @@ imports
 exports
 	context-free syntax
 				
-		"invokenonvirtual" MethodRef		-> Instruction {cons("INVOKESPECIAL")}
-		"invokevirtual"    MethodRef 		-> Instruction {cons("INVOKEVIRTUAL")}
-		"invokestatic"     MethodRef		-> Instruction {cons("INVOKESTATIC")}
+		"invokenonvirtual" MethodRef			-> Instruction {cons("INVOKESPECIAL")}
+		"invokevirtual"    MethodRef 			-> Instruction {cons("INVOKEVIRTUAL")}
+		"invokestatic"     MethodRef			-> Instruction {cons("INVOKESTATIC")}
 		"invokeinterface"  MethodRef Int	-> Instruction {cons("INVOKEINTERFACE")}
 		
 		"return"  -> Instruction {cons("RETURN")}   
@@ -89,7 +89,7 @@ exports
 	
 	context-free syntax
 		
-		Int			-> LabelRef  {cons("Absolute")}
+		Int				-> LabelRef  {cons("Absolute")}
 		"$+" Int	-> RelOffset {cons("RelativeFwd")}
 		"$-" Int	-> RelOffset {cons("RelativeBwd")}
 		
@@ -98,13 +98,13 @@ exports
 		
 	context-free syntax
 		
-		"ifeq" Target 		-> Instruction {cons("IFEQ")} 
-		"iflt" Target 		-> Instruction {cons("IFLT")} 
-		"ifle" Target 		-> Instruction {cons("IFLE")} 
-		"ifne" Target 		-> Instruction {cons("IFNE")} 
-		"ifgt" Target 		-> Instruction {cons("IFGT")} 
-		"ifge" Target 		-> Instruction {cons("IFGE")} 
-		"ifnull" Target 	-> Instruction {cons("IFNULL")} 
+		"ifeq" Target 			-> Instruction {cons("IFEQ")} 
+		"iflt" Target 			-> Instruction {cons("IFLT")} 
+		"ifle" Target	 			-> Instruction {cons("IFLE")} 
+		"ifne" Target 			-> Instruction {cons("IFNE")} 
+		"ifgt" Target 			-> Instruction {cons("IFGT")} 
+		"ifge" Target		 		-> Instruction {cons("IFGE")} 
+		"ifnull" Target 		-> Instruction {cons("IFNULL")} 
 		"ifnonnull" Target 	-> Instruction {cons("IFNONNULL")} 
 		"if_icmpeq" Target 	-> Instruction {cons("IF_ICMPEQ")} 
 		"if_icmplt" Target 	-> Instruction {cons("IF_ICMPLT")} 
@@ -121,7 +121,7 @@ exports
 		LabelRef         -> TableEntry {cons("Jump")}
 		Int ":" LabelRef -> LookupEntry {cons("NPAIR")}
 		
-  		"goto" LabelRef   -> Instruction {cons("GOTO")}
+  	"goto" LabelRef   -> Instruction {cons("GOTO")}
 		"goto_w" LabelRef -> Instruction {cons("GOTO_W")}
 			
 	lexical restrictions
@@ -176,8 +176,8 @@ exports
 		"new" ClassRef -> Instruction {cons("NEW")}
 		
 		"newarray"       BaseTypeName 	-> Instruction {cons("NEWARRAY")}
-		"anewarray"      ClassRef		-> Instruction {cons("ANEWARRAY")}
-		"anewarray"      ArrayType		-> Instruction {cons("ANEWARRAY")}
+		"anewarray"      ClassRef				-> Instruction {cons("ANEWARRAY")}
+		"anewarray"      ArrayType			-> Instruction {cons("ANEWARRAY")}
 		"multianewarray" ArrayType Int	-> Instruction {cons("MULTIANEWARRAY")}
 
 		"getfield"  FieldRef -> Instruction {cons("GETFIELD")}
@@ -298,7 +298,7 @@ exports
 		
 		"iinc" VarRef Amount -> Instruction {cons("IINC")}
     
-    	Int 	-> Amount
+    	Int 		-> Amount
     	"-" Int -> Amount {cons("Neg")}
     	
     	"fcmpg" -> Instruction {cons("FCMPG")}
@@ -349,7 +349,7 @@ exports
 		"aconst_null" -> Instruction {cons("ACONST_NULL")} %% pushes a null reference onto the stack
 		
 		"ldc"    Constant -> Instruction {cons("LDC")} 	%% pushes a constant from a constant pool (String, int or float) onto the stack
-    	"ldc2_w" Constant -> Instruction {cons("LDC2_W")} %% pushes a constant from a constant pool (double or long) onto the stack
+    "ldc2_w" Constant -> Instruction {cons("LDC2_W")} %% pushes a constant from a constant pool (double or long) onto the stack
 				
 	context-free syntax
 		
@@ -449,7 +449,7 @@ exports
 		"breakpoint" -> Instruction {cons("BREAKPOINT")}
 
 		Int ":" Instruction -> PCInstruction {cons("PC")}
-				Instruction -> PCInstruction
+		Instruction 				-> PCInstruction
 
 module JasminXT-Methods
 
@@ -474,20 +474,20 @@ exports
  		Statement*
  		".end" "method" -> Method {cons("JBCMethod"), scope(Label)}
 				
- 		"public" 		-> MethodAccess {cons("PUBLIC")}
- 		"private" 		-> MethodAccess {cons("PRIVATE")}
- 		"protected" 	-> MethodAccess {cons("PROTECTED")}
- 		"static" 		-> MethodAccess {cons("STATIC")}
- 		"final"			-> MethodAccess {cons("FINAL")}
+ 		"public" 				-> MethodAccess {cons("PUBLIC")}
+ 		"private" 			-> MethodAccess {cons("PRIVATE")}
+ 		"protected"		 	-> MethodAccess {cons("PROTECTED")}
+ 		"static" 				-> MethodAccess {cons("STATIC")}
+ 		"final"					-> MethodAccess {cons("FINAL")}
  		"synchronized"	-> MethodAccess {cons("SYNCHRONIZED")}
- 		"native"		-> MethodAccess {cons("NATIVE")}
- 		"abstract"		-> MethodAccess {cons("ABSTRACT")}
+ 		"native"				-> MethodAccess {cons("NATIVE")}
+ 		"abstract"			-> MethodAccess {cons("ABSTRACT")}
  		
  	context-free syntax %% statements
  		
- 		PCInstruction 	-> Statement
- 		Directive		-> Statement
- 		Label			-> Statement
+ 		PCInstruction -> Statement
+ 		Directive			-> Statement
+ 		Label					-> Statement
  		%%	Error		-> Statement
  	
  		LabelName ":"	-> Label {cons("JBCLabel")}
@@ -594,33 +594,32 @@ exports
 	
 	context-free syntax
 		
-		FieldType 	-> FieldDescriptor {cons("JBCFieldDesc")}
+		FieldType 	-> FieldDescriptor 			{cons("JBCFieldDesc")}	
 		
-		FieldType	-> ParameterDescriptor	
+		FieldType		-> ParameterDescriptor	
 		FieldType 	-> ReturnDescriptor
-		
-		"V"			-> ReturnDescriptor {cons("Void")}
+		"V"					-> ReturnDescriptor 		{cons("Void")}
 
-		BaseType	-> FieldType
+		BaseType		-> FieldType
 		ObjectType	-> FieldType
-		ArrayType	-> FieldType
+		ArrayType		-> FieldType
 
-		"B" 		-> BaseType {cons("Byte")}
-		"C" 		-> BaseType {cons("Char")}
-		"D" 		-> BaseType {cons("Double")}
-		"F" 		-> BaseType {cons("Float")}
-		"I" 		-> BaseType {cons("Int")}
-		"J" 		-> BaseType {cons("Long")}
-		"S" 		-> BaseType {cons("Short")}
-		"Z" 		-> BaseType {cons("Boolean")}
+		"B" 				-> BaseType {cons("Byte")}
+		"C" 				-> BaseType {cons("Char")}
+		"D" 		 		-> BaseType {cons("Double")}
+		"F" 		 		-> BaseType {cons("Float")}
+		"I" 		 		-> BaseType {cons("Int")}
+		"J" 		 		-> BaseType {cons("Long")}
+		"S" 		 		-> BaseType {cons("Short")}
+		"Z" 		 		-> BaseType {cons("Boolean")}
 
-		FieldType	-> ComponentType
+		FieldType		-> ComponentType
 		
 	syntax %% avoid whitespaces in method descriptors, reference types, array types
 		
 		"(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {cons("JBCMethodDesc")}
 				
-		"L" <ClassRef-CF> ";"	-> <ObjectType-CF> {cons("Reference")}	
+		"L" <ClassRef-CF> ";"		-> <ObjectType-CF> {cons("Reference")}	
 		"[" <ComponentType-CF> 	-> <ArrayType-CF>  {cons("Array")}
 
 module lexical/JasminXT-Strings
@@ -631,8 +630,8 @@ exports
 		
 		'"' StringChar* '"' 	-> String
     	
-		~[\"\\\n\r]				-> StringChar
-    	[\\] [nrtfb\"\'\\]		-> StringChar
+		~[\"\\\n\r]						-> StringChar
+    [\\] [nrtfb\"\'\\]		-> StringChar
     	
 		[\\] 'u' HexDigit HexDigit HexDigit HexDigit	-> StringChar
 	
@@ -671,40 +670,40 @@ exports
 		
 		[A-Za-z] [A-Za-z0-9]* 	-> Identifier
 		
-		Identifier				-> SQIdentifier
-		"'" Identifier "'"		-> SQIdentifier
+		Identifier							-> SQIdentifier
+		"'" Identifier "'"			-> SQIdentifier
 		
-		{Identifier "/"}+ 		-> QualifiedName
+		{Identifier "/"}+ 			-> QualifiedName
 		
 		~[\=\:\.\"\-\ \t\n\r]+	-> LabelName
 		
 	lexical restrictions
 		
-		Identifier -/- [a-zA-Z0-9]
-		LabelName -/- ~[\=\:\.\"\-\ \t\n\r]
+		Identifier 	-/- [a-zA-Z0-9]
+		LabelName		-/- ~[\=\:\.\"\-\ \t\n\r]
 		
 	context-free syntax
 		
-		QualifiedName 	-> ClassName
+		QualifiedName -> ClassName
 		Identifier		-> FieldName
 		Identifier		-> MethodName
-		"<init>"		-> MethodName {cons("Init")}
+		"<init>"			-> MethodName {cons("Init")}
 		SQIdentifier	-> VarName
 		
 	context-free syntax 
 		
 		ClassName			-> ClassRef {cons("CRef")}
-		Int					-> VarRef   {cons("VarNum")}
+		Int						-> VarRef   {cons("VarNum")}
 		%% VarName     		-> VarRef	{"VarRef"}
-		LabelName 	-> LabelRef {cons("LabelRef")}
+		LabelName 		-> LabelRef {cons("LabelRef")}
 		
 		FieldName			-> FRef{cons("FRef")}
-		MethodName	-> MRef{cons("MRef")}
+		MethodName		-> MRef{cons("MRef")}
 		
 	syntax
 		
-		<ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF> {cons("JBCFieldRef")}		
-		<ClassRef-CF> "/" <MRef-CF> 			 <MethodDescriptor-CF> -> <MethodRef-CF> {cons("JBCMethodRef")}
+		<ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>	 {cons("JBCFieldRef")}		
+		<ClassRef-CF> "/" <MRef-CF> 			 			 <MethodDescriptor-CF> -> <MethodRef-CF> {cons("JBCMethodRef")}
 
 	context-free syntax
 		
@@ -811,8 +810,8 @@ exports
 
 	lexical syntax
   
-		[\ \t\n\r] 							-> LAYOUT
-		";" [\n\r] 							-> LAYOUT
+		[\ \t\n\r] 													-> LAYOUT
+		";" [\n\r] 													-> LAYOUT
 		";" [\ \t] ~[\n\r]* ([\n\r] | EOF) 	-> LAYOUT
     
 		-> EOF

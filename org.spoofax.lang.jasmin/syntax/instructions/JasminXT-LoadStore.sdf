@@ -34,7 +34,7 @@ exports
 		"aconst_null" -> Instruction {"ACONST_NULL"} %% pushes a null reference onto the stack
 		
 		"ldc"    Constant -> Instruction {"LDC"} 	%% pushes a constant from a constant pool (String, int or float) onto the stack
-    	"ldc2_w" Constant -> Instruction {"LDC2_W"} %% pushes a constant from a constant pool (double or long) onto the stack
+    "ldc2_w" Constant -> Instruction {"LDC2_W"} %% pushes a constant from a constant pool (double or long) onto the stack
 				
 	context-free syntax
 		

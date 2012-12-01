@@ -21,23 +21,23 @@ exports
  		Statement*
  		".end" "method" -> Method {"JBCMethod", scope(Label)}
 				
- 		"public" 		-> MethodAccess {"PUBLIC"}
- 		"private" 		-> MethodAccess {"PRIVATE"}
- 		"protected" 	-> MethodAccess {"PROTECTED"}
- 		"static" 		-> MethodAccess {"STATIC"}
- 		"final"			-> MethodAccess {"FINAL"}
+ 		"public" 				-> MethodAccess {"PUBLIC"}
+ 		"private" 			-> MethodAccess {"PRIVATE"}
+ 		"protected"		 	-> MethodAccess {"PROTECTED"}
+ 		"static" 				-> MethodAccess {"STATIC"}
+ 		"final"					-> MethodAccess {"FINAL"}
  		"synchronized"	-> MethodAccess {"SYNCHRONIZED"}
- 		"native"		-> MethodAccess {"NATIVE"}
- 		"abstract"		-> MethodAccess {"ABSTRACT"}
+ 		"native"				-> MethodAccess {"NATIVE"}
+ 		"abstract"			-> MethodAccess {"ABSTRACT"}
  		
  	context-free syntax %% statements
  		
- 		PCInstruction 	-> Statement
- 		Directive		-> Statement
- 		Label			-> Statement
+ 		PCInstruction -> Statement
+ 		Directive			-> Statement
+ 		Label					-> Statement
  		%%	Error		-> Statement
  	
- 		Label@=LabelName ":"	-> Label {"JBCLabel"}
+ 		LabelName ":"	-> Label {"JBCLabel"}
  		
  	lexical restrictions
  		

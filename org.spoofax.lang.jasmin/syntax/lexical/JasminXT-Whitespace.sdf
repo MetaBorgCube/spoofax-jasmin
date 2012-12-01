@@ -4,8 +4,8 @@ exports
 
 	lexical syntax
   
-		[\ \t\n\r] 							-> LAYOUT
-		";" [\n\r] 							-> LAYOUT
+		[\ \t\n\r] 													-> LAYOUT
+		";" [\n\r] 													-> LAYOUT
 		";" [\ \t] ~[\n\r]* ([\n\r] | EOF) 	-> LAYOUT
     
 		-> EOF

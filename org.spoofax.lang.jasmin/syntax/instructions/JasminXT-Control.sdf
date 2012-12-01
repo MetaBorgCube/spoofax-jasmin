@@ -8,7 +8,7 @@ exports
 	
 	context-free syntax
 		
-		Int			-> LabelRef  {"Absolute"}
+		Int				-> LabelRef  {"Absolute"}
 		"$+" Int	-> RelOffset {"RelativeFwd"}
 		"$-" Int	-> RelOffset {"RelativeBwd"}
 		
@@ -17,13 +17,13 @@ exports
 		
 	context-free syntax
 		
-		"ifeq" Target 		-> Instruction {"IFEQ"} 
-		"iflt" Target 		-> Instruction {"IFLT"} 
-		"ifle" Target 		-> Instruction {"IFLE"} 
-		"ifne" Target 		-> Instruction {"IFNE"} 
-		"ifgt" Target 		-> Instruction {"IFGT"} 
-		"ifge" Target 		-> Instruction {"IFGE"} 
-		"ifnull" Target 	-> Instruction {"IFNULL"} 
+		"ifeq" Target 			-> Instruction {"IFEQ"} 
+		"iflt" Target 			-> Instruction {"IFLT"} 
+		"ifle" Target	 			-> Instruction {"IFLE"} 
+		"ifne" Target 			-> Instruction {"IFNE"} 
+		"ifgt" Target 			-> Instruction {"IFGT"} 
+		"ifge" Target		 		-> Instruction {"IFGE"} 
+		"ifnull" Target 		-> Instruction {"IFNULL"} 
 		"ifnonnull" Target 	-> Instruction {"IFNONNULL"} 
 		"if_icmpeq" Target 	-> Instruction {"IF_ICMPEQ"} 
 		"if_icmplt" Target 	-> Instruction {"IF_ICMPLT"} 
@@ -40,7 +40,7 @@ exports
 		LabelRef         -> TableEntry {"Jump"}
 		Int ":" LabelRef -> LookupEntry {"NPAIR"}
 		
-  		"goto" LabelRef   -> Instruction {"GOTO"}
+  	"goto" LabelRef   -> Instruction {"GOTO"}
 		"goto_w" LabelRef -> Instruction {"GOTO_W"}
 			
 	lexical restrictions
