@@ -25,24 +25,24 @@ exports
 		FieldDescriptor 
 		InitialValue 
 		FieldExt*
-		".end" "field"		-> Field {"JBCExtField"}
+		".end" "field"	-> Field {"JBCExtField"}
 		
-		".signature" FieldSignature 	-> FieldExt {"JBCSignature"}
-		".deprecated"  					-> FieldExt {"JBCDeprecated"}
+		".signature" FieldSignature -> FieldExt {"JBCSignature"}
+		".deprecated"  							-> FieldExt {"JBCDeprecated"}
 		%%TODO add .attribute and .annotation
 
 		"signature" FieldSignature	-> FieldSignatureSpec {"FieldSig"}
-									-> FieldSignatureSpec {"None"}
+																-> FieldSignatureSpec {"None"}
 									
 		"=" Constant	-> InitialValue {"InitVal"}
-						-> InitialValue {"None"}
+									-> InitialValue {"None"}
 		
 			
- 		"public" 		-> FieldAccess {"PUBLIC"}
+ 		"public" 			-> FieldAccess {"PUBLIC"}
  		"private" 		-> FieldAccess {"PRIVATE"}
  		"protected" 	-> FieldAccess {"PROTECTED"}
- 		"static" 		-> FieldAccess {"STATIC"}
- 		"final"			-> FieldAccess {"FINAL"}
+ 		"static" 			-> FieldAccess {"STATIC"}
+ 		"final"				-> FieldAccess {"FINAL"}
  		"volatile"		-> FieldAccess {"VOLATILE"}
  		"transient"		-> FieldAccess {"TRANSIENT"}
  		
