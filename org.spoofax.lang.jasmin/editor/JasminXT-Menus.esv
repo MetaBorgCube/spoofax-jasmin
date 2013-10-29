@@ -1,0 +1,40 @@
+module JasminXT-Menus
+
+imports JasminXT-Menus.generated
+
+  // This file can be used to specify toolbar menus.
+  // See the imported file for a brief introduction and examples.
+
+menus
+  
+  menu: "Syntax"
+                                                                                                                            
+    action: "Show abstract syntax (for selection)" = generate-aterm (openeditor) (realtime) (meta) (source)  
+    action: "Show analysed syntax (for selection)" = generate-aterm (openeditor) (realtime) (meta)
+  
+  menu: "Analysis"
+        
+    action: "Reset and reanalyze"  = debug-reanalyze (meta)   
+
+    submenu: "Show Index"
+      action: "Project"            = debug-index-project (openeditor) (meta)
+      action: "Partition"          = debug-index-partition (openeditor) (meta)
+    end
+    
+    submenu: "Show Tasks"
+      action: "Project"            = debug-task-project (openeditor) (meta)
+      action: "Partition"          = debug-task-partition (openeditor) (meta)
+      action: "Selection"          = debug-task-selection (openeditor) (meta)
+    end
+    
+    submenu: "Show Analysis"
+      action: "Project"            = debug-project (openeditor) (meta)
+      action: "Partition"          = debug-partition (openeditor) (meta)
+    end
+  
+  menu: "JVM"
+ 
+  action: "Generate class file" = generate-class (source)    
+  action: "Execute" = execute-class (source) (openeditor)
+
+    

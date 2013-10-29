@@ -1,6 +1,6 @@
 module JasminXT.main
 
-imports JasminXT-Builders JasminXT-Colorer JasminXT-Completions JasminXT-Folding JasminXT-Outliner JasminXT-References JasminXT-Syntax
+imports JasminXT-Menus JasminXT-Colorer JasminXT-Completions JasminXT-Folding JasminXT-Outliner JasminXT-References JasminXT-Syntax
 
 language General properties
                   

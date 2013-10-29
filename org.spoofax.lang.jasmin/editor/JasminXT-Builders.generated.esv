@@ -1,9 +1,0 @@
-module JasminXT-Builders.generated
-
-// 
-// DEPRECATED. 
-//
-// Builders have been replaced by menus and actions (see 'editor/JasminXT-Menus.esv'). 
-// Providers, the observer and the on-save builder are now part of the main language description. Fix: move them to 'editor/JasminXT.main.esv'.
-// 
-
