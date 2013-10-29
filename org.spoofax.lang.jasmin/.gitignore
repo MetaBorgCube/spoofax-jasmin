@@ -2,3 +2,6 @@
 /bin
 
 /include
+/lib/runtime
+
+/lib/jasmin.jar
