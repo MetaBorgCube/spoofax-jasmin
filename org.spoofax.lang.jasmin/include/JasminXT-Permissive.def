@@ -7,7 +7,7 @@ exports
   sorts WATER WATERTOKEN WATERTOKENSTART WATERTOKENSEPARATOR WATERTOKENSTAR
 
   lexical syntax
-    ~[A-Za-z0-9\_]                 -> WATERTOKENSTART     {recover, avoid}
+    [A-Za-z0-9\_]                  -> WATERTOKENSTART     {recover, avoid}
     WATERTOKENSTART [A-Za-z0-9\_]* -> WATERTOKEN          
     ~[A-Za-z0-9\_\ \t\12\r\n\*]    -> WATERTOKENSEPARATOR {recover, avoid}
     "*"                            -> WATERTOKENSTAR      {recover, avoid}
@@ -15,6 +15,43 @@ exports
     WATERTOKENSEPARATOR            -> WATER               
     WATERTOKENSTAR                 -> WATER               
                                    -> WATEREOF            
+    "completion123"                -> COMPLETIONPREFIX    {completion}
+    "|#WATERTOKENSTAR|"            -> WATERTOKENSTAR      {completion}
+    "|#Directive|"                 -> Directive           {completion}
+    "|#RelOffset|"                 -> RelOffset           {completion}
+    "|#LookupEntry|"               -> LookupEntry         {completion}
+    "|#Amount|"                    -> Amount              {completion}
+    "|#Instruction|"               -> Instruction         {completion}
+    "|#PCInstruction|"             -> PCInstruction       {completion}
+    "|#Method|"                    -> Method              {completion}
+    "|#MethodAccess|"              -> MethodAccess        {completion}
+    "|#Label|"                     -> Label               {completion}
+    "|#Field|"                     -> Field               {completion}
+    "|#FieldExt|"                  -> FieldExt            {completion}
+    "|#FieldSignatureSpec|"        -> FieldSignatureSpec  {completion}
+    "|#InitialValue|"              -> InitialValue        {completion}
+    "|#FieldAccess|"               -> FieldAccess         {completion}
+    "|#ReturnDescriptor|"          -> ReturnDescriptor    {completion}
+    "|#BaseType|"                  -> BaseType            {completion}
+    "|#MethodDescriptor|"          -> MethodDescriptor    {completion}
+    "|#ObjectType|"                -> ObjectType          {completion}
+    "|#ArrayType|"                 -> ArrayType           {completion}
+    "|#SQIdentifier|"              -> SQIdentifier        {completion}
+    "|#QualifiedName|"             -> QualifiedName       {completion}
+    "|#MethodName|"                -> MethodName          {completion}
+    "|#FieldRef|"                  -> FieldRef            {completion}
+    "|#MethodRef|"                 -> MethodRef           {completion}
+    "|#BaseTypeName|"              -> BaseTypeName        {completion}
+    "|#BytecodeSpec|"              -> BytecodeSpec        {completion}
+    "|#MinorVersion|"              -> MinorVersion        {completion}
+    "|#SourceSpec|"                -> SourceSpec          {completion}
+    "|#ClassSpec|"                 -> ClassSpec           {completion}
+    "|#ClassAccess|"               -> ClassAccess         {completion}
+    "|#SuperSpec|"                 -> SuperSpec           {completion}
+    "|#ImplementsSpec|"            -> ImplementsSpec      {completion}
+    "|#SignatureSpec|"             -> SignatureSpec       {completion}
+    "|#EnclosingSpec|"             -> EnclosingSpec       {completion}
+    "|#DeprecatedSpec|"            -> DeprecatedSpec      {completion}
 
   lexical restrictions
     WATERTOKEN -/- [A-Za-z0-9\_]
@@ -426,7 +463,7 @@ imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
 
 exports
   context-free syntax
-    ".method" MethodAccess* MethodName MethodDescriptor Statement* ".end" "method" -> Method       {cons("JBCMethod"), scope([[]])}
+    ".method" MethodAccess* MethodName MethodDescriptor Statement* ".end" "method" -> Method       {cons("JBCMethod"), scope(Label)}
     "public"                                                                       -> MethodAccess {cons("PUBLIC")}
     "private"                                                                      -> MethodAccess {cons("PRIVATE")}
     "protected"                                                                    -> MethodAccess {cons("PROTECTED")}

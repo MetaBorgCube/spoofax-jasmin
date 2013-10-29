@@ -14,3 +14,11 @@ language General properties
   extensions    : j
   table         : include/JasminXT.tbl
   start symbols : Start
+
+  provider: include/jasminxt.ctree                                                                           
+  provider: include/jasminxt-java.jar
+  provider: lib/jasmin.jar
+                                                                                                                               
+  observer: editor-analyze                                                                                   
+   
+  

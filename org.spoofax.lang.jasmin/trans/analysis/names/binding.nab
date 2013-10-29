@@ -1,0 +1,49 @@
+module binding
+
+imports
+
+	include/JasminXT
+	
+namespaces
+
+	Class
+  Method
+	Variable
+	Label 
+	
+binding rules
+
+  JBCFile(JBCHeader(_, _, JBCClass(_, c), _, _, _, _, _), _, _):
+    defines Class c
+    scopes Method
+  
+  JBCSuper(c):
+    imports 
+      Method, 
+      imported Method 
+    from Class c
+    
+  CRef(c):
+  	refers to Class c
+  	
+binding rules
+  
+	JBCMethod(_, m, _, _): 
+		defines Method m
+		scopes Label, Variable
+
+binding rules
+    
+  JBCVarDecl(n, _, _, _, _): 
+    defines Variable n
+  
+  VarNum(n): 
+    refers to Variable n
+
+binding rules
+	
+	JBCLabel(l): 
+		defines Label l
+	
+	LabelRef(l): 
+		refers to Label l

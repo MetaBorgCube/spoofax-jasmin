@@ -1,36 +1,5 @@
 module analysis/names/check
 
 imports
-	analysis-library.generated
 	include/JasminXT
 	
-rules // generic
-	
-	is-declared = where(index-lookup)
-	is-uniquely-declared = where(index-lookup-all ; ?[_])
-	is-referred = where(index-lookup ; index-get-uses-all ; ?[_|_])
-	
-rules // undeclared elements
-	
-	editor-error:
-		LabelRef(l) -> (l, $[Label [l] is not declared.])
-		where 
-			<not(is-declared)> l 
-
-rules // multiple declarations
-	
-	editor-error:
-		JBCLabel(l) -> (l, $[Multiple declarations for label [l].])
-		where 
-			<not(is-uniquely-declared)> l 
-	
-rules // unused declarations
-	
-	editor-warning: 
-		JBCLabel(l) -> (l, $[Label [l] is never used.])
-		where 
-			<not(is-referred)> l 
-			
-rules // dummy for notes
-	
-	editor-note = fail
