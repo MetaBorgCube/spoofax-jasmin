@@ -52,6 +52,22 @@ rules
     , _
     ) -> c
 
+  nabl-name-apply(s) =
+    JBCFile(
+      JBCHeader(
+        id
+      , id
+      , JBCClass(id, s)
+      , id
+      , id
+      , id
+      , id
+      , id
+      )
+    , id
+    , id
+    )
+
   nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, partition__, uniques__, uri__, states__) =
     ?JBCFile(
        JBCHeader(
@@ -86,6 +102,7 @@ rules
               , Unique()
               , Current()
               , [NablNsMethod()]
+              , []
               )
             )
           , id
@@ -105,6 +122,9 @@ rules
 
   nabl-get-name :
     JBCSuper(c) -> c
+
+  nabl-name-apply(s) =
+    JBCSuper(s)
 
   nabl-use-site(|lang__, partition__, uniques__, uris__, states__) =
     ?JBCSuper(c)
@@ -128,12 +148,13 @@ rules
       |
       )
 
-  nabl-import-site(|lang__, partition__, uris__, states__) =
+  nabl-import-site(|lang__, partition__, uniques__, uris__, states__) =
     ?JBCSuper(c)
     ; origin-track-forced(
         nabl-import(
         | lang__
         , partition__
+        , uniques__
         , uris__
         , [ Wildcard(
               [ Import(lang__, NablNsMethod())
@@ -155,6 +176,9 @@ rules
 
   nabl-get-name :
     CRef(c) -> c
+
+  nabl-name-apply(s) =
+    CRef(s)
 
   nabl-use-site(|lang__, partition__, uniques__, uris__, states__) =
     ?CRef(c)
@@ -188,6 +212,9 @@ rules
   nabl-get-name :
     JBCMethod(_, m, _, _) -> m
 
+  nabl-name-apply(s) =
+    JBCMethod(id, s, id, id)
+
   nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, partition__, uniques__, uri__, states__) =
     ?JBCMethod(_, m, _, _)
     ; origin-track-forced(
@@ -205,6 +232,7 @@ rules
           , Unique()
           , Current()
           , [NablNsLabel(), NablNsVariable()]
+          , []
           )
         , id
         , id
@@ -220,6 +248,9 @@ rules
 
   nabl-get-name :
     JBCVarDecl(n, _, _, _, _) -> n
+
+  nabl-name-apply(s) =
+    JBCVarDecl(s, id, id, id, id)
 
   nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, partition__, uniques__, uri__, states__) =
     ?JBCVarDecl(n, _, _, _, _)
@@ -237,6 +268,7 @@ rules
           , Unique()
           , Current()
           , []
+          , []
           )
         , id
         , id
@@ -251,6 +283,9 @@ rules
 
   nabl-get-name :
     VarNum(n) -> n
+
+  nabl-name-apply(s) =
+    VarNum(s)
 
   nabl-use-site(|lang__, partition__, uniques__, uris__, states__) =
     ?VarNum(n)
@@ -280,6 +315,9 @@ rules
   nabl-get-name :
     JBCLabel(l) -> l
 
+  nabl-name-apply(s) =
+    JBCLabel(s)
+
   nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, partition__, uniques__, uri__, states__) =
     ?JBCLabel(l)
     ; origin-track-forced(
@@ -296,6 +334,7 @@ rules
           , Unique()
           , Current()
           , []
+          , []
           )
         )
         ; match(child-uris__|c-uri1__)
@@ -306,6 +345,9 @@ rules
 
   nabl-get-name :
     LabelRef(l) -> l
+
+  nabl-name-apply(s) =
+    LabelRef(s)
 
   nabl-use-site(|lang__, partition__, uniques__, uris__, states__) =
     ?LabelRef(l)

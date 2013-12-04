@@ -3,3 +3,8 @@ module analysis/names/check
 imports
 	include/JasminXT
 	
+strategies
+
+  nabl-check-disable-duplicate(|uri, ns) = id
+  nabl-check-disable-hiding(|uri, ns) = id
+  nabl-check-disable-unresolved = id
