@@ -9,7 +9,7 @@ exports
 	
 	lexical syntax
 		
-		[A-Za-z] [A-Za-z0-9]* 	-> Identifier
+		[A-Za-z] [A-Za-z0-9\_]* -> Identifier
 		
 		Identifier							-> SQIdentifier
 		"'" Identifier "'"			-> SQIdentifier
@@ -20,7 +20,7 @@ exports
 		
 	lexical restrictions
 		
-		Identifier 	-/- [a-zA-Z0-9]
+		Identifier 	-/- [a-zA-Z0-9\_]
 		LabelName		-/- ~[\=\:\.\"\-\ \t\n\r]
 		
 	context-free syntax
