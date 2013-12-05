@@ -9,8 +9,8 @@ menus
   
   menu: "Syntax"
                                                                                                                             
-    action: "Show abstract syntax (for selection)" = generate-aterm (openeditor) (realtime) (meta) (source)  
-    action: "Show analysed syntax (for selection)" = generate-aterm (openeditor) (realtime) (meta)
+    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (meta) (source)  
+    action: "Show analysed syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (meta)
   
   menu: "Analysis"
         
