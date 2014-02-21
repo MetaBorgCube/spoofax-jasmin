@@ -3,18 +3,20 @@ module binding
 imports
 
 	include/JasminXT
+	trans/analysis/extra-constructors
 	
 namespaces
 
 	Class
-  Method
+	Method
 	Variable
 	Label 
 	
 binding rules
 
-  JBCFile(JBCHeader(_, _, JBCClass(_, c), _, _, _, _, _), _, _):
+  JBCFile(JBCHeader(_, _, JBCClass(_, c), JBCSuper(p), _, _, _, _), _, _):
     defines Class c
+    of type p
     scopes Method
   
   JBCSuper(c):
@@ -28,9 +30,13 @@ binding rules
   	
 binding rules
   
-	JBCMethod(_, m, _, _): 
-		defines Method m
+	JBCMethod(_, name-and-desc, _): 
+		defines Method name-and-desc
 		scopes Label, Variable
+	
+	JBCMethodRef(CRef(c), name-and-desc):
+		refers to Method name-and-desc
+		in Class c
 
 binding rules
     

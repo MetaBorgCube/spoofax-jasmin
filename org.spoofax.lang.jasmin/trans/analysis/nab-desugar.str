@@ -1,0 +1,13 @@
+module trans/analysis/names/nab-desugar
+
+imports
+	include/JasminXT
+	trans/analysis/extra-constructors
+
+strategies
+	nab-desugar:
+		JBCMethod(mods, name, desc, body) -> JBCMethod(mods, MethodNDesc(name, desc), body)
+	nab-desugar:
+		JBCMethodRef(cref, MRef(name), desc) -> JBCMethodRef(cref, MethodNDesc(name, desc))
+	
+	nab-desugar-all = topdown(try(nab-desugar;debug))

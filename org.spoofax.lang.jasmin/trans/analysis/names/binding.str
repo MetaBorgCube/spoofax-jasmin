@@ -7,6 +7,7 @@ imports
   lib/runtime/types/-
   lib/runtime/editor/-
   include/JasminXT
+  trans/analysis/extra-constructors
 
 
 signature
@@ -25,7 +26,7 @@ rules
          _
        , _
        , JBCClass(_, c)
-       , _
+       , JBCSuper(p)
        , _
        , _
        , _
@@ -42,7 +43,7 @@ rules
         _
       , _
       , JBCClass(_, c)
-      , _
+      , JBCSuper(p)
       , _
       , _
       , _
@@ -58,7 +59,7 @@ rules
         id
       , id
       , JBCClass(id, s)
-      , id
+      , JBCSuper(id)
       , id
       , id
       , id
@@ -74,7 +75,7 @@ rules
          _
        , _
        , JBCClass(_, c)
-       , _
+       , JBCSuper(p)
        , _
        , _
        , _
@@ -105,7 +106,7 @@ rules
               , []
               )
             )
-          , id
+          , JBCSuper(id)
           , id
           , id
           , id
@@ -117,6 +118,45 @@ rules
         ; match(child-uris__|c-uri1__)
         ; match(sibl-uris__|s-uri1__)
         ; match(implicits__|[])
+      |
+      )
+
+  nabl-prop-site(|lang__, partition__, uris__, states__, implicits__) =
+    ?JBCFile(
+       JBCHeader(
+         _
+       , _
+       , JBCClass(_, c)
+       , JBCSuper(p)
+       , _
+       , _
+       , _
+       , _
+       )
+     , _
+     , _
+     )
+    ; origin-track-forced(
+        JBCFile(
+          JBCHeader(
+            id
+          , id
+          , JBCClass(
+              id
+            , nabl-store-props(
+              | partition__
+              , [Prop(Type(), p, [])]
+              )
+            )
+          , JBCSuper(id)
+          , id
+          , id
+          , id
+          , id
+          )
+        , id
+        , id
+        )
       |
       )
 
@@ -206,17 +246,17 @@ rules
 rules
 
   nabl-get-scope =
-    ?JBCMethod(_, m, _, _)
+    ?JBCMethod(_, name-and-desc, _)
     ; ![NablNsLabel(), NablNsVariable()]
 
   nabl-get-name :
-    JBCMethod(_, m, _, _) -> m
+    JBCMethod(_, name-and-desc, _) -> name-and-desc
 
   nabl-name-apply(s) =
-    JBCMethod(id, s, id, id)
+    JBCMethod(id, s, id)
 
   nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, partition__, uniques__, uri__, states__) =
-    ?JBCMethod(_, m, _, _)
+    ?JBCMethod(_, name-and-desc, _)
     ; origin-track-forced(
         JBCMethod(
           id
@@ -235,11 +275,44 @@ rules
           , []
           )
         , id
-        , id
         )
         ; match(child-uris__|c-uri1__)
         ; match(sibl-uris__|s-uri1__)
         ; match(implicits__|[])
+      |
+      )
+
+  nabl-get-name :
+    JBCMethodRef(CRef(c), name-and-desc) -> name-and-desc
+
+  nabl-name-apply(s) =
+    JBCMethodRef(CRef(id), s)
+
+  nabl-use-site(|lang__, partition__, uniques__, uris__, states__) =
+    ?JBCMethodRef(CRef(c), name-and-desc)
+    ; origin-track-forced(
+        JBCMethodRef(
+          CRef(id)
+        , nabl-use(
+          | lang__
+          , partition__
+          , uniques__
+          , uris__
+          , [ UseCandidate(
+                NablNsMethod()
+              , []
+              , Context(
+                  NablNsClass()
+                , c
+                , []
+                , Current()
+                )
+              , True()
+              , []
+              )
+            ]
+          )
+        )
       |
       )
 
