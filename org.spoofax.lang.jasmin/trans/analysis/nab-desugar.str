@@ -10,4 +10,4 @@ strategies
 	nab-desugar:
 		JBCMethodRef(cref, MRef(name), desc) -> JBCMethodRef(cref, MethodNDesc(name, desc))
 	
-	nab-desugar-all = topdown(try(nab-desugar;debug))
+	nab-desugar-all = topdown(try(nab-desugar))
