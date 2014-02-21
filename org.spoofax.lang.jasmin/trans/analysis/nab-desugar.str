@@ -9,5 +9,10 @@ strategies
 		JBCMethod(mods, name, desc, body) -> JBCMethod(mods, MethodNDesc(name, desc), body)
 	nab-desugar:
 		JBCMethodRef(cref, MRef(name), desc) -> JBCMethodRef(cref, MethodNDesc(name, desc))
+		
+	nab-desugar:
+		JBCField(mods, name, desc, sigSpec, initVal) -> JBCField(mods, FieldNDesc(name, desc), sigSpec, initVal)
+	nab-desugar:
+		JBCFieldRef(cref, FRef(name), desc) -> JBCFieldRef(cref, FieldNDesc(name, desc))
 	
 	nab-desugar-all = topdown(try(nab-desugar))

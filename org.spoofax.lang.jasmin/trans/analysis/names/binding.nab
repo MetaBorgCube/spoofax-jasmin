@@ -9,6 +9,7 @@ namespaces
 
 	Class
 	Method
+	Field
 	Variable
 	Label 
 	
@@ -17,12 +18,13 @@ binding rules
   JBCFile(JBCHeader(_, _, JBCClass(_, c), JBCSuper(p), _, _, _, _), _, _):
     defines Class c
     of type p
-    scopes Method
+    scopes Method, Field
   
   JBCSuper(c):
     imports 
-      Method, 
-      imported Method 
+      Method, Field,
+      imported Method,
+      imported Field
     from Class c
     
   CRef(c):
@@ -36,6 +38,15 @@ binding rules
 	
 	JBCMethodRef(CRef(c), name-and-desc):
 		refers to Method name-and-desc
+		in Class c
+			
+binding rules
+  
+	JBCField(_, name-and-desc, _, _): 
+		defines Field name-and-desc
+	
+	JBCFieldRef(CRef(c), name-and-desc):
+		refers to Field name-and-desc
 		in Class c
 
 binding rules

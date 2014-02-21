@@ -14,6 +14,7 @@ signature
   constructors
     NablNsClass    : Namespace
     NablNsMethod   : Namespace
+    NablNsField    : Namespace
     NablNsVariable : Namespace
     NablNsLabel    : Namespace
 
@@ -35,7 +36,7 @@ rules
      , _
      , _
      )
-    ; ![NablNsMethod()]
+    ; ![NablNsMethod(), NablNsField()]
 
   nabl-get-name :
     JBCFile(
@@ -102,7 +103,7 @@ rules
               , NablNsClass()
               , Unique()
               , Current()
-              , [NablNsMethod()]
+              , [NablNsMethod(), NablNsField()]
               , []
               )
             )
@@ -198,7 +199,9 @@ rules
         , uris__
         , [ Wildcard(
               [ Import(lang__, NablNsMethod())
+              , Import(lang__, NablNsField())
               , Import(lang__, Imported(NablNsMethod()))
+              , Import(lang__, Imported(NablNsField()))
               ]
             , Context(
                 NablNsClass()
@@ -300,6 +303,77 @@ rules
           , uris__
           , [ UseCandidate(
                 NablNsMethod()
+              , []
+              , Context(
+                  NablNsClass()
+                , c
+                , []
+                , Current()
+                )
+              , True()
+              , []
+              )
+            ]
+          )
+        )
+      |
+      )
+
+
+rules
+
+  nabl-get-name :
+    JBCField(_, name-and-desc, _, _) -> name-and-desc
+
+  nabl-name-apply(s) =
+    JBCField(id, s, id, id)
+
+  nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, partition__, uniques__, uri__, states__) =
+    ?JBCField(_, name-and-desc, _, _)
+    ; origin-track-forced(
+        JBCField(
+          id
+        , nabl-def(
+            ?c-uri1__
+          , ?s-uri1__
+          | lang__
+          , partition__
+          , uniques__
+          , uri__
+          , uri__
+          , NablNsField()
+          , Unique()
+          , Current()
+          , []
+          , []
+          )
+        , id
+        , id
+        )
+        ; match(child-uris__|c-uri1__)
+        ; match(sibl-uris__|s-uri1__)
+        ; match(implicits__|[])
+      |
+      )
+
+  nabl-get-name :
+    JBCFieldRef(CRef(c), name-and-desc) -> name-and-desc
+
+  nabl-name-apply(s) =
+    JBCFieldRef(CRef(id), s)
+
+  nabl-use-site(|lang__, partition__, uniques__, uris__, states__) =
+    ?JBCFieldRef(CRef(c), name-and-desc)
+    ; origin-track-forced(
+        JBCFieldRef(
+          CRef(id)
+        , nabl-use(
+          | lang__
+          , partition__
+          , uniques__
+          , uris__
+          , [ UseCandidate(
+                NablNsField()
               , []
               , Context(
                   NablNsClass()

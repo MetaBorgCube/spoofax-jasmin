@@ -6,4 +6,8 @@ signature
 		JBCMethod    : List(MethodAccess) * MethodIdentifier * List(Statement) -> Method
 		JBCMethodRef : ClassRef * MethodIdentifier -> MethodRef
 		
+		FieldNDesc  : FieldName * FieldDescriptor -> FieldIdentifier
+		JBCField    : List(FieldAccess) * FieldIdentifier * FieldSignatureSpec * InitialValue -> Field
+		JBCFieldRef : ClassRef * FieldIdentifier -> FieldRef
+		
 		
