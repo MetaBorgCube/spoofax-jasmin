@@ -7,14 +7,22 @@ imports
 rules
 	
 	// Generates the Java class file
-	generate-class:
+	/*generate-class:
 		(selected, position, ast, path, project-path) -> None()
 		with
 			parentdir := <dirname> path ;
 			<try(call)> ("java", ["-jar", $[[<project-path>]/lib/jasmin.jar], "-d", parentdir, path])
 		where
 			cfname := <concat-strings ; guarantee-extension(|"class")> [project-path, "/", <dirname> path, "/", <class-name> ast] ;
-			<refresh-workspace-file> cfname
+			<refresh-workspace-file> cfname*/
+			
+	generate-class:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			filename := <guarantee-extension(|"class")> path
+		where
+			<write-class-file(|filename)> ast;
+			result := None()
 			
 	execute-class:
 		(selected, position, ast, path, project-path) -> (filename, result)
@@ -39,3 +47,4 @@ strategies
 	
 	external execute-java(|path)
 	external execute-jasmin(|)
+	external write-class-file(|fname)

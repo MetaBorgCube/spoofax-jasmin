@@ -34,7 +34,7 @@ menus
   
   menu: "JVM"
  
-  action: "Generate class file" = generate-class (source)    
-  action: "Execute" = execute-class (source) (openeditor)
+    action: "Generate class file" 	= generate-class (source)    
+    action: "Execute"				= execute-class (source) (openeditor)
 
     

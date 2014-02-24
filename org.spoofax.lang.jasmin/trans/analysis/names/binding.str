@@ -6,6 +6,9 @@ imports
   lib/runtime/properties/-
   lib/runtime/types/-
   lib/runtime/editor/-
+
+
+imports
   include/JasminXT
 
 
@@ -85,40 +88,46 @@ rules
      )
     ; origin-track-forced(
         JBCFile(
-          JBCHeader(
-            id
-          , id
-          , JBCClass(
+          origin-track-forced(
+            JBCHeader(
               id
-            , nabl-def(
-                ?c-uri1__
-              , ?s-uri1__
-              | lang__
-              , partition__
-              , uniques__
-              , uri__
-              , uri__
-              , NablNsClass()
-              , Unique()
-              , Current()
-              , [NablNsMethod()]
-              , []
+            , id
+            , origin-track-forced(
+                JBCClass(
+                  id
+                , nabl-def(
+                    ?c-uri1__
+                  , ?s-uri1__
+                  | lang__
+                  , partition__
+                  , uniques__
+                  , uri__
+                  , uri__
+                  , NablNsClass()
+                  , Unique()
+                  , Current()
+                  , [NablNsMethod()]
+                  , []
+                  )
+                )
+              |
               )
+            , id
+            , id
+            , id
+            , id
+            , id
             )
-          , id
-          , id
-          , id
-          , id
-          , id
+          |
           )
         , id
         , id
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
   nabl-get-name :
     JBCSuper(c) -> c
@@ -237,11 +246,11 @@ rules
         , id
         , id
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
 
 rules
@@ -275,11 +284,11 @@ rules
         , id
         , id
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
   nabl-get-name :
     VarNum(n) -> n
@@ -337,11 +346,11 @@ rules
           , []
           )
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
   nabl-get-name :
     LabelRef(l) -> l
