@@ -2,7 +2,9 @@ module editor/builders
 
 imports
 	lib/editor-common.generated
-	analysis/names/project
+	analysis/names/project	
+	syntax/ASM
+	trans/translator/-
 	
 rules
 	
@@ -21,8 +23,15 @@ rules
 		with
 			filename := <guarantee-extension(|"class")> path
 		where
-			<write-class-file(|filename)> ast;
+			<write-class-file(|filename)> <jasmin-file-to-asm-class> ast;
 			result := None()
+			
+	translate-class:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			filename := <guarantee-extension(|"asm")> path
+		where
+			result := <jasmin-file-to-asm-class> ast
 			
 	execute-class:
 		(selected, position, ast, path, project-path) -> (filename, result)

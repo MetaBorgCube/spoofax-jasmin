@@ -1,0 +1,8 @@
+module ASM
+
+signature
+	constructors
+		ASMClass	:	Int * Int * String * ClassSignature * String * List(String) * List(Field) -> Class
+					:	String -> ClassSignature
+		None		:	ClassSignature
+		ASMField	:	Int * String * String * String * Constant -> Field

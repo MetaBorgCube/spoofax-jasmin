@@ -1,0 +1,54 @@
+module translator
+
+imports
+	include/JasminXT
+	syntax/ASM
+
+rules
+	jasmin-file-to-asm-class:
+		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _), _, jfields) -> ASMClass(47, 0, name, None(), super, [], fields)
+		where
+			name := <jasmin-classspec-get-name> cspec
+		;	super := <jasmin-superspec-to-asm> sspec
+		;	fields := <map(jasmin-field-to-asm-field)> jfields
+			
+	jasmin-classspec-get-name:
+		JBCClass(_, name) -> name
+	jasmin-classspec-get-name:
+		JBCInterface(_, name) -> name
+		
+	jasmin-superspec-to-asm:
+		None() -> None()
+	jasmin-superspec-to-asm:
+		JBCSuper(s) -> s
+		
+	jasmin-field-to-asm-field:
+		JBCField(jflags, name, jdesc, jsignature, jinit) -> ASMField(0, name, desc, None(), None())
+		where
+			desc := <jasmin-fieldtype-to-descriptor> jdesc
+			
+	jasmin-fieldtype-to-descriptor:
+		Byte() -> "B"
+	jasmin-fieldtype-to-descriptor:
+		Char() -> "C"
+	jasmin-fieldtype-to-descriptor:
+		Double() -> "D"
+	jasmin-fieldtype-to-descriptor:
+		Float() -> "F"
+	jasmin-fieldtype-to-descriptor:
+		Int() -> "I"
+	jasmin-fieldtype-to-descriptor:
+		Long() -> "J"
+	jasmin-fieldtype-to-descriptor:
+		Short() -> "S"
+	jasmin-fieldtype-to-descriptor:
+		Boolean() -> "Z"
+	jasmin-fieldtype-to-descriptor:
+		Reference(CRef(c)) -> $[L[c];]
+	jasmin-fieldtype-to-descriptor:
+		Array(t) -> $[[lb][dt]]
+		where
+			lb := "["
+		;	dt := <jasmin-fieldtype-to-descriptor> t
+	
+	
