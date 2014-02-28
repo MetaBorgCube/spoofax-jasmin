@@ -1,1 +1,2 @@
-**/*.aterm
+/.cache
+/**/*.aterm
