@@ -36,6 +36,7 @@ public class write_class_file_0_1 extends Strategy {
 				OutputStream fileOutputStream = context.getIOAgent().openFileOutputStream(path);
 				fileOutputStream.write(bt);
 				fileOutputStream.close();
+				return current;
 			} catch (IOException e) {
 				context.getIOAgent().printError(e.getMessage());
 				e.printStackTrace();

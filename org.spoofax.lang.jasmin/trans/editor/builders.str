@@ -29,7 +29,7 @@ rules
 	translate-class:
 		(selected, position, ast, path, project-path) -> (filename, result)
 		with
-			filename := <guarantee-extension(|"asm")> path
+			filename := <guarantee-extension(|"asm.aterm")> path
 		where
 			result := <jasmin-file-to-asm-class> ast
 			

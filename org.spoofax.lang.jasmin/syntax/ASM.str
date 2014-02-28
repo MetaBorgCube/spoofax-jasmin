@@ -2,7 +2,8 @@ module ASM
 
 signature
 	constructors
-		ASMClass	:	Int * Int * String * ClassSignature * String * List(String) * List(Field) -> Class
+		ASMClass	:	Int * Int * String * ClassSignature * String * List(String) * List(Field) * List(Method) -> Class
 					:	String -> ClassSignature
 		None		:	ClassSignature
 		ASMField	:	Int * String * String * String * Constant -> Field
+		ASMMethod	:	Int * String * String * String * List(String) -> Method

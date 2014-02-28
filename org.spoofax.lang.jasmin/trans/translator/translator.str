@@ -3,19 +3,26 @@ module translator
 imports
 	include/JasminXT
 	syntax/ASM
+	trans/translator/flags
 
 rules
 	jasmin-file-to-asm-class:
-		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _), _, jfields) -> ASMClass(47, 0, name, None(), super, [], fields)
+		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _), jfields, jmethods) -> ASMClass(47, iflags, name, None(), super, [], fields, methods)
 		where
 			name := <jasmin-classspec-get-name> cspec
 		;	super := <jasmin-superspec-to-asm> sspec
 		;	fields := <map(jasmin-field-to-asm-field)> jfields
+		;	methods := <map(jasmin-method-to-asm-method)> jmethods
+		;	iflags := <jasmin-flags-to-int> <jasmin-classspec-get-flags> cspec
 			
 	jasmin-classspec-get-name:
 		JBCClass(_, name) -> name
 	jasmin-classspec-get-name:
 		JBCInterface(_, name) -> name
+	jasmin-classspec-get-flags:
+		JBCClass(flags, _) -> flags
+	jasmin-classspec-get-flags:
+		JBCInterface(flags, _) -> flags
 		
 	jasmin-superspec-to-asm:
 		None() -> None()
@@ -23,9 +30,10 @@ rules
 		JBCSuper(s) -> s
 		
 	jasmin-field-to-asm-field:
-		JBCField(jflags, name, jdesc, jsignature, jinit) -> ASMField(0, name, desc, None(), None())
+		JBCField(jflags, name, JBCFieldDesc(jdesc), jsignature, jinit) -> ASMField(iflags, name, desc, None(), None())
 		where
 			desc := <jasmin-fieldtype-to-descriptor> jdesc
+		;	iflags := <jasmin-flags-to-int> jflags
 			
 	jasmin-fieldtype-to-descriptor:
 		Byte() -> "B"
@@ -50,5 +58,29 @@ rules
 		where
 			lb := "["
 		;	dt := <jasmin-fieldtype-to-descriptor> t
-	
-	
+		 	
+	jasmin-method-to-asm-method:
+		JBCMethod(jflags, jname, JBCMethodDesc(paramdesc, returndesc), _) -> ASMMethod(iflags, name, desc, None(), [])
+		where
+			name := <jasmin-methodname-to-name> jname
+		;	desc := <jasmin-methodtype-to-descriptor> (paramdesc, returndesc)
+		;	iflags := <jasmin-flags-to-int> jflags
+			
+	jasmin-methodname-to-name:
+		Init() -> "<init>"
+	jasmin-methodname-to-name:
+		str -> str
+		where
+			<is-string> str
+			
+	jasmin-methodtype-to-descriptor:
+		(paramdesc, returndesc) -> result
+		where
+			paramstr := <concat-strings> <map(jasmin-fieldtype-to-descriptor)> paramdesc
+		;	retstr := <jasmin-returntype-to-descriptor> returndesc
+		;	result := $[([paramstr])[retstr]]
+		 	
+	jasmin-returntype-to-descriptor:
+		Void() -> "V"
+	jasmin-returntype-to-descriptor:
+		type -> <jasmin-fieldtype-to-descriptor> type	
