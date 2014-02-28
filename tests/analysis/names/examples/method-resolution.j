@@ -7,6 +7,7 @@
    return
 .end method
 
+; Method that isn't refered
 .method public m()I
 	ldc 42
 	ireturn
@@ -16,10 +17,12 @@
     new Simple
     dup
 	invokenonvirtual Simple/<init>()V
+	; This invocation should refer to the method below
 	invokevirtual Simple/m()V
     return
 .end method
 
+; Method that *is* refered
 .method public m()V
 	getstatic java/lang/System/out Ljava/io/PrintStream;
 	ldc 42 	
