@@ -16,14 +16,14 @@ strategies
 		with
 			mref := <origin-track-forced(!MethodNDesc(name, desc))> m 
 		
-	nab-desugar:
-		JBCField(mods, name, desc, sigSpec, initVal) -> JBCField(mods, fref, sigSpec, initVal)
-		with
-			fref := <origin-track-forced(!FieldNDesc(name, desc))> name
-			
-	nab-desugar:
-		JBCFieldRef(cref, f@FRef(name), desc) -> JBCFieldRef(cref, fref)
-		with
-			fref := <origin-track-forced(!FieldNDesc(name, desc))> f
+	// nab-desugar:
+	// 	JBCField(mods, name, desc, sigSpec, initVal) -> JBCField(mods, fref, sigSpec, initVal)
+	// 	with
+	// 		fref := <origin-track-forced(!FieldNDesc(name, desc))> name
+	// 		
+	// nab-desugar:
+	// 	JBCFieldRef(cref, f@FRef(name), desc) -> JBCFieldRef(cref, fref)
+	// 	with
+	// 		fref := <origin-track-forced(!FieldNDesc(name, desc))> f
 	
 	nab-desugar-all = topdown(try(nab-desugar))
