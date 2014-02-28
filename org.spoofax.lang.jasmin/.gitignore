@@ -6,5 +6,6 @@
 /lib-refactoring
 
 **/*.generated.*
+/trans/analysis/names/binding.str
 
 /lib/jasmin.jar
