@@ -7,7 +7,7 @@ imports
   lib/runtime/types/-
   lib/runtime/editor/-
   include/JasminXT
-  trans/analysis/extra-constructors
+  analysis/names/extra-constructors
 
 
 signature
@@ -227,6 +227,34 @@ rules
     ?CRef(c)
     ; origin-track-forced(
         CRef(
+          nabl-use(
+          | lang__
+          , partition__
+          , uniques__
+          , uris__
+          , [ UseCandidate(
+                NablNsClass()
+              , []
+              , Current()
+              , True()
+              , []
+              )
+            ]
+          )
+        )
+      |
+      )
+
+  nabl-get-name :
+    JBCSuper(c) -> c
+
+  nabl-name-apply(s) =
+    JBCSuper(s)
+
+  nabl-use-site(|lang__, partition__, uniques__, uris__, states__) =
+    ?JBCSuper(c)
+    ; origin-track-forced(
+        JBCSuper(
           nabl-use(
           | lang__
           , partition__

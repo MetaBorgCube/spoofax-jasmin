@@ -3,7 +3,7 @@ module binding
 imports
 
 	include/JasminXT
-	trans/analysis/extra-constructors
+	analysis/names/extra-constructors
 	
 namespaces
 
@@ -28,6 +28,9 @@ binding rules
     from Class c
     
   CRef(c):
+  	refers to Class c
+
+  JBCSuper(c):
   	refers to Class c
   	
 binding rules

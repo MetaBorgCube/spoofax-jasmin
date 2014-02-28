@@ -1,10 +1,44 @@
 module analysis/names/check
 
 imports
-	include/JasminXT
+  include/JasminXT
+  analysis/names/extra-constructors
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
 	
 strategies
 
   nabl-check-disable-duplicate(|uri, ns) = id
   nabl-check-disable-hiding(|uri, ns) = id
   nabl-check-disable-unresolved = id
+  
+rules
+  
+  nabl-constraint(|ctx):
+    CRef(c) -> <fail>
+      where
+        <has-annotation(?Use(task))> c
+      ; msg  := ["Class ", c, " is undefined"]
+      ; <task-create-error-on-failure(|ctx, task, msg)> c
+  
+  nabl-constraint(|ctx):
+    JBCSuper(c) -> <fail>
+      where
+        <has-annotation(?Use(task))> c
+      ; msg  := ["Class ", c, " is undefined"]
+      ; <task-create-error-on-failure(|ctx, task, msg)> c
+  
+  nabl-constraint(|ctx):
+    JBCMethodRef(_, nnd@MethodNDesc(m,_), _) -> <fail>
+      where
+        <has-annotation(?Use(task))> nnd
+      ; msg  := ["Method ", m, " is undefined"]
+      ; <task-create-error-on-failure(|ctx, task, msg)> nnd
+  
+  nabl-constraint(|ctx):
+    JBCFieldRef(_, nnd@FieldNDesc(f,_)) -> <fail>
+      where
+        <has-annotation(?Use(task))> nnd
+      ; msg  := ["Field ", f, " is undefined"]
+      ; <task-create-error-on-failure(|ctx, task, msg)> nnd

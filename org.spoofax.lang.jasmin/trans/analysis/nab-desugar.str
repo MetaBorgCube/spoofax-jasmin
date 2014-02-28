@@ -2,17 +2,28 @@ module trans/analysis/names/nab-desugar
 
 imports
 	include/JasminXT
-	trans/analysis/extra-constructors
+	trans/analysis/names/extra-constructors
+	runtime/editor/origins
 
 strategies
 	nab-desugar:
-		JBCMethod(mods, name, desc, body) -> JBCMethod(mods, MethodNDesc(name, desc), body)
-	nab-desugar:
-		JBCMethodRef(cref, MRef(name), desc) -> JBCMethodRef(cref, MethodNDesc(name, desc))
+		JBCMethod(mods, name, desc, body) -> JBCMethod(mods, mref, body)
+		with
+			mref := <origin-track-forced(!MethodNDesc(name, desc))> name
 		
 	nab-desugar:
-		JBCField(mods, name, desc, sigSpec, initVal) -> JBCField(mods, FieldNDesc(name, desc), sigSpec, initVal)
+		JBCMethodRef(cref, m@MRef(name), desc) -> JBCMethodRef(cref, MethodNDesc(name, desc))
+		with
+			mref := <origin-track-forced(!MethodNDesc(name, desc))> m 
+		
 	nab-desugar:
-		JBCFieldRef(cref, FRef(name), desc) -> JBCFieldRef(cref, FieldNDesc(name, desc))
+		JBCField(mods, name, desc, sigSpec, initVal) -> JBCField(mods, fref, sigSpec, initVal)
+		with
+			fref := <origin-track-forced(!FieldNDesc(name, desc))> name
+			
+	nab-desugar:
+		JBCFieldRef(cref, f@FRef(name), desc) -> JBCFieldRef(cref, fref)
+		with
+			fref := <origin-track-forced(!FieldNDesc(name, desc))> f
 	
 	nab-desugar-all = topdown(try(nab-desugar))
