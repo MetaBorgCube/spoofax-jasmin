@@ -53,11 +53,14 @@ rules
       ; <task-create-error-on-multiple(|ctx, task, msg)> c
         
   nabl-constraint(|ctx):
-  	JBCMethod(_, nnd@MethodNDesc(m,t), _) -> <fail>
+  	JBCMethod(_, m, t, _) -> <fail>
   	  where
-        task := <nabl-lookup-lexical(|ctx, NablNsMethod())> nnd
-      ; msg := $[Method [m] with type description [t] was already defined]
-      // ; <task-create-error-on-multiple(|ctx, task, msg)> nnd // this crashes the name analysis
+        task := <nabl-lookup-lexical(|ctx, NablNsMethod())> m
+      // ; mpp := <pp> m
+      // ; tpp := <pp> t
+      // ; msg := $[Method [mpp] with type description [tpp] was already defined]
+      ; msg := $[Method already defined]
+      ; <task-create-error-on-multiple(|ctx, task, msg)> m // this crashes the name analysis
         
   nabl-constraint(|ctx):
   	JBCField(_, f, _, _, _) -> <fail>

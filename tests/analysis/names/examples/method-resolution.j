@@ -12,6 +12,11 @@
 	ldc 42
 	ireturn
 .end method
+; Duplicate method
+.method public m()I
+	ldc 42
+	ireturn
+.end method
 
 .method public static main([Ljava/lang/String;)V
     new Simple

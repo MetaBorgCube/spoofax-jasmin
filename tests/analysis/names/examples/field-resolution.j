@@ -3,6 +3,8 @@
 
 ; Field that is refered
 .field private fieldz I
+; duplicate field
+.field private fieldz I
 
 	.method public <init>()V
 	   aload_0
