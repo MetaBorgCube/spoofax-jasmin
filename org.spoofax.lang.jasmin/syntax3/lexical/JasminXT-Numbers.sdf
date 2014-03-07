@@ -1,0 +1,10 @@
+module lexical/JasminXT-Numbers
+exports
+  context-free start-symbols
+    INT
+
+  lexical syntax
+    [0-9]+ -> INT 
+
+  lexical restrictions
+    INT -/- [0-9]
