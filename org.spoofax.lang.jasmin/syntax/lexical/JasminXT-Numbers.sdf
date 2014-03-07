@@ -2,6 +2,9 @@ module lexical/JasminXT-Numbers
 
 exports
 	
+	context-free start-symbols
+	Int
+	
 	lexical syntax
 		
 		[0-9] [0-9]* 	-> Int

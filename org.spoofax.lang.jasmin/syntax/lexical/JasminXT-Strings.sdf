@@ -2,6 +2,9 @@ module lexical/JasminXT-Strings
 
 exports
 	
+	context-free start-symbols
+	String
+	
 	lexical syntax
 		
 		'"' StringChar* '"' 	-> String

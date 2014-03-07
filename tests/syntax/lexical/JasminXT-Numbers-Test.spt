@@ -1,7 +1,7 @@
 module JasminXT-Numbers-Test
 
 language JasminXT
-start symbol INT
+start symbol Int
 
 test single digit [[2]] parse succeeds
 test two digits [[24]] parse succeeds
