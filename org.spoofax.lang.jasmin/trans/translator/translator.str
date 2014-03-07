@@ -3,11 +3,13 @@ module translator
 imports
 	include/JasminXT
 	syntax/ASM
+	trans/translator/directives
 	trans/translator/flags
+	trans/translator/instructions
 
 rules
 	jasmin-file-to-asm-class:
-		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _), jfields, jmethods) -> ASMClass(47, iflags, name, None(), super, [], fields, methods)
+		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _), jfields, jmethods) -> ASMClass(196653, iflags, name, None(), super, [], fields, methods)
 		where
 			name := <jasmin-classspec-get-name> cspec
 		;	super := <jasmin-superspec-to-asm> sspec
@@ -60,11 +62,12 @@ rules
 		;	dt := <jasmin-fieldtype-to-descriptor> t
 		 	
 	jasmin-method-to-asm-method:
-		JBCMethod(jflags, jname, JBCMethodDesc(paramdesc, returndesc), _) -> ASMMethod(iflags, name, desc, None(), [])
+		JBCMethod(jflags, jname, JBCMethodDesc(paramdesc, returndesc), jinstructions) -> ASMMethod(iflags, name, desc, None(), [], instr)
 		where
 			name := <jasmin-methodname-to-name> jname
 		;	desc := <jasmin-methodtype-to-descriptor> (paramdesc, returndesc)
 		;	iflags := <jasmin-flags-to-int> jflags
+		;	instr := <jasmin-instructions-directives-to-asm> jinstructions
 			
 	jasmin-methodname-to-name:
 		Init() -> "<init>"
@@ -84,3 +87,6 @@ rules
 		Void() -> "V"
 	jasmin-returntype-to-descriptor:
 		type -> <jasmin-fieldtype-to-descriptor> type	
+		
+strategies
+	jasmin-instructions-directives-to-asm	=	collect-maxs; debug; map(jasmin-instruction-to-asm <+ jasmin-directive-to-asm)

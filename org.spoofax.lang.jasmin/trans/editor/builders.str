@@ -19,8 +19,8 @@ rules
 			<refresh-workspace-file> cfname*/
 			
 	generate-class:
-		(selected, position, ast, path, project-path) -> (filename, result)
-		with
+		(selected, position, ast, path, project-path) -> None()
+		where
 			filename := <guarantee-extension(|"class")> path
 		where
 			<write-class-file(|filename)> <jasmin-file-to-asm-class> ast;
@@ -31,6 +31,7 @@ rules
 		with
 			filename := <guarantee-extension(|"asm.aterm")> path
 		where
+			<debug> <prim("SSL_iori", 1, 2)> ;
 			result := <jasmin-file-to-asm-class> ast
 			
 	execute-class:

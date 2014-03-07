@@ -21,6 +21,8 @@ signature
 		VarInsn				:	Opcode * Int -> OpInstruction
 		FieldInsn			:	Opcode * String * String * String -> OpInstruction
 		MethodInsn			:	Opcode * String * String * String -> OpInstruction
+		JumpInsn			:	Opcode * String -> OpInstruction
+		IincInsn			:	Int * Int -> OpInstruction
 		Label				:	String -> Instruction
 
 imports
@@ -30,6 +32,10 @@ imports
 	
 rules
 	// TODO: This should be in a desugar pass.
+	simplify-insn:	ILOAD_0() -> ILOAD(0)
+	simplify-insn:	ILOAD_1() -> ILOAD(1)
+	simplify-insn:	ILOAD_2() -> ILOAD(2)
+	simplify-insn:	ILOAD_3() -> ILOAD(3)
 	simplify-insn:	ALOAD_0() -> ALOAD(0)
 	simplify-insn:	ALOAD_1() -> ALOAD(1)
 	simplify-insn:	ALOAD_2() -> ALOAD(2)
@@ -47,13 +53,15 @@ rules
 		i -> res
 		where
 			(c, p) := <explode-term> <try(simplify-insn)> i
-		;	<debug> c
+		;	<debug> $[Instr: [c]]
 		;	(iop, opt) := <jasmin-opcode> c
 		;	<debug> (opt, iop, p)
 		;	res := <jasmin-op-to-asm> (opt, iop, p) 
 	
 	jasmin-op-to-asm:	(T_INSN(), opcode, [])		-> Insn(opcode)
-	jasmin-op-to-asm:	(T_INTINSN(), opcode, [i])	-> IntInsn(opcode, i)
+	jasmin-op-to-asm:	(T_INTINSN(), opcode, [is])	-> IntInsn(opcode, i)
+		where
+			i := <try(to-int)> is
 	jasmin-op-to-asm:	(T_VARINSN(), opcode, [v])	-> VarInsn(opcode, v)
 	jasmin-op-to-asm:	(T_FIELDINSN(), opcode, [fref])		-> FieldInsn(opcode, c, f, desc)
 		where
@@ -64,6 +72,11 @@ rules
 			JBCMethodRef(CRef(c), MRef(m), JBCMethodDesc(paramdesc, returndesc)) := mref
 		;	desc := <jasmin-methodtype-to-descriptor> (paramdesc, returndesc)
 		;	mm := <jasmin-methodname-to-name> m
+	jasmin-op-to-asm:	(T_JUMPINSN(), opcode, [LabelRef(l)])	->	JumpInsn(opcode, l)
+	jasmin-op-to-asm:	(T_IINCINSN(), opcode, [VarNum(var), inc])	->	IincInsn(vari, inci)
+		where
+			vari := <try(to-int)> var
+		;	inci := <try(to-int)> inc
 	
 	// Zero-operand instructions
 	jasmin-opcode:	"NOP"		->	(0,	T_INSN())
@@ -241,3 +254,6 @@ rules
 
 strategies
 	jasmin-instructions-to-asm 	=	map(jasmin-instruction-to-asm)
+	
+	// to-int = (?Neg(is); !is; to-int; neg) <+ string-to-int
+	to-int = (is-int; id) <+ (?Neg(is); !is; to-int; ?i; !(0, i); subti) <+ (is-string; string-to-int)

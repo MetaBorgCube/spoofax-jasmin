@@ -8,18 +8,6 @@ imports
   lib/runtime/editor/-
 
 
-imports
-  include/JasminXT
-
-
-signature
-  constructors
-    NablNsClass    : Namespace
-    NablNsMethod   : Namespace
-    NablNsVariable : Namespace
-    NablNsLabel    : Namespace
-
-
 rules
 
   nabl-get-scope =
@@ -211,9 +199,6 @@ rules
       |
       )
 
-
-rules
-
   nabl-get-scope =
     ?JBCMethod(_, m, _, _)
     ; ![NablNsLabel(), NablNsVariable()]
@@ -251,9 +236,6 @@ rules
     ; match(child-uris__|c-uri1__)
     ; match(sibl-uris__|s-uri1__)
     ; match(implicits__|[])
-
-
-rules
 
   nabl-get-name :
     JBCVarDecl(n, _, _, _, _) -> n
@@ -318,9 +300,6 @@ rules
       |
       )
 
-
-rules
-
   nabl-get-name :
     JBCLabel(l) -> l
 
@@ -379,3 +358,15 @@ rules
         )
       |
       )
+
+
+imports
+  include/JasminXT
+
+
+signature
+  constructors
+    NablNsClass    : Namespace
+    NablNsMethod   : Namespace
+    NablNsVariable : Namespace
+    NablNsLabel    : Namespace

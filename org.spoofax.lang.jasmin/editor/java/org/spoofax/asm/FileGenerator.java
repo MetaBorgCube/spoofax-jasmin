@@ -6,10 +6,9 @@ import static org.spoofax.interpreter.core.Tools.isTermAppl;
 import static org.spoofax.interpreter.core.Tools.isTermString;
 import static org.spoofax.interpreter.core.Tools.termAt;
 
-import org.spoofax.interpreter.core.Tools;
-
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
+import org.spoofax.interpreter.core.Tools;
 import org.spoofax.interpreter.terms.IStrategoAppl;
 import org.spoofax.interpreter.terms.IStrategoList;
 import org.spoofax.interpreter.terms.IStrategoTerm;

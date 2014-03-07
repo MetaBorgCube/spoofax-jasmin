@@ -1,14 +1,43 @@
 module translator/directives
 	
-signature
-	constructors
-		
 
 imports
 	include/JasminXT
 	syntax/ASM
-	trans/translator/translator
+	trans/translator/-
+
+signature
+	constructors
+		Maxs	:	Int * Int -> Instruction
 	
-rules	
+rules
+	jasmin-directive-to-asm:
+		Maxs(sl, ll) -> Maxs(<to-int> sl, <to-int> ll)
+		where
+			<debug> Maxs(sl, ll)
 	jasmin-directive-to-asm:
 		JBCLabel(x)	-> Label(x)
+		
+	collect-maxs:
+		l			->	result
+		where
+			<is-list>	l
+		;	result := <collect-maxs> (Maxs(1,1), [], l)
+	collect-maxs:
+		(m, l, []) -> [m | l]
+	collect-maxs:
+		(Maxs(sl, ll), tail, [h | t])	->	result
+		where
+			JBCLimitStack(nsl) := h
+		;	result := <collect-maxs> (Maxs(nsl, ll), tail, t)
+	collect-maxs:
+		(Maxs(sl, ll), tail, [h | t])	->	result
+		where
+			JBCLimitLocals(nll) := h
+		;	result := <collect-maxs> (Maxs(sl, nll), tail, t)
+	collect-maxs:
+		(Maxs(sl, ll), tail*, [h | t])	->	result
+		where
+			not(JBCLimitLocals(_) := h)
+		;	not(JBCLimitStack(_) := h)
+		;	result := <collect-maxs> (Maxs(sl, ll), [tail*, h], t)

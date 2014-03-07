@@ -6,4 +6,6 @@ signature
 					:	String -> ClassSignature
 		None		:	ClassSignature
 		ASMField	:	Int * String * String * String * Constant -> Field
-		ASMMethod	:	Int * String * String * String * List(String) -> Method
+		ASMMethod	:	Int * String * String * String * List(String) * List(Instr) -> Method
+		Insn		:	Int -> Instr
+		MethodInsn	:	Int * String * String * String -> Instr

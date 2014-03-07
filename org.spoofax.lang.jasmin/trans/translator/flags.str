@@ -15,8 +15,7 @@ rules
 	bitwise-or:
 		(a, b) -> result
 		where
-			<debug> (a, b)
-		;	lsa := <mod> (a, 2)
+			lsa := <mod> (a, 2)
 		;	lsb := <mod> (b, 2)
 		;	ls := <bitwise-or> (lsa, lsb)
 		;	resta := <divi> (a, 2)
@@ -25,14 +24,14 @@ rules
 		;	restors := <muli> (restor, 2)
 		;	result := <addi> (restors, ls)
 	
-	jasmin-flags-to-int:
-		[] -> 0
-	jasmin-flags-to-int:
-		[f | t] -> result
-		where
-			i := <jasmin-flag-intvalue> f
-		;	it := <jasmin-flags-to-int> t
-		;	result := <bitwise-or> (i, it)
+	// jasmin-flags-to-int:
+	// 	[] -> 0
+	// jasmin-flags-to-int:
+	// 	[f | t] -> result
+	// 	where
+	// 		i := <jasmin-flag-intvalue> f
+	// 	;	it := <jasmin-flags-to-int> t
+	// 	;	result := <bitwise-or> (i, it)
 		 	
 	jasmin-flag-intvalue: PUBLIC() -> 1
 	jasmin-flag-intvalue: PRIVATE() -> 2
@@ -56,5 +55,6 @@ rules
 	// jasmin-flag-intvalue: MANDATED() -> 32768
 	// jasmin-flag-intvalue: DEPRECATED() -> 131072
 	
-	
+strategies
+	jasmin-flags-to-int = map(jasmin-flag-intvalue); foldr(!0, bitwise-or)
 		
