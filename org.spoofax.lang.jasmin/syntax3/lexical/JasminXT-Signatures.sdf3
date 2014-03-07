@@ -1,0 +1,9 @@
+module lexical/JasminXT-Signatures
+
+imports
+lexical/JasminXT-Strings
+lexical/JasminXT-Descriptors
+
+lexical syntax
+ClassSignature = String
+FieldSignature = String

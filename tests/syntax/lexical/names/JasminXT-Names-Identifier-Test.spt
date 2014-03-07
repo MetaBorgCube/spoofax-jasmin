@@ -1,0 +1,14 @@
+module JasminXT-Names-Identifier-Test
+
+language JasminXT
+start symbol Identifier
+
+test id starting with cap [[Test]] parse succeeds
+test id starting with low [[test]] parse succeeds
+test id one char cap [[A]] parse succeeds
+test id one char low [[a]] parse succeeds
+test id with nums [[a2b]] parse succeeds
+test id with underscore [[abc_def]] parse succeeds
+
+test id starting with num [[2a]] parse fails
+test id starting with underscore [[_abc]] parse fails

@@ -10,4 +10,4 @@ lexical restrictions
 Int -/- [0-9]
 
 context-free syntax
-Constant = Int
+Constant = Int	// potential constructor

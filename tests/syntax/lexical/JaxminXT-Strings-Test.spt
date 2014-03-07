@@ -19,7 +19,7 @@ test wrong newline \n [["test
 foo"]] parse fails
 test correct newline \n [["test\nfoo"]] parse succeeds
 test correct newline \r [["test\rfoo"]] parse succeeds
-test correct newline \n\r [["test\n\rfoo"]] parse succeeds
+test correct newline \r\n [["test\r\nfoo"]] parse succeeds
 
 test tab \t [["test				foo"]] parse succeeds
 test tab \t [["test\tfoo"]] parse succeeds

@@ -1,7 +1,7 @@
 module lexical/JasminXT-Strings
 
 context-free start-symbols
-String Constant
+String
 
 lexical syntax
 String = '"' StringChar* '"'
@@ -11,4 +11,4 @@ StringChar = [\\] 'u' HexDigit HexDigit HexDigit HexDigit
 HexDigit = [0-9a-fA-F]
 
 context-free syntax
-Constant = String
+Constant = String	// potential constructor

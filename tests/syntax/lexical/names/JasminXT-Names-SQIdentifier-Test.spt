@@ -1,0 +1,10 @@
+module JasminXT-Names-SQIdentifier-Test
+
+language JasminXT
+start symbol SQIdentifier
+
+test id without quotes [[ident]] parse succeeds
+test id with quotes [['inside']] parse succeeds
+
+test id quote forgotten [['fail]] parse fails
+test id quote forgotten [[fail']] parse fails
