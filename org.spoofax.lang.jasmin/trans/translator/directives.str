@@ -1,0 +1,14 @@
+module translator/directives
+	
+signature
+	constructors
+		
+
+imports
+	include/JasminXT
+	syntax/ASM
+	trans/translator/translator
+	
+rules	
+	jasmin-directive-to-asm:
+		JBCLabel(x)	-> Label(x)
