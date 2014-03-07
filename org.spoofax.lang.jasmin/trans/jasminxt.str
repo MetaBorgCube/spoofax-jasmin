@@ -22,7 +22,6 @@ imports
 
 	analysis/names/binding
 	analysis/names/check 
-	analysis/nab-desugar
 	editor/builders
 	
 rules // Analysis
@@ -30,9 +29,9 @@ rules // Analysis
   editor-analyze = analysis-default-editor
    
   analysis-single-default-interface = 
-    analysis-single-default(nab-desugar-all, id, id|<language>)
+    analysis-single-default(id, id, id|<language>)
   analysis-multiple-default-interface = 
-    analysis-multiple-default(parse-file <+ !(), nab-desugar-all, id, id|<language>, <project-path>)
+    analysis-multiple-default(parse-file <+ !(), id, id, id|<language>, <project-path>)
   
   editor-save = analysis-save-default(|<language>)
 
@@ -64,12 +63,6 @@ rules // Debugging
     with
       filename := <guarantee-extension(|"aterm")> path;
       result   := selected
-      
-  debug-show-desugared:
-    (selected, position, ast, path, project-path) -> (filename, result)
-    with
-      filename := <guarantee-extension(|"analyzed.aterm")> path;
-      result   := <nab-desugar-all> selected
       
   // Prints the analyzed annotated abstract syntax ATerm of a selection.
   debug-show-analyzed-selection:

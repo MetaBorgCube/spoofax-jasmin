@@ -9,8 +9,7 @@ menus
   
   menu: "Syntax"
                                                                                                                             
-    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (meta) (source)
-    action: "Show desugared syntax (for selection)" = debug-show-desugared (openeditor) (realtime) (meta) (source)  
+    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (meta) (source)  
     action: "Show analysed syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (meta)
   
   menu: "Analysis"
