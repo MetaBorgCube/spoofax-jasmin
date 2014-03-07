@@ -3,6 +3,7 @@ module analysis/names/check
 imports
   include/JasminXT
   analysis/names/extra-constructors
+  analysis/names/binding
   runtime/nabl/-
   runtime/task/-
   runtime/types/-
@@ -14,31 +15,53 @@ strategies
   nabl-check-disable-unresolved = id
   
 rules
-  
+  // Undefined reference errors
   nabl-constraint(|ctx):
     CRef(c) -> <fail>
       where
         <has-annotation(?Use(task))> c
-      ; msg  := ["Class ", c, " is undefined"]
+      ; msg  := $[Class [c] is undefined]
       ; <task-create-error-on-failure(|ctx, task, msg)> c
   
   nabl-constraint(|ctx):
     JBCSuper(c) -> <fail>
       where
         <has-annotation(?Use(task))> c
-      ; msg  := ["Class ", c, " is undefined"]
+      ; msg  := $[Class [c] is undefined]
       ; <task-create-error-on-failure(|ctx, task, msg)> c
   
   nabl-constraint(|ctx):
     JBCMethodRef(_, nnd@MethodNDesc(m,_), _) -> <fail>
       where
         <has-annotation(?Use(task))> nnd
-      ; msg  := ["Method ", m, " is undefined"]
+      ; msg  := $[Method [m] is undefined]
       ; <task-create-error-on-failure(|ctx, task, msg)> nnd
   
   nabl-constraint(|ctx):
-    JBCFieldRef(_, nnd@FieldNDesc(f,_)) -> <fail>
+    JBCFieldRef(_, FRef(f), _) -> <fail>
       where
-        <has-annotation(?Use(task))> nnd
-      ; msg  := ["Field ", f, " is undefined"]
-      ; <task-create-error-on-failure(|ctx, task, msg)> nnd
+        <has-annotation(?Use(task))> f
+      ; msg  := $[Field [f] is undefined]
+      ; <task-create-error-on-failure(|ctx, task, msg)> f
+
+  // Double names
+  nabl-constraint(|ctx):
+  	JBCClass(_, c) -> <fail>
+  	  where
+        task := <nabl-lookup-all(|ctx)> c
+      ; msg := $[Class [c] was already defined]
+      ; <task-create-error-on-multiple(|ctx, task, msg)> c
+        
+  nabl-constraint(|ctx):
+  	JBCMethod(_, nnd@MethodNDesc(m,t), _) -> <fail>
+  	  where
+        task := <nabl-lookup-lexical(|ctx, NablNsMethod())> nnd
+      ; msg := $[Method [m] with type description [t] was already defined]
+      // ; <task-create-error-on-multiple(|ctx, task, msg)> nnd // this crashes the name analysis
+        
+  nabl-constraint(|ctx):
+  	JBCField(_, f, _, _, _) -> <fail>
+  	  where
+        task := <nabl-lookup-lexical(|ctx, NablNsField())> f
+      ; msg := $[Field [f] was already defined]
+      ; <task-create-error-on-multiple(|ctx, task, msg)> f
