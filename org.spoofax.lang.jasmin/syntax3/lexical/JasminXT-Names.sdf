@@ -7,11 +7,11 @@ exports
     LabelRef FRef MRef BaseTypeName
 
   lexical syntax
-    [A-Za-z] [A-Za-z0-9\_]* -> Identifier    
-    Identifier              -> SQIdentifier  
-    "'" Identifier "'"      -> SQIdentifier  
-    {Identifier "/"}+       -> QualifiedName 
-    ~[\=\:\.\"\-\ \t\n\r]+  -> LabelName     
+    [A-Za-z] [A-Za-z0-9\_]*                         -> Identifier    
+    Identifier                                      -> SQIdentifier  
+    "'" Identifier "'"                              -> SQIdentifier  
+    {Identifier "/"}+                               -> QualifiedName 
+    ~[\=\:\.\"\-\ \t\n\r0-9] ~[\=\:\.\"\-\ \t\n\r]* -> LabelName     
 
   lexical restrictions
     Identifier -/- [a-zA-Z0-9\_]
