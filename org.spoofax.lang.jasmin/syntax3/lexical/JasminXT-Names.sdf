@@ -25,12 +25,25 @@ exports
     SQIdentifier  -> VarName    
 
   context-free syntax
+    CONTENTCOMPLETE -> ClassName  {cons("COMPLETION-ClassName")}
+    CONTENTCOMPLETE -> FieldName  {cons("COMPLETION-FieldName")}
+    CONTENTCOMPLETE -> MethodName {cons("COMPLETION-MethodName")}
+    CONTENTCOMPLETE -> VarName    {cons("COMPLETION-VarName")}
+
+  context-free syntax
     ClassName  -> ClassRef {cons("CRef")}
     Int        -> VarRef   {cons("VarNum")}
     VarName    -> VarRef   {cons("VarRef")}
     LabelName  -> LabelRef {cons("LabelRef")}
     FieldName  -> FRef     {cons("FRef")}
     MethodName -> MRef     {cons("MRef")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> ClassRef {cons("COMPLETION-ClassRef")}
+    CONTENTCOMPLETE -> VarRef   {cons("COMPLETION-VarRef")}
+    CONTENTCOMPLETE -> LabelRef {cons("COMPLETION-LabelRef")}
+    CONTENTCOMPLETE -> FRef     {cons("COMPLETION-FRef")}
+    CONTENTCOMPLETE -> MRef     {cons("COMPLETION-MRef")}
 
   syntax
     <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF> -> <FieldRef-CF>  {"JBCFieldRef"}
@@ -45,3 +58,6 @@ exports
     "long"    -> BaseTypeName {cons("LongName")}
     "short"   -> BaseTypeName {cons("ShortName")}
     "boolean" -> BaseTypeName {cons("BooleanName")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> BaseTypeName {cons("COMPLETION-BaseTypeName")}

@@ -11,4 +11,7 @@ exports
     [0-9a-fA-F]                                  -> HexDigit   
 
   context-free syntax
-    String -> Constant 
+    String -> Constant {cons("String")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Constant {cons("COMPLETION-Constant")}

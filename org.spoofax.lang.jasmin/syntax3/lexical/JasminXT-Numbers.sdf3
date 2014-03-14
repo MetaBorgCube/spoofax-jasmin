@@ -1,13 +1,13 @@
 module lexical/JasminXT-Numbers
 
 context-free start-symbols
-Int
+  Int
 
 lexical syntax
-Int = [0-9]+
+  Int = [0-9]+
 
 lexical restrictions
-Int -/- [0-9]
+  Int -/- [0-9]
 
-context-free syntax
-Constant = Int	// potential constructor
+templates
+  Constant.Int = [[Int]]
