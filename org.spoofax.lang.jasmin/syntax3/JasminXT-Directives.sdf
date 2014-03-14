@@ -14,6 +14,9 @@ exports
     ".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef      -> Directive {cons("JBCCatch")}
     ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef -> Directive {cons("JBCVarDecl")}
 
+  context-free syntax
+    CONTENTCOMPLETE -> Directive {cons("COMPLETION-Directive")}
+
   lexical restrictions
     ".limit" "stack" "locals" ".line" ".throws" ".catch" "from" "to" "using"
     ".var" "is" "from" "to" -/- ~[\ \t]

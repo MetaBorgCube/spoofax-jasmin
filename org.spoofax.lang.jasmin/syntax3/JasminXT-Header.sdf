@@ -7,35 +7,55 @@ exports
     JasminHeader
 
   context-free syntax
-    BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DeprecatedSpec -> JasminHeader {cons("JBCHeader")}
+    BytecodeSpec SourceSpec ClassSpec SuperSpec {ImplementsSpec "\\"}* SignatureSpec EnclosingSpec DeprecatedSpec -> JasminHeader {cons("JBCHeader")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> JasminHeader {cons("COMPLETION-JasminHeader")}
 
   context-free syntax
     ".bytecode" MajorVersion MinorVersion -> BytecodeSpec {cons("JBCVersion")}
-    []                                    -> BytecodeSpec {cons("None")}
+                                          -> BytecodeSpec {cons("None")}
     Int                                   -> MajorVersion {cons("Major")}
     "." Int                               -> MinorVersion {cons("Minor")}
-    []                                    -> MinorVersion {cons("None")}
+                                          -> MinorVersion {cons("None")}
     ".source" String                      -> SourceSpec   {cons("JBCSource")}
-    []                                    -> SourceSpec   {cons("None")}
+                                          -> SourceSpec   {cons("None")}
 
   context-free syntax
-    ".class" ClassAccess* ClassName     -> ClassSpec      {cons("JBCClass")}
-    ".interface" ClassAccess* ClassName -> ClassSpec      {cons("JBCInterface")}
-    "public"                            -> ClassAccess    {cons("PUBLIC")}
-    "final"                             -> ClassAccess    {cons("FINAL")}
-    "interface"                         -> ClassAccess    {cons("INTERFACE")}
-    "abstract"                          -> ClassAccess    {cons("ABSTRACT")}
-    "super"                             -> ClassAccess    {cons("SUPER")}
-    ".super" ClassName                  -> SuperSpec      {cons("JBCSuper")}
-    ".implements" ClassName             -> ImplementsSpec {cons("JBCImplements")}
+    CONTENTCOMPLETE -> BytecodeSpec {cons("COMPLETION-BytecodeSpec")}
+    CONTENTCOMPLETE -> MajorVersion {cons("COMPLETION-MajorVersion")}
+    CONTENTCOMPLETE -> MinorVersion {cons("COMPLETION-MinorVersion")}
+    CONTENTCOMPLETE -> SourceSpec   {cons("COMPLETION-SourceSpec")}
+
+  context-free syntax
+    ".class" {ClassAccess "\\"}* ClassName     -> ClassSpec      {cons("JBCClass")}
+    ".interface" {ClassAccess "\\"}* ClassName -> ClassSpec      {cons("JBCInterface")}
+    "public"                                   -> ClassAccess    {cons("PUBLIC")}
+    "final"                                    -> ClassAccess    {cons("FINAL")}
+    "interface"                                -> ClassAccess    {cons("INTERFACE")}
+    "abstract"                                 -> ClassAccess    {cons("ABSTRACT")}
+    "super"                                    -> ClassAccess    {cons("SUPER")}
+    ".super" ClassName                         -> SuperSpec      {cons("JBCSuper")}
+    ".implements" ClassName                    -> ImplementsSpec {cons("JBCImplements")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> ClassSpec      {cons("COMPLETION-ClassSpec")}
+    CONTENTCOMPLETE -> ClassAccess    {cons("COMPLETION-ClassAccess")}
+    CONTENTCOMPLETE -> SuperSpec      {cons("COMPLETION-SuperSpec")}
+    CONTENTCOMPLETE -> ImplementsSpec {cons("COMPLETION-ImplementsSpec")}
 
   context-free syntax
     ".signature" ClassSignature            -> SignatureSpec  {cons("JBCSignature")}
-    []                                     -> SignatureSpec  {cons("None")}
+                                           -> SignatureSpec  {cons("None")}
     ".enclosing" "method" MethodDescriptor -> EnclosingSpec  {cons("JBCEnclosing")}
-    []                                     -> EnclosingSpec  {cons("None")}
+                                           -> EnclosingSpec  {cons("None")}
     ".deprecated"                          -> DeprecatedSpec {cons("JBCDeprecated")}
-    []                                     -> DeprecatedSpec {cons("None")}
+                                           -> DeprecatedSpec {cons("None")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> SignatureSpec  {cons("COMPLETION-SignatureSpec")}
+    CONTENTCOMPLETE -> EnclosingSpec  {cons("COMPLETION-EnclosingSpec")}
+    CONTENTCOMPLETE -> DeprecatedSpec {cons("COMPLETION-DeprecatedSpec")}
 
   lexical restrictions
     ".bytecode" ".source" ".class" ".interface" "public" "final" "interface"

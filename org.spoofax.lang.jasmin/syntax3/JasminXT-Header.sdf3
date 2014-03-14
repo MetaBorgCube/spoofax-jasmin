@@ -10,42 +10,42 @@ lexical/JasminXT-Signatures
 context-free start-symbols
 JasminHeader
 
-context-free syntax // header
-JasminHeader.JBCHeader = BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DeprecatedSpec
+templates // header
+JasminHeader.JBCHeader = [[BytecodeSpec] [SourceSpec] [ClassSpec] [SuperSpec] [ImplementsSpec*; separator = "\ "] [SignatureSpec] [EnclosingSpec] [DeprecatedSpec]]
 
-context-free syntax
-BytecodeSpec.JBCVersion = ".bytecode" MajorVersion MinorVersion
+templates
+BytecodeSpec.JBCVersion = [.bytecode [MajorVersion] [MinorVersion]]
 BytecodeSpec.None = []
 
-MajorVersion.Major = Int
-MinorVersion.Minor = "." Int
+MajorVersion.Major = [[Int]]
+MinorVersion.Minor = [. [Int]]
 MinorVersion.None = []
 
-SourceSpec.JBCSource = ".source" String
+SourceSpec.JBCSource = [.source [String]]
 SourceSpec.None = []
 
-context-free syntax
-ClassSpec.JBCClass = ".class" ClassAccess* ClassName
-ClassSpec.JBCInterface = ".interface" ClassAccess* ClassName
+templates
+ClassSpec.JBCClass = [.class [ClassAccess*; separator = "\ "] [ClassName]]
+ClassSpec.JBCInterface = [.interface [ClassAccess*; separator = "\ "] [ClassName]]
 
-ClassAccess.PUBLIC = "public"
-ClassAccess.FINAL = "final"
-ClassAccess.INTERFACE = "interface"
-ClassAccess.ABSTRACT = "abstract"
-ClassAccess.SUPER = "super"
+ClassAccess.PUBLIC = [public]
+ClassAccess.FINAL = [final]
+ClassAccess.INTERFACE = [interface]
+ClassAccess.ABSTRACT = [abstract]
+ClassAccess.SUPER = [super]
 
-SuperSpec.JBCSuper = ".super" ClassName
+SuperSpec.JBCSuper = [.super [ClassName]]
 
-ImplementsSpec.JBCImplements = ".implements" ClassName
+ImplementsSpec.JBCImplements = [.implements [ClassName]]
 
-context-free syntax
-SignatureSpec.JBCSignature = ".signature" ClassSignature
+templates
+SignatureSpec.JBCSignature = [.signature [ClassSignature]]
 SignatureSpec.None = []
 
-EnclosingSpec.JBCEnclosing = ".enclosing" "method" MethodDescriptor
+EnclosingSpec.JBCEnclosing = [.enclosing method [MethodDescriptor]]
 EnclosingSpec.None = []
 
-DeprecatedSpec.JBCDeprecated = ".deprecated"
+DeprecatedSpec.JBCDeprecated = [.deprecated]
 DeprecatedSpec.None = []
 
 lexical restrictions

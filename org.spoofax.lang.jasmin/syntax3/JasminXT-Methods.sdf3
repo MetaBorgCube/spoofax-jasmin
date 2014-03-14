@@ -12,24 +12,24 @@ JasminXT-Directives
 context-free start-symbols
 Method
 
-context-free syntax
-Method.JBCMethod = ".method" MethodAccess* MethodName MethodDescriptor Statement* ".end" "method"
+templates
+Method.JBCMethod = [.method [MethodAccess*; separator = "\ "] [MethodName] [MethodDescriptor] [Statement*; separator = "\ "] .end method]
 
-MethodAccess.PUBLIC = "public"
-MethodAccess.PRIVATE = "private"
-MethodAccess.PROTECTED = "protected"
-MethodAccess.STATIC = "static"
-MethodAccess.FINAL = "final"
-MethodAccess.SYNCHRONIZED = "synchronized"
-MethodAccess.NATIVE = "native"
-MethodAccess.ABSTRACT = "abstract"
+MethodAccess.PUBLIC = [public]
+MethodAccess.PRIVATE = [private]
+MethodAccess.PROTECTED = [protected]
+MethodAccess.STATIC = [static]
+MethodAccess.FINAL = [final]
+MethodAccess.SYNCHRONIZED = [synchronized]
+MethodAccess.NATIVE = [native]
+MethodAccess.ABSTRACT = [abstract]
 
-context-free syntax
-Statement = PCInstruction
-Statement = Directive
-Statement = Label
+templates
+Statement = [PCInstruction]
+Statement = [Directive]
+Statement = [Label]
 
-Label.JBCLabel = LabelName ":"
+Label.JBCLabel = [[LabelName] :]
 
 lexical restrictions
 ".method" 
