@@ -1,5 +1,8 @@
 module instructions/JasminXT-Stack
 
+context-free start-symbols
+  Instruction
+
 templates
   Instruction.POP     = [pop]
   Instruction.POP2    = [pop2]

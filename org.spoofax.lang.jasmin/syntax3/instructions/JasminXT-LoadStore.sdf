@@ -2,6 +2,9 @@ module instructions/JasminXT-LoadStore
 imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
 
 exports
+  context-free start-symbols
+    Instruction
+
   context-free syntax
     "bipush" Int      -> Instruction {cons("BIPUSH")}
     "sipush" Int      -> Instruction {cons("SIPUSH")}

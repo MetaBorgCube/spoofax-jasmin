@@ -1,5 +1,8 @@
 module instructions/JasminXT-Exceptions
 exports
+  context-free start-symbols
+    Instruction
+
   context-free syntax
     "athrow" -> Instruction {cons("ATHROW")}
 

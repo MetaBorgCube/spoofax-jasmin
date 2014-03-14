@@ -4,6 +4,9 @@ imports
   lexical/JasminXT-Names
   lexical/JasminXT-Numbers
   lexical/JasminXT-Descriptors
+
+context-free start-symbols
+  Instruction
   
 templates
   Instruction.NEW = [new [ClassRef]]

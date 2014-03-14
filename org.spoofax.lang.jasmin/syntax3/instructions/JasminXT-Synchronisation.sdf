@@ -1,5 +1,8 @@
 module instructions/JasminXT-Synchronisation
 exports
+  context-free start-symbols
+    Instruction
+
   context-free syntax
     "monitorenter" -> Instruction {cons("MONITORENTER")}
     "monitorexit"  -> Instruction {cons("MONITOREXIT")}

@@ -1,11 +1,14 @@
 module instructions/JasminXT-Instructions
-imports instructions/JasminXT-LoadStore instructions/JasminXT-Arithmetic
-        instructions/JasminXT-Conversion instructions/JasminXT-Objects
-        instructions/JasminXT-Stack instructions/JasminXT-Control
-        instructions/JasminXT-Methods instructions/JasminXT-Exceptions
+imports instructions/JasminXT-Arithmetic instructions/JasminXT-Control
+        instructions/JasminXT-Conversion instructions/JasminXT-Exceptions
+        instructions/JasminXT-LoadStore instructions/JasminXT-Methods
+        instructions/JasminXT-Objects instructions/JasminXT-Stack
         instructions/JasminXT-Synchronisation lexical/JasminXT-Numbers
 
 exports
+  context-free start-symbols
+    Instruction PCInstruction
+
   context-free syntax
     "nop"               -> Instruction   {cons("NOP")}
     "breakpoint"        -> Instruction   {cons("BREAKPOINT")}

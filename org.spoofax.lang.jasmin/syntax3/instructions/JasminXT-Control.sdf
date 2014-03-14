@@ -2,6 +2,9 @@ module instructions/JasminXT-Control
 imports lexical/JasminXT-Names lexical/JasminXT-Numbers
 
 exports
+  context-free start-symbols
+    Instruction LabelRef RelOffset Target TableEntry LookupEntry
+
   context-free syntax
     Int       -> LabelRef  {cons("Absolute")}
     "$+" Int  -> RelOffset {cons("RelativeFwd")}

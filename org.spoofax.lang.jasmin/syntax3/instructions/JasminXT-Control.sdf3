@@ -4,6 +4,14 @@ imports
   lexical/JasminXT-Names
   lexical/JasminXT-Numbers
 
+context-free start-symbols
+  Instruction
+  LabelRef
+  RelOffset
+  Target
+  TableEntry
+  LookupEntry
+
 templates
   LabelRef.Absolute     = [[Int]]
   // The manual is a bit ambiguous on which of these two should be supported..
@@ -14,7 +22,7 @@ templates
   RelOffset.RelativeBwd = [-[Int]]
 
   Target = [[LabelRef]]
-  Target = [[RelOffset]] {prefer}
+  Target = [[RelOffset]] {prefer} // disamb with LabelRef
 
 templates
   Instruction.IFEQ      = [ifeq [Target]]

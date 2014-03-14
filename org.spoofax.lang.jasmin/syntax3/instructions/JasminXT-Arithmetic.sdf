@@ -2,6 +2,9 @@ module instructions/JasminXT-Arithmetic
 imports lexical/JasminXT-Names lexical/JasminXT-Numbers
 
 exports
+  context-free start-symbols
+    Instruction Amount
+
   context-free syntax
     "iadd"               -> Instruction {cons("IADD")}
     "iand"               -> Instruction {cons("IAND")}

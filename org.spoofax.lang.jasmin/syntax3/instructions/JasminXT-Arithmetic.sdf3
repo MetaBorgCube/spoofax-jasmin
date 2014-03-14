@@ -5,6 +5,10 @@ imports
   lexical/JasminXT-Names
   lexical/JasminXT-Numbers
 
+context-free start-symbols
+  Instruction
+  Amount
+
 templates
   Instruction.IADD  = [iadd]
   Instruction.IAND  = [iand]

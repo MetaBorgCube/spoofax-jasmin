@@ -3,6 +3,9 @@ imports lexical/JasminXT-Names lexical/JasminXT-Numbers
         lexical/JasminXT-Descriptors
 
 exports
+  context-free start-symbols
+    Instruction
+
   context-free syntax
     "new" ClassRef                 -> Instruction {cons("NEW")}
     "newarray" BaseTypeName        -> Instruction {cons("NEWARRAY")}

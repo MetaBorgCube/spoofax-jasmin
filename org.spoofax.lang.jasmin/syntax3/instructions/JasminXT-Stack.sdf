@@ -1,5 +1,8 @@
 module instructions/JasminXT-Stack
 exports
+  context-free start-symbols
+    Instruction
+
   context-free syntax
     "pop"     -> Instruction {cons("POP")}
     "pop2"    -> Instruction {cons("POP2")}

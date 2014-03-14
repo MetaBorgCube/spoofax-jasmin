@@ -1,5 +1,8 @@
 module instructions/JasminXT-Conversion
 exports
+  context-free start-symbols
+    Instruction
+
   context-free syntax
     "i2l"       -> Instruction {cons("I2L")}
     "i2f"       -> Instruction {cons("I2F")}
