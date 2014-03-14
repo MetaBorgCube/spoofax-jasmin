@@ -1,0 +1,20 @@
+module instructions/JasminXT-Methods
+imports lexical/JasminXT-Names lexical/JasminXT-Descriptors
+        lexical/JasminXT-Numbers
+
+exports
+  context-free syntax
+    "invokenonvirtual" MethodRef    -> Instruction {cons("INVOKESPECIAL")}
+    "invokevirtual" MethodRef       -> Instruction {cons("INVOKEVIRTUAL")}
+    "invokestatic" MethodRef        -> Instruction {cons("INVOKESTATIC")}
+    "invokeinterface" MethodRef Int -> Instruction {cons("INVOKEINTERFACE")}
+    "return"                        -> Instruction {cons("RETURN")}
+    "ireturn"                       -> Instruction {cons("IRETURN")}
+    "lreturn"                       -> Instruction {cons("LRETURN")}
+    "freturn"                       -> Instruction {cons("FRETURN")}
+    "dreturn"                       -> Instruction {cons("DRETURN")}
+    "areturn"                       -> Instruction {cons("ARETURN")}
+
+  lexical restrictions
+    "invokenonvirtual" "invokevirtual" "invokestatic" "invokeinterface"
+    -/- ~[\ \t]
