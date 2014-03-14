@@ -12,9 +12,9 @@ imports
   instructions/JasminXT-Synchronisation
   lexical/JasminXT-Numbers
 
-context-free syntax
-  Instruction.NOP        = "nop"
-  Instruction.BREAKPOINT = "breakpoint"
+templates
+  Instruction.NOP        = [nop]
+  Instruction.BREAKPOINT = [breakpoint]
   	
-  PCInstruction.PC = Int ":" Instruction
-  PCInstruction    = Instruction
+  PCInstruction.PC = [[Int]: [Instruction]]
+  PCInstruction    = [[Instruction]]

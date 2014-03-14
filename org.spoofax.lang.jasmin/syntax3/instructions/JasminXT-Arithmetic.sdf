@@ -48,5 +48,9 @@ exports
     "dcmpl"              -> Instruction {cons("DCMPL")}
     "lcmp"               -> Instruction {cons("LCMP")}
 
+  context-free syntax
+    CONTENTCOMPLETE -> Amount      {cons("COMPLETION-Amount")}
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
   lexical restrictions
     "iinc" -/- ~[\ \t]

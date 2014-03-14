@@ -11,3 +11,7 @@ exports
     "breakpoint"        -> Instruction   {cons("BREAKPOINT")}
     Int ":" Instruction -> PCInstruction {cons("PC")}
     Instruction         -> PCInstruction 
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction   {cons("COMPLETION-Instruction")}
+    CONTENTCOMPLETE -> PCInstruction {cons("COMPLETION-PCInstruction")}

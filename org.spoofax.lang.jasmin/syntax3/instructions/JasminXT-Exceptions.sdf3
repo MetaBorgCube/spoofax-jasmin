@@ -1,4 +1,4 @@
 module instructions/JasminXT-Exceptions
 
-context-free syntax
-  Instruction.ATHROW = "athrow"
+templates
+  Instruction.ATHROW = [athrow]

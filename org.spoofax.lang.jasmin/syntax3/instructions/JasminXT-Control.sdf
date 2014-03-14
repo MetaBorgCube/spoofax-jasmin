@@ -12,6 +12,11 @@ exports
     RelOffset -> Target    {prefer}
 
   context-free syntax
+    CONTENTCOMPLETE -> LabelRef  {cons("COMPLETION-LabelRef")}
+    CONTENTCOMPLETE -> RelOffset {cons("COMPLETION-RelOffset")}
+    CONTENTCOMPLETE -> Target    {cons("COMPLETION-Target")}
+
+  context-free syntax
     "ifeq" Target                                        -> Instruction {cons("IFEQ")}
     "iflt" Target                                        -> Instruction {cons("IFLT")}
     "ifle" Target                                        -> Instruction {cons("IFLE")}
@@ -34,6 +39,13 @@ exports
     Int ":" LabelRef                                     -> LookupEntry {cons("NPAIR")}
     "goto" LabelRef                                      -> Instruction {cons("GOTO")}
     "goto_w" LabelRef                                    -> Instruction {cons("GOTO_W")}
+    "jsr" LabelRef                                       -> Instruction {cons("JSR")}
+    "jsr_w" LabelRef                                     -> Instruction {cons("JSR_W")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> TableEntry  {cons("COMPLETION-TableEntry")}
+    CONTENTCOMPLETE -> LookupEntry {cons("COMPLETION-LookupEntry")}
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
 
   lexical restrictions
     "ifeq" "iflt" "ifle" "ifne" "ifgt" "ifge" "ifnull" "ifnonnull" "if_icmpeq"

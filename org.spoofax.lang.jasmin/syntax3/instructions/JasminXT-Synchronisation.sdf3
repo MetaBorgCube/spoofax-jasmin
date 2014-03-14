@@ -1,5 +1,5 @@
 module instructions/JasminXT-Synchronisation
 
-context-free syntax
-  Instruction.MONITORENTER = "monitorenter"
-  Instruction.MONITOREXIT  = "monitorexit"
+templates
+  Instruction.MONITORENTER = [monitorenter]
+  Instruction.MONITOREXIT  = [monitorexit]

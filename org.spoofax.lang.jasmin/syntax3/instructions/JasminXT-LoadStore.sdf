@@ -24,6 +24,9 @@ exports
     "ldc2_w" Constant -> Instruction {cons("LDC2_W")}
 
   context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
+  context-free syntax
     "iload" VarRef  -> Instruction {cons("ILOAD")}
     "lload" VarRef  -> Instruction {cons("LLOAD")}
     "fload" VarRef  -> Instruction {cons("FLOAD")}
@@ -74,6 +77,9 @@ exports
     "dstore_1"      -> Instruction {cons("DSTORE_1")}
     "dstore_2"      -> Instruction {cons("DSTORE_2")}
     "dstore_3"      -> Instruction {cons("DSTORE_3")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
 
   lexical restrictions
     "iload" "lload" "fload" "dload" "aload" "istore" "lstore" "fstore" "dstore"

@@ -33,6 +33,9 @@ exports
     "checkcast" ClassRef           -> Instruction {cons("CHECKCAST")}
     "instanceof" ClassRef          -> Instruction {cons("INSTANCEOF")}
 
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
   lexical restrictions
     "new" "newarray" "anewarray" "multianewarray" "getfield" "putfield"
     "getstatic" "putstatic" "checkcast" "instanceof" -/- ~[\ \t]

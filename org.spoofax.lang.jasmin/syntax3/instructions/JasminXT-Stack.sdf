@@ -10,3 +10,6 @@ exports
     "dup_x2"  -> Instruction {cons("DUP_X2")}
     "dup2_x2" -> Instruction {cons("DUP2_X2")}
     "swap"    -> Instruction {cons("SWAP")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
