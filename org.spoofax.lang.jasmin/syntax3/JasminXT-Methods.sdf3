@@ -25,9 +25,9 @@ MethodAccess.NATIVE = [native]
 MethodAccess.ABSTRACT = [abstract]
 
 templates
-Statement = [PCInstruction]
-Statement = [Directive]
-Statement = [Label]
+Statement = [[PCInstruction]]
+Statement = [[Directive]]
+Statement = [[Label]]
 
 Label.JBCLabel = [[LabelName] :]
 

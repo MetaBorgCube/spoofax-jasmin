@@ -7,7 +7,7 @@ exports
     Start
 
   context-free syntax
-    "JasminFile"                -> Start      
+    JasminFile                  -> Start      
     JasminHeader Field* Method* -> JasminFile {cons("JBCFile")}
 
   context-free syntax
