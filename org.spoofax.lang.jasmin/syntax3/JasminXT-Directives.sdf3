@@ -14,7 +14,7 @@ Directive.JBCLimitLocals = ".limit" "locals" Int
 Directive.JBCLine = ".line" Int
 Directive.JBCThrows = ".throws" ClassRef
 Directive.JBCCatch = ".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef
-Directive JBCVarDecl = ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef
+Directive.JBCVarDecl = ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef
 
 lexical restrictions
 ".limit" 
