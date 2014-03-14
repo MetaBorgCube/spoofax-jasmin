@@ -1,0 +1,66 @@
+module JasminXT-Header
+
+imports
+lexical/JasminXT-Names
+lexical/JasminXT-Numbers
+lexical/JasminXT-Strings
+lexical/JasminXT-Descriptors
+lexical/JasminXT-Signatures
+
+context-free start-symbols
+JasminHeader
+
+context-free syntax // header
+JasminHeader.JBCHeader = BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DeprecatedSpec
+
+context-free syntax
+BytecodeSpec.JBCVersion = ".bytecode" MajorVersion MinorVersion
+BytecodeSpec.None = []
+
+MajorVersion.Major = Int
+MinorVersion.Minor = "." Int
+MinorVersion.None = []
+
+SourceSpec.JBCSource = ".source" String
+SourceSpec.None = []
+
+context-free syntax
+ClassSpec.JBCClass = ".class" ClassAccess* ClassName
+ClassSpec.JBCInterface = ".interface" ClassAccess* ClassName
+
+ClassAccess.PUBLIC = "public"
+ClassAccess.FINAL = "final"
+ClassAccess.INTERFACE = "interface"
+ClassAccess.ABSTRACT = "abstract"
+ClassAccess.SUPER = "super"
+
+SuperSpec.JBCSuper = ".super" ClassName
+
+ImplementsSpec.JBCImplements = ".implements" ClassName
+
+context-free syntax
+SignatureSpec.JBCSignature = ".signature" ClassSignature
+SignatureSpec.None = []
+
+EnclosingSpec.JBCEnclosing = ".enclosing" "method" MethodDescriptor
+EnclosingSpec.None = []
+
+DeprecatedSpec.JBCDeprecated = ".deprecated"
+DeprecatedSpec.None = []
+
+lexical restrictions
+".bytecode"
+".source"
+".class"     
+".interface" 
+"public" 
+"final" 
+"interface"
+"abstract" 
+"super" 	
+".super" 		
+".implements" 		
+".signature" 
+".enclosing" 
+%%"method"
+".deprecated"		-/- ~[\ \t]

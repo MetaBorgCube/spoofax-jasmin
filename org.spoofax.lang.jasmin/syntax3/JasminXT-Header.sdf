@@ -1,0 +1,43 @@
+module JasminXT-Header
+imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
+        lexical/JasminXT-Descriptors lexical/JasminXT-Signatures
+
+exports
+  context-free start-symbols
+    JasminHeader
+
+  context-free syntax
+    BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DeprecatedSpec -> JasminHeader {cons("JBCHeader")}
+
+  context-free syntax
+    ".bytecode" MajorVersion MinorVersion -> BytecodeSpec {cons("JBCVersion")}
+    []                                    -> BytecodeSpec {cons("None")}
+    Int                                   -> MajorVersion {cons("Major")}
+    "." Int                               -> MinorVersion {cons("Minor")}
+    []                                    -> MinorVersion {cons("None")}
+    ".source" String                      -> SourceSpec   {cons("JBCSource")}
+    []                                    -> SourceSpec   {cons("None")}
+
+  context-free syntax
+    ".class" ClassAccess* ClassName     -> ClassSpec      {cons("JBCClass")}
+    ".interface" ClassAccess* ClassName -> ClassSpec      {cons("JBCInterface")}
+    "public"                            -> ClassAccess    {cons("PUBLIC")}
+    "final"                             -> ClassAccess    {cons("FINAL")}
+    "interface"                         -> ClassAccess    {cons("INTERFACE")}
+    "abstract"                          -> ClassAccess    {cons("ABSTRACT")}
+    "super"                             -> ClassAccess    {cons("SUPER")}
+    ".super" ClassName                  -> SuperSpec      {cons("JBCSuper")}
+    ".implements" ClassName             -> ImplementsSpec {cons("JBCImplements")}
+
+  context-free syntax
+    ".signature" ClassSignature            -> SignatureSpec  {cons("JBCSignature")}
+    []                                     -> SignatureSpec  {cons("None")}
+    ".enclosing" "method" MethodDescriptor -> EnclosingSpec  {cons("JBCEnclosing")}
+    []                                     -> EnclosingSpec  {cons("None")}
+    ".deprecated"                          -> DeprecatedSpec {cons("JBCDeprecated")}
+    []                                     -> DeprecatedSpec {cons("None")}
+
+  lexical restrictions
+    ".bytecode" ".source" ".class" ".interface" "public" "final" "interface"
+    "abstract" "super" ".super" ".implements" ".signature" ".enclosing"
+    ".deprecated" -/- ~[\ \t]
