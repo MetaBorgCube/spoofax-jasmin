@@ -50,10 +50,8 @@ templates
   Instruction.DREM  = [drem]
   Instruction.DSUB  = [dsub]
 
-  Instruction.IINC  = [iinc [VarRef] [Amount]]
-  
-  // TODO
-  // Add _w version of iinc
+  Instruction.IINC   = [iinc [VarRef] [Amount]]
+  Instruction.IINC_W = [iinc_w [VarRef] [Amount]]
 
   Amount            = [[Int]]
   Amount.Neg        = [-[Int]]

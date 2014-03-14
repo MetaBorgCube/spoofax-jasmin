@@ -42,8 +42,11 @@ templates
   Instruction.DLOAD = [dload [VarRef]]  // loads a double value from a local variable
   Instruction.ALOAD = [aload [VarRef]]  // loads a reference from a local variable
   
-  // TODO
-  // Add _w versions of [adfli]-load/store
+  Instruction.ILOAD_W = [iload_w [VarRef]]  // loads a wide int value from a local variable
+  Instruction.LLOAD_W = [lload_w [VarRef]]  // loads a wide long value from a local variable
+  Instruction.FLOAD_W = [fload_w [VarRef]]  // loads a wide float value from a local variable
+  Instruction.DLOAD_W = [dload_w [VarRef]]  // loads a wide double value from a local variable
+  Instruction.ALOAD_W = [aload_w [VarRef]]  // loads a wide reference from a local variable
   
   Instruction.ILOAD_0 = [iload_0]  
   Instruction.ILOAD_1 = [iload_1]  
@@ -75,6 +78,12 @@ templates
   Instruction.FSTORE = [fstore [VarRef]]  // stores a float value into a local variable
   Instruction.DSTORE = [dstore [VarRef]]  // stores a double value into a local variable
   Instruction.ASTORE = [astore [VarRef]]  // stores a reference into a local variable
+    
+  Instruction.ISTORE_W = [istore_w [VarRef]]  // stores a wide int value into a local variable
+  Instruction.LSTORE_W = [lstore_w [VarRef]]  // stores a wide long value into a local variable
+  Instruction.FSTORE_W = [fstore_w [VarRef]]  // stores a wide float value into a local variable
+  Instruction.DSTORE_W = [dstore_w [VarRef]]  // stores a wide double value into a local variable
+  Instruction.ASTORE_W = [astore_w [VarRef]]  // stores a wide reference into a local variable
   
   Instruction.ISTORE_0 = [istore_0]  
   Instruction.ISTORE_1 = [istore_1]  
