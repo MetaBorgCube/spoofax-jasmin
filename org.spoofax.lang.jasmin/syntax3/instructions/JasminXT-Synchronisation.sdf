@@ -1,0 +1,5 @@
+module instructions/JasminXT-Synchronisation
+exports
+  context-free syntax
+    "monitorenter" -> Instruction {cons("MONITORENTER")}
+    "monitorexit"  -> Instruction {cons("MONITOREXIT")}
