@@ -13,7 +13,6 @@ context-free start-symbols
   LookupEntry
 
 templates
-  LabelRef.Absolute     = [[Int]]
   // The manual is a bit ambiguous on which of these two should be supported..
   // So both are for now.
   RelOffset.RelativeFwd = [$+[Int]]

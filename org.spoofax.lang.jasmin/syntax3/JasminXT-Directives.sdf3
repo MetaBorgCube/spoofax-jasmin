@@ -4,29 +4,54 @@ imports
 lexical/JasminXT-Descriptors
 lexical/JasminXT-Names
 lexical/JasminXT-Numbers
+lexical/JasminXT-Signatures
 
 context-free start-symbols
-Directive
+  Directive
+  StackDirective
 
 templates
-Directive.JBCLimitStack = [.limit stack [Int]]
-Directive.JBCLimitLocals = [.limit locals [Int]]
-Directive.JBCLine = [.line [Int]]
-Directive.JBCThrows = [.throws [ClassRef]]
-Directive.JBCCatch = [.catch [ClassRef] from [LabelRef] to [LabelRef] using [LabelRef]]
-Directive.JBCVarDecl = [.var [Int] is [VarName] [FieldDescriptor] from [LabelRef] to [LabelRef]]
+  Directive.JBCLimitStack  = [.limit stack [Int]]
+  Directive.JBCLimitLocals = [.limit locals [Int]]
+  Directive.JBCLine        = [.line [Int]]
+  Directive.JBCVarDecl     = [.var [Int] is [VarName] [FieldDescriptor] from [LabelRef] to [LabelRef]]
+  Directive.JBCThrows      = [.throws [ClassRef]]
+  Directive.JBCCatch       = [.catch [ClassRef] from [LabelRef] to [LabelRef] using [LabelRef]]
+  Directive.JBCSignature   = [.signature [MethodSignature]]
+  Directive.JBCStack       = [.stack
+	[StackDirective*; separator="\n\t"]
+.end stack]
+  Directive.JBCStack       = [.stack use [Int] locals
+	[StackDirective*; separator="\n\t"]
+.end stack]
+  Directive.JBCDeprecated  = [.deprecated]
+//TODO
+// <generic>
+  StackDirective.Offset   = [offset [LabelRef]]
+  StackDirective.LocalVar = [locals [VerificationType]]
+  StackDirective.StackVar = [stack [VerificationType]]
+ 
+  VerificationType.Top        = [Top]
+  VerificationType.Integer    = [Integer]
+  VerificationType.Float      = [Float]
+  VerificationType.Long       = [Long]
+  VerificationType.Double     = [Double]
+  VerificationType.Null       = [Null]
+  VerificationType.UninitThis = [UnitializedThis]
+  VerificationType.Object     = [Object [ClassName]]
+  VerificationType.Uninit     = [Unitialized [LabelRef]]
 
 lexical restrictions
-".limit" 
-"stack" 
-"locals" 	
-".line" 
-".throws" 
-".catch" 
-"from" 
-"to" 
-"using" 
-".var" 
-"is" 
-"from"
-"to"		-/- ~[\ \t]
+  ".limit" 
+  "stack" 
+  "locals" 	
+  ".line" 
+  ".throws" 
+  ".catch" 
+  "from" 
+  "to" 
+  "using" 
+  ".var" 
+  "is" 
+  "from"
+  "to"		-/- ~[\ \t]

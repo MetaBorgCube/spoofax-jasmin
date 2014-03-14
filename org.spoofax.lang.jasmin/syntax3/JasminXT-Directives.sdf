@@ -1,21 +1,39 @@
 module JasminXT-Directives
 imports lexical/JasminXT-Descriptors lexical/JasminXT-Names
-        lexical/JasminXT-Numbers
+        lexical/JasminXT-Numbers lexical/JasminXT-Signatures
 
 exports
   context-free start-symbols
-    Directive
+    Directive StackDirective
 
   context-free syntax
-    ".limit" "stack" Int                                                  -> Directive {cons("JBCLimitStack")}
-    ".limit" "locals" Int                                                 -> Directive {cons("JBCLimitLocals")}
-    ".line" Int                                                           -> Directive {cons("JBCLine")}
-    ".throws" ClassRef                                                    -> Directive {cons("JBCThrows")}
-    ".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef      -> Directive {cons("JBCCatch")}
-    ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef -> Directive {cons("JBCVarDecl")}
+    ".limit" "stack" Int                                                  -> Directive        {cons("JBCLimitStack")}
+    ".limit" "locals" Int                                                 -> Directive        {cons("JBCLimitLocals")}
+    ".line" Int                                                           -> Directive        {cons("JBCLine")}
+    ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef -> Directive        {cons("JBCVarDecl")}
+    ".throws" ClassRef                                                    -> Directive        {cons("JBCThrows")}
+    ".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef      -> Directive        {cons("JBCCatch")}
+    ".signature" MethodSignature                                          -> Directive        {cons("JBCSignature")}
+    ".stack" StackDirective* ".end" "stack"                               -> Directive        {cons("JBCStack")}
+    ".stack" "use" Int "locals" StackDirective* ".end" "stack"            -> Directive        {cons("JBCStack")}
+    ".deprecated"                                                         -> Directive        {cons("JBCDeprecated")}
+    "offset" LabelRef                                                     -> StackDirective   {cons("Offset")}
+    "locals" VerificationType                                             -> StackDirective   {cons("LocalVar")}
+    "stack" VerificationType                                              -> StackDirective   {cons("StackVar")}
+    "Top"                                                                 -> VerificationType {cons("Top")}
+    "Integer"                                                             -> VerificationType {cons("Integer")}
+    "Float"                                                               -> VerificationType {cons("Float")}
+    "Long"                                                                -> VerificationType {cons("Long")}
+    "Double"                                                              -> VerificationType {cons("Double")}
+    "Null"                                                                -> VerificationType {cons("Null")}
+    "UnitializedThis"                                                     -> VerificationType {cons("UninitThis")}
+    "Object" ClassName                                                    -> VerificationType {cons("Object")}
+    "Unitialized" LabelRef                                                -> VerificationType {cons("Uninit")}
 
   context-free syntax
-    CONTENTCOMPLETE -> Directive {cons("COMPLETION-Directive")}
+    CONTENTCOMPLETE -> Directive        {cons("COMPLETION-Directive")}
+    CONTENTCOMPLETE -> StackDirective   {cons("COMPLETION-StackDirective")}
+    CONTENTCOMPLETE -> VerificationType {cons("COMPLETION-VerificationType")}
 
   lexical restrictions
     ".limit" "stack" "locals" ".line" ".throws" ".catch" "from" "to" "using"

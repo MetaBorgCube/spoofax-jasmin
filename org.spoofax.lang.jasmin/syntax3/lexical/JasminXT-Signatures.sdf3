@@ -4,6 +4,7 @@ imports
   lexical/JasminXT-Strings
   lexical/JasminXT-Descriptors
 
-lexical syntax
-  ClassSignature = String
-  FieldSignature = String
+templates
+  ClassSignature  = [[String]]
+  MethodSignature = [[String]]
+  FieldSignature  = [[String]]

@@ -35,6 +35,7 @@ exports
     Int        -> VarRef   {cons("VarNum")}
     VarName    -> VarRef   {cons("VarRef")}
     LabelName  -> LabelRef {cons("LabelRef")}
+    Int        -> LabelRef {cons("Absolute")}
     FieldName  -> FRef     {cons("FRef")}
     MethodName -> MRef     {cons("MRef")}
 

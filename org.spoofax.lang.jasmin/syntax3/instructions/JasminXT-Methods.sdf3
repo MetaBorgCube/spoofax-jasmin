@@ -22,6 +22,9 @@ templates
   Instruction.ARETURN = [areturn]
   
   Instruction.RET = [ret [VarRef]]
+  
+  // TODO
+  // Add _w version of ret
 
 lexical restrictions
   "invokenonvirtual"

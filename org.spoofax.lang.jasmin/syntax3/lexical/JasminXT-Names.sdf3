@@ -43,6 +43,7 @@ templates
   VarRef.VarNum     = [[Int]]
   VarRef.VarRef     = [[VarName]]
   LabelRef.LabelRef = [[LabelName]]
+  LabelRef.Absolute = [[Int]]
 
   FRef.FRef = [[FieldName]]
   MRef.MRef = [[MethodName]]

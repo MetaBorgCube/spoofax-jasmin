@@ -7,7 +7,7 @@ exports
     JasminHeader
 
   context-free syntax
-    BytecodeSpec SourceSpec ClassSpec SuperSpec {ImplementsSpec "\\"}* SignatureSpec EnclosingSpec DeprecatedSpec -> JasminHeader {cons("JBCHeader")}
+    BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DeprecatedSpec -> JasminHeader {cons("JBCHeader")}
 
   context-free syntax
     CONTENTCOMPLETE -> JasminHeader {cons("COMPLETION-JasminHeader")}
@@ -28,15 +28,15 @@ exports
     CONTENTCOMPLETE -> SourceSpec   {cons("COMPLETION-SourceSpec")}
 
   context-free syntax
-    ".class" {ClassAccess "\\"}* ClassName     -> ClassSpec      {cons("JBCClass")}
-    ".interface" {ClassAccess "\\"}* ClassName -> ClassSpec      {cons("JBCInterface")}
-    "public"                                   -> ClassAccess    {cons("PUBLIC")}
-    "final"                                    -> ClassAccess    {cons("FINAL")}
-    "interface"                                -> ClassAccess    {cons("INTERFACE")}
-    "abstract"                                 -> ClassAccess    {cons("ABSTRACT")}
-    "super"                                    -> ClassAccess    {cons("SUPER")}
-    ".super" ClassName                         -> SuperSpec      {cons("JBCSuper")}
-    ".implements" ClassName                    -> ImplementsSpec {cons("JBCImplements")}
+    ".class" ClassAccess* ClassName     -> ClassSpec      {cons("JBCClass")}
+    ".interface" ClassAccess* ClassName -> ClassSpec      {cons("JBCInterface")}
+    "public"                            -> ClassAccess    {cons("PUBLIC")}
+    "final"                             -> ClassAccess    {cons("FINAL")}
+    "interface"                         -> ClassAccess    {cons("INTERFACE")}
+    "abstract"                          -> ClassAccess    {cons("ABSTRACT")}
+    "super"                             -> ClassAccess    {cons("SUPER")}
+    ".super" ClassName                  -> SuperSpec      {cons("JBCSuper")}
+    ".implements" ClassName             -> ImplementsSpec {cons("JBCImplements")}
 
   context-free syntax
     CONTENTCOMPLETE -> ClassSpec      {cons("COMPLETION-ClassSpec")}
@@ -59,5 +59,5 @@ exports
 
   lexical restrictions
     ".bytecode" ".source" ".class" ".interface" "public" "final" "interface"
-    "abstract" "super" ".super" ".implements" ".signature" ".enclosing"
+    "abstract" "super" ".super" ".implements" ".signature" ".enclosing" "method"
     ".deprecated" -/- ~[\ \t]

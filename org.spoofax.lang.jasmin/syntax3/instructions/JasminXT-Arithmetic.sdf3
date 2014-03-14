@@ -51,6 +51,9 @@ templates
   Instruction.DSUB  = [dsub]
 
   Instruction.IINC  = [iinc [VarRef] [Amount]]
+  
+  // TODO
+  // Add _w version of iinc
 
   Amount            = [[Int]]
   Amount.Neg        = [-[Int]]

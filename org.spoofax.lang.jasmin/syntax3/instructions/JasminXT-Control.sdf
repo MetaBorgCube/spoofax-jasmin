@@ -6,7 +6,6 @@ exports
     Instruction LabelRef RelOffset Target TableEntry LookupEntry
 
   context-free syntax
-    Int       -> LabelRef  {cons("Absolute")}
     "$+" Int  -> RelOffset {cons("RelativeFwd")}
     "+" Int   -> RelOffset {cons("RelativeFwd")}
     "$-" Int  -> RelOffset {cons("RelativeBwd")}
@@ -15,7 +14,6 @@ exports
     RelOffset -> Target    {prefer}
 
   context-free syntax
-    CONTENTCOMPLETE -> LabelRef  {cons("COMPLETION-LabelRef")}
     CONTENTCOMPLETE -> RelOffset {cons("COMPLETION-RelOffset")}
     CONTENTCOMPLETE -> Target    {cons("COMPLETION-Target")}
 

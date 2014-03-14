@@ -1,66 +1,66 @@
 module JasminXT-Header
 
 imports
-lexical/JasminXT-Names
-lexical/JasminXT-Numbers
-lexical/JasminXT-Strings
-lexical/JasminXT-Descriptors
-lexical/JasminXT-Signatures
+  lexical/JasminXT-Names
+  lexical/JasminXT-Numbers
+  lexical/JasminXT-Strings
+  lexical/JasminXT-Descriptors
+  lexical/JasminXT-Signatures
 
 context-free start-symbols
-JasminHeader
+  JasminHeader
 
 templates // header
-JasminHeader.JBCHeader = [[BytecodeSpec] [SourceSpec] [ClassSpec] [SuperSpec] [ImplementsSpec*; separator = "\ "] [SignatureSpec] [EnclosingSpec] [DeprecatedSpec]]
+  JasminHeader.JBCHeader = [[BytecodeSpec] [SourceSpec] [ClassSpec] [SuperSpec] [ImplementsSpec*; separator = " "] [SignatureSpec] [EnclosingSpec] [DeprecatedSpec]]
 
 templates
-BytecodeSpec.JBCVersion = [.bytecode [MajorVersion] [MinorVersion]]
-BytecodeSpec.None = []
+  BytecodeSpec.JBCVersion = [.bytecode [MajorVersion] [MinorVersion]]
+  BytecodeSpec.None       = []
 
-MajorVersion.Major = [[Int]]
-MinorVersion.Minor = [. [Int]]
-MinorVersion.None = []
+  MajorVersion.Major = [[Int]]
+  MinorVersion.Minor = [.[Int]]
+  MinorVersion.None  = []
 
-SourceSpec.JBCSource = [.source [String]]
-SourceSpec.None = []
-
-templates
-ClassSpec.JBCClass = [.class [ClassAccess*; separator = "\ "] [ClassName]]
-ClassSpec.JBCInterface = [.interface [ClassAccess*; separator = "\ "] [ClassName]]
-
-ClassAccess.PUBLIC = [public]
-ClassAccess.FINAL = [final]
-ClassAccess.INTERFACE = [interface]
-ClassAccess.ABSTRACT = [abstract]
-ClassAccess.SUPER = [super]
-
-SuperSpec.JBCSuper = [.super [ClassName]]
-
-ImplementsSpec.JBCImplements = [.implements [ClassName]]
+  SourceSpec.JBCSource = [.source [String]]
+  SourceSpec.None      = []
 
 templates
-SignatureSpec.JBCSignature = [.signature [ClassSignature]]
-SignatureSpec.None = []
+  ClassSpec.JBCClass     = [.class [ClassAccess*; separator = " "] [ClassName]]
+  ClassSpec.JBCInterface = [.interface [ClassAccess*; separator = " "] [ClassName]]
 
-EnclosingSpec.JBCEnclosing = [.enclosing method [MethodDescriptor]]
-EnclosingSpec.None = []
+  ClassAccess.PUBLIC    = [public]
+  ClassAccess.FINAL     = [final]
+  ClassAccess.INTERFACE = [interface]
+  ClassAccess.ABSTRACT  = [abstract]
+  ClassAccess.SUPER     = [super]
 
-DeprecatedSpec.JBCDeprecated = [.deprecated]
-DeprecatedSpec.None = []
+  SuperSpec.JBCSuper = [.super [ClassName]]
+
+  ImplementsSpec.JBCImplements = [.implements [ClassName]]
+
+templates
+  SignatureSpec.JBCSignature = [.signature [ClassSignature]]
+  SignatureSpec.None         = []
+
+  EnclosingSpec.JBCEnclosing = [.enclosing method [MethodDescriptor]]
+  EnclosingSpec.None         = []
+
+  DeprecatedSpec.JBCDeprecated = [.deprecated]
+  DeprecatedSpec.None          = []
 
 lexical restrictions
-".bytecode"
-".source"
-".class"     
-".interface" 
-"public" 
-"final" 
-"interface"
-"abstract" 
-"super" 	
-".super" 		
-".implements" 		
-".signature" 
-".enclosing" 
-%%"method"
-".deprecated"		-/- ~[\ \t]
+  ".bytecode"
+  ".source"
+  ".class"     
+  ".interface" 
+  "public" 
+  "final" 
+  "interface"
+  "abstract" 
+  "super" 	
+  ".super" 		
+  ".implements" 		
+  ".signature" 
+  ".enclosing" 
+  "method" // why was this commented?
+  ".deprecated"		-/- ~[\ \t]

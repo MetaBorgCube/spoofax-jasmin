@@ -42,6 +42,9 @@ templates
   Instruction.DLOAD = [dload [VarRef]]  // loads a double value from a local variable
   Instruction.ALOAD = [aload [VarRef]]  // loads a reference from a local variable
   
+  // TODO
+  // Add _w versions of [adfli]-load/store
+  
   Instruction.ILOAD_0 = [iload_0]  
   Instruction.ILOAD_1 = [iload_1]  
   Instruction.ILOAD_2 = [iload_2]  
