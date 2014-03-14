@@ -18,6 +18,7 @@ exports
     "dreturn"                       -> Instruction {cons("DRETURN")}
     "areturn"                       -> Instruction {cons("ARETURN")}
     "ret" VarRef                    -> Instruction {cons("RET")}
+    "ret_w" VarRef                  -> Instruction {cons("RET_W")}
 
   context-free syntax
     CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}

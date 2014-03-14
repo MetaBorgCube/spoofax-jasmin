@@ -1,38 +1,42 @@
 module JasminXT-Directives
 imports lexical/JasminXT-Descriptors lexical/JasminXT-Names
-        lexical/JasminXT-Numbers lexical/JasminXT-Signatures
+        lexical/JasminXT-Numbers lexical/JasminXT-Strings JasminXT-Annotations
 
 exports
   context-free start-symbols
-    Directive StackDirective
+    Directive StackDirOffset StackDirLocalVar StackDirStackVar
 
   context-free syntax
-    ".limit" "stack" Int                                                  -> Directive        {cons("JBCLimitStack")}
-    ".limit" "locals" Int                                                 -> Directive        {cons("JBCLimitLocals")}
-    ".line" Int                                                           -> Directive        {cons("JBCLine")}
-    ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef -> Directive        {cons("JBCVarDecl")}
-    ".throws" ClassRef                                                    -> Directive        {cons("JBCThrows")}
-    ".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef      -> Directive        {cons("JBCCatch")}
-    ".signature" MethodSignature                                          -> Directive        {cons("JBCSignature")}
-    ".stack" StackDirective* ".end" "stack"                               -> Directive        {cons("JBCStack")}
-    ".stack" "use" Int "locals" StackDirective* ".end" "stack"            -> Directive        {cons("JBCStack")}
-    ".deprecated"                                                         -> Directive        {cons("JBCDeprecated")}
-    "offset" LabelRef                                                     -> StackDirective   {cons("Offset")}
-    "locals" VerificationType                                             -> StackDirective   {cons("LocalVar")}
-    "stack" VerificationType                                              -> StackDirective   {cons("StackVar")}
-    "Top"                                                                 -> VerificationType {cons("Top")}
-    "Integer"                                                             -> VerificationType {cons("Integer")}
-    "Float"                                                               -> VerificationType {cons("Float")}
-    "Long"                                                                -> VerificationType {cons("Long")}
-    "Double"                                                              -> VerificationType {cons("Double")}
-    "Null"                                                                -> VerificationType {cons("Null")}
-    "UnitializedThis"                                                     -> VerificationType {cons("UninitThis")}
-    "Object" ClassName                                                    -> VerificationType {cons("Object")}
-    "Unitialized" LabelRef                                                -> VerificationType {cons("Uninit")}
+    ".limit" "stack" Int                                                                          -> Directive        {cons("JBCLimitStack")}
+    ".limit" "locals" Int                                                                         -> Directive        {cons("JBCLimitLocals")}
+    ".line" Int                                                                                   -> Directive        {cons("JBCLine")}
+    ".var" Int "is" VarName FieldDescriptor "from" LabelRef "to" LabelRef                         -> Directive        {cons("JBCVarDecl")}
+    ".throws" ClassRef                                                                            -> Directive        {cons("JBCThrows")}
+    ".catch" ClassRef "from" LabelRef "to" LabelRef "using" LabelRef                              -> Directive        {cons("JBCCatch")}
+    ".signature" String                                                                           -> Directive        {cons("JBCSignature")}
+    ".stack" StackDirOffset StackDirLocalVar* StackDirStackVar* ".end" "stack"                    -> Directive        {cons("JBCStack")}
+    ".stack" "use" Int "locals" StackDirOffset StackDirLocalVar* StackDirStackVar* ".end" "stack" -> Directive        {cons("JBCStack")}
+    ".deprecated"                                                                                 -> Directive        {cons("JBCDeprecated")}
+    ".attribute" AttributeName FileName                                                           -> Directive        {cons("JBCAttribute")}
+    "offset" LabelRef                                                                             -> StackDirOffset   {cons("Offset")}
+                                                                                                  -> StackDirOffset   {cons("None")}
+    "locals" VerificationType                                                                     -> StackDirLocalVar {cons("LocalVar")}
+    "stack" VerificationType                                                                      -> StackDirStackVar {cons("StackVar")}
+    "Top"                                                                                         -> VerificationType {cons("Top")}
+    "Integer"                                                                                     -> VerificationType {cons("Integer")}
+    "Float"                                                                                       -> VerificationType {cons("Float")}
+    "Long"                                                                                        -> VerificationType {cons("Long")}
+    "Double"                                                                                      -> VerificationType {cons("Double")}
+    "Null"                                                                                        -> VerificationType {cons("Null")}
+    "UnitializedThis"                                                                             -> VerificationType {cons("UninitThis")}
+    "Object" ClassName                                                                            -> VerificationType {cons("Object")}
+    "Unitialized" LabelRef                                                                        -> VerificationType {cons("Uninit")}
 
   context-free syntax
     CONTENTCOMPLETE -> Directive        {cons("COMPLETION-Directive")}
-    CONTENTCOMPLETE -> StackDirective   {cons("COMPLETION-StackDirective")}
+    CONTENTCOMPLETE -> StackDirOffset   {cons("COMPLETION-StackDirOffset")}
+    CONTENTCOMPLETE -> StackDirLocalVar {cons("COMPLETION-StackDirLocalVar")}
+    CONTENTCOMPLETE -> StackDirStackVar {cons("COMPLETION-StackDirStackVar")}
     CONTENTCOMPLETE -> VerificationType {cons("COMPLETION-VerificationType")}
 
   lexical restrictions

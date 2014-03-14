@@ -2,6 +2,7 @@ module lexical/JasminXT-Names
 
 imports
   lexical/JasminXT-Numbers
+  lexical/JasminXT-Strings
   lexical/JasminXT-Descriptors
 
 context-free start-symbols
@@ -32,7 +33,10 @@ lexical restrictions
   LabelName  -/- ~[\=\:\.\"\-\ \t\n\r]
 
 templates
+  FileName        = [[String]]
   ClassName       = [[QualifiedName]]
+  AttributeName   = [[Identifier]]
+  AnnotationName  = [[Identifier]]
   FieldName       = [[Identifier]]
   MethodName      = [[Identifier]]
   MethodName.Init = [<init>]
@@ -49,8 +53,8 @@ templates
   MRef.MRef = [[MethodName]]
 
 syntax		
-<ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>	 {"JBCFieldRef"}		
-<ClassRef-CF> "/" <MRef-CF> <MethodDescriptor-CF> -> <MethodRef-CF> {"JBCMethodRef"}
+  <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>	 {"JBCFieldRef"}		
+  <ClassRef-CF> "/" <MRef-CF> <MethodDescriptor-CF>              -> <MethodRef-CF> {"JBCMethodRef"}
 
 templates
   BaseTypeName.ByteName    = [byte]

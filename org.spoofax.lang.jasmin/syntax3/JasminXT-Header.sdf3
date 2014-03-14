@@ -5,13 +5,21 @@ imports
   lexical/JasminXT-Numbers
   lexical/JasminXT-Strings
   lexical/JasminXT-Descriptors
-  lexical/JasminXT-Signatures
 
 context-free start-symbols
   JasminHeader
 
 templates // header
-  JasminHeader.JBCHeader = [[BytecodeSpec] [SourceSpec] [ClassSpec] [SuperSpec] [ImplementsSpec*; separator = " "] [SignatureSpec] [EnclosingSpec] [DeprecatedSpec]]
+  JasminHeader.JBCHeader = [[BytecodeSpec]
+[SourceSpec]
+[ClassSpec]
+[SuperSpec]
+[ImplementsSpec*; separator = "\n"]
+[SignatureSpec]
+[EnclosingSpec]
+[DebugSpec*; separator="\n"]
+[InnerClassSpec*; separator="\n"]
+[InnerInterfaceSpec*; separator="\n"]]
 
 templates
   BytecodeSpec.JBCVersion = [.bytecode [MajorVersion] [MinorVersion]]
@@ -39,14 +47,19 @@ templates
   ImplementsSpec.JBCImplements = [.implements [ClassName]]
 
 templates
-  SignatureSpec.JBCSignature = [.signature [ClassSignature]]
+  SignatureSpec.JBCSignature = [.signature [String]]
   SignatureSpec.None         = []
 
   EnclosingSpec.JBCEnclosing = [.enclosing method [MethodDescriptor]]
   EnclosingSpec.None         = []
-
-  DeprecatedSpec.JBCDeprecated = [.deprecated]
-  DeprecatedSpec.None          = []
+  
+  DebugSpec.JBCDebug = [.debug [String]]
+  
+  // TODO .inner {class,interface}
+  // perhaps <access> is not equals to <access_spec> but instead about the access flags from the 2.1 changelog 
+  // InnerClassSpec.JBCInnerClass = [.inner class [ClassAccess*; separator=" "] [ClassName]]
+  
+  // InnerInterfaceSpec.JBCInnerInterface = [.inner interface [ClassAccess*; separator=" "] [ClassName]]
 
 lexical restrictions
   ".bytecode"
@@ -62,5 +75,5 @@ lexical restrictions
   ".implements" 		
   ".signature" 
   ".enclosing" 
-  "method" // why was this commented?
+  "method" // why was this commented before?
   ".deprecated"		-/- ~[\ \t]

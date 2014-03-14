@@ -11,6 +11,7 @@ templates
   FieldDescriptor.JBCFieldDesc = [[FieldType]]
 
   ParameterDescriptor   = [[FieldType]]
+  AnnotationDescriptor  = [[FieldType]] // NB: This is a guess
   ReturnDescriptor      = [[FieldType]]
   ReturnDescriptor.Void = [V]
 

@@ -25,6 +25,7 @@ exports
     "aconst_null"     -> Instruction {cons("ACONST_NULL")}
     "ldc" Constant    -> Instruction {cons("LDC")}
     "ldc2_w" Constant -> Instruction {cons("LDC2_W")}
+    "ldc_w" Constant  -> Instruction {cons("LDC_W")}
 
   context-free syntax
     CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}

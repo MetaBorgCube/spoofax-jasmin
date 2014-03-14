@@ -4,11 +4,14 @@ imports
 lexical/JasminXT-Descriptors
 lexical/JasminXT-Names
 lexical/JasminXT-Numbers
-lexical/JasminXT-Signatures
+lexical/JasminXT-Strings
+JasminXT-Annotations
 
 context-free start-symbols
   Directive
-  StackDirective
+  StackDirOffset
+  StackDirLocalVar
+  StackDirStackVar
 
 templates
   Directive.JBCLimitStack  = [.limit stack [Int]]
@@ -17,19 +20,25 @@ templates
   Directive.JBCVarDecl     = [.var [Int] is [VarName] [FieldDescriptor] from [LabelRef] to [LabelRef]]
   Directive.JBCThrows      = [.throws [ClassRef]]
   Directive.JBCCatch       = [.catch [ClassRef] from [LabelRef] to [LabelRef] using [LabelRef]]
-  Directive.JBCSignature   = [.signature [MethodSignature]]
+  Directive.JBCSignature   = [.signature [String]]
   Directive.JBCStack       = [.stack
-	[StackDirective*; separator="\n\t"]
+  	[StackDirOffset]
+  	[StackDirLocalVar*; separator="\n\t"]
+	[StackDirStackVar*; separator="\n\t"]
 .end stack]
   Directive.JBCStack       = [.stack use [Int] locals
-	[StackDirective*; separator="\n\t"]
+  	[StackDirOffset]
+  	[StackDirLocalVar*; separator="\n\t"]
+	[StackDirStackVar*; separator="\n\t"]
 .end stack]
   Directive.JBCDeprecated  = [.deprecated]
-//TODO
-// <generic>
-  StackDirective.Offset   = [offset [LabelRef]]
-  StackDirective.LocalVar = [locals [VerificationType]]
-  StackDirective.StackVar = [stack [VerificationType]]
+  Directive.JBCAttribute   = [.attribute [AttributeName] [FileName]]
+
+  StackDirOffset.Offset = [offset [LabelRef]]
+  StackDirOffset.None   = []
+  
+  StackDirLocalVar.LocalVar = [locals [VerificationType]]
+  StackDirStackVar.StackVar = [stack [VerificationType]]
  
   VerificationType.Top        = [Top]
   VerificationType.Integer    = [Integer]

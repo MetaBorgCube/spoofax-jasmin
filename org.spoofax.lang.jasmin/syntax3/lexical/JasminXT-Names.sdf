@@ -1,5 +1,6 @@
 module lexical/JasminXT-Names
-imports lexical/JasminXT-Numbers lexical/JasminXT-Descriptors
+imports lexical/JasminXT-Numbers lexical/JasminXT-Strings
+        lexical/JasminXT-Descriptors
 
 exports
   context-free start-symbols
@@ -18,17 +19,23 @@ exports
     LabelName -/- ~[\=\:\.\"\-\ \t\n\r]
 
   context-free syntax
-    QualifiedName -> ClassName  
-    Identifier    -> FieldName  
-    Identifier    -> MethodName 
-    "<init>"      -> MethodName {cons("Init")}
-    SQIdentifier  -> VarName    
+    String        -> FileName       
+    QualifiedName -> ClassName      
+    Identifier    -> AttributeName  
+    Identifier    -> AnnotationName 
+    Identifier    -> FieldName      
+    Identifier    -> MethodName     
+    "<init>"      -> MethodName     {cons("Init")}
+    SQIdentifier  -> VarName        
 
   context-free syntax
-    CONTENTCOMPLETE -> ClassName  {cons("COMPLETION-ClassName")}
-    CONTENTCOMPLETE -> FieldName  {cons("COMPLETION-FieldName")}
-    CONTENTCOMPLETE -> MethodName {cons("COMPLETION-MethodName")}
-    CONTENTCOMPLETE -> VarName    {cons("COMPLETION-VarName")}
+    CONTENTCOMPLETE -> FileName       {cons("COMPLETION-FileName")}
+    CONTENTCOMPLETE -> ClassName      {cons("COMPLETION-ClassName")}
+    CONTENTCOMPLETE -> AttributeName  {cons("COMPLETION-AttributeName")}
+    CONTENTCOMPLETE -> AnnotationName {cons("COMPLETION-AnnotationName")}
+    CONTENTCOMPLETE -> FieldName      {cons("COMPLETION-FieldName")}
+    CONTENTCOMPLETE -> MethodName     {cons("COMPLETION-MethodName")}
+    CONTENTCOMPLETE -> VarName        {cons("COMPLETION-VarName")}
 
   context-free syntax
     ClassName  -> ClassRef {cons("CRef")}

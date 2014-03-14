@@ -1,27 +1,27 @@
 module JasminXT-Fields
 
 imports
-lexical/JasminXT-Names
-lexical/JasminXT-Numbers
-lexical/JasminXT-Strings
-lexical/JasminXT-Descriptors
-lexical/JasminXT-Signatures
+  lexical/JasminXT-Names
+  lexical/JasminXT-Numbers
+  lexical/JasminXT-Strings
+  lexical/JasminXT-Descriptors
+  JasminXT-Annotations
 
 context-free start-symbols
-Field
+  Field
 	
 templates
   Field.JBCField    = [.field [FieldAccess*; separator=" "] [FieldName] [FieldDescriptor] [FieldSignatureSpec] [InitialValue]]
-  Field.JBCExtField = [.field [FieldAccess*; separator=" "] [FieldName] [FieldDescriptor] [InitialValue]
-	[FieldExt*; separator="\n\t"]
+  Field.JBCExtField = [.field [FieldAccess*; separator=" "] [FieldName] [FieldDescriptor] [FieldSignatureSpec] [InitialValue]
+	[FieldAttribute*; separator="\n\t"]
 .end field]
+  
+  FieldAttribute.JBCSignature  = [.signature [String]] 
+  FieldAttribute.JBCDeprecated = [.deprecated]
+  FieldAttribute.JBCAttribute  = [.attribute [AttributeName] [FileName]]
+  FieldAttribute.JBCAnnotation = [[Annotation]]
 
-
-  FieldExt.JBCSignature  = [.signature [FieldSignature]]
-  FieldExt.JBCDeprecated = [.deprecated]
-//TODO add .attribute and .annotation
-
-  FieldSignatureSpec.FieldSig = [signature [FieldSignature]]
+  FieldSignatureSpec.FieldSig = [signature [String]]
   FieldSignatureSpec.None     = []
 
   InitialValue.InitVal = [= [Constant]]

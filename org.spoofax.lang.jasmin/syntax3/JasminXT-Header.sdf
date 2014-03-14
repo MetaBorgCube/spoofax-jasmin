@@ -1,13 +1,13 @@
 module JasminXT-Header
 imports lexical/JasminXT-Names lexical/JasminXT-Numbers lexical/JasminXT-Strings
-        lexical/JasminXT-Descriptors lexical/JasminXT-Signatures
+        lexical/JasminXT-Descriptors
 
 exports
   context-free start-symbols
     JasminHeader
 
   context-free syntax
-    BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DeprecatedSpec -> JasminHeader {cons("JBCHeader")}
+    BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DebugSpec* InnerClassSpec* InnerInterfaceSpec* -> JasminHeader {cons("JBCHeader")}
 
   context-free syntax
     CONTENTCOMPLETE -> JasminHeader {cons("COMPLETION-JasminHeader")}
@@ -45,17 +45,16 @@ exports
     CONTENTCOMPLETE -> ImplementsSpec {cons("COMPLETION-ImplementsSpec")}
 
   context-free syntax
-    ".signature" ClassSignature            -> SignatureSpec  {cons("JBCSignature")}
-                                           -> SignatureSpec  {cons("None")}
-    ".enclosing" "method" MethodDescriptor -> EnclosingSpec  {cons("JBCEnclosing")}
-                                           -> EnclosingSpec  {cons("None")}
-    ".deprecated"                          -> DeprecatedSpec {cons("JBCDeprecated")}
-                                           -> DeprecatedSpec {cons("None")}
+    ".signature" String                    -> SignatureSpec {cons("JBCSignature")}
+                                           -> SignatureSpec {cons("None")}
+    ".enclosing" "method" MethodDescriptor -> EnclosingSpec {cons("JBCEnclosing")}
+                                           -> EnclosingSpec {cons("None")}
+    ".debug" String                        -> DebugSpec     {cons("JBCDebug")}
 
   context-free syntax
-    CONTENTCOMPLETE -> SignatureSpec  {cons("COMPLETION-SignatureSpec")}
-    CONTENTCOMPLETE -> EnclosingSpec  {cons("COMPLETION-EnclosingSpec")}
-    CONTENTCOMPLETE -> DeprecatedSpec {cons("COMPLETION-DeprecatedSpec")}
+    CONTENTCOMPLETE -> SignatureSpec {cons("COMPLETION-SignatureSpec")}
+    CONTENTCOMPLETE -> EnclosingSpec {cons("COMPLETION-EnclosingSpec")}
+    CONTENTCOMPLETE -> DebugSpec     {cons("COMPLETION-DebugSpec")}
 
   lexical restrictions
     ".bytecode" ".source" ".class" ".interface" "public" "final" "interface"
