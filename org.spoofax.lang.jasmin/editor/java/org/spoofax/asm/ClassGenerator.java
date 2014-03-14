@@ -17,6 +17,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+import org.spoofax.interpreter.core.Tools;
 import org.spoofax.interpreter.terms.IStrategoAppl;
 import org.spoofax.interpreter.terms.IStrategoList;
 import org.spoofax.interpreter.terms.IStrategoTerm;
@@ -160,15 +161,26 @@ public class ClassGenerator {
 			IStrategoAppl instrAppl = (IStrategoAppl) instrTerm;
 			if (hasConstructor(instrAppl, "Maxs", 2)) {
 				mv.visitMaxs(javaIntAt(instrAppl, 0), javaIntAt(instrAppl, 1));
+			} else if (hasConstructor(instrAppl, "TryCatch", 4)) {
+				Label labelFrom = getOrAddLabel(labels, javaStringAt(instrAppl, 0));
+				Label labelTo = getOrAddLabel(labels, javaStringAt(instrAppl, 1));
+				Label labelHandler = getOrAddLabel(labels, javaStringAt(instrAppl, 2));
+				mv.visitTryCatchBlock(labelFrom, labelTo, labelHandler, javaStringAt(instrAppl, 3));
 			} else if (hasConstructor(instrAppl, "Label", 1)) {
 				String labelName = javaStringAt(instrAppl, 0);
 				mv.visitLabel(getOrAddLabel(labels, labelName));
+			} else if (hasConstructor(instrAppl, "LocalVar", 6)) {
+				Label labelFrom = getOrAddLabel(labels, javaStringAt(instrAppl, 3));
+				Label labelTo = getOrAddLabel(labels, javaStringAt(instrAppl, 4));
+				mv.visitLocalVariable(javaStringAt(instrAppl, 0), javaStringAt(instrAppl, 1), javaStringOrNoneAt(instrAppl, 2), labelFrom, labelTo, javaIntAt(instrAppl, 5));
 			} else if (hasConstructor(instrAppl, "Insn", 1)) {
 				mv.visitInsn(javaIntAt(instrAppl, 0));
 			} else if (hasConstructor(instrAppl, "IntInsn", 2)) {
 				mv.visitIntInsn(javaIntAt(instrAppl, 0), javaIntAt(instrAppl, 1));
 			} else if (hasConstructor(instrAppl, "VarInsn", 2)) {
 				mv.visitVarInsn(javaIntAt(instrAppl, 0), javaIntAt(instrAppl, 1));
+			} else if (hasConstructor(instrAppl, "TypeInsn", 2)) {
+				mv.visitTypeInsn(javaIntAt(instrAppl, 0), javaStringAt(instrAppl, 1));
 			} else if (hasConstructor(instrAppl, "FieldInsn", 4)) {
 				mv.visitFieldInsn(javaIntAt(instrAppl, 0), javaStringAt(instrAppl, 1), javaStringAt(instrAppl, 2), javaStringAt(instrAppl, 3));
 			} else if (hasConstructor(instrAppl, "MethodInsn", 4)) {
@@ -176,14 +188,67 @@ public class ClassGenerator {
 			} else if (hasConstructor(instrAppl, "JumpInsn", 2)) {
 				String labelName = javaStringAt(instrAppl, 1);
 				mv.visitJumpInsn(javaIntAt(instrAppl, 0), getOrAddLabel(labels, labelName));
+			} else if (hasConstructor(instrAppl, "LdcInsn", 2)) {
+				Object obj = termToConstant(termAt(instrAppl, 1));
+				mv.visitLdcInsn(obj);
 			} else if (hasConstructor(instrAppl, "IincInsn", 2)) {
 				mv.visitIincInsn(javaIntAt(instrAppl, 0), javaIntAt(instrAppl, 1));
+			} else if (hasConstructor(instrAppl, "MultiANewArrayInsn", 2)) {
+				mv.visitMultiANewArrayInsn(javaStringAt(instrAppl, 0), javaIntAt(instrAppl, 1));
 			} else {
-				throw new IllegalArgumentException("Invalid instruction term.");
+				throw new IllegalArgumentException("Invalid instruction term (" + instrAppl.getConstructor().toString() + ").");
 			}
 		} else {
 			throw new IllegalArgumentException("Invalid instruction term.");
 		}
+	}
+	
+	private static String javaStringOrNone(IStrategoTerm term) {
+		if (isNone(term)) {
+			return null;
+		} else {
+			return javaString(term);
+		}
+	}
+
+	private static String javaStringOrNoneAt(IStrategoAppl instrAppl, int i) {
+		return javaStringOrNone(termAt(instrAppl, i));
+	}
+
+	private Object termToConstant(IStrategoTerm term) {
+		if (term.getTermType() == IStrategoTerm.INT) {
+			return javaInt(term);
+		} else if (term.getTermType() == IStrategoTerm.STRING) {
+			return javaString(term);
+		} else {
+			throw new IllegalArgumentException("Unknown constant term.");
+		}
+		 /*if (cst instanceof Integer) {
+		   // ...
+		 } else if (cst instanceof Float) {
+		   // ...
+		 } else if (cst instanceof Long) {
+		   // ...
+		 } else if (cst instanceof Double) {
+		   // ...
+		 } else if (cst instanceof String) {
+		   // ...
+		 } else if (cst instanceof Type) {
+		   int sort = ((Type) cst).getSort();
+		   if (sort == Type.OBJECT) {
+		     // ...
+		   } else if (sort == Type.ARRAY) {
+		     // ...
+		   } else if (sort == Type.METHOD) {
+		     // ...
+		   } else {
+		     // throw an exception
+		   }
+		 } else if (cst instanceof Handle) {
+		   // ...
+		 } else {
+		   // throw an exception
+		 }*/
 	}
 
 	private Label getOrAddLabel(Map<String, Label> labels, String labelName) {
@@ -195,7 +260,7 @@ public class ClassGenerator {
 		return l;
 	}
 
-	private boolean isNone(IStrategoTerm term) {
+	private static boolean isNone(IStrategoTerm term) {
 		return isTermAppl(term) && hasConstructor((IStrategoAppl) term, "None", 0);
 	}
 }

@@ -15,15 +15,18 @@ signature
 		T_TABLESWITCH		:	Optype
 		T_LOOKUPSWITCH		:	Optype
 		T_MULTIANEWARRAY	:	Optype
-		
+	
 		Insn				:	Opcode -> OpInstruction
 		IntInsn				:	Opcode * Int -> OpInstruction
 		VarInsn				:	Opcode * Int -> OpInstruction
+		TypeInsn			:	Opcode * String -> OpInstruction
 		FieldInsn			:	Opcode * String * String * String -> OpInstruction
 		MethodInsn			:	Opcode * String * String * String -> OpInstruction
 		JumpInsn			:	Opcode * String -> OpInstruction
+		LdcInsn				:	Opcode * Constant -> OpInstruction
 		IincInsn			:	Int * Int -> OpInstruction
-		Label				:	String -> Instruction
+		LookupSwitchInsn	:	String * List(Int) * List(String) -> OpInstruction
+		MultiANewArrayInsn	:	String * Int -> OpInstruction
 
 imports
 	include/JasminXT
@@ -49,6 +52,17 @@ rules
 	simplify-insn:	ISTORE_2() -> ISTORE(2)
 	simplify-insn:	ISTORE_3() -> ISTORE(3)
 	
+	simplify-insn:	NEWARRAY(n) -> NEWARRAY(<jasmin-arraytype-num> n)
+	
+	jasmin-arraytype-num:	ByteName() -> 8
+	jasmin-arraytype-num:	CharName() -> 5
+	jasmin-arraytype-num:	DoubleName() -> 7
+	jasmin-arraytype-num:	FloatName() -> 6
+	jasmin-arraytype-num:	IntName() -> 10
+	jasmin-arraytype-num:	LongName() -> 11
+	jasmin-arraytype-num:	ShortName() -> 9
+	jasmin-arraytype-num:	BooleanName() -> 4
+	
 	jasmin-instruction-to-asm:
 		i -> res
 		where
@@ -63,6 +77,10 @@ rules
 		where
 			i := <try(to-int)> is
 	jasmin-op-to-asm:	(T_VARINSN(), opcode, [v])	-> VarInsn(opcode, v)
+	jasmin-op-to-asm:	(T_TYPEINSN(), opcode, [CRef(tt)])	-> TypeInsn(opcode, tt)
+	jasmin-op-to-asm:	(T_TYPEINSN(), opcode, [t])	-> TypeInsn(opcode, tt)
+		where
+			tt := <jasmin-fieldtype-to-descriptor> t	
 	jasmin-op-to-asm:	(T_FIELDINSN(), opcode, [fref])		-> FieldInsn(opcode, c, f, desc)
 		where
 			JBCFieldRef(CRef(c), FRef(f), JBCFieldDesc(ft)) := fref
@@ -72,11 +90,24 @@ rules
 			JBCMethodRef(CRef(c), MRef(m), JBCMethodDesc(paramdesc, returndesc)) := mref
 		;	desc := <jasmin-methodtype-to-descriptor> (paramdesc, returndesc)
 		;	mm := <jasmin-methodname-to-name> m
+	jasmin-op-to-asm:	(T_METHODINSN(), opcode, [mref, i])	-> result
+		where
+			result := <jasmin-op-to-asm> (T_METHODINSN(), opcode, [mref])
 	jasmin-op-to-asm:	(T_JUMPINSN(), opcode, [LabelRef(l)])	->	JumpInsn(opcode, l)
+	jasmin-op-to-asm:	(T_LDCINSN(), opcode, [c])				->	LdcInsn(opcode, c)
+		where <debug> c
 	jasmin-op-to-asm:	(T_IINCINSN(), opcode, [VarNum(var), inc])	->	IincInsn(vari, inci)
 		where
 			vari := <try(to-int)> var
 		;	inci := <try(to-int)> inc
+	jasmin-op-to-asm:	(T_LOOKUPSWITCH(), _, [pairs, LabelRef(default)]) -> LookupSwitchInsn(default, labels, indices)
+		where
+			(indices, labels) := <unzip(npair-to-tuple)> pairs
+	npair-to-tuple: NPAIR(i, LabelRef(l)) -> (<to-int> i, l)
+	jasmin-op-to-asm:	(T_MULTIANEWARRAY(), _, [ttype, tnum])	-> MultiANewArrayInsn(type, num)
+		where
+			type := <jasmin-fieldtype-to-descriptor> ttype
+		;	num := <to-int> tnum
 	
 	// Zero-operand instructions
 	jasmin-opcode:	"NOP"		->	(0,	T_INSN())
@@ -238,8 +269,8 @@ rules
 	jasmin-opcode:	"IF_ICMPLE"		->	(164,	T_JUMPINSN())
 	jasmin-opcode:	"IF_ACMPEQ"		->	(165,	T_JUMPINSN())
 	jasmin-opcode:	"IF_ACMPNE"		->	(166,	T_JUMPINSN())
-	jasmin-opcode:	"GOTO"		->	(167,	T_JUMPINSN())
-	jasmin-opcode:	"JSR"		->	(168,	T_JUMPINSN())
+	jasmin-opcode:	"GOTO"			->	(167,	T_JUMPINSN())
+	jasmin-opcode:	"JSR"			->	(168,	T_JUMPINSN())
 	jasmin-opcode:	"IFNULL"		->	(198,	T_JUMPINSN())
 	jasmin-opcode:	"IFNONNULL"		->	(199,	T_JUMPINSN())
 	
@@ -247,8 +278,8 @@ rules
 	jasmin-opcode:	"INVOKEDYNAMIC"		->	(186,	T_INVOKEDYNAMICINSN())
 	jasmin-opcode:	"LDC"				->	(18,	T_LDCINSN())
 	jasmin-opcode:	"IINC"				->	(132,	T_IINCINSN())
-	jasmin-opcode:	"TABLESWITCH"		->	(170,	T_TABLESWITCH())
-	jasmin-opcode:	"LOOKUPSWITCH"		->	(171,	T_LOOKUPSWITCH())
+	jasmin-opcode:	"Table"				->	(170,	T_TABLESWITCH())
+	jasmin-opcode:	"Lookup"			->	(171,	T_LOOKUPSWITCH())
 	jasmin-opcode:	"MULTIANEWARRAY"	->	(197,	T_MULTIANEWARRAY())
 
 

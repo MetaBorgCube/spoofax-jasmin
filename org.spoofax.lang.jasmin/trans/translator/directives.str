@@ -8,16 +8,29 @@ imports
 
 signature
 	constructors
+		Label	:	String -> Instruction
 		Maxs	:	Int * Int -> Instruction
+		TryCatch:	String * String * String * String -> Instruction
+		LocalVar:	String * String * String * String * String * Int -> Instruction
 	
 rules
 	jasmin-directive-to-asm:
-		Maxs(sl, ll) -> Maxs(<to-int> sl, <to-int> ll)
+		a -> <fail>
 		where
-			<debug> Maxs(sl, ll)
+			<debug> a
+	
+	jasmin-directive-to-asm:
+		Maxs(sl, ll) -> Maxs(<to-int> sl, <to-int> ll)
+	jasmin-directive-to-asm:
+		JBCCatch(CRef(t), LabelRef(from), LabelRef(to), LabelRef(handler)) -> TryCatch(from, to, handler, t)
 	jasmin-directive-to-asm:
 		JBCLabel(x)	-> Label(x)
-		
+	jasmin-directive-to-asm:
+	 	JBCVarDecl(ind, name, JBCFieldDesc(fdesc), LabelRef(from), LabelRef(to)) -> LocalVar(name, desc, None(), from, to, index)
+	 	where
+	 		index := <to-int> ind
+	 	;	desc := <jasmin-fieldtype-to-descriptor> fdesc
+
 	collect-maxs:
 		l			->	result
 		where
