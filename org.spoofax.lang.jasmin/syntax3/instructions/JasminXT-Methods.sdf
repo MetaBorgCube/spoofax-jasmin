@@ -3,6 +3,9 @@ imports lexical/JasminXT-Names lexical/JasminXT-Descriptors
         lexical/JasminXT-Numbers
 
 exports
+  context-free start-symbols
+    Instruction
+
   context-free syntax
     "invokenonvirtual" MethodRef    -> Instruction {cons("INVOKESPECIAL")}
     "invokevirtual" MethodRef       -> Instruction {cons("INVOKEVIRTUAL")}
@@ -14,6 +17,10 @@ exports
     "freturn"                       -> Instruction {cons("FRETURN")}
     "dreturn"                       -> Instruction {cons("DRETURN")}
     "areturn"                       -> Instruction {cons("ARETURN")}
+    "ret" VarRef                    -> Instruction {cons("RET")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
 
   lexical restrictions
     "invokenonvirtual" "invokevirtual" "invokestatic" "invokeinterface"

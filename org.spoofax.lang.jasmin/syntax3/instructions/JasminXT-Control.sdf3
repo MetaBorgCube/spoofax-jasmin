@@ -4,48 +4,57 @@ imports
   lexical/JasminXT-Names
   lexical/JasminXT-Numbers
 
-context-free syntax
-  LabelRef.Absolute     = Int
+context-free start-symbols
+  Instruction
+  LabelRef
+  RelOffset
+  Target
+  TableEntry
+  LookupEntry
+
+templates
+  LabelRef.Absolute     = [[Int]]
   // The manual is a bit ambiguous on which of these two should be supported..
   // So both are for now.
-  RelOffset.RelativeFwd = "$+" Int
-  RelOffset.RelativeFwd =  "+" Int
-  RelOffset.RelativeBwd = "$-" Int
-  RelOffset.RelativeBwd =  "-" Int
+  RelOffset.RelativeFwd = [$+[Int]]
+  RelOffset.RelativeFwd = [+[Int]]
+  RelOffset.RelativeBwd = [$-[Int]]
+  RelOffset.RelativeBwd = [-[Int]]
 
-  Target = LabelRef
-  Target = RelOffset {prefer}
+  Target = [[LabelRef]]
+  Target = [[RelOffset]] {prefer} // disamb with LabelRef
 
-context-free syntax
-  Instruction.IFEQ      = "ifeq"      Target
-  Instruction.IFLT      = "iflt"      Target
-  Instruction.IFLE      = "ifle"      Target
-  Instruction.IFNE      = "ifne"      Target
-  Instruction.IFGT      = "ifgt"      Target
-  Instruction.IFGE      = "ifge"      Target
-  Instruction.IFNULL    = "ifnull"    Target
-  Instruction.IFNONNULL = "ifnonnull" Target
-  Instruction.IF_ICMPEQ = "if_icmpeq" Target
-  Instruction.IF_ICMPLT = "if_icmplt" Target
-  Instruction.IF_ICMPLE = "if_icmple" Target
-  Instruction.IF_ICMPNE = "if_icmpne" Target
-  Instruction.IF_ICMPGT = "if_icmpgt" Target
-  Instruction.IF_ICMPGE = "if_icmpge" Target
-  Instruction.IF_ACMPEQ = "if_acmpeq" Target
-  Instruction.IF_ACMPNE = "if_acmpne" Target
+templates
+  Instruction.IFEQ      = [ifeq [Target]]
+  Instruction.IFLT      = [iflt [Target]]
+  Instruction.IFLE      = [ifle [Target]]
+  Instruction.IFNE      = [ifne [Target]]
+  Instruction.IFGT      = [ifgt [Target]]
+  Instruction.IFGE      = [ifge [Target]]
+  Instruction.IFNULL    = [ifnull [Target]]
+  Instruction.IFNONNULL = [ifnonnull [Target]]
+  Instruction.IF_ICMPEQ = [if_icmpeq [Target]]
+  Instruction.IF_ICMPLT = [if_icmplt [Target]]
+  Instruction.IF_ICMPLE = [if_icmple [Target]]
+  Instruction.IF_ICMPNE = [if_icmpne [Target]]
+  Instruction.IF_ICMPGT = [if_icmpgt [Target]]
+  Instruction.IF_ICMPGE = [if_icmpge [Target]]
+  Instruction.IF_ACMPEQ = [if_acmpeq [Target]]
+  Instruction.IF_ACMPNE = [if_acmpne [Target]]
 
-  Instruction.Table  = "tableswitch"  Int TableEntry*  "default" ":" LabelRef
-  Instruction.Lookup = "lookupswitch"     LookupEntry* "default" ":" LabelRef
+  Instruction.Table  = [tableswitch [Int] [TableEntry*; separator="\n\t"]
+	default[]: [LabelRef]]
+  Instruction.Lookup = [lookupswitch [LookupEntry*; separator="\n\t"]
+	default[]: [LabelRef]]
 
-  TableEntry.Jump   = LabelRef
-  LookupEntry.NPAIR = Int ":" LabelRef
+  TableEntry.Jump   = [[LabelRef]]
+  LookupEntry.NPAIR = [[Int]: [LabelRef]]
 
-  Instruction.GOTO   = "goto" LabelRef
-  Instruction.GOTO_W = "goto_w" LabelRef
+  Instruction.GOTO   = [goto [LabelRef]]
+  Instruction.GOTO_W = [goto_w [LabelRef]]
 
-  // TODO:
-  // jsr  <label>
-  // jsr_w  <label>
+  Instruction.JSR   = [jsr [LabelRef]]
+  Instruction.JSR_W = [jsr_w [LabelRef]]
 
 lexical restrictions
  "ifeq"

@@ -1,14 +1,14 @@
 module lexical/JasminXT-Strings
 
 context-free start-symbols
-String
+  String
 
 lexical syntax
-String = '"' StringChar* '"'
-StringChar = ~[\"\\\n\r]
-StringChar = [\\] [nrtfb\"\'\\]
-StringChar = [\\] 'u' HexDigit HexDigit HexDigit HexDigit
-HexDigit = [0-9a-fA-F]
+  String = '"' StringChar* '"'
+  StringChar = ~[\"\\\n\r]
+  StringChar = [\\] [nrtfb\"\'\\]
+  StringChar = [\\] 'u' HexDigit HexDigit HexDigit HexDigit
+  HexDigit = [0-9a-fA-F]
 
-context-free syntax
-Constant = String	// potential constructor
+templates
+  Constant.String = [[String]]

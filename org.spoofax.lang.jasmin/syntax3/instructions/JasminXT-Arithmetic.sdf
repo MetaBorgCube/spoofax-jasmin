@@ -2,6 +2,9 @@ module instructions/JasminXT-Arithmetic
 imports lexical/JasminXT-Names lexical/JasminXT-Numbers
 
 exports
+  context-free start-symbols
+    Instruction Amount
+
   context-free syntax
     "iadd"               -> Instruction {cons("IADD")}
     "iand"               -> Instruction {cons("IAND")}
@@ -47,6 +50,10 @@ exports
     "dcmpg"              -> Instruction {cons("DCMPG")}
     "dcmpl"              -> Instruction {cons("DCMPL")}
     "lcmp"               -> Instruction {cons("LCMP")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Amount      {cons("COMPLETION-Amount")}
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
 
   lexical restrictions
     "iinc" -/- ~[\ \t]

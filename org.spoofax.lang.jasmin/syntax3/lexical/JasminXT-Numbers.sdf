@@ -10,4 +10,7 @@ exports
     Int -/- [0-9]
 
   context-free syntax
-    Int -> Constant 
+    Int -> Constant {cons("Int")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Constant {cons("COMPLETION-Constant")}
