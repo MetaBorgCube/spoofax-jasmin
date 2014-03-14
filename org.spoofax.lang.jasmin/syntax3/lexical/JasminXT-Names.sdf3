@@ -25,7 +25,7 @@ SQIdentifier = "'" Identifier "'"
 
 QualifiedName = {Identifier "/"}+
 
-LabelName = ~[\=\:\.\"\-\ \t\n\r]+
+LabelName = ~[\=\:\.\"\-\ \t\n\r0-9] ~[\=\:\.\"\-\ \t\n\r]*
 
 lexical restrictions		
 Identifier -/- [a-zA-Z0-9\_]

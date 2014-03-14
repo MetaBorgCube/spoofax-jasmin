@@ -1,0 +1,8 @@
+module JasminXT-Instructions-Instruction-Test
+
+language JasminXT
+start symbol Instruction
+
+
+test nop [[nop]] parse succeeds
+test breakpoint [[breakpoint]] parse succeeds
