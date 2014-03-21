@@ -30,6 +30,8 @@ rules
        , _
        , _
        , _
+       , _
+       , _
        )
      , _
      , _
@@ -42,6 +44,8 @@ rules
         _
       , _
       , JBCClass(_, c)
+      , _
+      , _
       , _
       , _
       , _
@@ -63,6 +67,8 @@ rules
       , id
       , id
       , id
+      , id
+      , id
       )
     , id
     , id
@@ -74,6 +80,8 @@ rules
          _
        , _
        , JBCClass(_, c)
+       , _
+       , _
        , _
        , _
        , _
@@ -105,6 +113,8 @@ rules
               , []
               )
             )
+          , id
+          , id
           , id
           , id
           , id
