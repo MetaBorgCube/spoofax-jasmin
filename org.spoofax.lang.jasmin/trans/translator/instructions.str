@@ -26,6 +26,7 @@ signature
 		LdcInsn				:	Opcode * Constant -> OpInstruction
 		IincInsn			:	Int * Int -> OpInstruction
 		LookupSwitchInsn	:	String * List(Int) * List(String) -> OpInstruction
+		TableSwitchInsn		:	Int * Int * String * List(String) -> OpInstruction
 		MultiANewArrayInsn	:	String * Int -> OpInstruction
 
 imports
@@ -100,14 +101,23 @@ rules
 		where
 			vari := <try(to-int)> var
 		;	inci := <try(to-int)> inc
-	jasmin-op-to-asm:	(T_LOOKUPSWITCH(), _, [pairs, LabelRef(default)]) -> LookupSwitchInsn(default, labels, indices)
+	jasmin-op-to-asm:	(T_LOOKUPSWITCH(), _, [pairs, LabelRef(default)]) -> LookupSwitchInsn(default, indices, labels)
 		where
 			(indices, labels) := <unzip(npair-to-tuple)> pairs
-	npair-to-tuple: NPAIR(i, LabelRef(l)) -> (<to-int> i, l)
+	jasmin-op-to-asm:	(T_TABLESWITCH(), _, [jmin, jlabels, LabelRef(default)]) -> TableSwitchInsn(min, max, default, labels)
+		where
+			min := <to-int> jmin
+		;	<debug> min
+		;	max := <dec> <addi> (min, <length> jlabels)
+		;	<debug> max
+		;	labels := <map(jumplabel-name)> jlabels
 	jasmin-op-to-asm:	(T_MULTIANEWARRAY(), _, [ttype, tnum])	-> MultiANewArrayInsn(type, num)
 		where
 			type := <jasmin-fieldtype-to-descriptor> ttype
 		;	num := <to-int> tnum
+		 	
+	npair-to-tuple: NPAIR(i, LabelRef(l)) -> (<to-int> i, l)
+	jumplabel-name: Jump(LabelRef(l)) -> l
 	
 	// Zero-operand instructions
 	jasmin-opcode:	"NOP"		->	(0,	T_INSN())

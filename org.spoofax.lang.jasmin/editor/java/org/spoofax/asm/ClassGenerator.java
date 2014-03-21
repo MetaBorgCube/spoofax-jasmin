@@ -193,6 +193,29 @@ public class ClassGenerator {
 				mv.visitLdcInsn(obj);
 			} else if (hasConstructor(instrAppl, "IincInsn", 2)) {
 				mv.visitIincInsn(javaIntAt(instrAppl, 0), javaIntAt(instrAppl, 1));
+			} else if (hasConstructor(instrAppl, "LookupSwitchInsn", 3)) {
+				String defaultLabelName = javaStringAt(instrAppl, 0);
+				IStrategoList indicesList = (IStrategoList) termAt(instrAppl, 1);
+				int[] indices = new int[indicesList.getSubtermCount()];
+				for (int i = 0; i < indicesList.getSubtermCount(); i++) {
+					indices[i] = javaIntAt(indicesList, i);
+				}
+				IStrategoList labelsListTerm = (IStrategoList) termAt(instrAppl, 2);
+				Label[] labelsList = new Label[labelsListTerm.getSubtermCount()];
+				for (int i = 0; i < labelsListTerm.getSubtermCount(); i++) {
+					labelsList[i] = getOrAddLabel(labels, javaStringAt(labelsListTerm, i));
+				}
+				mv.visitLookupSwitchInsn(getOrAddLabel(labels, defaultLabelName), indices, labelsList);
+			} else if (hasConstructor(instrAppl, "TableSwitchInsn", 4)) {
+				int min = javaIntAt(instrAppl, 0);
+				int max = javaIntAt(instrAppl, 1);
+				String defaultLabelName = javaStringAt(instrAppl, 2);
+				IStrategoList labelsListTerm = (IStrategoList) termAt(instrAppl, 3);
+				Label[] labelsList = new Label[labelsListTerm.getSubtermCount()];
+				for (int i = 0; i < labelsListTerm.getSubtermCount(); i++) {
+					labelsList[i] = getOrAddLabel(labels, javaStringAt(labelsListTerm, i));
+				}
+				mv.visitTableSwitchInsn(min, max, getOrAddLabel(labels, defaultLabelName), labelsList);
 			} else if (hasConstructor(instrAppl, "MultiANewArrayInsn", 2)) {
 				mv.visitMultiANewArrayInsn(javaStringAt(instrAppl, 0), javaIntAt(instrAppl, 1));
 			} else {
