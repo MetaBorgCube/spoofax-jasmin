@@ -15,11 +15,6 @@ signature
 	
 rules
 	jasmin-directive-to-asm:
-		a -> <fail>
-		where
-			<debug> a
-	
-	jasmin-directive-to-asm:
 		Maxs(sl, ll) -> Maxs(<to-int> sl, <to-int> ll)
 	jasmin-directive-to-asm:
 		JBCCatch(CRef(t), LabelRef(from), LabelRef(to), LabelRef(handler)) -> TryCatch(from, to, handler, t)

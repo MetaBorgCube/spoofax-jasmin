@@ -68,9 +68,7 @@ rules
 		i -> res
 		where
 			(c, p) := <explode-term> <try(simplify-insn)> i
-		;	<debug> $[Instr: [c]]
 		;	(iop, opt) := <jasmin-opcode> c
-		;	<debug> (opt, iop, p)
 		;	res := <jasmin-op-to-asm> (opt, iop, p) 
 	
 	jasmin-op-to-asm:	(T_INSN(), opcode, [])		-> Insn(opcode)
@@ -96,7 +94,6 @@ rules
 			result := <jasmin-op-to-asm> (T_METHODINSN(), opcode, [mref])
 	jasmin-op-to-asm:	(T_JUMPINSN(), opcode, [LabelRef(l)])	->	JumpInsn(opcode, l)
 	jasmin-op-to-asm:	(T_LDCINSN(), opcode, [c])				->	LdcInsn(opcode, c)
-		where <debug> c
 	jasmin-op-to-asm:	(T_IINCINSN(), opcode, [VarNum(var), inc])	->	IincInsn(vari, inci)
 		where
 			vari := <try(to-int)> var
@@ -107,9 +104,7 @@ rules
 	jasmin-op-to-asm:	(T_TABLESWITCH(), _, [jmin, jlabels, LabelRef(default)]) -> TableSwitchInsn(min, max, default, labels)
 		where
 			min := <to-int> jmin
-		;	<debug> min
 		;	max := <dec> <addi> (min, <length> jlabels)
-		;	<debug> max
 		;	labels := <map(jumplabel-name)> jlabels
 	jasmin-op-to-asm:	(T_MULTIANEWARRAY(), _, [ttype, tnum])	-> MultiANewArrayInsn(type, num)
 		where

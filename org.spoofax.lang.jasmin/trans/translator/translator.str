@@ -89,4 +89,4 @@ rules
 		type -> <jasmin-fieldtype-to-descriptor> type	
 		
 strategies
-	jasmin-instructions-directives-to-asm	=	collect-maxs; debug; map(jasmin-instruction-to-asm <+ jasmin-directive-to-asm); debug
+	jasmin-instructions-directives-to-asm	=	collect-maxs; map(jasmin-instruction-to-asm <+ jasmin-directive-to-asm); debug
