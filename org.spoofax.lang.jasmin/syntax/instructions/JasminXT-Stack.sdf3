@@ -1,0 +1,15 @@
+module instructions/JasminXT-Stack
+
+context-free start-symbols
+  Instruction
+
+templates
+  Instruction.POP     = [pop]
+  Instruction.POP2    = [pop2]
+  Instruction.DUP     = [dup]
+  Instruction.DUP2    = [dup2]
+  Instruction.DUP_X1  = [dup_x1]
+  Instruction.DUP2_X1 = [dup2_x1]
+  Instruction.DUP_X2  = [dup_x2]
+  Instruction.DUP2_X2 = [dup2_x2]
+  Instruction.SWAP    = [swap]

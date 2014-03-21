@@ -1,0 +1,13 @@
+module JasminXT-Numbers-Test
+
+language JasminXT
+start symbol Int
+
+test single digit [[2]] parse succeeds
+test two digits [[24]] parse succeeds
+test more digits [[1729]] parse succeeds // taxicab number :p
+test leading zero [[012]] parse succeeds
+test floating point [[1.2]]	parse fails // only integers are allowed here
+test java long value [[12L]] parse fails // uppercase letters are not allowed in INT
+test java long value [[12l]] parse fails // lowercase letters are not allowed in INT
+test negative number [[-12]] parse fails // no syntax for negative numbers here

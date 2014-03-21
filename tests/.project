@@ -3,7 +3,6 @@
 	<name>tests</name>
 	<comment></comment>
 	<projects>
-		<project>org.spoofax.lang.jasmin</project>
 	</projects>
 	<buildSpec>
 	</buildSpec>

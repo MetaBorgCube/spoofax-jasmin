@@ -1,0 +1,7 @@
+module JasminXT-Names-MethodName-Test
+
+language JasminXT
+start symbol MethodName
+
+test init methodname [[<init>]] parse to Init()
+

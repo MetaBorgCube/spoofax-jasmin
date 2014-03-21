@@ -15,7 +15,7 @@ namespaces
 	
 binding rules
 
-  JBCFile(JBCHeader(_, _, JBCClass(_, c), JBCSuper(p), _, _, _, _), _, _):
+  JBCFile(JBCHeader(_, _, JBCClass(_, c), JBCSuper(p), _, _, _, _, _, _), _, _):
     defines Class c
     of type p
     scopes Method, Field

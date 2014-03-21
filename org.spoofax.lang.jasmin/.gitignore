@@ -8,4 +8,7 @@
 **/*.generated.*
 /trans/analysis/names/binding.str
 
+/syntax/*.sdf
+/syntax/*/*.sdf
+
 /lib/jasmin.jar

@@ -1,0 +1,14 @@
+module lexical/JasminXT-Strings
+
+context-free start-symbols
+  String Constant
+
+lexical syntax
+  String = '"' StringChar* '"'
+  StringChar = ~[\"\\\n\r]
+  StringChar = [\\] [nrtfb\"\'\\]
+  StringChar = [\\] 'u' HexDigit HexDigit HexDigit HexDigit
+  HexDigit = [0-9a-fA-F]
+
+templates
+  Constant.String = [[String]]

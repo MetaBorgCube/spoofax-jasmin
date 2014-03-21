@@ -1,0 +1,16 @@
+module lexical/JasminXT-Whitespace
+
+lexical syntax
+  LAYOUT = [\ \t\n\r]
+  LAYOUT = ";" [\n\r]
+  LAYOUT = ";" [\ \t] ~[\n\r]* ([\n\r] | EOF)
+
+  EOF = []
+	
+lexical restrictions
+  EOF -/- ~[]
+
+context-free restrictions
+  LAYOUT? -/- [\ \t\n\r]
+  LAYOUT? -/- [\;].[\ \t]
+  LAYOUT? -/- [\;].[\n\r]

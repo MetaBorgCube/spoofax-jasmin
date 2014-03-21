@@ -1,0 +1,9 @@
+module JasminXT-Instructions-PCInstruction-Test
+
+language JasminXT
+start symbol PCInstruction
+
+test simple instruction [[nop]] parse succeeds
+test instruction with offset 0 [[0: nop]] parse succeeds
+test instruction with positive offset [[10: nop]] parse succeeds
+test instruction with negative offset [[-1: nop]] parse fails
