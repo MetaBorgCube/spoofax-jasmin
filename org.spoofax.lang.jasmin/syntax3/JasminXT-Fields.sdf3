@@ -37,6 +37,7 @@ templates
   FieldAccess.FPSTRICT  = [fpstrict]
   FieldAccess.SYNTHETIC = [synthetic]
 
+// Keep newlines out of one-line instructions
 lexical restrictions
   ".field" 
   ".end"

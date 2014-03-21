@@ -71,6 +71,7 @@ templates
   OuterName.OuterNameSpec = [outer [ClassName]]
   OuterName.None = []
 
+// Keep newlines out of one-line instructions
 lexical restrictions
   ".bytecode"
   ".source"

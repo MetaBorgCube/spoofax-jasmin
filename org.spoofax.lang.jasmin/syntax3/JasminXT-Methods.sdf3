@@ -33,6 +33,7 @@ templates
   
   Label.JBCLabel = [[LabelName]:]
 
+// Keep newlines out of one-line instructions
 lexical restrictions
   ".method" 
   ".end" 

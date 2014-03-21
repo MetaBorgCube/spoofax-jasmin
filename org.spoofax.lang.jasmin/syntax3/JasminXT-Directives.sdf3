@@ -50,6 +50,7 @@ templates
   VerificationType.Object     = [Object [ClassName]]
   VerificationType.Uninit     = [Unitialized [LabelRef]]
 
+// Keep newlines out of one-line instructions
 lexical restrictions
   ".limit" 
   "stack" 
