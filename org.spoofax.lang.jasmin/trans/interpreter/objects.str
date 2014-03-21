@@ -30,13 +30,13 @@ rules
 	init-object: "java/lang/Object" -> Object("java/lang/Object", [])
 	init-object: cn -> Object(cn, slots)
 		where
-			<load-class-file> cn => JBCFile(JBCHeader(_, _, JBCClass(_, cn), JBCSuper(sn), _, _, _, _), fs, _) ;
+			<load-class-file> cn => JBCFile(JBCHeader(_, _, JBCClass(_, cn), JBCSuper(sn), _, _, _, _, _, _), fs, _) ;
 			<init-object> sn => Object(_, iss) ;
 			<map(init-slot)> fs => oss ;
 			<conc> (iss, oss) => slots 
 			
 	init-slot: JBCField(_, fn, JBCFieldDesc(t), _, v) -> (fn, <init-value> (t, v))
-	init-slot: JBCExtField(_, fn, JBCFieldDesc(t), v, _) -> (fn, <init-value> (t, v))
+	init-slot: JBCExtField(_, fn, JBCFieldDesc(t), _, v, _) -> (fn, <init-value> (t, v))
 	
 	init-value: (Int(), None()) -> Int("0")
 	init-value: (Int(), v) -> Int(v) where <not(eq)> (None(), v)

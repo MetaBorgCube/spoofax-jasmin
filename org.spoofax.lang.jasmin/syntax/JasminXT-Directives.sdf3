@@ -1,0 +1,67 @@
+module JasminXT-Directives
+
+imports
+lexical/JasminXT-Descriptors
+lexical/JasminXT-Names
+lexical/JasminXT-Numbers
+lexical/JasminXT-Strings
+JasminXT-Annotations
+
+context-free start-symbols
+  Directive
+  StackDirOffset
+  StackDirLocalVar
+  StackDirStackVar
+
+templates
+  Directive.JBCLimitStack  = [.limit stack [Int]]
+  Directive.JBCLimitLocals = [.limit locals [Int]]
+  Directive.JBCLine        = [.line [Int]]
+  Directive.JBCVarDecl     = [.var [Int] is [VarName] [FieldDescriptor] from [LabelRef] to [LabelRef]]
+  Directive.JBCThrows      = [.throws [ClassRef]]
+  Directive.JBCCatch       = [.catch [ClassRef] from [LabelRef] to [LabelRef] using [LabelRef]]
+  Directive.JBCSignature   = [.signature [String]]
+  Directive.JBCStack       = [.stack
+  	[StackDirOffset]
+  	[StackDirLocalVar*; separator="\n\t"]
+	[StackDirStackVar*; separator="\n\t"]
+.end stack]
+  Directive.JBCStack       = [.stack use [Int] locals
+  	[StackDirOffset]
+  	[StackDirLocalVar*; separator="\n\t"]
+	[StackDirStackVar*; separator="\n\t"]
+.end stack]
+  Directive.JBCDeprecated  = [.deprecated]
+  Directive.JBCAttribute   = [.attribute [AttributeName] [FileName]]
+
+  StackDirOffset.Offset = [offset [LabelRef]]
+  StackDirOffset.None   = []
+  
+  StackDirLocalVar.LocalVar = [locals [VerificationType]]
+  StackDirStackVar.StackVar = [stack [VerificationType]]
+ 
+  VerificationType.Top        = [Top]
+  VerificationType.Integer    = [Integer]
+  VerificationType.Float      = [Float]
+  VerificationType.Long       = [Long]
+  VerificationType.Double     = [Double]
+  VerificationType.Null       = [Null]
+  VerificationType.UninitThis = [UnitializedThis]
+  VerificationType.Object     = [Object [ClassName]]
+  VerificationType.Uninit     = [Unitialized [LabelRef]]
+
+// Keep newlines out of one-line instructions
+lexical restrictions
+  ".limit" 
+  "stack" 
+  "locals" 	
+  ".line" 
+  ".throws" 
+  ".catch" 
+  "from" 
+  "to" 
+  "using" 
+  ".var" 
+  "is" 
+  "from"
+  "to"		-/- ~[\ \t]

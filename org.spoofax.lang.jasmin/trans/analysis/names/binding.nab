@@ -13,7 +13,7 @@ namespaces
 	
 binding rules
 
-  JBCFile(JBCHeader(_, _, JBCClass(_, c), _, _, _, _, _), _, _):
+  JBCFile(JBCHeader(_, _, JBCClass(_, c), _, _, _, _, _, _, _), _, _):
     defines Class c
     scopes Method
   
