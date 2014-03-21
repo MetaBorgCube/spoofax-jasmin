@@ -64,6 +64,8 @@ rules
 	jasmin-arraytype-num:	ShortName() -> 9
 	jasmin-arraytype-num:	BooleanName() -> 4
 	
+	normalize-constant:		Int(i) -> Int(<to-int> i)
+	
 	jasmin-instruction-to-asm:
 		i -> res
 		where
@@ -93,7 +95,7 @@ rules
 		where
 			result := <jasmin-op-to-asm> (T_METHODINSN(), opcode, [mref])
 	jasmin-op-to-asm:	(T_JUMPINSN(), opcode, [LabelRef(l)])	->	JumpInsn(opcode, l)
-	jasmin-op-to-asm:	(T_LDCINSN(), opcode, [c])				->	LdcInsn(opcode, c)
+	jasmin-op-to-asm:	(T_LDCINSN(), opcode, [c])				->	LdcInsn(opcode, <try(normalize-constant)> c)
 	jasmin-op-to-asm:	(T_IINCINSN(), opcode, [VarNum(var), inc])	->	IincInsn(vari, inci)
 		where
 			vari := <try(to-int)> var

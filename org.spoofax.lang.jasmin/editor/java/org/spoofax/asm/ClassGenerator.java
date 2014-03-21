@@ -239,7 +239,16 @@ public class ClassGenerator {
 	}
 
 	private Object termToConstant(IStrategoTerm term) {
-		if (term.getTermType() == IStrategoTerm.INT) {
+		if (isTermAppl(term)) {
+			IStrategoAppl appl = (IStrategoAppl) term;
+			if (hasConstructor(appl, "String", 1)) {
+				return javaStringAt(appl, 0);
+			} else if (hasConstructor(appl, "Int", 1)) {
+				return javaIntAt(appl, 0);
+			} else {
+				throw new IllegalArgumentException("Unknown constant term constructor " + appl.getConstructor() + ".");
+			}
+		} else if (term.getTermType() == IStrategoTerm.INT) {
 			return javaInt(term);
 		} else if (term.getTermType() == IStrategoTerm.STRING) {
 			return javaString(term);

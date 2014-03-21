@@ -113,18 +113,10 @@ rules
             , id
             , id
             , id
+            , id
+            , id
             )
-<<<<<<< HEAD
           |
-=======
-          , id
-          , id
-          , id
-          , id
-          , id
-          , id
-          , id
->>>>>>> master
           )
         , id
         , id

@@ -9,7 +9,7 @@ imports
 
 rules
 	jasmin-file-to-asm-class:
-		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _), jfields, jmethods) -> ASMClass(196653, iflags, name, None(), super, [], fields, methods)
+		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _, _, _), jfields, jmethods) -> ASMClass(196653, iflags, name, None(), super, [], fields, methods)
 		where
 			name := <jasmin-classspec-get-name> cspec
 		;	super := <jasmin-superspec-to-asm> sspec
