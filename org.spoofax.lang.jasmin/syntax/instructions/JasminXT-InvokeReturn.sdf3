@@ -1,4 +1,4 @@
-module instructions/JasminXT-Methods
+module instructions/JasminXT-InvokeReturn
 
 imports
   lexical/JasminXT-Names
