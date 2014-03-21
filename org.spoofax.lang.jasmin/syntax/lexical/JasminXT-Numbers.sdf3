@@ -8,6 +8,9 @@ lexical syntax
   Float = Int "." Int
   Int = [0-9]+
 
+lexical syntax
+  NegInt = "-" Int // Used in Amount (instructions/JasminXT-Arithmetic), don't expose in Constant!
+
 lexical restrictions
   Int -/- [0-9]
 

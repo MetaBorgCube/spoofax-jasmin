@@ -7,7 +7,7 @@ imports
 
 context-free start-symbols
   Instruction
-  
+
 templates
   Instruction.INVOKESPECIAL   = [invokenonvirtual [MethodRef]]     
   Instruction.INVOKEVIRTUAL   = [invokevirtual [MethodRef]]      
@@ -28,4 +28,6 @@ lexical restrictions
   "invokenonvirtual"
   "invokevirtual"
   "invokestatic"
-  "invokeinterface" -/- ~[\ \t]
+  "invokeinterface"
+  "ret"
+  "ret_w" -/- ~[\ \t]

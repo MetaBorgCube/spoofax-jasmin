@@ -112,13 +112,28 @@ templates
   Instruction.DSTORE_3 = [dstore_3]  
 
 lexical restrictions
+  "bipush"
+  "sipush"
+  "ldc"
+  "ldc2_w"
+  "ldc_w"
   "iload"
   "lload"
   "fload"
   "dload"
   "aload"
+  "iload_w"
+  "lload_w"
+  "fload_w"
+  "dload_w"
+  "aload_w"
   "istore"
   "lstore"
   "fstore"
   "dstore"
-  "astore" -/- ~[\ \t]
+  "astore"
+  "istore_w"
+  "lstore_w"
+  "fstore_w"
+  "dstore_w"
+  "astore_w" -/- ~[\ \t]

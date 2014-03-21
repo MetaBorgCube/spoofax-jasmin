@@ -54,7 +54,7 @@ templates
   Instruction.IINC_W = [iinc_w [VarRef] [Amount]]
 
   Amount            = [[Int]]
-  Amount.Neg        = [-[Int]]
+  Amount.Neg        = [[NegInt]]
 
   Instruction.FCMPG = [fcmpg]
   Instruction.FCMPL = [fcmpl]
@@ -65,4 +65,5 @@ templates
   Instruction.LCMP  = [lcmp]
 
 lexical restrictions
-   "iinc" -/- ~[\ \t]
+   "iinc"
+   "iinc_w" -/- ~[\ \t]

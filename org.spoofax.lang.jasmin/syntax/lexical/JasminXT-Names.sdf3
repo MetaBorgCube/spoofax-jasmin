@@ -54,7 +54,7 @@ templates
 
 syntax		
   <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>	 {"JBCFieldRef"}		
-  <ClassRef-CF> "/" <MRef-CF> <MethodDescriptor-CF>              -> <MethodRef-CF> {"JBCMethodRef"}
+  <ClassRef-CF> "/" <MRef-CF> <LAYOUT?-CF> <MethodDescriptor-CF> -> <MethodRef-CF> {"JBCMethodRef"}
 
 templates
   BaseTypeName.ByteName    = [byte]

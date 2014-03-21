@@ -3,10 +3,10 @@ module JasminXT-Methods-Test
 language JasminXT
 start symbol Instruction  
 
-test invokenonvirtual [[invokenonvirtual <init>]]  parse succeeds
-test invokevirtual    [[invokevirtual <init>]]     parse succeeds 
-test invokestatic     [[invokestatic <init>]]      parse succeeds    
-test invokeinterface  [[invokeinterface <init> 0]] parse succeeds 
+test invokenonvirtual [[invokenonvirtual Class/<init>()V]] parse succeeds
+test invokevirtual    [[invokevirtual Class/<init>()V]]    parse succeeds 
+test invokestatic     [[invokestatic Class/yes()V]]        parse succeeds    
+test invokeinterface  [[invokeinterface Class/no()V 0]]    parse succeeds 
   
 test return  [[return]]  parse succeeds    
 test ireturn [[ireturn]] parse succeeds 

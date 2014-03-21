@@ -21,7 +21,7 @@ templates
   RelOffset.RelativeBwd = [-[Int]]
 
   Target = [[LabelRef]]
-  Target = [[RelOffset]] {prefer} // disamb with LabelRef
+  Target = [[RelOffset]] {prefer} // disamb with LabelRef that starts with + or $+
 
 templates
   Instruction.IFEQ      = [ifeq [Target]]
@@ -73,5 +73,8 @@ lexical restrictions
  "if_acmpeq"
  "if_acmpne"
  "tableswitch"
+ "lookupswitch"
  "goto"
- "goto_w"		-/- ~[\ \t]
+ "goto_w"
+ "jsr"
+ "jsr_w" -/- ~[\ \t]
