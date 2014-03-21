@@ -4,13 +4,17 @@ exports
     Int
 
   lexical syntax
-    [0-9]+ -> Int 
+    Int "." Int "d" -> Double 
+    Int "." Int     -> Float  
+    [0-9]+          -> Int    
 
   lexical restrictions
     Int -/- [0-9]
 
   context-free syntax
-    Int -> Constant {cons("Int")}
+    Double -> Constant {cons("Double")}
+    Float  -> Constant {cons("Float")}
+    Int    -> Constant {cons("Int")}
 
   context-free syntax
     CONTENTCOMPLETE -> Constant {cons("COMPLETION-Constant")}
