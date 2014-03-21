@@ -1,0 +1,25 @@
+module JasminXT-Arithmetic-Instruction-Test
+
+language JasminXT
+start symbol Instruction
+
+// basics
+test intruction ifeq [[ifeq 0]] parse succeeds     
+test intruction iflt [[iflt 0]] parse succeeds
+test intruction ifle [[ifle 0]] parse succeeds
+test intruction ifne [[ifne 0]] parse succeeds
+test intruction ifgt [[ifgt 0]] parse succeeds
+test intruction ifge [[ifge 0]] parse succeeds
+test intruction ifnull [[ifnull 0]] parse succeeds
+test intruction ifnonnull [[ifnonnull 0]] parse succeeds
+test intruction if_icmpeq [[if_icmpeq 0]] parse succeeds
+test intruction if_icmplt [[if_icmplt 0]] parse succeeds
+test intruction if_icmple [[if_icmple 0]] parse succeeds
+test intruction if_icmpne [[if_icmpne 0]] parse succeeds
+test intruction if_icmpgt [[if_icmpgt 0]] parse succeeds
+test intruction if_icmpge [[if_icmpge 0]] parse succeeds
+test intruction if_acmpeq [[if_acmpeq 0]] parse succeeds
+test intruction if_acmpne [[if_acmpne 0]] parse succeeds
+
+// mandatory whitespace after instruction
+test intruction if_acmpne [[if_acmpne0]] parse fails

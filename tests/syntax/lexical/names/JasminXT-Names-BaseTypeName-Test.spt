@@ -1,0 +1,13 @@
+module JasminXT-Names-BaseTypeName-Test
+
+language JasminXT
+start symbol BaseTypeName
+
+test byte name [[byte]] parse to ByteName()
+test char name [[char]] parse to CharName()
+test double name [[double]] parse to DoubleName()
+test float name [[float]] parse to FloatName()
+test int name [[int]] parse to IntName()
+test long name [[long]] parse to LongName()
+test short name [[short]] parse to ShortName()
+test boolean name [[boolean]] parse to BooleanName()

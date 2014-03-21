@@ -1,0 +1,30 @@
+module JasminXT-Directives-Test
+
+language JasminXT
+start symbol Directive
+
+test stack limit [[.limit stack 10]] parse succeeds
+test stack limit restrictions [[.limited stack 10]] parse fails
+test stack limit restrictions [[.limit stacked 10]] parse fails
+
+test locals limit [[.limit locals 5]] parse succeeds
+test locals limit restrictions [[.limited locals 1]] parse fails
+test locals limit restrictions [[.limit localsthings 1]] parse fails
+
+test line [[.line 6]] parse succeeds
+test line restrictions [[.lines 5]] parse fails
+
+test throws [[.throws TestException]] parse succeeds
+test throws restrictions [[.throwsasfdf TestException]] parse fails
+
+test catch [[.catch TestException from Foo to Bar using FooBar]] parse succeeds
+test catch restrictions [[.catched TestException from Foo to Bar using FooBar]] parse fails
+test catch restrictions [[.catch TestException frommorf Foo to Bar using FooBar]] parse fails
+test catch restrictions [[.catch TestException from Foo toot Bar using FooBar]] parse fails
+test catch restrictions [[.catch TestException from Foo to Bar usinggnisu FooBar]] parse fails
+
+test var decl [[.var 5 is foo B from label1 to label2]] parse succeeds
+test var decl restrictions [[.varrav 5 is foo B from label1 to label2]] parse fails
+test var decl restrictions [[.var 5 issi foo B from label1 to label2]] parse fails
+test var decl restrictions [[.var 5 is foo B frommorf label1 to label2]] parse fails
+test var decl restrictions [[.var 5 is foo B from label1 toot label2]] parse fails

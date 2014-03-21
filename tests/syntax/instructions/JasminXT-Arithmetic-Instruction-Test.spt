@@ -1,0 +1,58 @@
+module JasminXT-Arithmetic-Instruction-Test
+
+language JasminXT
+start symbol Instruction
+
+// basics
+test instruction iadd  [[iadd]]  parse succeeds
+test instruction iand  [[iand]]  parse succeeds
+test instruction idiv  [[idiv]]  parse succeeds
+test instruction imul  [[imul]]  parse succeeds
+test instruction ineg  [[ineg]]  parse succeeds
+test instruction ior   [[ior]]   parse succeeds 
+test instruction irem  [[irem]]  parse succeeds
+test instruction ishl  [[ishl]]  parse succeeds
+test instruction ishr  [[ishr]]  parse succeeds
+test instruction isub  [[isub]]  parse succeeds
+test instruction iushr [[iushr]] parse succeeds
+test instruction ixor  [[ixor]]  parse succeeds
+
+test instruction ladd  [[ladd]]  parse succeeds
+test instruction land  [[land]]  parse succeeds
+test instruction ldiv  [[ldiv]]  parse succeeds
+test instruction lmul  [[lmul]]  parse succeeds
+test instruction lneg  [[lneg]]  parse succeeds
+test instruction lor   [[lor]]   parse succeeds 
+test instruction lrem  [[lrem]]  parse succeeds
+test instruction lshl  [[lshl]]  parse succeeds
+test instruction lshr  [[lshr]]  parse succeeds
+test instruction lsub  [[lsub]]  parse succeeds
+test instruction lushr [[lushr]] parse succeeds
+test instruction lxor  [[lxor]]  parse succeeds
+
+test instruction fadd [[fadd]] parse succeeds
+test instruction fdiv [[fdiv]] parse succeeds
+test instruction fmul [[fmul]] parse succeeds
+test instruction fneg [[fneg]] parse succeeds
+test instruction frem [[frem]] parse succeeds
+test instruction fsub [[fsub]] parse succeeds
+
+test instruction dadd [[dadd]] parse succeeds
+test instruction ddiv [[ddiv]] parse succeeds
+test instruction dmul [[dmul]] parse succeeds
+test instruction dneg [[dneg]] parse succeeds	
+test instruction drem [[drem]] parse succeeds
+test instruction dsub [[dsub]] parse succeeds
+
+test instruction iinc [[iinc 1 1]] parse succeeds
+
+test instruction fcmpg [[fcmpg]] parse succeeds
+test instruction fcmpl [[fcmpl]] parse succeeds
+
+test instruction dcmpg [[dcmpg]] parse succeeds
+test instruction dcmpl [[dcmpl]] parse succeeds
+
+test instruction lcmp [[lcmp]] parse succeeds
+
+// follow restriction on iinc
+test iinc argument without whitespace separation [[iinc1 1]] parse fails

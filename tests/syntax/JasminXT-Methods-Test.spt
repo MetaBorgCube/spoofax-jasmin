@@ -1,0 +1,18 @@
+module JasminXT-Methods-Test
+
+language JasminXT
+start symbol Method
+
+test method minimal [[.method public private test()Z .end method]] parse succeeds
+
+test method no access [[.method test()Z .end method]] parse succeeds
+test method one access [[.method private test()Z .end method]] parse succeeds
+
+test method descr with params [[.method test(II)Z .end method]] parse succeeds
+test method descr without ret [[.method test(II) .end method]] parse fails
+
+test method statement [[.method test()Z foo: .end method]] parse succeeds
+
+test missing end words [[.method test()Z .end]] parse fails
+test missing end words [[.method test()Z method]] parse fails
+test missing start word [[test()Z .end method ]] parse fails

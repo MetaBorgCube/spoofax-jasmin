@@ -1,0 +1,69 @@
+module instructions/JasminXT-Arithmetic
+
+imports
+
+  lexical/JasminXT-Names
+  lexical/JasminXT-Numbers
+
+context-free start-symbols
+  Instruction
+  Amount
+
+templates
+  Instruction.IADD  = [iadd]
+  Instruction.IAND  = [iand]
+  Instruction.IDIV  = [idiv]
+  Instruction.IMUL  = [imul]
+  Instruction.INEG  = [ineg]
+  Instruction.IOR   = [ior]
+  Instruction.IREM  = [irem]
+  Instruction.ISHL  = [ishl]
+  Instruction.ISHR  = [ishr]
+  Instruction.ISUB  = [isub]
+  Instruction.IUSHR = [iushr]
+  Instruction.IXOR  = [ixor]
+
+  Instruction.LADD  = [ladd]
+  Instruction.LAND  = [land]
+  Instruction.LDIV  = [ldiv]
+  Instruction.LMUL  = [lmul]
+  Instruction.LNEG  = [lneg]
+  Instruction.LOR   = [lor]
+  Instruction.LREM  = [lrem]
+  Instruction.LSHL  = [lshl]
+  Instruction.LSHR  = [lshr]
+  Instruction.LSUB  = [lsub]
+  Instruction.LUSHR = [lushr]
+  Instruction.LXOR  = [lxor]
+
+  Instruction.FADD  = [fadd]
+  Instruction.FDIV  = [fdiv]
+  Instruction.FMUL  = [fmul]
+  Instruction.FNEG  = [fneg]
+  Instruction.FREM  = [frem]
+  Instruction.FSUB  = [fsub]
+
+  Instruction.DADD  = [dadd]
+  Instruction.DDIV  = [ddiv]
+  Instruction.DMUL  = [dmul]
+  Instruction.DNEG  = [dneg]
+  Instruction.DREM  = [drem]
+  Instruction.DSUB  = [dsub]
+
+  Instruction.IINC   = [iinc [VarRef] [Amount]]
+  Instruction.IINC_W = [iinc_w [VarRef] [Amount]]
+
+  Amount            = [[Int]]
+  Amount.Neg        = [[NegInt]]
+
+  Instruction.FCMPG = [fcmpg]
+  Instruction.FCMPL = [fcmpl]
+
+  Instruction.DCMPG = [dcmpg]
+  Instruction.DCMPL = [dcmpl]
+
+  Instruction.LCMP  = [lcmp]
+
+lexical restrictions
+   "iinc"
+   "iinc_w" -/- ~[\ \t]

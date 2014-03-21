@@ -1,0 +1,8 @@
+module instructions/JasminXT-Synchronisation
+
+context-free start-symbols
+  Instruction
+
+templates
+  Instruction.MONITORENTER = [monitorenter]
+  Instruction.MONITOREXIT  = [monitorexit]
