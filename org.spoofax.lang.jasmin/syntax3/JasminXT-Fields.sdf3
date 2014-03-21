@@ -34,6 +34,8 @@ templates
   FieldAccess.FINAL     = [final]
   FieldAccess.VOLATILE  = [volatile]
   FieldAccess.TRANSIENT = [transient]
+  FieldAccess.FPSTRICT  = [fpstrict]
+  FieldAccess.SYNTHETIC = [synthetic]
 
 lexical restrictions
   ".field" 

@@ -24,6 +24,8 @@ exports
     "final"                                                                                                        -> FieldAccess        {cons("FINAL")}
     "volatile"                                                                                                     -> FieldAccess        {cons("VOLATILE")}
     "transient"                                                                                                    -> FieldAccess        {cons("TRANSIENT")}
+    "fpstrict"                                                                                                     -> FieldAccess        {cons("FPSTRICT")}
+    "synthetic"                                                                                                    -> FieldAccess        {cons("SYNTHETIC")}
 
   context-free syntax
     CONTENTCOMPLETE -> Field              {cons("COMPLETION-Field")}
