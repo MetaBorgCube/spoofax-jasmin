@@ -56,7 +56,27 @@ exports
     CONTENTCOMPLETE -> EnclosingSpec {cons("COMPLETION-EnclosingSpec")}
     CONTENTCOMPLETE -> DebugSpec     {cons("COMPLETION-DebugSpec")}
 
+  context-free syntax
+    ".inner" "class" InnerClassAccess InnerClassName InnerName OuterName     -> InnerClassSpec     {cons("JBCInnerClass")}
+    ".inner" "interface" InnerClassAccess InnerClassName InnerName OuterName -> InnerInterfaceSpec {cons("JBCInnerInterface")}
+    ClassAccess                                                              -> InnerClassAccess   
+                                                                             -> InnerClassAccess   {cons("None")}
+    ClassName                                                                -> InnerClassName     
+                                                                             -> InnerClassName     {cons("None")}
+    "inner" {ClassName "$"}+                                                 -> InnerName          {cons("InnerNameSpec")}
+                                                                             -> InnerName          {cons("None")}
+    "outer" ClassName                                                        -> OuterName          {cons("OuterNameSpec")}
+                                                                             -> OuterName          {cons("None")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> InnerClassSpec     {cons("COMPLETION-InnerClassSpec")}
+    CONTENTCOMPLETE -> InnerInterfaceSpec {cons("COMPLETION-InnerInterfaceSpec")}
+    CONTENTCOMPLETE -> InnerClassAccess   {cons("COMPLETION-InnerClassAccess")}
+    CONTENTCOMPLETE -> InnerClassName     {cons("COMPLETION-InnerClassName")}
+    CONTENTCOMPLETE -> InnerName          {cons("COMPLETION-InnerName")}
+    CONTENTCOMPLETE -> OuterName          {cons("COMPLETION-OuterName")}
+
   lexical restrictions
     ".bytecode" ".source" ".class" ".interface" "public" "final" "interface"
     "abstract" "super" ".super" ".implements" ".signature" ".enclosing" "method"
-    ".deprecated" -/- ~[\ \t]
+    ".deprecated" ".inner" "class" "inner" "outer" -/- ~[\ \t]

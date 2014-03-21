@@ -55,11 +55,21 @@ templates
   
   DebugSpec.JBCDebug = [.debug [String]]
   
-  // TODO .inner {class,interface}
-  // perhaps <access> is not equals to <access_spec> but instead about the access flags from the 2.1 changelog 
-  // InnerClassSpec.JBCInnerClass = [.inner class [ClassAccess*; separator=" "] [ClassName]]
+templates
+  InnerClassSpec.JBCInnerClass = [.inner class [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
+  InnerInterfaceSpec.JBCInnerInterface = [.inner interface [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
   
-  // InnerInterfaceSpec.JBCInnerInterface = [.inner interface [ClassAccess*; separator=" "] [ClassName]]
+  InnerClassAccess = [[ClassAccess]]
+  InnerClassAccess.None = []
+  
+  InnerClassName = [[ClassName]]
+  InnerClassName.None = []
+  
+  InnerName.InnerNameSpec = [inner [ClassName+; separator="$"]]
+  InnerName.None = []
+  
+  OuterName.OuterNameSpec = [outer [ClassName]]
+  OuterName.None = []
 
 lexical restrictions
   ".bytecode"
@@ -76,4 +86,8 @@ lexical restrictions
   ".signature" 
   ".enclosing" 
   "method" // why was this commented before?
-  ".deprecated"		-/- ~[\ \t]
+  ".deprecated"
+  ".inner"
+  "class"
+  "inner"
+  "outer"		-/- ~[\ \t]
