@@ -1,0 +1,14 @@
+module JasminXT-Stack-Test
+
+language JasminXT
+start symbol Instruction
+
+test pop     [[pop]]     parse succeeds
+test pop2    [[pop2]]    parse succeeds
+test dup     [[dup]]     parse succeeds
+test dup2    [[dup2]]    parse succeeds
+test dup_x1  [[dup_x1]]  parse succeeds
+test dup2_x1 [[dup2_x1]] parse succeeds
+test dup_x2  [[dup_x2]]  parse succeeds
+test dup2_x2 [[dup2_x2]] parse succeeds
+test swap    [[swap]]    parse succeeds

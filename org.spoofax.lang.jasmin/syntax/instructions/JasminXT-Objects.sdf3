@@ -1,0 +1,59 @@
+module instructions/JasminXT-Objects
+
+imports
+  lexical/JasminXT-Names
+  lexical/JasminXT-Numbers
+  lexical/JasminXT-Descriptors
+
+context-free start-symbols
+  Instruction
+  
+templates
+  Instruction.NEW = [new [ClassRef]]
+  
+  Instruction.NEWARRAY       = [newarray [BaseTypeName]]  
+  Instruction.ANEWARRAY      = [anewarray [ClassRef]]       
+  Instruction.ANEWARRAY      = [anewarray [ArrayType]]     
+  Instruction.MULTIANEWARRAY = [multianewarray [ArrayType] [Int]] 
+
+  Instruction.GETFIELD  = [getfield [FieldRef]]
+  Instruction.PUTFIELD  = [putfield [FieldRef]]
+  Instruction.GETSTATIC = [getstatic [FieldRef]]
+  Instruction.PUTSTATIC = [putstatic [FieldRef]]
+
+  Instruction.IALOAD = [iaload]
+  Instruction.LALOAD = [laload]
+  Instruction.BALOAD = [baload]
+  Instruction.CALOAD = [caload]
+  Instruction.SALOAD = [saload]
+  Instruction.FALOAD = [faload]
+  Instruction.DALOAD = [daload]
+  Instruction.AALOAD = [aaload]
+
+  Instruction.IASTORE = [iastore]
+  Instruction.LASTORE = [lastore]
+  Instruction.BASTORE = [bastore]
+  Instruction.CASTORE = [castore]
+  Instruction.SASTORE = [sastore]
+  Instruction.FASTORE = [fastore]
+  Instruction.DASTORE = [dastore]
+  Instruction.AASTORE = [aastore]
+  
+  Instruction.ARRAYLENGTH = [arraylength]
+  
+  Instruction.CHECKCAST  = [checkcast [ClassRef]] 
+  Instruction.INSTANCEOF = [instanceof [ClassRef]]
+
+
+lexical restrictions
+  "new"
+  "newarray"
+  "anewarray"
+  "multianewarray"
+  "getfield"
+  "putfield"
+  "getstatic"
+  "putstatic"
+  "checkcast"
+  "instanceof" -/- ~[\ \t]
+    

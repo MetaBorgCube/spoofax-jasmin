@@ -7,4 +7,7 @@
 
 **/*.generated.*
 
+/syntax/*.sdf
+/syntax/*/*.sdf
+
 /lib/jasmin.jar

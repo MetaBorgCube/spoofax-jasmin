@@ -1,0 +1,7 @@
+module instructions/JasminXT-Exceptions
+
+context-free start-symbols
+  Instruction
+
+templates
+  Instruction.ATHROW = [athrow]

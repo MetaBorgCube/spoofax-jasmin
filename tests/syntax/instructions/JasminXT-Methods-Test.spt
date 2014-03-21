@@ -1,0 +1,21 @@
+module JasminXT-Methods-Test
+
+language JasminXT
+start symbol Instruction  
+
+test invokenonvirtual [[invokenonvirtual Class/<init>()V]] parse succeeds
+test invokevirtual    [[invokevirtual Class/<init>()V]]    parse succeeds 
+test invokestatic     [[invokestatic Class/yes()V]]        parse succeeds    
+test invokeinterface  [[invokeinterface Class/no()V 0]]    parse succeeds 
+  
+test return  [[return]]  parse succeeds    
+test ireturn [[ireturn]] parse succeeds 
+test lreturn [[lreturn]] parse succeeds 
+test freturn [[freturn]] parse succeeds 
+test dreturn [[dreturn]] parse succeeds 
+test areturn [[areturn]] parse succeeds
+
+test invokenonvirtual argument without space [[invokenonvirtual0]] parse fails
+test invokevirtual argument without space    [[invokevirtual0]]    parse fails
+test invokestatic argument without space     [[invokestatic0]]     parse fails
+test invokeinterface argument without space  [[invokeinterface0]]  parse fails

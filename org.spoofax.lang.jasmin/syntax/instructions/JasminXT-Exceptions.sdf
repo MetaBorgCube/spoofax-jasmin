@@ -1,7 +1,0 @@
-module instructions/JasminXT-Exceptions
-
-exports
-
-	context-free syntax
-		
-		"athrow" -> Instruction {"ATHROW"}

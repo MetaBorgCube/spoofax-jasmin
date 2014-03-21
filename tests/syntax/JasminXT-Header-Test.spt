@@ -1,0 +1,32 @@
+module JasminXT-Header-Test
+
+language JasminXT
+start symbol JasminHeader
+
+test header minimal [[.class public Foo .super Bar]] parse succeeds
+
+test header with bytecode version [[.bytecode 12.2 .class public Foo .super Bar]] parse succeeds
+test header with bytecode version major only [[.bytecode 12 .class public Foo .super Bar]] parse succeeds
+test header with bytecode version minor only [[.bytecode .3 .class public Foo .super Bar]] parse fails
+
+test header with source spec [[.source "java/lang" .class public Foo .super Bar]] parse succeeds
+test header with source spec error [[.source .class public Foo .super Bar]] parse fails
+test header with source spec error [[.sources "java/lang" .class public Foo .super Bar]] parse fails
+
+test header with class spec [[.class public Foo .super Bar]] parse succeeds
+test header with more class accessors [[.class public final abstract interface super Foo .super Bar]] parse succeeds
+test header without class accessors [[.class Foo .super Bar]] parse succeeds
+test header without class name [[.class .super Bar]] parse fails
+
+test header with interface spec [[.interface public Foo .super Bar]] parse succeeds
+test header with interface spec [[.interface public Foo .super Bar]] parse succeeds
+test header with more interface accessors [[.interface public final abstract interface super Foo .super Bar]] parse succeeds
+test header without interface accessors [[.interface Foo .super Bar]] parse succeeds
+test header without interface name [[.interface .super Bar]] parse fails
+
+test header with super spec [[.class public Foo .super Bar]] parse succeeds
+
+test header with impl [[.class public Foo .super Bar .implements Quz]] parse succeeds
+test header with more impl [[.class public Foo .super Bar .implements Quz .implements QUUZ]] parse succeeds
+
+//TODO signature, enclosing, deprecation tests

@@ -1,0 +1,13 @@
+module JasminXT-Descriptors-BaseType-Test
+
+language JasminXT
+start symbol BaseType
+
+test byte base descriptor [[B]] parse to Byte()
+test char base descriptor [[C]] parse to Char()
+test double base descriptor [[D]] parse to Double()
+test float base descriptor [[F]] parse to Float()
+test int base descriptor [[I]] parse to Int()
+test long base descriptor [[J]] parse to Long()
+test short base descriptor [[S]] parse to Short()
+test boolean base descriptor [[Z]] parse to Boolean()

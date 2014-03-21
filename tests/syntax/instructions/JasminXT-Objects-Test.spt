@@ -1,0 +1,51 @@
+module JasminXT-Methods-Test
+
+language JasminXT
+start symbol Instruction
+
+test new [[new Class]] parse succeeds
+  
+test newarray       [[newarray byte]] parse succeeds  
+test anewarray      [[anewarray Class]] parse succeeds       
+test anewarray      [[anewarray [B]] parse succeeds     
+test multianewarray [[multianewarray [B 0]] parse succeeds 
+
+test getfield  [[getfield  Class/field I]] parse succeeds
+test putfield  [[putfield  Class/field I]] parse succeeds
+test getstatic [[getstatic Class/field I]] parse succeeds
+test putstatic [[putstatic Class/field I]] parse succeeds
+
+test iaload [[iaload]] parse succeeds
+test laload [[laload]] parse succeeds
+test baload [[baload]] parse succeeds
+test caload [[caload]] parse succeeds
+test saload [[saload]] parse succeeds
+test faload [[faload]] parse succeeds
+test daload [[daload]] parse succeeds
+test aaload [[aaload]] parse succeeds
+
+test iastore [[iastore]] parse succeeds
+test lastore [[lastore]] parse succeeds
+test bastore [[bastore]] parse succeeds
+test castore [[castore]] parse succeeds
+test sastore [[sastore]] parse succeeds
+test fastore [[fastore]] parse succeeds
+test dastore [[dastore]] parse succeeds
+test aastore [[aastore]] parse succeeds
+  
+test arraylength [[arraylength]] parse succeeds
+  
+test checkcast  [[checkcast  Class]] parse succeeds 
+test instanceof [[instanceof Class]] parse succeeds
+
+test new argument without space [[new0]] parse fails
+test newarray argument without space [[newarray0]] parse fails
+test anewarray argument without space [[anewarray0]] parse fails
+test multianewarray argument without space [[multianewarray0]] parse fails
+test getfield argument without space [[getfield0]] parse fails
+test putfield argument without space [[putfield0]] parse fails
+test getstatic argument without space [[getstatic0]] parse fails
+test putstatic argument without space [[putstatic0]] parse fails
+test checkcast argument without space [[checkcast0]] parse fails
+test instanceof argument without space [[instanceof0]] parse fails
+    
