@@ -15,7 +15,7 @@ context-free start-symbols
 templates
   Method.JBCMethod = [.method [MethodAccess*; separator = " "] [MethodName] [MethodDescriptor]
 	[Statement*; separator = "\n\t"]
-.end method]
+.end method] 
 
   MethodAccess.PUBLIC       = [public]
   MethodAccess.PRIVATE      = [private]
