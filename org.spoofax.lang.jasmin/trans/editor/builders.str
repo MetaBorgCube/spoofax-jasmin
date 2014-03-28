@@ -31,7 +31,6 @@ rules
 		with
 			filename := <guarantee-extension(|"asm.aterm")> path
 		where
-			<debug> <prim("SSL_iori", 1, 2)> ;
 			result := <jasmin-file-to-asm-class> ast
 			
 	execute-class:
