@@ -1,0 +1,23 @@
+module instructions/JasminXT-Conversion
+
+context-free start-symbols
+  Instruction
+
+templates
+  Instruction.I2L = [i2l]
+  Instruction.I2F = [i2f]
+  Instruction.I2D = [i2d]
+  Instruction.L2F = [l2f]
+  Instruction.L2D = [l2d]
+  Instruction.F2D = [f2d]
+  
+  Instruction.I2B = [int2byte]
+  Instruction.I2S = [int2short] 
+  Instruction.I2C = [int2char]
+   	
+  Instruction.L2I = [l2i]
+  Instruction.F2I = [f2i]
+  Instruction.F2L = [f2l]
+  Instruction.D2I = [d2i]
+  Instruction.D2L = [d2l]
+  Instruction.D2F = [d2f]

@@ -1,0 +1,29 @@
+module JasminXT-Strings-Test
+
+language JasminXT
+start symbol String
+
+test empty String [[""]] parse succeeds
+test one char as String [["a"]] parse succeeds
+test more chars as String [["abc"]] parse succeeds
+
+test escaped quote at the end [["test\"]] parse fails
+test wrong quote [["test"foo"]] parse fails
+test correct quote [["test\"foo"]] parse succeeds
+test correct quote [["test\'foo"]] parse succeeds
+
+test wrong backslash [["test\yfoo"]] parse fails
+test correct backslash [["test\\foo"]] parse succeeds
+
+test wrong newline \n [["test
+foo"]] parse fails
+test correct newline \n [["test\nfoo"]] parse succeeds
+test correct newline \r [["test\rfoo"]] parse succeeds
+test correct newline \r\n [["test\r\nfoo"]] parse succeeds
+
+test tab \t [["test				foo"]] parse succeeds
+test tab \t [["test\tfoo"]] parse succeeds
+
+test hexdigit in string [["foo\u8aCFfoo"]] parse succeeds
+test invalid hexdigit [["foo\u8XCFfoo"]] parse fails
+test invalid hexdigit char [["foo\u85"]] parse fails

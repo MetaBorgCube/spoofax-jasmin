@@ -1,0 +1,25 @@
+module instructions/JasminXT-Instructions
+
+imports
+  instructions/JasminXT-Arithmetic
+  instructions/JasminXT-Control
+  instructions/JasminXT-Conversion
+  instructions/JasminXT-Exceptions
+  instructions/JasminXT-LoadStore
+  instructions/JasminXT-InvokeReturn
+  instructions/JasminXT-Objects
+  instructions/JasminXT-Stack
+  instructions/JasminXT-Synchronisation
+  
+  lexical/JasminXT-Numbers
+
+context-free start-symbols
+  Instruction
+  PCInstruction
+
+templates
+  Instruction.NOP        = [nop]
+  Instruction.BREAKPOINT = [breakpoint]
+  	
+  PCInstruction.PC = [[Int]: [Instruction]]
+  PCInstruction    = [[Instruction]]

@@ -6,15 +6,6 @@ imports
   lib/runtime/properties/-
   lib/runtime/types/-
   lib/runtime/editor/-
-  include/JasminXT
-
-
-signature
-  constructors
-    NablNsClass    : Namespace
-    NablNsMethod   : Namespace
-    NablNsVariable : Namespace
-    NablNsLabel    : Namespace
 
 
 rules
@@ -25,6 +16,8 @@ rules
          _
        , _
        , JBCClass(_, c)
+       , _
+       , _
        , _
        , _
        , _
@@ -47,6 +40,8 @@ rules
       , _
       , _
       , _
+      , _
+      , _
       )
     , _
     , _
@@ -58,6 +53,8 @@ rules
         id
       , id
       , JBCClass(id, s)
+      , id
+      , id
       , id
       , id
       , id
@@ -79,46 +76,56 @@ rules
        , _
        , _
        , _
+       , _
+       , _
        )
      , _
      , _
      )
     ; origin-track-forced(
         JBCFile(
-          JBCHeader(
-            id
-          , id
-          , JBCClass(
+          origin-track-forced(
+            JBCHeader(
               id
-            , nabl-def(
-                ?c-uri1__
-              , ?s-uri1__
-              | lang__
-              , partition__
-              , uniques__
-              , uri__
-              , uri__
-              , NablNsClass()
-              , Unique()
-              , Current()
-              , [NablNsMethod()]
-              , []
+            , id
+            , origin-track-forced(
+                JBCClass(
+                  id
+                , nabl-def(
+                    ?c-uri1__
+                  , ?s-uri1__
+                  | lang__
+                  , partition__
+                  , uniques__
+                  , uri__
+                  , uri__
+                  , NablNsClass()
+                  , Unique()
+                  , Current()
+                  , [NablNsMethod()]
+                  , []
+                  )
+                )
+              |
               )
+            , id
+            , id
+            , id
+            , id
+            , id
+            , id
+            , id
             )
-          , id
-          , id
-          , id
-          , id
-          , id
+          |
           )
         , id
         , id
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
   nabl-get-name :
     JBCSuper(c) -> c
@@ -202,9 +209,6 @@ rules
       |
       )
 
-
-rules
-
   nabl-get-scope =
     ?JBCMethod(_, m, _, _)
     ; ![NablNsLabel(), NablNsVariable()]
@@ -237,14 +241,11 @@ rules
         , id
         , id
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
-
-
-rules
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
   nabl-get-name :
     JBCVarDecl(n, _, _, _, _) -> n
@@ -275,11 +276,11 @@ rules
         , id
         , id
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
   nabl-get-name :
     VarNum(n) -> n
@@ -309,9 +310,6 @@ rules
       |
       )
 
-
-rules
-
   nabl-get-name :
     JBCLabel(l) -> l
 
@@ -337,11 +335,11 @@ rules
           , []
           )
         )
-        ; match(child-uris__|c-uri1__)
-        ; match(sibl-uris__|s-uri1__)
-        ; match(implicits__|[])
       |
       )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
 
   nabl-get-name :
     LabelRef(l) -> l
@@ -370,3 +368,15 @@ rules
         )
       |
       )
+
+
+imports
+  include/JasminXT
+
+
+signature
+  constructors
+    NablNsClass    : Namespace
+    NablNsMethod   : Namespace
+    NablNsVariable : Namespace
+    NablNsLabel    : Namespace

@@ -1,0 +1,47 @@
+module JasminXT-Methods
+
+imports
+  lexical/JasminXT-Names
+  lexical/JasminXT-Numbers
+  lexical/JasminXT-Strings
+  lexical/JasminXT-Descriptors
+  
+  instructions/JasminXT-Instructions
+  JasminXT-Directives
+
+context-free start-symbols
+  Method
+
+templates
+  Method.JBCMethod = [.method [MethodAccess*; separator = " "] [MethodName] [MethodDescriptor]
+	[Statement*; separator = "\n\t"]
+.end method] 
+
+  MethodAccess.PUBLIC       = [public]
+  MethodAccess.PRIVATE      = [private]
+  MethodAccess.PROTECTED    = [protected]
+  MethodAccess.STATIC       = [static]
+  MethodAccess.FINAL        = [final]
+  MethodAccess.SYNCHRONIZED = [synchronized]
+  MethodAccess.NATIVE       = [native]
+  MethodAccess.ABSTRACT     = [abstract]
+
+templates
+  Statement = [[PCInstruction]]
+  Statement = [[Directive]]
+  Statement = [[Label]]
+  
+  Label.JBCLabel = [[LabelName]:]
+
+// Keep newlines out of one-line instructions
+lexical restrictions
+  ".method" 
+  ".end" 
+  "public" 
+  "private"
+  "protected"
+  "static" 	
+  "final"		
+  "synchronized"
+  "native"		
+  "abstract"		-/- ~[\ \t]

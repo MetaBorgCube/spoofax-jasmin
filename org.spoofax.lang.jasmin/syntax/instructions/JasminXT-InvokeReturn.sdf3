@@ -1,0 +1,33 @@
+module instructions/JasminXT-InvokeReturn
+
+imports
+  lexical/JasminXT-Names
+  lexical/JasminXT-Descriptors
+  lexical/JasminXT-Numbers
+
+context-free start-symbols
+  Instruction
+
+templates
+  Instruction.INVOKESPECIAL   = [invokenonvirtual [MethodRef]]     
+  Instruction.INVOKEVIRTUAL   = [invokevirtual [MethodRef]]      
+  Instruction.INVOKESTATIC    = [invokestatic [MethodRef]]     
+  Instruction.INVOKEINTERFACE = [invokeinterface [MethodRef] [Int]] 
+  
+  Instruction.RETURN  = [return]   
+  Instruction.IRETURN = [ireturn] 
+  Instruction.LRETURN = [lreturn] 
+  Instruction.FRETURN = [freturn] 
+  Instruction.DRETURN = [dreturn] 
+  Instruction.ARETURN = [areturn]
+  
+  Instruction.RET   = [ret [VarRef]]
+  Instruction.RET_W = [ret_w [VarRef]]
+
+lexical restrictions
+  "invokenonvirtual"
+  "invokevirtual"
+  "invokestatic"
+  "invokeinterface"
+  "ret"
+  "ret_w" -/- ~[\ \t]

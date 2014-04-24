@@ -1,0 +1,28 @@
+module JasminXT-Fields-Test
+
+language JasminXT
+start symbol Field
+
+//JBCField
+test field all [[.field public static foo Z signature "bar" = 5]] parse succeeds
+test field no init [[.field public static foo Z signature "bar"]] parse succeeds
+test field no signature [[.field public static foo Z = 5]] parse succeeds
+test field no descriptor [[.field public static foo signature "bar" = 5]] parse fails
+test field no fieldname [[.field Z signature "bar" = 5]] parse fails
+test field one fieldaccess [[.field static foo Z signature "bar" = 5]] parse succeeds
+test field no fieldaccess [[.field foo Z signature "bar" = 5]] parse succeeds
+test field no start word [[public static foo Z signature "bar" = 5]] parse fails
+test field error [[.fielddleif. public static foo Z signature "bar" = 5]] parse fails
+
+//JBCExtField
+test field all [[.field private final Bar I = 10 .signature "test" .deprecated .end field]] parse succeeds
+test field no end words [[.field private final Bar I = 10 .signature "test" .deprecated .end]] parse fails
+test field no end words [[.field private final Bar I = 10 .signature "test" .deprecated field]] parse fails
+test field no end words [[.field private final Bar I = 10 .signature "test" .deprecated]] parse fails
+test field no fieldexts [[.field private final Bar I = 10 .end field]] parse succeeds
+test field no initVal [[.field private final Bar I .signature "test" .deprecated .end field]] parse succeeds
+test field no descriptor [[.field private final Bar = 10 .signature "test" .deprecated .end field]] parse fails
+test field no fieldname [[.field I = 10 .signature "test" .deprecated .end field]] parse fails
+test field no fieldaccess [[.field Bar I = 10 .signature "test" .deprecated .end field]] parse succeeds
+test field no start word [[private final Bar I = 10 .signature "test" .deprecated .end field]] parse fails
+test field error [[.fields private final Bar I = 10 .signature "test" .deprecated .end field]] parse fails
