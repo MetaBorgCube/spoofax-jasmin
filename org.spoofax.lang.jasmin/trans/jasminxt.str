@@ -22,6 +22,7 @@ imports
 
 	analysis/names/binding
 	analysis/names/check 
+	analysis/types/-
 	editor/builders
 	
 rules // Analysis
