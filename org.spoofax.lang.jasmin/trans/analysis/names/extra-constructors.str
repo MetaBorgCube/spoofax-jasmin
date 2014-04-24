@@ -2,12 +2,4 @@ module trans/analysis/names/extra-constructors
 	
 signature
 	constructors
-		// MethodNDesc  : MethodName * MethodDescriptor -> MethodIdentifier
-		// JBCMethod    : List(MethodAccess) * MethodIdentifier * List(Statement) -> Method
-		// JBCMethodRef : ClassRef * MethodIdentifier -> MethodRef
-		
-		// FieldNDesc  : FieldName * FieldDescriptor -> FieldIdentifier
-		// JBCField    : List(FieldAccess) * FieldIdentifier * FieldSignatureSpec * InitialValue -> Field
-		// JBCFieldRef : ClassRef * FieldIdentifier -> FieldRef
-		
 		
