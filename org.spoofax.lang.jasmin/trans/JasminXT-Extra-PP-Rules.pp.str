@@ -1,0 +1,72 @@
+module JasminXT-Extra-PP-Rules.pp
+
+imports
+  include/JasminXT    // jasmin AST nodes
+  lib/runtime/tmpl/pp // pp-* strategies
+  libstratego-gpp     // box language AST nodes
+  JasminXT-Descriptors.pp.generated
+  JasminXT-Names.pp.generated
+
+rules
+// "(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {"JBCMethodDesc"}
+  prettyprint-MethodDescriptor:
+    JBCMethodDesc(pd*, rd) -> [ H(
+                                  [SOpt(HS(), "0")]
+                                , [S("(")
+                                  , pd'
+                                  , S(")")
+                                  , rd'
+                                  ]
+                                )
+                              ]
+    where pd' := <pp-H-list(prettyprint-ParameterDescriptor|" ")> pd*
+        ; rd' := <pp-one-Z(prettyprint-ReturnDescriptor)> rd
+// "L" <ClassRef-CF> ";" -> <ObjectType-CF> {"Reference"}
+  prettyprint-ObjectType:
+    Reference(cr) -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("L")
+                         , cr'
+                         , S(";")
+                         ]
+                       )
+                     ]
+    where cr' := <pp-one-Z(prettyprint-ClassRef)> cr
+// "[" <ComponentType-CF> -> <ArrayType-CF>  {"Array"}
+  prettyprint-ArrayType:
+    Array(ct) -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("[")
+                     , ct'
+                     ]
+                   )
+                 ]
+    where ct' := <pp-one-Z(prettyprint-ComponentType)> ct
+// <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>  {"JBCFieldRef"}
+  prettyprint-FieldRef:
+    JBCFieldRef(cr, fr, fd) -> [ H(
+                                 [SOpt(HS(), "0")]
+                                 , [ cr'
+                                   , S("/")
+                                   , fr'
+                                   , fd'
+                                   ]
+                                 )
+                               ]
+    where cr' := <pp-one-Z(prettyprint-ClassRef)> cr
+        ; fr' := <pp-one-Z(prettyprint-FRef)> fr
+        ; fd' := <pp-one-Z(prettyprint-FieldDescriptor)> fd
+// <ClassRef-CF> "/" <MRef-CF> <LAYOUT?-CF> <MethodDescriptor-CF> -> <MethodRef-CF> {"JBCMethodRef"}
+  prettyprint-MethodRef:
+    JBCMethodRef(cr, mr, md) -> [ H(
+                                 [SOpt(HS(), "0")]
+                                 , [ cr'
+                                   , S("/")
+                                   , mr'
+                                   , md'
+                                   ]
+                                 )
+                               ]
+    where cr' := <pp-one-Z(prettyprint-ClassRef)> cr
+        ; mr' := <pp-one-Z(prettyprint-MRef)> mr
+        ; md' := <pp-one-Z(prettyprint-MethodDescriptor)> md
