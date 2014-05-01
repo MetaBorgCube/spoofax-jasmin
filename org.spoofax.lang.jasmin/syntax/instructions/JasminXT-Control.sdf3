@@ -41,9 +41,12 @@ templates
   Instruction.IF_ACMPEQ = [if_acmpeq [Target]]
   Instruction.IF_ACMPNE = [if_acmpne [Target]]
 
-  Instruction.Table  = [tableswitch [Int] [TableEntry*; separator="\n\t"]
+  Instruction.Table  = [tableswitch [Int]
+  [TableEntry*; separator="\n\t"]
 	default[]: [LabelRef]]
-  Instruction.Lookup = [lookupswitch [LookupEntry*; separator="\n\t"]
+	
+  Instruction.Lookup = [lookupswitch
+  [LookupEntry*; separator="\n\t"]
 	default[]: [LabelRef]]
 
   TableEntry.Jump   = [[LabelRef]]
@@ -73,8 +76,9 @@ lexical restrictions
  "if_acmpeq"
  "if_acmpne"
  "tableswitch"
- "lookupswitch"
  "goto"
  "goto_w"
  "jsr"
  "jsr_w" -/- ~[\ \t]
+ 
+ "lookupswitch" -/- ~[\ \t\n\r]

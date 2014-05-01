@@ -6,6 +6,7 @@
 /lib-refactoring
 
 **/*.generated.*
+/trans/analysis/names/binding.str
 
 /syntax/*.sdf
 /syntax/*/*.sdf

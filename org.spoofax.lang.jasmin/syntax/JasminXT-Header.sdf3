@@ -86,7 +86,7 @@ lexical restrictions
   ".implements" 		
   ".signature" 
   ".enclosing" 
-  "method" // why was this commented before?
+  // "method" // because JasminXT-Methods.sdf3 uses 'method' at the end of a line
   ".deprecated"
   ".inner"
   "class"
