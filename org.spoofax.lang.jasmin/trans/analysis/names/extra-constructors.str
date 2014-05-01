@@ -1,0 +1,5 @@
+module trans/analysis/names/extra-constructors
+	
+signature
+	constructors
+		
