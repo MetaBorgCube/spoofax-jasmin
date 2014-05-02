@@ -1,0 +1,7 @@
+module class-names-test
+
+language JasminXT
+start symbol Start
+
+// selection of method name and description doesn't work through SPT :(
+// See the examples subdirectory to check resolution yourself
