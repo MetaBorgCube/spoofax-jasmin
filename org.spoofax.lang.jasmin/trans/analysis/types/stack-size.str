@@ -1,0 +1,36 @@
+module analysis/types/stack-size
+
+imports
+  include/JasminXT
+  analysis/names/extra-constructors
+  analysis/names/binding
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+
+rules
+  // stack-size takes a pair with the expression or statement in the second position.
+  // In the first position should be another pair (the "info-pair"), with in the first
+  // position an integer representing the current stack occupation, and in the second
+  // position an integer representing the highest peak in stack occupation.
+  // It returns a pair with in the first position a list of Targets of where the code 
+  // can go next, in the second position the adjusted info-pair. (note that 
+  // extra-constructors defines a Target NEXT() which simply means the next instruction)
+	
+	
+  // Some operations on the stack-size info-pair
+  inc': (c, p) -> (c', p')
+    with
+      c' := <inc> c
+    ; p' := <max> (c', p)
+
+  dec': (c, p) -> (<dec> c, p) where <geq> (<dec> c, 0)
+
+  addi'(|t): (c, p) -> (c', p')
+    with
+      c' := <addi> (c, t)
+    ; p' := <max> (c', p)
+
+  subti'(|t): (c, p) -> (<subti> (c, t), p) where <geq> (<subti> (c, t), 0)
+
+  max': ((c,p1), (c,p2)) -> (c, <max> (p1, p2))

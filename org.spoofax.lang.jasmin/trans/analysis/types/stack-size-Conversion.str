@@ -1,0 +1,30 @@
+module analysis/types/stack-size-Conversion
+
+imports
+  include/JasminXT
+  analysis/names/extra-constructors
+  analysis/names/binding
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+  analysis/types/stack-size
+
+rules
+  // instructions/JasminXT-Conversion
+  stack-size: (ip, I2L()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, I2F()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, I2D()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, L2F()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, L2D()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, F2D()) -> ([NEXT()], <dec';inc'> ip)
+   
+  stack-size: (ip, I2B()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, I2S()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, I2C()) -> ([NEXT()], <dec';inc'> ip)
+   
+  stack-size: (ip, L2I()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, F2I()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, F2L()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, D2I()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, D2L()) -> ([NEXT()], <dec';inc'> ip)
+  stack-size: (ip, D2F()) -> ([NEXT()], <dec';inc'> ip)

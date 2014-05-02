@@ -1,0 +1,38 @@
+module analysis/types/stack-size-Control
+
+imports
+  include/JasminXT
+  analysis/names/extra-constructors
+  analysis/names/binding
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+  analysis/types/stack-size
+
+rules
+  // instructions/JasminXT-Control
+  stack-size: (ip, IFEQ(t))      -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFLT(t))      -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFLE(t))      -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFNE(t))      -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFGT(t))      -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFGE(t))      -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFNULL(t))    -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFNONNULL(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ICMPEQ(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ICMPLT(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ICMPLE(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ICMPNE(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ICMPGT(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ICMPGE(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ACMPEQ(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IF_ACMPNE(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+
+  stack-size: (ip, Table(_, te*, d)) -> ([d | te*], <dec'> ip)
+  stack-size: (ip, Lookup(le*, d))   -> (<map(?NPAIR(_, <id>))> le*, <dec'> ip)
+
+  stack-size: (ip, GOTO(l))   -> ([l], ip)
+  stack-size: (ip, GOTO_W(l)) -> ([l], ip)
+      
+  stack-size: (ip, JSR(l))   -> ([l], <inc'> ip)
+  stack-size: (ip, JSR_W(l)) -> ([l], <inc'> ip)

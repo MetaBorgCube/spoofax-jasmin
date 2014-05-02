@@ -1,5 +1,10 @@
 module trans/analysis/names/extra-constructors
 	
 signature
-	constructors
-		
+  constructors
+    TOP    : BaseType
+    BOTTOM : BaseType
+
+    // refering to the next line
+    NEXT   : Target
+

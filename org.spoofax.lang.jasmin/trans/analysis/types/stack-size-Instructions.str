@@ -1,0 +1,15 @@
+module analysis/types/stack-size-Instructions
+
+imports
+  include/JasminXT
+  analysis/names/extra-constructors
+  analysis/names/binding
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+  analysis/types/stack-size
+
+rules
+  // instructions/JasminXT-Instructions
+  stack-size: (ip, NOP())        -> ([NEXT()], ip)
+  stack-size: (ip, BREAKPOINT()) -> ([NEXT()], ip)
