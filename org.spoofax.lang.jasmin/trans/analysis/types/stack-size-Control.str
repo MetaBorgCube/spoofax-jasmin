@@ -11,14 +11,14 @@ imports
 
 rules
   // instructions/JasminXT-Control
-  stack-size: (ip, IFEQ(t))      -> ([NEXT(), t], <subti'(|2)> ip)
-  stack-size: (ip, IFLT(t))      -> ([NEXT(), t], <subti'(|2)> ip)
-  stack-size: (ip, IFLE(t))      -> ([NEXT(), t], <subti'(|2)> ip)
-  stack-size: (ip, IFNE(t))      -> ([NEXT(), t], <subti'(|2)> ip)
-  stack-size: (ip, IFGT(t))      -> ([NEXT(), t], <subti'(|2)> ip)
-  stack-size: (ip, IFGE(t))      -> ([NEXT(), t], <subti'(|2)> ip)
-  stack-size: (ip, IFNULL(t))    -> ([NEXT(), t], <subti'(|2)> ip)
-  stack-size: (ip, IFNONNULL(t)) -> ([NEXT(), t], <subti'(|2)> ip)
+  stack-size: (ip, IFEQ(t))      -> ([NEXT(), t], <subti'(|1)> ip)
+  stack-size: (ip, IFLT(t))      -> ([NEXT(), t], <subti'(|1)> ip)
+  stack-size: (ip, IFLE(t))      -> ([NEXT(), t], <subti'(|1)> ip)
+  stack-size: (ip, IFNE(t))      -> ([NEXT(), t], <subti'(|1)> ip)
+  stack-size: (ip, IFGT(t))      -> ([NEXT(), t], <subti'(|1)> ip)
+  stack-size: (ip, IFGE(t))      -> ([NEXT(), t], <subti'(|1)> ip)
+  stack-size: (ip, IFNULL(t))    -> ([NEXT(), t], <subti'(|1)> ip)
+  stack-size: (ip, IFNONNULL(t)) -> ([NEXT(), t], <subti'(|1)> ip)
   stack-size: (ip, IF_ICMPEQ(t)) -> ([NEXT(), t], <subti'(|2)> ip)
   stack-size: (ip, IF_ICMPLT(t)) -> ([NEXT(), t], <subti'(|2)> ip)
   stack-size: (ip, IF_ICMPLE(t)) -> ([NEXT(), t], <subti'(|2)> ip)
