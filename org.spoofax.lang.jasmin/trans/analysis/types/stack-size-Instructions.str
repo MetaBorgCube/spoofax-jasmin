@@ -1,4 +1,4 @@
-module analysis/types/stack-size-Instructions
+module types/stack-size-Instructions
 
 imports
   include/JasminXT

@@ -1,4 +1,4 @@
-module analysis/types/stack-size-Arithmetic
+module types/stack-size-Arithmetic
 
 imports
   include/JasminXT

@@ -1,4 +1,4 @@
-module analysis/types/stack-size-InvokeReturn
+module types/stack-size-InvokeReturn
 
 imports
   include/JasminXT

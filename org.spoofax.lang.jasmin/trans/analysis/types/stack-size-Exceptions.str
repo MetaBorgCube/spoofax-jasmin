@@ -1,4 +1,4 @@
-module analysis/types/stack-size-Exceptions
+module types/stack-size-Exceptions
 
 imports
   include/JasminXT
