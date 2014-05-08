@@ -6,6 +6,6 @@ imports
 	analysis/names/extra-constructors
 
 properties
-	pop-type   of Label : List(BaseType)
-	push-type  of Label : List(BaseType)
+	pop-type   of Label : List(Type)
+	push-type  of Label : List(Type)
 	next-instr of Label : List(Target)

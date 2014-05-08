@@ -2,11 +2,14 @@ module trans/analysis/names/extra-constructors
 	
 signature
   constructors
-    TOP    : BaseType
-    BOTTOM : BaseType
+    TOP    : Type
+    BOTTOM : Type
 
     NamedInstruction : String * Instruction -> PCInstruction
+    
+           : Type -> FieldType
 
     // refering to the next line
     NEXT   : Target
+    
 
