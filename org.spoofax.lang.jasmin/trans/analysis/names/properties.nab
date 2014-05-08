@@ -1,0 +1,11 @@
+module analysis/names/properties
+
+imports
+
+	include/JasminXT
+	analysis/names/extra-constructors
+
+properties
+	pop-type   of Label : List(BaseType)
+	push-type  of Label : List(BaseType)
+	next-instr of Label : List(Target)

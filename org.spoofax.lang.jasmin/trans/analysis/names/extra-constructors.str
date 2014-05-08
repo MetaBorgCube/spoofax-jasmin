@@ -5,6 +5,8 @@ signature
     TOP    : BaseType
     BOTTOM : BaseType
 
+    NamedInstruction : String * Instruction -> PCInstruction
+
     // refering to the next line
     NEXT   : Target
 

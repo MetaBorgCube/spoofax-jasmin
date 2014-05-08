@@ -65,3 +65,6 @@ binding rules
 	
 	LabelRef(l): 
 		refers to Label l
+	
+	NamedInstruction(name, _):
+		defines Label name
