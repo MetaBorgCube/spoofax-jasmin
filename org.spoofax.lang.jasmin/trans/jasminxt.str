@@ -33,7 +33,6 @@ imports
   JasminXT-Numbers.pp.generated
   JasminXT-Objects.pp.generated
   JasminXT.pp.generated
-  JasminXT-Signatures.pp.generated
   JasminXT-Stack.pp.generated
   JasminXT-Strings.pp.generated
   JasminXT-Synchronisation.pp.generated
