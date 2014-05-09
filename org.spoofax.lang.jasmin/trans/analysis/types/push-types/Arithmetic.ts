@@ -45,8 +45,8 @@ type rules
   DREM() +
   DSUB() has push-type [Double()]
         
-  IINC()   +
-  IINC_W() has push-type []
+  IINC(_,_)   +
+  IINC_W(_,_) has push-type []
   
   FCMPG() +
   FCMPL() has push-type [Int()]
