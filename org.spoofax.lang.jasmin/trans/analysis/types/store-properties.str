@@ -1,0 +1,16 @@
+module types/store-properties
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+
+rules
+  nabl-prop-site(|lang, ctx, a, b):
+  	JBCMethod(_, _, _, statements) -> <fail>
+  	  where <map(store-stack-helper(|ctx))> statements
+  
+  store-stack-helper(|ctx): instr -> instr
+    where <store-in-stack(|ctx, <new>)> instr; <store-out-stack(|ctx, <new>)> instr

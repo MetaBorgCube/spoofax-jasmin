@@ -12,4 +12,8 @@ signature
     // refering to the next line
     NEXT   : Target
     
-
+    // Constraints for instructions
+            : String -> TypeVar
+    TypeVar : TypeVar -> Type
+    CEq     : TypeVar * List(Type) -> Constraint
+    CSub    : TypeVar * List(Type) -> Constraint

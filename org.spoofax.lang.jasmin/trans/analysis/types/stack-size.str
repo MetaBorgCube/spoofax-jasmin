@@ -4,6 +4,7 @@ imports
   include/JasminXT
   analysis/names/extra-constructors
   analysis/names/binding
+  analysis/names/properties
   runtime/nabl/-
   runtime/task/-
   runtime/types/-

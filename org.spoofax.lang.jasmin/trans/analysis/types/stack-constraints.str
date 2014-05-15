@@ -1,0 +1,46 @@
+module analysis/types/stack-constraints
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/names/extra-constructors
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+
+rules
+  fresh-var = !TypeVar(<new>)
+
+  toplevel: JBCMethod(_, _, _, []) -> []
+  toplevel: JBCMethod(_, _, _, [h|t]) -> 
+      <collect-constraints(|t,t1-out)> [CEq(t1-in, [])]
+    where t1-in  := <get-in-stack>  h
+        ; t1-out := <get-out-stack> h
+  
+  collect-constraints(|todo, tv) = (<not(Hd)> todo); id
+  collect-constraints(|todo, tv) = 
+  	  (<?[h|t]> todo)
+    ; (<get-out-stack> h => h-out)
+    ; (pop-constraints(|h) ; push-constraints(|h) <+ complex-constraints(|h,tv))
+    ; next-constraints(|h, tv)
+    ; collect-constraints(|t,h-out)
+  
+  pop-constraints(|instr): c* -> c'
+    where p* := <get-pop-type> instr
+        ; i-in := <get-in-stack> instr
+        ; c' := [CSub(i-in, [p*, <fresh-var>]) | c*]
+
+  push-constraints(|instr): c* -> c'
+    where p* := <get-pop-type> instr
+        ; i-in := <get-in-stack> instr
+        ; c' := [CSub(i-in, [p*, <fresh-var>]) | c*]
+
+  next-constraints(|instr, tv): c* -> c'
+    where i-in := <get-in-stack> instr
+        ; n* := <next-instr;map(next-helper(|tv, i-in))> instr
+        ; c' := [n*, c*]
+  next-helper(|tv,i-in): n -> CEq(tv,n) where <not(?NEXT())> n
+  next-helper(|tv,i-in): NEXT() -> CEq(tv,i-in)
+  next-instr = get-next-instr <+ ![NEXT()]
+  
+  complex-constraints(|instr, tv) = id
