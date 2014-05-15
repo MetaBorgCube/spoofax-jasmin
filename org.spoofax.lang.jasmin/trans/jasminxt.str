@@ -42,9 +42,9 @@ imports
   	
 	include/JasminXT
 
-	analysis/names/binding
-	analysis/names/check 
+	analysis/names/- 
 	analysis/types/-
+	analysis/desugar
 	editor/builders
 	
 rules // Analysis
@@ -52,9 +52,9 @@ rules // Analysis
   editor-analyze = analysis-default-editor
    
   analysis-single-default-interface = 
-    analysis-single-default(id, id, id|<language>)
+    analysis-single-default(desugar-all, id, id|<language>)
   analysis-multiple-default-interface = 
-    analysis-multiple-default(parse-file <+ !(), id, id, id|<language>, <project-path>)
+    analysis-multiple-default(parse-file <+ !(), desugar-all, id, id|<language>, <project-path>)
   
   editor-save = analysis-save-default(|<language>)
 

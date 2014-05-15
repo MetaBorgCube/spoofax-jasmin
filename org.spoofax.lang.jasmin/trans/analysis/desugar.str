@@ -1,0 +1,10 @@
+module analysis/desugar
+
+imports
+  include/JasminXT
+  analysis/names/extra-constructors
+
+strategies
+  desugar = JBCMethod(id, id, id, map({\ x -> NamedInstruction(<new>, x) \}))
+  
+  desugar-all = alltd(desugar)
