@@ -6,11 +6,17 @@ imports
   runtime/nabl/-
   runtime/task/-
   runtime/types/-
+  trans/match-Instruction
 
-rules
-  nabl-prop-site(|lang, ctx, a, b):
-  	JBCMethod(_, _, _, statements) -> <fail>
-  	  where <map(store-stack-helper(|ctx))> statements
+rules 
+  create-in-stack-task(|ctx):
+    a -> <task-create-id(|ctx,[x848])> x848
+    where
+      <match-Instruction> a 
+    ; x848 := <type-is(|ctx)> <newname> "in"
   
-  store-stack-helper(|ctx): instr -> instr
-    where <store-in-stack(|ctx, <new>)> instr; <store-out-stack(|ctx, <new>)> instr
+  create-out-stack-task(|ctx):
+    a -> <task-create-id(|ctx,[x848])> x848
+    where
+      <match-Instruction> a 
+    ; x848 := <type-is(|ctx)> <newname> "out"

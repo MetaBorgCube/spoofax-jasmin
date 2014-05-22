@@ -43,7 +43,10 @@ imports
 	include/JasminXT
 
 	analysis/names/- 
-	analysis/types/-
+	analysis/types/- 
+	analysis/types/next-instr/-
+	analysis/types/pop-types/-
+	analysis/types/push-types/-
 	analysis/desugar
 	editor/builders
 	
@@ -88,10 +91,8 @@ rules // Constraints
       task-setup(|project-path);
       partition   := $[[project-path]/[path]];
       filename := <guarantee-extension(|"constraints")> path;
-      <debug> ast;
       JBCFile(_, _, methods) := selected;
-      <debug> methods;
-      result   := <map(toplevel(|partition))> methods
+      result   := <map(stack-constraints(|partition))> methods
 
 rules // Debugging
   
