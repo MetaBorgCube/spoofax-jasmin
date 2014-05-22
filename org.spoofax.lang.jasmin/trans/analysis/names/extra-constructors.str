@@ -15,5 +15,7 @@ signature
     // Constraints for instructions
             : String -> TypeVar
     TypeVar : TypeVar -> Type
-    CEq     : TypeVar * List(Type) -> Constraint
-    CSub    : TypeVar * List(Type) -> Constraint
+            : List(Type) -> Stack
+    CEq     : TypeVar * Stack -> Constraint
+    CSub    : TypeVar * Stack -> Constraint
+    CSup    : TypeVar * Stack -> Constraint
