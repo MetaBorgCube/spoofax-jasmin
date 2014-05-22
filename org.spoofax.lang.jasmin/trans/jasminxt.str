@@ -45,7 +45,9 @@ imports
 	analysis/names/- 
 	analysis/types/-
 	analysis/desugar
+	analysis/types/stack-constraints
 	editor/builders
+	
 	
 rules // Analysis
   
@@ -77,6 +79,20 @@ rules // Editor services
     (node, position, ast, path, project-path) -> proposals
     where
       proposals := <analysis-propose-completions(|<language>, project-path)> ast
+
+rules // Constraints
+
+  debug-collect-file-constraints:
+  	(selected, position, ast, path, project-path) -> (filename, result)
+    where
+      index-setup(|<language>, project-path);
+      task-setup(|project-path);
+      partition   := $[[project-path]/[path]];
+      filename := <guarantee-extension(|"constraints")> path;
+      <debug> ast;
+      JBCFile(_, _, methods) := ast;
+      <debug> methods;
+      result   := <map(toplevel(|partition))> methods
 
 rules // Debugging
   
