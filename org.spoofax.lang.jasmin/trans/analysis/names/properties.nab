@@ -5,9 +5,12 @@ imports
 	include/JasminXT
 	analysis/names/extra-constructors
 
+namespaces
+	Instruction
+
 properties
-	pop-type   of Label : List(Type)
-	push-type  of Label : List(Type)
-	next-instr of Label : List(Target)
-	in-stack   of Label : TypeVar
-	out-stack  of Label : TypeVar
+	pop-type   of Instruction : List(Type)
+	push-type  of Instruction : List(Type)
+	next-instr of Instruction : List(Target)
+	in-stack   of Instruction : TypeVar
+	out-stack  of Instruction : TypeVar

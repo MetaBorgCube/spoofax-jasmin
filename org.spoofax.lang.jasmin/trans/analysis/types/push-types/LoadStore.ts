@@ -26,24 +26,24 @@ type rules
   DCONST_0() +
   DCONST_1() has push-type [Double()]
              
-  ACONST_NULL() has push-type [BOTTOM()] // just a guess 
+  ACONST_NULL() has push-type ["TODO: find out what this should be. BOTTOM() maybe?"] 
              
   LDC(c)    +
   LDC2_W(c) +
   LDC_W(c)  has push-type [t] where c : t
              
              
-  // ILOAD(vr) +
-  // LLOAD(vr) +
-  // FLOAD(vr) +
-  // DLOAD(vr) +
-  // ALOAD(vr) has push-type [t] where vr : t // need info from local variables
+  ILOAD(vr) +
+  LLOAD(vr) +
+  FLOAD(vr) +
+  DLOAD(vr) +
+  ALOAD(vr) has push-type ["TODO: get info from local variables"]
              
-  // ILOAD_W(vr) +                                                               
-  // LLOAD_W(vr) +                                                               
-  // FLOAD_W(vr) +                                                               
-  // DLOAD_W(vr) +                                                               
-  // ALOAD_W(vr) has push-type [t] where vr : t // need info from local variables
+  ILOAD_W(vr) +                                                               
+  LLOAD_W(vr) +                                                               
+  FLOAD_W(vr) +                                                               
+  DLOAD_W(vr) +                                                               
+  ALOAD_W(vr) has push-type ["TODO: get info from local variables"]
              
   ILOAD_0() +
   ILOAD_1() +
@@ -70,33 +70,33 @@ type rules
   FLOAD_2() +
   FLOAD_3() has push-type [Float()]
              
-  ISTORE()   +
-  LSTORE()   +
-  FSTORE()   +
-  DSTORE()   +
-  ASTORE()   +
-  ISTORE_W() +
-  LSTORE_W() +
-  FSTORE_W() +
-  DSTORE_W() +
-  ASTORE_W() +
-  ISTORE_0() +
-  ISTORE_1() +
-  ISTORE_2() +
-  ISTORE_3() +
-  ASTORE_0() +
-  ASTORE_1() +
-  ASTORE_2() +
-  ASTORE_3() +
-  LSTORE_0() +
-  LSTORE_1() +
-  LSTORE_2() +
-  LSTORE_3() +
-  FSTORE_0() +
-  FSTORE_1() +
-  FSTORE_2() +
-  FSTORE_3() +
-  DSTORE_0() +
-  DSTORE_1() +
-  DSTORE_2() +
-  DSTORE_3() has push-type []
+  ISTORE(_)   +
+  LSTORE(_)   +
+  FSTORE(_)   +
+  DSTORE(_)   +
+  ASTORE(_)   +
+  ISTORE_W(_) +
+  LSTORE_W(_) +
+  FSTORE_W(_) +
+  DSTORE_W(_) +
+  ASTORE_W(_) +
+  ISTORE_0()  +
+  ISTORE_1()  +
+  ISTORE_2()  +
+  ISTORE_3()  +
+  ASTORE_0()  +
+  ASTORE_1()  +
+  ASTORE_2()  +
+  ASTORE_3()  +
+  LSTORE_0()  +
+  LSTORE_1()  +
+  LSTORE_2()  +
+  LSTORE_3()  +
+  FSTORE_0()  +
+  FSTORE_1()  +
+  FSTORE_2()  +
+  FSTORE_3()  +
+  DSTORE_0()  +
+  DSTORE_1()  +
+  DSTORE_2()  +
+  DSTORE_3()  has push-type []

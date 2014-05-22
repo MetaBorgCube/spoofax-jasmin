@@ -11,8 +11,8 @@ imports
 rules
   fresh-var = !TypeVar(<new>)
 
-  toplevel(|ctx): JBCMethod(_, _, _, []) -> []
-  toplevel(|ctx): JBCMethod(_, _, _, l@[h|_]) -> [CEq(h-in, []), push, pop, complex*, next*]
+  stack-constraints(|ctx): JBCMethod(_, _, _, []) -> []
+  stack-constraints(|ctx): JBCMethod(_, _, _, l@[h|_]) -> [CEq(h-in, []), push, pop, complex*, next*]
     where h-in  := <get-in-stack>  h
         ; h-out := <get-out-stack> h
         ; push  := <map(push-constraints)> l
@@ -21,19 +21,21 @@ rules
         ; complex* := []
   
   pop-constraints: instr -> CSub(i-in, [p*, <fresh-var>])
-    where p* := <get-pop-type> instr
+    where p* := <pop-type> instr
         ; i-in := <get-in-stack> instr
+  pop-type = get-pop-type;try(?[s];<is-string> s;<print-failure(|s)> "") <+ []
 
   push-constraints: instr -> CSub(i-in, [p*, <fresh-var>])
-    where p* := <get-pop-type> instr
+    where p* := <push-type> instr
         ; i-in := <get-in-stack> instr
+  push-type = get-push-type;try(?[s];<is-string> s;<print-failure(|s)> "")
 
   next-constraints(|ctx): (instr, (prev-out, c*)) -> (<get-out-stack> instr, [n*, c*])
     where i-in := <get-in-stack> instr
         ; n* := <next-instr;map(next-helper(|ctx, prev-out, i-in))> instr
   
   next-helper(|ctx,prev-out,i-in) = \NEXT() -> CEq(prev-out,i-in)\
-                       <+ \LabelRef(l) -> CEq(prev-out,<nabl-lookup-all(|ctx);Hd;get-in-stack> l)\
+                                 <+ \LabelRef(l) -> CEq(prev-out,<nabl-lookup-all(|ctx);Hd;get-in-stack> l)\
   next-instr = get-next-instr <+ ![NEXT()]
   
   complex-constraints(|instr, tv) = id

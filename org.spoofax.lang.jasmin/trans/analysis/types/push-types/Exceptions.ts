@@ -4,5 +4,5 @@ imports
   include/JasminXT
   analysis/names/extra-constructors
 
-// type rules
-  // ATHROW() has push-type [CRef("...")] // TODO: get type from pop...
+type rules
+  ATHROW() has push-type ["TODO: get pop-type, which should be a class"] // TODO: get type from pop...
