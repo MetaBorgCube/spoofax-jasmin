@@ -45,7 +45,6 @@ imports
 	analysis/names/- 
 	analysis/types/-
 	analysis/desugar
-	analysis/types/stack-constraints
 	editor/builders
 	
 	
@@ -90,7 +89,7 @@ rules // Constraints
       partition   := $[[project-path]/[path]];
       filename := <guarantee-extension(|"constraints")> path;
       <debug> ast;
-      JBCFile(_, _, methods) := ast;
+      JBCFile(_, _, methods) := selected;
       <debug> methods;
       result   := <map(toplevel(|partition))> methods
 
