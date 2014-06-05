@@ -13,39 +13,22 @@ strategies
 	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
 
 rules
-	
-	
 	solve-constraints-step: (x, []) -> (x, [])
 	
 	solve-constraints-step: (x*, c) -> (xnew*, constr)
 		where mapconstr := <mapconcat(solve-constraints-lookup(|x*) <+ ![<id>])> c
-			; (xn*, constr) := <partition(solve-constraints-simplify)> mapconstr
-			; xnew* := [x*, xn*]
+			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr
+			; xnew* := <uniq> [x*, xn*]
 	
-	solve-constraints-simplify: CEq(var, type) -> (var, type)
+	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
 		where <not(?TypeVar(_))> type
+			; t := <lookup <+ !type> (var, x*)
+			; <eq> (t, type)
 			  
 	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
 		where TypeVar(tv) := type
 			; t := <lookup> (tv, x*)
-	
-	// solve-constraints-simplify: (x*, [CEq(var, type) | tail]) -> (xnew*, tail)
-	// 	where <not(?TypeVar(_))> type
-	// 		; xnew* := [x*, (var, type)]
-	// 
-	// solve-constraints-lookup: (x*, [CEq(var, type) | tail]) -> (xnew*, tail)
-	// 	where TypeVar(tv) := type
-	// 		; t := <lookup> (tv, x*)
-	// 		; xnew* := [x*, (var, t)]
-	
-	// solve-constraints: [CEq(var, stack) | tail] -> [(var', stack') | tail']
-	// 	where
-	// 		var' := []
-	// 		; stack' := [] 
-	// 		; tail' := <solve-constraints> tail
 
 	fixed-point(s): a -> c
   		where b := <s> a
 			; c := <if(not(eq), Snd;fixed-point(s), Snd)> (a, b)
-			  
-	

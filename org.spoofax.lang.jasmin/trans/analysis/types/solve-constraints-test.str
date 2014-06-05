@@ -9,10 +9,16 @@ imports
 	trans/analysis/names/-
 
 rules
-	solve-test-constraints: _ -> [a, b, c, d, e]
-		where a := <try(solve-constraints)> []
-			; b := <try(solve-constraints)> [CEq("test", [])]
-			; c := <try(solve-constraints)> [CEq("test", []), CEq("test2", [])]
-			; d := <try(solve-constraints)> [CEq("test", []), CEq("test2", []), CEq("abc", TypeVar("test"))]
-			; e := <try(solve-constraints)> [CEq("abc", TypeVar("test")), CEq("test", []), CEq("test2", [])]
+	solve-test-constraints: _ -> [a, b, c, d, e, f, g]
+		where a := <try(solve-constraints)> [] // empty list
+			; b := <try(solve-constraints)> [CEq("test", [])] // one element in list
+			; c := <try(solve-constraints)> [CEq("test", []), CEq("test2", [])] // two elements in list
+			; d := <try(solve-constraints)> [CEq("test", []), CEq("test2", []), CEq("abc", TypeVar("test"))] // two elements, one dependency
+			; e := <try(solve-constraints)> [CEq("abc", TypeVar("test")), CEq("test", []), CEq("test2", [])] // one dependency, two elements
+			; f := <try(solve-constraints)> [CEq("test", TypeVar("abc")), CEq("test2", []), CEq("abc", TypeVar("test"))] // cyclic dependency
+			; g := <try(solve-constraints)> [CEq("test", TypeVar("abc")),
+			  								 CEq("test2", []),
+			  								 CEq("abc", TypeVar("test")),
+			  								 CEq("abc", [])] // cyclic dependency solved with multi-ceq
+			// ; h := <try(solve-constraints)> [CEq("test", Int()), CEq("test", [])]
 			  
