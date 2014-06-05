@@ -5,25 +5,25 @@ imports
 	analysis/names/extra-constructors
 
 type rules
-	//   IFEQ(_)
-	// + IFLT(_)
-	// + IFLE(_)
-	// + IFNE(_)
-	// + IFGT(_)
-	// + IFGE(_)
-	// + IFNULL(_)
-	// + IFNONNULL(_)
-	// has pop-type [A] //TODO ik weet nog niet welk type
+	  IFEQ(_)
+	+ IFLT(_)
+	+ IFLE(_)
+	+ IFNE(_)
+	+ IFGT(_)
+	+ IFGE(_)
+	+ IFNULL(_)
+	+ IFNONNULL(_)
+	has pop-type ["TODO probably Int(), but not sure"]
 	
-	//   IF_ICMPEQ(_)
-	// + IF_ICMPLT(_)
-	// + IF_ICMPLE(_)
-	// + IF_ICMPNE(_)
-	// + IF_ICMPGT(_)
-	// + IF_ICMPGE(_)
-	// + IF_ACMPEQ(_)
-	// + IF_ACMPNE(_)
-	// has pop-type [A, B] //TODO ik weet nog niet welk type
+	  IF_ICMPEQ(_)
+	+ IF_ICMPLT(_)
+	+ IF_ICMPLE(_)
+	+ IF_ICMPNE(_)
+	+ IF_ICMPGT(_)
+	+ IF_ICMPGE(_)
+	+ IF_ACMPEQ(_)
+	+ IF_ACMPNE(_)
+	has pop-type [Int(), Int()]
 	
 	  GOTO(_)
 	+ GOTO_W(_)
