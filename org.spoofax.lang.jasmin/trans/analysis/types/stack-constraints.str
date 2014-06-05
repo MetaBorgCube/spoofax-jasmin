@@ -7,34 +7,37 @@ imports
   runtime/nabl/-
   runtime/task/-
   runtime/types/-
+  trans/match-Instruction
 
 rules
   fresh-var = !TypeVar(<new>)
 
   stack-constraints(|ctx): JBCMethod(_, _, _, []) -> []
-  stack-constraints(|ctx): JBCMethod(_, _, _, l@[h|_]) -> [CEq(h-in, []), push, pop, complex*, next*]
-    where h-in  := <get-in-stack>  h
+  stack-constraints(|ctx): JBCMethod(_, _, _, l) -> [stack-start, push*, pop*, complex*, next*]
+    where l'@[h|_] := <filter(match-Instruction)> l
+    	; h-in  := <get-in-stack>  h
+    	; stack-start := CEq(h-in, [])
         ; h-out := <get-out-stack> h
-        ; push  := <map(push-constraints)> l
-        ; pop   := <map(pop-constraints)> l
-        ; next* := <foldl(next-constraints(|ctx));Snd> (l, (h-out, []))
+        ; push* := <filter(push-constraints)> l'
+        ; pop*  := <filter(pop-constraints)> l'
+        ; next* := <foldl(next-constraints(|ctx));Snd> (l', (h-out, []))
         ; complex* := []
   
-  pop-constraints: instr -> CSub(i-in, [p*, <fresh-var>])
-    where p* := <pop-type> instr
+  pop-constraints: instr -> CSub(i-in, (p*, <fresh-var>))
+    where p* := <debug;pop-type> instr
         ; i-in := <get-in-stack> instr
-  pop-type = get-pop-type;try(?[s];<is-string> s;<print-failure(|s)> "") <+ []
+  pop-type = get-pop-type;not(?[])
 
-  push-constraints: instr -> CSub(i-in, [p*, <fresh-var>])
+  push-constraints: instr -> CSub(i-out, (p*, <fresh-var>))
     where p* := <push-type> instr
-        ; i-in := <get-in-stack> instr
-  push-type = get-push-type;try(?[s];<is-string> s;<print-failure(|s)> "")
+        ; i-out := <get-out-stack> instr
+  push-type = get-push-type;not(?[])
 
   next-constraints(|ctx): (instr, (prev-out, c*)) -> (<get-out-stack> instr, [n*, c*])
     where i-in := <get-in-stack> instr
         ; n* := <next-instr;map(next-helper(|ctx, prev-out, i-in))> instr
   
-  next-helper(|ctx,prev-out,i-in) = \NEXT() -> CEq(prev-out,i-in)\
+  next-helper(|ctx,prev-out,i-in) = \NEXT() -> CEq(prev-out,TypeVar(i-in))\
                                  <+ \LabelRef(l) -> CEq(prev-out,<nabl-lookup-all(|ctx);Hd;get-in-stack> l)\
   next-instr = get-next-instr <+ ![NEXT()]
   

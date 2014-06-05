@@ -1,7 +1,7 @@
 module trans/match-Instruction
 
 rules
-  match-Instruction: a#(_) -> <match-Instruction-constr> a
+  match-Instruction: a#(_) -> <id> where <match-Instruction-constr> a
 
   match-Instruction-constr: "IADD"                     -> <id>
   match-Instruction-constr: "IAND"                     -> <id>
