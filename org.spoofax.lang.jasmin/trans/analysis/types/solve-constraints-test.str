@@ -1,0 +1,18 @@
+module analysis/types/solve-constraints-test
+
+imports
+	include/JasminXT
+	runtime/nabl/-
+	runtime/task/-
+	runtime/types/-
+	trans/analysis/types/-
+	trans/analysis/names/-
+
+rules
+	solve-test-constraints: _ -> [a, b, c, d, e]
+		where a := <try(solve-constraints)> []
+			; b := <try(solve-constraints)> [CEq("test", [])]
+			; c := <try(solve-constraints)> [CEq("test", []), CEq("test2", [])]
+			; d := <try(solve-constraints)> [CEq("test", []), CEq("test2", []), CEq("abc", TypeVar("test"))]
+			; e := <try(solve-constraints)> [CEq("abc", TypeVar("test")), CEq("test", []), CEq("test2", [])]
+			  

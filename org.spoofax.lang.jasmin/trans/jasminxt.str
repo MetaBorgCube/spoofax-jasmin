@@ -93,6 +93,12 @@ rules // Constraints
       filename := <guarantee-extension(|"constraints")> path;
       JBCFile(_, _, methods) := selected;
       result   := <map(stack-constraints(|partition))> methods
+      
+   debug-collect-solve-constraints:
+  	(selected, position, ast, path, project-path) -> (filename, result)
+    where
+      filename := <guarantee-extension(|"test")> path;
+      result   := <solve-test-constraints>
 
 rules // Debugging
   

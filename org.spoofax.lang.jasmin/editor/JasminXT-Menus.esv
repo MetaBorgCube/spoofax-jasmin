@@ -34,6 +34,7 @@ menus
     
     submenu: "Constraints"
       action: "Collect"			   = debug-collect-file-constraints (openeditor) (realtime) (meta)
+      action: "Test solve"		   = debug-collect-solve-constraints (openeditor) (realtime) (meta)
     end
   
   menu: "JVM"
