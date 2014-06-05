@@ -16,6 +16,7 @@ signature
             : String -> TypeVar
     TypeVar : TypeVar -> Type
             : List(Type) -> Stack
-    CEq     : TypeVar * Stack -> Constraint
-    CSub    : TypeVar * Stack -> Constraint
-    CSup    : TypeVar * Stack -> Constraint
+            : Stack -> Type
+    CEq     : TypeVar * Type -> Constraint
+    CSub    : TypeVar * Type -> Constraint
+    CSup    : TypeVar * Type -> Constraint
