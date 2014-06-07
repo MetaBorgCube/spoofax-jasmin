@@ -20,3 +20,8 @@ rules
     where
       <match-Instruction> a 
     ; x848 := <type-is(|ctx)> <newname> "out"
+       
+  nabl-prop-site(|lang__, partition__, uris__, states__, implicits__):
+    JBCLabel(l) -> <fail>
+    where <store-in-stack(|partition__, <newname> "in")> l
+        ; <store-out-stack(|partition__, <newname> "out")> l
