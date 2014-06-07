@@ -19,4 +19,4 @@ type rules
 	LRETURN() has pop-type [Long()]
 	FRETURN() has pop-type [Float()]
 	DRETURN() has pop-type [Double()]
-	//ARETURN() has pop-type [A] //TODO ik weet nog niet welk type
+	ARETURN() has pop-type ["TODO: probably CRef?"]
