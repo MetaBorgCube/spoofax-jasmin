@@ -18,5 +18,7 @@ signature
             : List(Type) -> Stack
             : Stack -> Type
     CEq     : TypeVar * Type -> Constraint
+    CNEq    : TypeVar * Type -> Constraint
     CSub    : TypeVar * Type -> Constraint
     CSup    : TypeVar * Type -> Constraint
+    COr     : List(List(Constraint)) -> Constraint

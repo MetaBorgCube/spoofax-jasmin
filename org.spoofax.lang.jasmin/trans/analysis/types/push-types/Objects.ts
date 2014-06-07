@@ -12,9 +12,11 @@ type rules
   ANEWARRAY(ct)        +
   MULTIANEWARRAY(ct,_) has push-type [Array(ct)]
                 
-  GETFIELD(fr)  has push-type [fr]
-  PUTFIELD(_)   has push-type []
-  GETSTATIC(fr) has push-type [fr]
+  GETFIELD(JBCFieldRef(_, _, JBCFieldDesc(ft)))
+    has push-type ["TODO: use the FieldType ft here, but this fails if the field name doesn't resolve"]
+  GETSTATIC(JBCFieldRef(_, _, JBCFieldDesc(ft)))
+    has push-type ["TODO: use the FieldType ft here, but this fails if the field name doesn't resolve"]
+  PUTFIELD(_)   +
   PUTSTATIC(_)  has push-type []
                 
   IALOAD() has push-type [Int()]
@@ -37,5 +39,5 @@ type rules
                 
   ARRAYLENGTH() has push-type [Int()]
                 
-  CHECKCAST(cr)  has push-type ["TODO: get the pop-type, should be a class"]
+  // CHECKCAST(cr)  has push-type ["TODO: get the pop-type, should be a class"]
   INSTANCEOF(cr) has push-type [Boolean()]
