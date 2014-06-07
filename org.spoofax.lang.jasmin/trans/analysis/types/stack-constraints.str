@@ -58,157 +58,160 @@ rules
     	        , CEq(i-out, TypeVar(i-in))         // push-type
     	        ]
   complex-constraint: (instr@DUP(), (prev-out, c*)) -> (i-out, [n*, c*])
-    where type  := <fresh-var>
+    where type@TypeVar(type') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
     	; n* := [ CSub(i-in,  ([type], rest))       // pop-type
     	        , CSub(i-out, ([type, type], rest)) // push-type
-    	        , CNEq(type, Double())
-    	        , CNEq(type, Long())
+    	        , CNEq(type', Double())
+    	        , CNEq(type', Long())
     	        ]
   complex-constraint: (instr@DUP2(), (prev-out, c*)) -> (i-out, [n*, c*])
-    where type  := <fresh-var>
-        ; type1 := <fresh-var>
-        ; type2 := <fresh-var>
+    where type@TypeVar(type')  := <fresh-var>
+        ; type1@TypeVar(type1') := <fresh-var>
+        ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
     	; n* := [ COr([ [ CSub(i-in,  ([type], rest))       // pop-type
     	                , CSub(i-out, ([type, type], rest)) // push-type
-    	                , COr([ [ CEq(type, Double()) ]
-    	                      , [ CEq(type, Long()) ]
+    	                , COr([ [ CEq(type', Double()) ]
+    	                      , [ CEq(type', Long()) ]
     	                      ])
     	                ]
     	              , [ CSub(i-in,  ([type1, type2], rest))               // pop-type
     	                , CSub(i-out, ([type1, type2, type1, type2], rest)) // push-type
-    	                , CNEq(type1, Double())
-              	        , CNEq(type1, Long())
-    	                , CNEq(type2, Double())
-              	        , CNEq(type2, Long())
+    	                , CNEq(type1', Double())
+              	        , CNEq(type1', Long())
+    	                , CNEq(type2', Double())
+              	        , CNEq(type2', Long())
     	                ]
     	              ])
     	        ]
   complex-constraint: (instr@DUP_X1(), (prev-out, c*)) -> (i-out, [n*, c*])
-    where type1 := <fresh-var>
-        ; type2 := <fresh-var>
+    where type1@TypeVar(type1') := <fresh-var>
+        ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
     	; n* := [ CSub(i-in,  ([type1, type2], rest))        // pop-type
     	        , CSub(i-out, ([type1, type2, type1], rest)) // push-type
-    	        , CNEq(type1, Double())
-    	        , CNEq(type1, Long())
+    	        , CNEq(type1', Double())
+    	        , CNEq(type1', Long())
+    	        , CNEq(type2', Double())
+    	        , CNEq(type2', Long())
     	        ]
   complex-constraint: (instr@DUP2_X1(), (prev-out, c*)) -> (i-out, [n*, c*])
-    where type  := <fresh-var>
-        ; type' := <fresh-var>
-        ; type1 := <fresh-var>
-        ; type2 := <fresh-var>
+    where type1@TypeVar(type1') := <fresh-var>
+        ; type2@TypeVar(type2') := <fresh-var>
+        ; type3@TypeVar(type3') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
-    	; n* := [ COr([ [ CSub(i-in,  ([type, type'], rest))       // pop-type
-    	                , CSub(i-out, ([type, type', type], rest)) // push-type
-    	                , COr([ [ CEq(type, Double()) ]
-    	                      , [ CEq(type, Long()) ]
+    	; n* := [ CNEq(type2', Double())
+              	, CNEq(type2', Long())
+              	, COr([ [ CSub(i-in,  ([type1, type2], rest))       // pop-type
+    	                , CSub(i-out, ([type1, type2, type1], rest)) // push-type
+    	                , COr([ [ CEq(type1, Double()) ]
+    	                      , [ CEq(type1, Long()) ]
     	                      ])
     	                ]
-    	              , [ CSub(i-in,  ([type1, type2, type'], rest))               // pop-type
-    	                , CSub(i-out, ([type1, type2, type', type1, type2], rest)) // push-type
-    	                , CNEq(type1, Double())
-              	        , CNEq(type1, Long())
-    	                , CNEq(type2, Double())
-              	        , CNEq(type2, Long())
+    	              , [ CSub(i-in,  ([type1, type2, type3], rest))               // pop-type
+    	                , CSub(i-out, ([type1, type2, type3, type1, type2], rest)) // push-type
+    	                , CNEq(type1', Double())
+              	        , CNEq(type1', Long())
+    	                , CNEq(type3', Double())
+              	        , CNEq(type3', Long())
     	                ]
     	              ])
     	        ]
   complex-constraint: (instr@DUP_X2(), (prev-out, c*)) -> (i-out, [n*, c*])
-    where type1 := <fresh-var>
-        ; type2 := <fresh-var>
-        ; type3 := <fresh-var>
+    where type1@TypeVar(type1') := <fresh-var>
+        ; type2@TypeVar(type2') := <fresh-var>
+        ; type3@TypeVar(type3') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
-    	; n* := [ CNEq(type1, Double())
-                , CNEq(type1, Long())
+    	; n* := [ CNEq(type1', Double())
+                , CNEq(type1', Long())
                 , COr( [ [ CSub(i-in,  ([type1, type2, type3], rest))        // pop-type
     	                 , CSub(i-out, ([type1, type2, type3, type1], rest)) // push-type
-    	                 , CNEq(type2, Double())
-    	                 , CNEq(type2, Long())
-    	                 , CNEq(type3, Double())
-    	                 , CNEq(type3, Long())
+    	                 , CNEq(type2', Double())
+    	                 , CNEq(type2', Long())
+    	                 , CNEq(type3', Double())
+    	                 , CNEq(type3', Long())
     	                 ]
     	               , [ CSub(i-in,  ([type1, type2], rest))        // pop-type
     	                 , CSub(i-out, ([type1, type2, type1], rest)) // push-type
-    	                 , COr([ [ CEq(type2, Double()) ]
-    	                       , [ CEq(type2, Long())   ]
+    	                 , COr([ [ CEq(type2', Double()) ]
+    	                       , [ CEq(type2', Long())   ]
     	                       ])
     	                 ]
     	               ])
 	            ]
   complex-constraint: (instr@DUP2_X2(), (prev-out, c*)) -> (i-out, [n*, c*])
-    where type1 := <fresh-var>
-        ; type2 := <fresh-var>
-        ; type3 := <fresh-var>
-        ; type4 := <fresh-var>
+    where type1@TypeVar(type1') := <fresh-var>
+        ; type2@TypeVar(type2') := <fresh-var>
+        ; type3@TypeVar(type3') := <fresh-var>
+        ; type4@TypeVar(type4') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
     	; n* := [ COr([ [ CSub(i-in,  ([type1, type2, type3], rest))        // pop-type
     	                , CSub(i-out, ([type1, type2, type3, type1], rest)) // push-type
-    	                , COr([ [ CEq(type1, Double()) ]
-    	                      , [ CEq(type1, Long()) ]
+    	                , COr([ [ CEq(type1', Double()) ]
+    	                      , [ CEq(type1', Long()) ]
     	                      ])
-    	                , CNEq(type2, Double())
-              	        , CNEq(type2, Long())
-    	                , CNEq(type3, Double())
-              	        , CNEq(type3, Long())
+    	                , CNEq(type2', Double())
+              	        , CNEq(type2', Long())
+    	                , CNEq(type3', Double())
+              	        , CNEq(type3', Long())
     	                ]
     	              , [ CSub(i-in,  ([type1, type2], rest))        // pop-type
     	                , CSub(i-out, ([type1, type2, type1], rest)) // push-type
-    	                , COr([ [ CEq(type1, Double()) ]
-    	                      , [ CEq(type1, Long()) ]
+    	                , COr([ [ CEq(type1', Double()) ]
+    	                      , [ CEq(type1', Long()) ]
     	                      ])
-    	                , COr([ [ CEq(type2, Double()) ]
-    	                      , [ CEq(type2, Long()) ]
+    	                , COr([ [ CEq(type2', Double()) ]
+    	                      , [ CEq(type2', Long()) ]
     	                      ])
     	                ]
     	              , [ CSub(i-in,  ([type1, type2, type3], rest))               // pop-type
     	                , CSub(i-out, ([type1, type2, type3, type1, type2], rest)) // push-type
-    	                , CNEq(type1, Double())
-              	        , CNEq(type1, Long())
-    	                , CNEq(type2, Double())
-              	        , CNEq(type2, Long())
-    	                , COr([ [ CEq(type3, Double()) ]
-    	                      , [ CEq(type3, Long()) ]
+    	                , CNEq(type1', Double())
+              	        , CNEq(type1', Long())
+    	                , CNEq(type2', Double())
+              	        , CNEq(type2', Long())
+    	                , COr([ [ CEq(type3', Double()) ]
+    	                      , [ CEq(type3', Long()) ]
     	                      ])
     	                ]
     	              , [ CSub(i-in,  ([type1, type2, type3, type4], rest))               // pop-type
     	                , CSub(i-out, ([type1, type2, type3, type4, type1, type2], rest)) // push-type
-    	                , CNEq(type1, Double())
-              	        , CNEq(type1, Long())
-    	                , CNEq(type2, Double())
-              	        , CNEq(type2, Long())
-    	                , CNEq(type3, Double())
-              	        , CNEq(type3, Long())
-    	                , CNEq(type4, Double())
-              	        , CNEq(type4, Long())
+    	                , CNEq(type1', Double())
+              	        , CNEq(type1', Long())
+    	                , CNEq(type2', Double())
+              	        , CNEq(type2', Long())
+    	                , CNEq(type3', Double())
+              	        , CNEq(type3', Long())
+    	                , CNEq(type4', Double())
+              	        , CNEq(type4', Long())
     	                ]
     	              ])
     	        ]
   complex-constraint: (instr@SWAP(), (prev-out, c*)) -> (i-out, [n*, c*])
-    where type1 := <fresh-var>
-        ; type2 := <fresh-var>
+    where type1@TypeVar(type1') := <fresh-var>
+        ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
     	; n* := [ CSub(i-in,  ([type1, type2], rest)) // pop-type
     	        , CSub(i-out, ([type2, type1], rest)) // push-type
-    	        , CNEq(type1, Double())
-    	        , CNEq(type1, Long())
-    	        , CNEq(type2, Double())
-    	        , CNEq(type2, Long())
+    	        , CNEq(type1', Double())
+    	        , CNEq(type1', Long())
+    	        , CNEq(type2', Double())
+    	        , CNEq(type2', Long())
     	        ]
   complex-constraint: (instr@RETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
     where i-out := <get-out-stack> instr
