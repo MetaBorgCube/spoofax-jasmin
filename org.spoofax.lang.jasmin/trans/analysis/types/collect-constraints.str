@@ -230,4 +230,48 @@ rules
     	; n* := [ CEq(TypeVar(i-out), []) ] // push-type
   complex-constraint: (instr@ARETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
     where i-out := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-out), []) ] // push-type
+        ; i-in  := <get-in-stack>  instr
+        ; classtype := Reference(CRef(<fresh-var>))
+    	; n* := [ CEq(TypeVar(i-out), [])  // push-type
+    	        , CEq(TypeVar(i-in), [classtype]) ] // pop-type
+    	        // TODO: add subtype constraint on the classtype to the method return description
+    	        
+  complex-constraint: (instr@MONITORENTER(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-out-stack> instr
+    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
+  complex-constraint: (instr@MONITOREXIT(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-out-stack> instr
+    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
+    	  
+  complex-constraint: (instr@BALOAD(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+    	; n* := [ COr([ [CEq(TypeVar(i-out), ([Byte()],<fresh-var>))]
+    	              , [CEq(TypeVar(i-out), ([Boolean()],<fresh-var>))]]) ] // push-type
+  complex-constraint: (instr@BASTORE(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+    	; n* := [ COr([ [CEq(TypeVar(i-in), ([Byte()],<fresh-var>))]
+    	              , [CEq(TypeVar(i-in), ([Boolean()],<fresh-var>))]]) ] // pop-type
+  complex-constraint: (instr@AALOAD(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+        ; class-type := Reference(CRef(<fresh-var>))
+        ; array-type := Array(<fresh-var>)
+    	; n* := [COr([ [ CEq(TypeVar(i-in), ([Array(class-type), Int()], rest))   // pop-type
+    	               , CEq(TypeVar(i-out), ([class-type],rest))               ] // push-type
+    	             , [ CEq(TypeVar(i-in), ([Array(array-type), Int()], rest))   // pop-type
+    	               , CEq(TypeVar(i-out), ([array-type],rest))               ] // push-type
+    	             ])]
+  complex-constraint: (instr@AASTORE(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+        ; class-type := Reference(CRef(<fresh-var>))
+        ; array-type := Array(<fresh-var>)
+    	; n* := [COr([ [ CEq(TypeVar(i-in), ([Array(class-type), Int(), class-type], rest)) ] // pop-type
+    	             , [ CEq(TypeVar(i-in), ([Array(array-type), Int(), array-type], rest)) ] // pop-type
+    	             ])]
+  // TODO do the other *aload and *astore

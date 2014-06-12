@@ -13,7 +13,7 @@ type rules
 	+ IFGE(_)
 	+ IFNULL(_)
 	+ IFNONNULL(_)
-	has pop-type ["TODO probably Int(), but not sure"]
+	has pop-type [Int()]
 	
 	  IF_ICMPEQ(_)
 	+ IF_ICMPLT(_)

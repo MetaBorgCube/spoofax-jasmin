@@ -13,20 +13,20 @@ type rules
   MULTIANEWARRAY(ct,_) has push-type [Array(ct)]
                 
   GETFIELD(JBCFieldRef(_, _, JBCFieldDesc(ft)))
-    has push-type ["TODO: use the FieldType ft here, but this fails if the field name doesn't resolve"]
+    has push-type [ft]
   GETSTATIC(JBCFieldRef(_, _, JBCFieldDesc(ft)))
-    has push-type ["TODO: use the FieldType ft here, but this fails if the field name doesn't resolve"]
+    has push-type [ft]
   PUTFIELD(_)   +
   PUTSTATIC(_)  has push-type []
                 
   IALOAD() has push-type [Int()]
   LALOAD() has push-type [Long()]
-  BALOAD() has push-type ["TODO: find out what to do here because it may Byte() and Boolean()"]
+  // BALOAD() has push-type ["TODO: find out what to do here because it may Byte() and Boolean()"]
   CALOAD() has push-type [Char()]
   SALOAD() has push-type [Short()]
   FALOAD() has push-type [Float()]
   DALOAD() has push-type [Double()]
-  AALOAD() has push-type ["TODO: get class name from the stack"]
+  // AALOAD() has push-type ["TODO: get class name from the stack"]
                 
   IASTORE() +
   LASTORE() +

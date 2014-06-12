@@ -11,12 +11,12 @@ type rules
   INVOKEINTERFACE(JBCMethodRef(_, _, JBCMethodDesc(_, r)), _)
     has push-type t where (r => Void() and [] => t) or [r] => t
 
-  RETURN()  +
-  IRETURN() +
-  LRETURN() +
-  FRETURN() +
-  DRETURN() +
-  ARETURN() has push-type ["TODO: Empty the stack"]
+  // RETURN()  +
+  // IRETURN() +
+  // LRETURN() +
+  // FRETURN() +
+  // DRETURN() +
+  // ARETURN() has push-type ["TODO: Empty the stack"]
   
   RET(_)   +
   RET_W(_) has push-type []
