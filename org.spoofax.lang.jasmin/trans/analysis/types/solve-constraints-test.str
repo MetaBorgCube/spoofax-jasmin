@@ -9,16 +9,17 @@ imports
 	trans/analysis/names/-
 
 rules
-	solve-test-constraints: _ -> [a, b, c, d, e, f, g]
+	solve-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j]
 		where a := <try(solve-constraints)> [] // empty list
-			; b := <try(solve-constraints)> [CEq("test", [])] // one element in list
-			; c := <try(solve-constraints)> [CEq("test", []), CEq("test2", [])] // two elements in list
-			; d := <try(solve-constraints)> [CEq("test", []), CEq("test2", []), CEq("abc", TypeVar("test"))] // two elements, one dependency
-			; e := <try(solve-constraints)> [CEq("abc", TypeVar("test")), CEq("test", []), CEq("test2", [])] // one dependency, two elements
-			; f := <try(solve-constraints)> [CEq("test", TypeVar("abc")), CEq("test2", []), CEq("abc", TypeVar("test"))] // cyclic dependency
-			; g := <try(solve-constraints)> [CEq("test", TypeVar("abc")),
-			  								 CEq("test2", []),
-			  								 CEq("abc", TypeVar("test")),
-			  								 CEq("abc", [])] // cyclic dependency solved with multi-ceq
-			// ; h := <try(solve-constraints)> [CEq("test", Int()), CEq("test", [])]
-			  
+			; b := <try(solve-constraints)> [CEq(TypeVar("test"), [])] // one element in list
+			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // two elements in list
+			; d := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))] // two elements, one dependency
+			; e := <try(solve-constraints)> [CEq(TypeVar("abc"), TypeVar("test")), CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // one dependency two elements
+			; f := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))] // cyclic dependency
+			; g := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")),
+			  								 CEq(TypeVar("test2"), []),
+			  								 CEq(TypeVar("abc"), TypeVar("test")),
+			  								 CEq(TypeVar("abc"), [])] // cyclic dependency solved with multi-ceq
+			; h := <try(solve-constraints)> [CEq(TypeVar("failure"), Int()), CEq(TypeVar("failure"), [])] // conflicting values for the same variable
+			; i := <try(solve-constraints)> [CEq([TypeVar("a"), TypeVar("b")], [Int(), Int()])]
+			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
