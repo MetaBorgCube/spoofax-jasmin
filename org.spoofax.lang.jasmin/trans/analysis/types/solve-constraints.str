@@ -17,17 +17,28 @@ rules
 	
 	solve-constraints-step: (x*, c) -> (xnew*, constr)
 		where mapconstr := <mapconcat(solve-constraints-lookup(|x*) <+ ![<id>])> c
-			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr
-			; xnew* := <uniq> [x*, xn*]
+			; mapconstr2 := <mapconcat(solve-constraints-unify(|x*) <+ ![<id>])> mapconstr
+			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr2
+			; xnew* := <uniq; unique-keys> [x*, xn*]
 	
+	unique-keys: [] -> <id>
+	unique-keys: ([x@(key, _) | tail]) ->  [x | <unique-keys> tail]
+  		where <not(lookup)> (key, tail)
+
 	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
-		where <not(?TypeVar(_))> type
+		// warning: should probably check the whole tree for vars
+		where TypeVar(_) := var
+			; <not(?TypeVar(_))> type
 			; t := <lookup <+ !type> (var, x*)
 			; <eq> (t, type)
-			  
+			 
+	solve-constraints-unify(|x*): CEq(lt, rt) -> result
+		where vars := <unify(?TypeVar(_))> [(lt, rt)]
+        	; result := <map(\ (l,r) -> CEq(l,r) \)> vars
+
 	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
-		where TypeVar(tv) := type
-			; t := <lookup> (tv, x*)
+		where TypeVar(_) := type
+			; t := <lookup> (type, x*)
 
 	fixed-point(s): a -> c
   		where b := <s> a

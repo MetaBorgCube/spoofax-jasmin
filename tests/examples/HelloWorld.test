@@ -1,0 +1,34 @@
+[ ([], [])
+, ([(TypeVar("test"), [])], [])
+, ( [(TypeVar("test"), []), (TypeVar("test2"), [])]
+  , []
+  )
+, ( [ (TypeVar("test"), [])
+    , (TypeVar("test2"), [])
+    , (TypeVar("abc"), [])
+    ]
+  , []
+  )
+, ( [ (TypeVar("test"), [])
+    , (TypeVar("test2"), [])
+    , (TypeVar("abc"), [])
+    ]
+  , []
+  )
+, ( [(TypeVar("test2"), [])]
+  , [ CEq(TypeVar("test"), TypeVar("abc"))
+    , CEq(TypeVar("abc"), TypeVar("test"))
+    ]
+  )
+, ( [ (TypeVar("test2"), [])
+    , (TypeVar("abc"), [])
+    , (TypeVar("test"), [])
+    ]
+  , []
+  )
+, [CEq(TypeVar("failure"), Int()), CEq(TypeVar("failure"), [])]
+, ( [(TypeVar("b"), Int()), (TypeVar("a"), Int())]
+  , []
+  )
+, ([(TypeVar("a"), Int())], [])
+]
