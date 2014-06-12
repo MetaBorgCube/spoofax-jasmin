@@ -68,8 +68,10 @@ rules
   	JBCMethod(_, m, JBCMethodDesc(pd*, rd), _) -> <fail>
   	  where
         task := <nabl-lookup-lexical(|ctx, NablNsMethod())> m
+      ; type := <type-lookup(|ctx)> task
+      ; type-match := <type-match(|ctx, JBCMethodDesc(pd*, rd))> type
       ; msg := $[Method [<pp-MethodName> m] with type description ([<pp-ParameterDescriptors> pd*])[<pp-ReturnDescriptor> rd] was already defined]
-      ; <task-create-error-on-multiple(|ctx, task, msg)> m
+      ; <task-create-error-on-multiple(|ctx, type-match, msg)> m
         
   nabl-constraint(|ctx):
   	JBCField(_, f, _, _, _) -> <fail>
