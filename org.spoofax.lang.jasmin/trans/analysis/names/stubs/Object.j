@@ -1,7 +1,7 @@
 .class public java/lang/Object
 .super java/lang/Object
 
-.method public <init>()V
+.method  <init>()V
 .end method
 
 .method protected clone()Ljava/lang/Object;
@@ -10,7 +10,10 @@
 .method public equals(Ljava/lang/Object;)Z
 .end method
 
-.method public finalize()V
+.method protected finalize()V
+.end method
+
+.method public getClass()Ljava/lang/Class;
 .end method
 
 .method public hashCode()I
@@ -33,4 +36,3 @@
 
 .method public wait(JI)V
 .end method
-
