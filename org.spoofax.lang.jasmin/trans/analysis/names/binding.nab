@@ -46,6 +46,9 @@ binding rules
 	JBCField(_, name, type-desc, _, _): 
 		defines Field name of type type-desc
 	
+	JBCExtField(_, name, type-desc, _, _, _):
+		defines Field name of type type-desc
+	
 	JBCFieldRef(CRef(c), FRef(name), type-desc):
 		refers to Field name of type type-desc
 		in Class c

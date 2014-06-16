@@ -1,5 +1,5 @@
 .class public final java/lang/String
-.super Ljava/lang/Object;
+.super java/lang/Object
 
 .field static public CASE_INSENSITIVE_ORDER Ljava/util/Comparator;
 .end field

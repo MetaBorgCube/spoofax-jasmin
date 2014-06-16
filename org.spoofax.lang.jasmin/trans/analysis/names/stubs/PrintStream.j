@@ -1,5 +1,5 @@
 .class public java/io/PrintStream
-.super Ljava/io/FilterOutputStream;
+.super java/io/FilterOutputStream
 
 .method  <init>(Ljava/io/File;)V
 .end method

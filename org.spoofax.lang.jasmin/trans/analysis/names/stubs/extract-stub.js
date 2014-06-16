@@ -1,3 +1,11 @@
+/**
+ * Requirements: firefox + firebug + firequery + JavaDoc SE 7 webpage
+ * Open de webpage in firefox.
+ * Start firebug
+ * Use the jQuerify button (provided by firequery) in the console tab
+ * Paste this script into the console to run it
+ * The output string should be syntactically correct Jasmin code that stubs all field, constructors and methods.
+ */
 function toJasminBaseType(str) {
     var str0 = "";
     if(str[0] === "(") {
@@ -39,7 +47,7 @@ pre = $.makeArray(pre.contents().map(function(i) {
         return ".super " + this.data.replace(/\s?extends\s?/, "");
     }
     if(i === 3) {
-        return $(this).text() + "\n\n";
+        return $(this).text().match(/java(\/[^\/.;]+)+/)[0] + "\n\n";
     }
 }))
 if(pre.length === 2) {
@@ -60,8 +68,11 @@ pre.join("") + $.makeArray($("table.overviewSummary").map(function() {
             var ret_ty;
             var name;
             var params;
+            params = tr.children("td.colOne").children("code").clone();
+            if(params.length === 0) {
+                params = tr.children("td.colLast").children("code").clone();
+            }
             if(kind === "constructor") {
-                params = tr.children("td.colOne").children("code").clone();
                 name = "<init>";
                 ret_ty = "V";
             }
@@ -84,9 +95,6 @@ pre.join("") + $.makeArray($("table.overviewSummary").map(function() {
                 modifiers.push(ret_ty);
                 return modifiers.join(" ");
             }
-            if(kind === "method") {
-                params = tr.children("td.colLast").children("code").clone();
-            }
             params.children("a").replaceWith(toJasminReference);
             params.children("strong").eq(0).remove();
             params = params.contents().text().replace(/\s+/g, " ").split(" ");
@@ -102,6 +110,9 @@ pre.join("") + $.makeArray($("table.overviewSummary").map(function() {
             	return modifiers.join(" ") + " " + name + params.join("") + ret_ty;
             }
         });
+    if(kind === "constructor") {
+        kind = "method";
+    }
     return $.makeArray(strs.map(function() {
         return "."+kind+" "+this+"\n.end "+kind;
     })).join("\n\n");

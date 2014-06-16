@@ -800,7 +800,15 @@ rules
   , []
   , []
   )
-, []
+, [ JBCExtField(
+      [PUBLIC()]
+    , "out"
+    , JBCFieldDesc(Reference(CRef("java/io/OutputStream")))
+    , None()
+    , None()
+    , []
+    )
+  ]
 , [ JBCMethod(
       []
     , Init()
@@ -997,6 +1005,202 @@ rules
       [PUBLIC()]
     , "write"
     , JBCMethodDesc([Int()], Void())
+    , []
+    )
+  ]
+)
+               )
+             , ( "Exception.class"
+               , JBCFile(
+  JBCHeader(
+    None()
+  , None()
+  , JBCClass([PUBLIC()], "java/lang/Exception")
+  , JBCSuper("java/lang/Throwable")
+  , []
+  , None()
+  , None()
+  , []
+  , []
+  , []
+  )
+, []
+, [ JBCMethod([], Init(), JBCMethodDesc([], Void()), [])
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc([Reference(CRef("java/lang/String"))], Void())
+    , []
+    )
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc(
+        [Reference(CRef("java/lang/String")), Reference(CRef("java/lang/Throwable"))]
+      , Void()
+      )
+    , []
+    )
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc(
+        [Reference(CRef("java/lang/String")), Reference(CRef("java/lang/Throwable")), Boolean(), Boolean()]
+      , Void()
+      )
+    , []
+    )
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc([Reference(CRef("java/lang/Throwable"))], Void())
+    , []
+    )
+  ]
+)
+               )
+             , ( "Throwable.class"
+               , JBCFile(
+  JBCHeader(
+    None()
+  , None()
+  , JBCClass([PUBLIC()], "java/lang/Throwable")
+  , JBCSuper("java/lang/Object")
+  , []
+  , None()
+  , None()
+  , []
+  , []
+  , []
+  )
+, []
+, [ JBCMethod([], Init(), JBCMethodDesc([], Void()), [])
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc([Reference(CRef("java/lang/String"))], Void())
+    , []
+    )
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc(
+        [Reference(CRef("java/lang/String")), Reference(CRef("java/lang/Throwable"))]
+      , Void()
+      )
+    , []
+    )
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc(
+        [Reference(CRef("java/lang/String")), Reference(CRef("java/lang/Throwable")), Boolean(), Boolean()]
+      , Void()
+      )
+    , []
+    )
+  , JBCMethod(
+      []
+    , Init()
+    , JBCMethodDesc([Reference(CRef("java/lang/Throwable"))], Void())
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "addSuppressed"
+    , JBCMethodDesc([Reference(CRef("java/lang/Throwable"))], Void())
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "fillInStackTrace"
+    , JBCMethodDesc([], Reference(CRef("java/lang/Throwable")))
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "getCause"
+    , JBCMethodDesc([], Reference(CRef("java/lang/Throwable")))
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "getLocalizedMessage"
+    , JBCMethodDesc([], Reference(CRef("java/lang/String")))
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "getMessage"
+    , JBCMethodDesc([], Reference(CRef("java/lang/String")))
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "getStackTrace"
+    , JBCMethodDesc([], Array(Reference(CRef("java/lang/StackTraceElement"))))
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "getSuppressed"
+    , JBCMethodDesc([], Array(Reference(CRef("java/lang/Throwable"))))
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "initCause"
+    , JBCMethodDesc([Reference(CRef("java/lang/Throwable"))], Reference(CRef("java/lang/Throwable")))
+    , []
+    )
+  , JBCMethod([PUBLIC()], "printStackTrace", JBCMethodDesc([], Void()), [])
+  , JBCMethod(
+      [PUBLIC()]
+    , "printStackTrace"
+    , JBCMethodDesc([Reference(CRef("java/io/PrintStream"))], Void())
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "printStackTrace"
+    , JBCMethodDesc([Reference(CRef("java/io/PrintWriter"))], Void())
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "setStackTrace"
+    , JBCMethodDesc([Array(Reference(CRef("java/lang/StackTraceElement")))], Void())
+    , []
+    )
+  , JBCMethod(
+      [PUBLIC()]
+    , "toString"
+    , JBCMethodDesc([], Reference(CRef("java/lang/String")))
+    , []
+    )
+  ]
+)
+               )
+             , ( "Enumeration.class"
+               , JBCFile(
+  JBCHeader(
+    None()
+  , None()
+  , JBCClass([PUBLIC()], "java/util/Enumeration")
+  , JBCSuper("java/lang/Object")
+  , []
+  , None()
+  , None()
+  , []
+  , []
+  , []
+  )
+, []
+, [ JBCMethod([PUBLIC()], "hasMoreElements", JBCMethodDesc([], Boolean()), [])
+  , JBCMethod(
+      [PUBLIC()]
+    , "nextElement"
+    , JBCMethodDesc([], Reference(CRef("java/lang/Object")))
     , []
     )
   ]

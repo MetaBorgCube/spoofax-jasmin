@@ -1,5 +1,5 @@
 .class public final java/lang/System
-.super Ljava/lang/Object;
+.super java/lang/Object
 
 .field static public err Ljava/io/PrintStream;
 .end field
