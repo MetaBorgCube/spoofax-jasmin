@@ -7,9 +7,16 @@ imports
 	runtime/types/-
 	trans/analysis/types/-
 	trans/analysis/names/-
+	
+rules
+	solve-test-constraints: x -> ["Equality", eq*, "Subtyping", sub*]
+		where
+			eq* := <solve-eq-test-constraints> x
+		;	sub* := <solve-sub-test-constraints> x
+		
 
 rules
-	solve-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j]
+	solve-eq-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j]
 		where a := <try(solve-constraints)> [] // empty list
 			; b := <try(solve-constraints)> [CEq(TypeVar("test"), [])] // one element in list
 			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // two elements in list
@@ -23,3 +30,9 @@ rules
 			; h := <try(solve-constraints)> [CEq(TypeVar("failure"), Int()), CEq(TypeVar("failure"), [])] // conflicting values for the same variable
 			; i := <try(solve-constraints)> [CEq([TypeVar("a"), TypeVar("b")], [Int(), Int()])]
 			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
+			  
+			  
+	solve-sub-test-constraints: _ -> [a, b]	  
+		where
+			  a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
+			; b := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]

@@ -12,19 +12,30 @@ strategies
 	//the input of this strategy should be a list of constraints!
 	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
 
-rules
+    solve-step(|x*) = mapconcat(
+    					solve-constraints-lookup(|x*) <+
+                      	solve-constraints-unify(|x*) <+
+                      	solve-constraints-simple-subtype(|x*) <+
+                      	![<id>]
+                      )
+    
+    fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
+    
+    is-simple-type = ?Int() <+ ?Double() <+ ?Float() <+ ?Boolean() <+ ?Char() <+ ?Byte() <+ ?Long() <+ ?Short()
+
+rules // general rules
 	solve-constraints-step: (x, []) -> (x, [])
 	
 	solve-constraints-step: (x*, c) -> (xnew*, constr)
-		where mapconstr := <mapconcat(solve-constraints-lookup(|x*) <+ ![<id>])> c
-			; mapconstr2 := <mapconcat(solve-constraints-unify(|x*) <+ ![<id>])> mapconstr
-			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr2
+		where mapconstr := <solve-step(|x*)> c
+			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr
 			; xnew* := <uniq; unique-keys> [x*, xn*]
 	
 	unique-keys: [] -> <id>
 	unique-keys: ([x@(key, _) | tail]) ->  [x | <unique-keys> tail]
   		where <not(lookup)> (key, tail)
 
+rules // equality constraints
 	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
 		// warning: should probably check the whole tree for vars
 		where TypeVar(_) := var
@@ -40,6 +51,7 @@ rules
 		where TypeVar(_) := type
 			; t := <lookup> (type, x*)
 
-	fixed-point(s): a -> c
-  		where b := <s> a
-			; c := <if(not(eq), Snd;fixed-point(s), Snd)> (a, b)
+rules // subtype constraints
+	solve-constraints-simple-subtype(|x*): CSub(var, type) -> [CEq(var, type)]
+		where TypeVar(_) := var
+			; <is-simple-type> type
