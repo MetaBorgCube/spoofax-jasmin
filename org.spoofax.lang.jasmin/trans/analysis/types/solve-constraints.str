@@ -41,8 +41,9 @@ rules // equality constraints
 		// warning: should probably check the whole tree for vars
 		where TypeVar(_) := var
 			; <not(?TypeVar(_))> type
-			; t := <lookup <+ !type> (var, x*)
-			; <eq> (t, type)
+			; if t := <lookup> (var, x*)
+			    then <eq> (t, type)
+			  end
 			 
 	solve-constraints-unify(|x*): n#([lt, rt]) -> result
 		where <?"CEq" <+ ?"CSub"> n
