@@ -26,7 +26,7 @@ type rules
   DCONST_0() +
   DCONST_1() has push-type [Double()]
              
-  ACONST_NULL() has push-type ["TODO: find out what this should be. BOTTOM() maybe?"] 
+  ACONST_NULL() has push-type [BOTTOM()] 
              
   LDC(c)    +
   LDC2_W(c) +

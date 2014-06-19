@@ -54,4 +54,4 @@ rules // equality constraints
 rules // subtype constraints
 	solve-constraints-simple-subtype(|x*): CSub(var, type) -> [CEq(var, type)]
 		where TypeVar(_) := var
-			; <is-simple-type> type
+			; <is-simple-type <+ ?[]> type
