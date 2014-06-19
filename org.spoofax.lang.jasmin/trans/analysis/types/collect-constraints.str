@@ -302,18 +302,18 @@ rules
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in), ([type, Int(), Array(type)], rest)) ] // pop-type
-  complex-constraint: (instr@CALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Char())>
-  complex-constraint: (instr@CASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Char())>
-  complex-constraint: (instr@DALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Double())>
-  complex-constraint: (instr@DASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Double())>
-  complex-constraint: (instr@FALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Float())>
-  complex-constraint: (instr@FASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Float())>
-  complex-constraint: (instr@IALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Int())>
-  complex-constraint: (instr@IASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Int())>
-  complex-constraint: (instr@LALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Long())>
-  complex-constraint: (instr@LASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Long())>
-  complex-constraint: (instr@SALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Short())>
-  complex-constraint: (instr@SASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Short())>
+  complex-constraint: (CALOAD(),  (_, _)) -> <cc-aload-helper(|Char())>
+  complex-constraint: (CASTORE(), (_, _)) -> <cc-astore-helper(|Char())>
+  complex-constraint: (DALOAD(),  (_, _)) -> <cc-aload-helper(|Double())>
+  complex-constraint: (DASTORE(), (_, _)) -> <cc-astore-helper(|Double())>
+  complex-constraint: (FALOAD(),  (_, _)) -> <cc-aload-helper(|Float())>
+  complex-constraint: (FASTORE(), (_, _)) -> <cc-astore-helper(|Float())>
+  complex-constraint: (IALOAD(),  (_, _)) -> <cc-aload-helper(|Int())>
+  complex-constraint: (IASTORE(), (_, _)) -> <cc-astore-helper(|Int())>
+  complex-constraint: (LALOAD(),  (_, _)) -> <cc-aload-helper(|Long())>
+  complex-constraint: (LASTORE(), (_, _)) -> <cc-astore-helper(|Long())>
+  complex-constraint: (SALOAD(),  (_, _)) -> <cc-aload-helper(|Short())>
+  complex-constraint: (SASTORE(), (_, _)) -> <cc-astore-helper(|Short())>
     	  
   complex-constraint: (instr@name#([_]), (prev-out, c*)) -> (i-out, [n*, c*])
     where <string-starts-with(|"ASTORE")> name
