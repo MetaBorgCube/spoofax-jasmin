@@ -9,7 +9,7 @@ imports
 	trans/analysis/names/-
 
 rules
-	solve-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j]
+	solve-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j, k, l]
 		where a := <try(solve-constraints)> [] // empty list
 			; b := <try(solve-constraints)> [CEq(TypeVar("test"), [])] // one element in list
 			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // two elements in list
@@ -23,3 +23,5 @@ rules
 			; h := <try(solve-constraints)> [CEq(TypeVar("failure"), Int()), CEq(TypeVar("failure"), [])] // conflicting values for the same variable
 			; i := <try(solve-constraints)> [CEq([TypeVar("a"), TypeVar("b")], [Int(), Int()])]
 			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
+			; k := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
+			; l := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]
