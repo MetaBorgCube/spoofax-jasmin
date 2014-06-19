@@ -70,7 +70,7 @@ rules // subtype constraints
 		;	<debug> pair
 		;	ftail := <filter(not(?(x, _)))> tailpairs
 			  
-	find-upper-bound: [] -> []
+	find-upper-bound: [x] -> x
 	find-upper-bound: [Reference(CRef("java/lang/Object")),Reference(CRef("java/lang/String"))] -> Reference(CRef("java/lang/String"))
 			  
 	solve-constraints-sub-eliminate(|x*): c* -> cnew*
@@ -80,4 +80,8 @@ rules // subtype constraints
 		;	<debug> club*
 		;	cnew* := [club*, cold*]
 		  	
-			
+rules // or constraints
+	// TODO
+
+rules // not equals constraints
+	// TODO
