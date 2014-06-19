@@ -12,7 +12,8 @@ strategies
 	//the input of this strategy should be a list of constraints!
 	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
 
-    solve-step(|x*) = mapconcat(
+    solve-step(|x*) = solve-constraints-sub-eliminate(|x*);
+    				  mapconcat(
     					solve-constraints-lookup(|x*) <+
                       	solve-constraints-unify(|x*) <+
                       	solve-constraints-simple-subtype(|x*) <+
@@ -43,9 +44,11 @@ rules // equality constraints
 			; t := <lookup <+ !type> (var, x*)
 			; <eq> (t, type)
 			 
-	solve-constraints-unify(|x*): CEq(lt, rt) -> result
-		where vars := <unify(?TypeVar(_))> [(lt, rt)]
-        	; result := <map(\ (l,r) -> CEq(l,r) \)> vars
+	solve-constraints-unify(|x*): n#([lt, rt]) -> result
+		where <?"CEq" <+ ?"CSub"> n
+		    ; not(TypeVar(_) := lt)
+			; vars := <unify(?TypeVar(_))> [(lt, rt)]
+        	; result := <map(\ (l,r) -> <mkterm> (n, [l,r]) \)> vars
 
 	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
 		where TypeVar(_) := type
@@ -55,3 +58,26 @@ rules // subtype constraints
 	solve-constraints-simple-subtype(|x*): CSub(var, type) -> [CEq(var, type)]
 		where TypeVar(_) := var
 			; <is-simple-type <+ ?[]> type
+			
+	collect-csub-types: [] -> []
+	collect-csub-types: [CSub(TypeVar(x), t) | tail] -> [pair | ftail]
+		where
+			tailpairs := <collect-csub-types> tail
+		;	l := <lookup <+ ![]> (x, tailpairs)
+		;	<debug> l
+		;	<debug> t
+		;	pair := (x, [t | l])
+		;	<debug> pair
+		;	ftail := <filter(not(?(x, _)))> tailpairs
+			  
+	find-upper-bound: [] -> []
+	find-upper-bound: [Reference(CRef("java/lang/Object")),Reference(CRef("java/lang/String"))] -> Reference(CRef("java/lang/String"))
+			  
+	solve-constraints-sub-eliminate(|x*): c* -> cnew*
+		where
+			(csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
+		;	club* := <map(debug;?(a,b);!CSub(TypeVar(a), <find-upper-bound> b))> <debug> <collect-csub-types> csub*
+		;	<debug> club*
+		;	cnew* := [club*, cold*]
+		  	
+			

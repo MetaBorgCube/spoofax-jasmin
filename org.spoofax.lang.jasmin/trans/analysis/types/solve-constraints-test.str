@@ -32,6 +32,8 @@ rules
 			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
 			  
 			  
-	solve-sub-test-constraints: _ -> [a, b]	  
+	solve-sub-test-constraints: _ -> [a, b, c, d]	  
 		where a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
 			; b := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]
+			; c := <try(solve-constraints)> [CSub(Array(TypeVar("a")), Array(Int()))]
+			; d := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/Object"))), CSub(TypeVar("a"), Reference(CRef("java/lang/String")))]
