@@ -18,10 +18,12 @@ strategies
                       	solve-constraints-simple-subtype(|x*) <+
                       	![<id>]
                       )
-             
+    
+    fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
+    
     is-simple-type = ?Int() <+ ?Double() <+ ?Float() <+ ?Boolean() <+ ?Char() <+ ?Byte() <+ ?Long() <+ ?Short()
 
-rules
+rules // general rules
 	solve-constraints-step: (x, []) -> (x, [])
 	
 	solve-constraints-step: (x*, c) -> (xnew*, constr)
@@ -33,6 +35,7 @@ rules
 	unique-keys: ([x@(key, _) | tail]) ->  [x | <unique-keys> tail]
   		where <not(lookup)> (key, tail)
 
+rules // equality constraints
 	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
 		// warning: should probably check the whole tree for vars
 		where TypeVar(_) := var
@@ -47,11 +50,8 @@ rules
 	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
 		where TypeVar(_) := type
 			; t := <lookup> (type, x*)
-			  
+
+rules // subtype constraints
 	solve-constraints-simple-subtype(|x*): CSub(var, type) -> [CEq(var, type)]
 		where TypeVar(_) := var
 			; <is-simple-type> type
-
-	fixed-point(s): a -> c
-  		where b := <s> a
-			; c := <if(not(eq), Snd;fixed-point(s), Snd)> (a, b)
