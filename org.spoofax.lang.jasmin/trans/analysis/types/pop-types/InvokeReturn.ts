@@ -5,10 +5,10 @@ imports
 	analysis/names/extra-constructors
 
 type rules
-	INVOKESPECIAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type t where p => t
-	INVOKEVIRTUAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type t where p => t
-	INVOKESTATIC(JBCMethodRef(_, _, JBCMethodDesc(p, _)))      has pop-type t where p => t
-	INVOKEINTERFACE(JBCMethodRef(_, _, JBCMethodDesc(p, _)),_) has pop-type t where p => t
+	// INVOKESPECIAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type <subtype of t> where p => t
+	// INVOKEVIRTUAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type <subtype of t> where p => t
+	// INVOKESTATIC(JBCMethodRef(_, _, JBCMethodDesc(p, _)))      has pop-type <subtype of t> where p => t
+	// INVOKEINTERFACE(JBCMethodRef(_, _, JBCMethodDesc(p, _)),_) has pop-type <subtype of t> where p => t
 
 	  RETURN()
 	+ RET(_)
