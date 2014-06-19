@@ -5,10 +5,10 @@ imports
 	analysis/names/extra-constructors
 
 type rules
-	INVOKESPECIAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type t where p => t
-	INVOKEVIRTUAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type t where p => t
-	INVOKESTATIC(JBCMethodRef(_, _, JBCMethodDesc(p, _)))      has pop-type t where p => t
-	INVOKEINTERFACE(JBCMethodRef(_, _, JBCMethodDesc(p, _)),_) has pop-type t where p => t
+	// INVOKESPECIAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type <subtype of t> where p => t
+	// INVOKEVIRTUAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type <subtype of t> where p => t
+	// INVOKESTATIC(JBCMethodRef(_, _, JBCMethodDesc(p, _)))      has pop-type <subtype of t> where p => t
+	// INVOKEINTERFACE(JBCMethodRef(_, _, JBCMethodDesc(p, _)),_) has pop-type <subtype of t> where p => t
 
 	  RETURN()
 	+ RET(_)
@@ -19,4 +19,4 @@ type rules
 	LRETURN() has pop-type [Long()]
 	FRETURN() has pop-type [Float()]
 	DRETURN() has pop-type [Double()]
-	// ARETURN() has pop-type ["TODO: probably CRef?"]
+	// ARETURN() has pop-type some Reference(Cref(...))

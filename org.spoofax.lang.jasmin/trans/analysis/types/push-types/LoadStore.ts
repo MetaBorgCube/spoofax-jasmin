@@ -53,7 +53,7 @@ type rules
   ALOAD_0() +
   ALOAD_1() +
   ALOAD_2() +
-  ALOAD_3() has push-type ["TODO: get the right type CRef(\"...\")"]
+  ALOAD_3() has push-type ["TODO: get info from local variables"]
              
   LLOAD_0() +
   LLOAD_1() +

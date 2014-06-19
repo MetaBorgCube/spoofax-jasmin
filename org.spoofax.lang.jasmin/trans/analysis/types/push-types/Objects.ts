@@ -21,12 +21,12 @@ type rules
                 
   IALOAD() has push-type [Int()]
   LALOAD() has push-type [Long()]
-  // BALOAD() has push-type ["TODO: find out what to do here because it may Byte() and Boolean()"]
+  // BALOAD() has push-type Byte() /\ Boolean()
   CALOAD() has push-type [Char()]
   SALOAD() has push-type [Short()]
   FALOAD() has push-type [Float()]
   DALOAD() has push-type [Double()]
-  // AALOAD() has push-type ["TODO: get class name from the stack"]
+  // AALOAD() has push-type Reference(CRef(<see array type on stack>)) /\ Array(<see array type on stack>)
                 
   IASTORE() +
   LASTORE() +
@@ -39,5 +39,5 @@ type rules
                 
   ARRAYLENGTH() has push-type [Int()]
                 
-  // CHECKCAST(cr)  has push-type ["TODO: get the pop-type, should be a class"]
+  // CHECKCAST(cr)  has push-type Reference(CRef(<see the just popped type>))
   INSTANCEOF(cr) has push-type [Boolean()]
