@@ -22,7 +22,7 @@ rules
 			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // two elements in list
 			; d := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))] // two elements, one dependency
 			; e := <try(solve-constraints)> [CEq(TypeVar("abc"), TypeVar("test")), CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // one dependency two elements
-			; f := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))] // cyclic dependency
+			; f := <try(solve-constraints)> [CEq(TypeVar("cyclic"), TypeVar("failure")), CEq(TypeVar("test2"), []), CEq(TypeVar("failure"), TypeVar("cyclic"))] // cyclic dependency
 			; g := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")),
 			  								 CEq(TypeVar("test2"), []),
 			  								 CEq(TypeVar("abc"), TypeVar("test")),
@@ -33,6 +33,5 @@ rules
 			  
 			  
 	solve-sub-test-constraints: _ -> [a, b]	  
-		where
-			  a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
+		where a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
 			; b := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]
