@@ -48,7 +48,7 @@ rules
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
     	; n* := [ CEq(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
-    	        , CEq(TypeVar(i-out), ([cref], []))         // push-type
+    	        , CEq(TypeVar(i-out), [cref])         // push-type
     	        ]
   complex-constraint: (instr@CHECKCAST(_), (prev-out, c*)) -> (i-out, [n*, c*])
     where cref  := Reference(CRef(<fresh-var>))
@@ -64,8 +64,8 @@ rules
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in),  ([type], rest))       // pop-type
     	        , CEq(TypeVar(i-out), ([type, type], rest)) // push-type
-    	        , CEq(TypeVar(type'), Double())
-    	        , CEq(TypeVar(type'), Long())
+    	        , CNEq(TypeVar(type'), Double())
+    	        , CNEq(TypeVar(type'), Long())
     	        ]
   complex-constraint: (instr@DUP2(), (prev-out, c*)) -> (i-out, [n*, c*])
     where type@TypeVar(type')  := <fresh-var>
@@ -82,10 +82,10 @@ rules
     	                ]
     	              , [ CEq(TypeVar(i-in),  ([type1, type2], rest))               // pop-type
     	                , CEq(TypeVar(i-out), ([type1, type2, type1, type2], rest)) // push-type
-    	                , CEq(TypeVar(type1'), Double())
-              	        , CEq(TypeVar(type1'), Long())
-    	                , CEq(TypeVar(type2'), Double())
-              	        , CEq(TypeVar(type2'), Long())
+    	                , CNEq(TypeVar(type1'), Double())
+              	        , CNEq(TypeVar(type1'), Long())
+    	                , CNEq(TypeVar(type2'), Double())
+              	        , CNEq(TypeVar(type2'), Long())
     	                ]
     	              ])
     	        ]
@@ -97,10 +97,10 @@ rules
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in),  ([type1, type2], rest))        // pop-type
     	        , CEq(TypeVar(i-out), ([type1, type2, type1], rest)) // push-type
-    	        , CEq(TypeVar(type1'), Double())
-    	        , CEq(TypeVar(type1'), Long())
-    	        , CEq(TypeVar(type2'), Double())
-    	        , CEq(TypeVar(type2'), Long())
+    	        , CNEq(TypeVar(type1'), Double())
+    	        , CNEq(TypeVar(type1'), Long())
+    	        , CNEq(TypeVar(type2'), Double())
+    	        , CNEq(TypeVar(type2'), Long())
     	        ]
   complex-constraint: (instr@DUP2_X1(), (prev-out, c*)) -> (i-out, [n*, c*])
     where type1@TypeVar(type1') := <fresh-var>
@@ -119,10 +119,10 @@ rules
     	                ]
     	              , [ CEq(TypeVar(i-in),  ([type1, type2, type3], rest))               // pop-type
     	                , CEq(TypeVar(i-out), ([type1, type2, type3, type1, type2], rest)) // push-type
-    	                , CEq(TypeVar(type1'), Double())
-              	        , CEq(TypeVar(type1'), Long())
-    	                , CEq(TypeVar(type3'), Double())
-              	        , CEq(TypeVar(type3'), Long())
+    	                , CNEq(TypeVar(type1'), Double())
+              	        , CNEq(TypeVar(type1'), Long())
+    	                , CNEq(TypeVar(type3'), Double())
+              	        , CNEq(TypeVar(type3'), Long())
     	                ]
     	              ])
     	        ]
@@ -137,10 +137,10 @@ rules
                 , CEq(TypeVar(type1'), Long())
                 , COr( [ [ CEq(TypeVar(i-in),  ([type1, type2, type3], rest))        // pop-type
     	                 , CEq(TypeVar(i-out), ([type1, type2, type3, type1], rest)) // push-type
-    	                 , CEq(TypeVar(type2'), Double())
-    	                 , CEq(TypeVar(type2'), Long())
-    	                 , CEq(TypeVar(type3'), Double())
-    	                 , CEq(TypeVar(type3'), Long())
+    	                 , CNEq(TypeVar(type2'), Double())
+    	                 , CNEq(TypeVar(type2'), Long())
+    	                 , CNEq(TypeVar(type3'), Double())
+    	                 , CNEq(TypeVar(type3'), Long())
     	                 ]
     	               , [ CEq(TypeVar(i-in),  ([type1, type2], rest))        // pop-type
     	                 , CEq(TypeVar(i-out), ([type1, type2, type1], rest)) // push-type
@@ -163,10 +163,10 @@ rules
     	                , COr([ [ CEq(TypeVar(type1'), Double()) ]
     	                      , [ CEq(TypeVar(type1'), Long()) ]
     	                      ])
-    	                , CEq(TypeVar(type2'), Double())
-              	        , CEq(TypeVar(type2'), Long())
-    	                , CEq(TypeVar(type3'), Double())
-              	        , CEq(TypeVar(type3'), Long())
+    	                , CNEq(TypeVar(type2'), Double())
+              	        , CNEq(TypeVar(type2'), Long())
+    	                , CNEq(TypeVar(type3'), Double())
+              	        , CNEq(TypeVar(type3'), Long())
     	                ]
     	              , [ CEq(TypeVar(i-in),  ([type1, type2], rest))        // pop-type
     	                , CEq(TypeVar(i-out), ([type1, type2, type1], rest)) // push-type
@@ -179,24 +179,24 @@ rules
     	                ]
     	              , [ CEq(TypeVar(i-in),  ([type1, type2, type3], rest))               // pop-type
     	                , CEq(TypeVar(i-out), ([type1, type2, type3, type1, type2], rest)) // push-type
-    	                , CEq(TypeVar(type1'), Double())
-              	        , CEq(TypeVar(type1'), Long())
-    	                , CEq(TypeVar(type2'), Double())
-              	        , CEq(TypeVar(type2'), Long())
+    	                , CNEq(TypeVar(type1'), Double())
+              	        , CNEq(TypeVar(type1'), Long())
+    	                , CNEq(TypeVar(type2'), Double())
+              	        , CNEq(TypeVar(type2'), Long())
     	                , COr([ [ CEq(TypeVar(type3'), Double()) ]
     	                      , [ CEq(TypeVar(type3'), Long()) ]
     	                      ])
     	                ]
     	              , [ CEq(TypeVar(i-in),  ([type1, type2, type3, type4], rest))               // pop-type
     	                , CEq(TypeVar(i-out), ([type1, type2, type3, type4, type1, type2], rest)) // push-type
-    	                , CEq(TypeVar(type1'), Double())
-              	        , CEq(TypeVar(type1'), Long())
-    	                , CEq(TypeVar(type2'), Double())
-              	        , CEq(TypeVar(type2'), Long())
-    	                , CEq(TypeVar(type3'), Double())
-              	        , CEq(TypeVar(type3'), Long())
-    	                , CEq(TypeVar(type4'), Double())
-              	        , CEq(TypeVar(type4'), Long())
+    	                , CNEq(TypeVar(type1'), Double())
+              	        , CNEq(TypeVar(type1'), Long())
+    	                , CNEq(TypeVar(type2'), Double())
+              	        , CNEq(TypeVar(type2'), Long())
+    	                , CNEq(TypeVar(type3'), Double())
+              	        , CNEq(TypeVar(type3'), Long())
+    	                , CNEq(TypeVar(type4'), Double())
+              	        , CNEq(TypeVar(type4'), Long())
     	                ]
     	              ])
     	        ]
@@ -208,10 +208,10 @@ rules
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in),  ([type1, type2], rest)) // pop-type
     	        , CEq(TypeVar(i-out), ([type2, type1], rest)) // push-type
-    	        , CEq(TypeVar(type1'), Double())
-    	        , CEq(TypeVar(type1'), Long())
-    	        , CEq(TypeVar(type2'), Double())
-    	        , CEq(TypeVar(type2'), Long())
+    	        , CNEq(TypeVar(type1'), Double())
+    	        , CNEq(TypeVar(type1'), Long())
+    	        , CNEq(TypeVar(type2'), Double())
+    	        , CNEq(TypeVar(type2'), Long())
     	        ]
   complex-constraint: (instr@RETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
     where i-out := <get-out-stack> instr
@@ -260,9 +260,9 @@ rules
         ; rest  := <fresh-var>
         ; class-type := Reference(CRef(<fresh-var>))
         ; array-type := Array(<fresh-var>)
-    	; n* := [COr([ [ CEq(TypeVar(i-in), ([Array(class-type), Int()], rest))   // pop-type
+    	; n* := [COr([ [ CEq(TypeVar(i-in), ([Int(), Array(class-type)], rest))   // pop-type
     	               , CEq(TypeVar(i-out), ([class-type],rest))               ] // push-type
-    	             , [ CEq(TypeVar(i-in), ([Array(array-type), Int()], rest))   // pop-type
+    	             , [ CEq(TypeVar(i-in), ([Int(), Array(array-type)], rest))   // pop-type
     	               , CEq(TypeVar(i-out), ([array-type],rest))               ] // push-type
     	             ])]
   complex-constraint: (instr@AASTORE(), (prev-out, c*)) -> (i-out, [n*, c*])
@@ -271,7 +271,54 @@ rules
         ; rest  := <fresh-var>
         ; class-type := Reference(CRef(<fresh-var>))
         ; array-type := Array(<fresh-var>)
-    	; n* := [COr([ [ CEq(TypeVar(i-in), ([Array(class-type), Int(), class-type], rest)) ] // pop-type
-    	             , [ CEq(TypeVar(i-in), ([Array(array-type), Int(), array-type], rest)) ] // pop-type
+    	; n* := [COr([ [ CEq(TypeVar(i-in), ([class-type, Int(), Array(class-type)], rest)) ] // pop-type
+    	             , [ CEq(TypeVar(i-in), ([array-type, Int(), Array(array-type)], rest)) ] // pop-type
     	             ])]
-  // TODO do the other *aload and *astore
+  complex-constraint: (instr@BALOAD(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+    	; n* := [COr([ [ CEq(TypeVar(i-in), ([Int(), Array(Boolean())], rest))   // pop-type
+    	               , CEq(TypeVar(i-out), ([Boolean()],rest))               ] // push-type
+    	             , [ CEq(TypeVar(i-in), ([Int(), Array(Byte())], rest))   // pop-type
+    	               , CEq(TypeVar(i-out), ([Byte()],rest))               ] // push-type
+    	             ])]
+  complex-constraint: (instr@BASTORE(), (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+    	; n* := [COr([ [ CEq(TypeVar(i-in), ([Boolean(), Int(), Array(Boolean())], rest)) ] // pop-type
+    	             , [ CEq(TypeVar(i-in), ([Byte(), Int(), Array(Byte())], rest)) ] // pop-type
+    	             ])]
+    	             
+  cc-aload-helper(|type): (instr, (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+    	; n* := [ CEq(TypeVar(i-in), ([Int(), Array(type)], rest))   // pop-type
+                , CEq(TypeVar(i-out), ([type],rest))               ] // push-type
+  cc-astore-helper(|type): (instr, (prev-out, c*)) -> (i-out, [n*, c*])
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+    	; n* := [ CEq(TypeVar(i-in), ([type, Int(), Array(type)], rest)) ] // pop-type
+  complex-constraint: (instr@CALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Char())>
+  complex-constraint: (instr@CASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Char())>
+  complex-constraint: (instr@DALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Double())>
+  complex-constraint: (instr@DASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Double())>
+  complex-constraint: (instr@FALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Float())>
+  complex-constraint: (instr@FASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Float())>
+  complex-constraint: (instr@IALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Int())>
+  complex-constraint: (instr@IASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Int())>
+  complex-constraint: (instr@LALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Long())>
+  complex-constraint: (instr@LASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Long())>
+  complex-constraint: (instr@SALOAD(),  (prev-out, c*)) -> <cc-aload-helper(|Short())>
+  complex-constraint: (instr@SASTORE(), (prev-out, c*)) -> <cc-astore-helper(|Short())>
+    	  
+  complex-constraint: (instr@name#([_]), (prev-out, c*)) -> (i-out, [n*, c*])
+    where <string-starts-with(|"ASTORE")> name
+    	; i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+        ; class-type := Reference(CRef(<fresh-var>))
+    	; n* := [ CEq(TypeVar(i-in), ([class-type], rest)) ] // pop-type
