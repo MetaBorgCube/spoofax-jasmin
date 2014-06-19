@@ -16,7 +16,7 @@ type rules
   // LRETURN() +
   // FRETURN() +
   // DRETURN() +
-  // ARETURN() has push-type ["TODO: Empty the stack"]
+  // ARETURN() has push-type <Empty stack>
   
   RET(_)   +
   RET_W(_) has push-type []

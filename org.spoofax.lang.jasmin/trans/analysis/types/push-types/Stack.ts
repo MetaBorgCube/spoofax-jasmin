@@ -7,10 +7,10 @@ imports
 type rules
   POP()     has push-type []
   POP2()    has push-type []
-  // DUP()     has push-type ["TODO: get t from the stack, cannot be Double() or Long()"] 
-  // DUP2()    has push-type ["TODO: get t from the stack"]
-  // DUP_X1()  has push-type ["TODO: get t from the stack, cannot be Double() or Long()"]
-  // DUP2_X1() has push-type ["TODO: get t from the stack"]
-  // DUP_X2()  has push-type ["TODO: get t from the stack, cannot be Double() or Long()"]
-  // DUP2_X2() has push-type ["TODO: get t from the stack"]
-  // SWAP()    has push-type ["TODO: get t1 and t2 from the stack, cannot be Double() or Long()"]
+  // DUP()     : duplicate a word on the stack (so cannot be Double or Long) 
+  // DUP2()    : duplicate 2 words on the stack (e.g. 1 Long or 2 Ints)
+  // DUP_X1()  : copy the top word to after the second word (so on the third place from the top)
+  // DUP2_X1() : copy the top 2 words to after the second word
+  // DUP_X2()  : copy the top word to after the third word
+  // DUP2_X2() : copy the top 2 words to after the second word
+  // SWAP()    : swap the top 2 words
