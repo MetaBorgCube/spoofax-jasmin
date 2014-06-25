@@ -18,7 +18,8 @@ strategies
                       	solve-constraints-unify(|x*) <+
                       	solve-constraints-simple-subtype(|x*) <+
                       	![<id>]
-                      )
+                      );
+    				  solve-constraints-sub-single(|x*)
     
     fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
     
@@ -65,11 +66,14 @@ rules // subtype constraints
 		where
 			tailpairs := <collect-csub-types> tail
 		;	l := <lookup <+ ![]> (x, tailpairs)
-		;	<debug> l
-		;	<debug> t
 		;	pair := (x, [t | l])
-		;	<debug> pair
 		;	ftail := <filter(not(?(x, _)))> tailpairs
+	inflate-csub-types: [] -> []
+	inflate-csub-types: [(x, l) | tail] -> result
+		where
+			csub* := <map(\ t -> CSub(TypeVar(x), t) \)> l
+		;	tail* := <inflate-csub-types> tail
+		;	result := [csub*, tail*]
 			  
 	find-upper-bound: [x] -> x
 	find-upper-bound: [Reference(CRef("java/lang/Object")),Reference(CRef("java/lang/String"))] -> Reference(CRef("java/lang/String"))
@@ -77,9 +81,21 @@ rules // subtype constraints
 	solve-constraints-sub-eliminate(|x*): c* -> cnew*
 		where
 			(csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
-		;	club* := <map(debug;?(a,b);!CSub(TypeVar(a), <find-upper-bound> b))> <debug> <collect-csub-types> csub*
-		;	<debug> club*
-		;	cnew* := [club*, cold*]
+		;	club* := <collect-csub-types;map(?(a,b);!CSub(TypeVar(a), <find-upper-bound> b))> csub*
+		;	cnew* := [club*, cold*]	  	
+		  	
+	solve-constraints-sub-single(|x*): c* -> cnew*
+		where
+			(csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
+		;	csubs := <collect-csub-types> csub*
+		;	(csingles, cmore*) := <partition(?(x, [_]);id)> csubs
+		;	(ceq*, cevenmore*) := <partition(?(x, [t]); !TypeVar(x); find-references(|cold*); ?[]; !CEq(TypeVar(x), t))> csingles
+		;	ckeep* := <inflate-csub-types> [cmore*, cevenmore*]
+		;	cnew* := [cold*, ceq*, ckeep*]
+		   	
+	find-references(|constraints): t@TypeVar(_) -> l
+		where
+			l := <filter(\ x -> x where <is-subterm> (t, x) \)> constraints
 		  	
 rules // or constraints
 	// TODO
