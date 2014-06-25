@@ -13,6 +13,7 @@ strategies
 	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
 
     solve-step(|x*) = solve-constraints-sub-eliminate(|x*);
+    				  solve-constraints-rename;
     				  mapconcat(
     					solve-constraints-lookup(|x*) <+
                       	solve-constraints-unify(|x*) <+
@@ -55,6 +56,27 @@ rules // equality constraints
 	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
 		where TypeVar(_) := type
 			; t := <lookup> (type, x*)
+	
+	rename-equality: (l, CEq(TypeVar(a), TypeVar(b)), r) -> (ln, nc, rn)
+		where <debug>(l, (a, b), r)
+			; ln := <map(alltd(try(?TypeVar(a);!TypeVar(b))))> l
+			; <debug> l
+			; <debug> ln
+			; nc := CAlias(TypeVar(a), TypeVar(b))
+			; <debug> nc
+			; rn := <map(alltd(try(?TypeVar(a);!TypeVar(b))))> r
+			; <debug> r
+			; <debug> rn
+	
+	solve-constraints-rename: [] -> []
+	solve-constraints-rename: l -> <walk-values(try(rename-equality))> l
+		// where <debug> l
+
+strategies
+	walk-values(s) = !([], <id>); walk-value-tuple(s); ?(res, []); !res
+	walk-value-tuple(s) = ?(_, [])
+		< id
+		+ ?(l*, [e | tail]) ; !(l*, e, tail); s ; ?(ln*, en, tailn) ; !([ln*, en], tailn) ; walk-value-tuple(s) 
 
 rules // subtype constraints
 	solve-constraints-simple-subtype(|x*): CSub(var, type) -> [CEq(var, type)]
@@ -81,8 +103,8 @@ rules // subtype constraints
 	solve-constraints-sub-eliminate(|x*): c* -> cnew*
 		where
 			(csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
-		;	club* := <collect-csub-types;map(?(a,b);!CSub(TypeVar(a), <find-upper-bound> b))> csub*
-		;	cnew* := [club*, cold*]	  	
+		;	club* := <collect-csub-types;map(\ (a,b) -> CSub(TypeVar(a), <find-upper-bound> b) \)> csub*
+		;	cnew* := [club*, cold*]
 		  	
 	solve-constraints-sub-single(|x*): c* -> cnew*
 		where
