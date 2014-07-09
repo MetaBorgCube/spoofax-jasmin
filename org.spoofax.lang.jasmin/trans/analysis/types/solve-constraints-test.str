@@ -40,3 +40,4 @@ rules
 			; d := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/Object"))), CSub(TypeVar("a"), Reference(CRef("java/lang/String")))]
 			; e := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
 			; f := <try(solve-constraints)> [CSub(TypeVar("b"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))]
+			
