@@ -9,12 +9,14 @@ imports
 	trans/analysis/names/-
 	
 rules
-	solve-test-constraints: x -> ["Equality", eq*, "Subtyping", sub*, "Or", or*, "inequality", notEq*, "complex", complex*]
+	solve-test-constraints: x -> ["Equality", eq*, "Subtyping", sub*, "Or", or*, "inequality", notEq*, "complex", complex*, "stack", stack*, "real", real*]
 		where eq* := <solve-eq-test-constraints> x
 			; sub* := <solve-sub-test-constraints> x
 			; or* := [] // TODO testcases
 			; notEq* := [] // TODO testcases
 			; complex* := [] // TODO testcases
+			; stack* := <solve-stack-test-constraints> x
+			; real* := <solve-real-test-constraints> x
 
 rules
 	solve-eq-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j]
@@ -41,3 +43,7 @@ rules
 			; e := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
 			; f := <try(solve-constraints)> [CSub(TypeVar("b"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))]
 			
+	solve-stack-test-constraints: _ -> [a]
+		where a := <try(solve-constraints)> [CEq(TypeVar("a"), [Int()]), CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
+			
+	solve-real-test-constraints: _ -> []
