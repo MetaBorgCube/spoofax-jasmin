@@ -20,7 +20,8 @@ strategies
                       	solve-constraints-simple-subtype(|x*) <+
                       	![<id>]
                       );
-    				  solve-constraints-sub-single(|x*)
+    				  solve-constraints-sub-single(|x*);
+    				  uniq
     
     fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
     
@@ -57,26 +58,26 @@ rules // equality constraints
 		where TypeVar(_) := type
 			; t := <lookup> (type, x*)
 	
-	rename-equality: (l, CEq(TypeVar(a), TypeVar(b)), r) -> (ln, nc, rn)
-		where <debug>(l, (a, b), r)
-			; ln := <map(alltd(try(?TypeVar(a);!TypeVar(b))))> l
-			; <debug> l
-			; <debug> ln
-			; nc := CAlias(TypeVar(a), TypeVar(b))
-			; <debug> nc
-			; rn := <map(alltd(try(?TypeVar(a);!TypeVar(b))))> r
-			; <debug> r
-			; <debug> rn
+	rename-equality: (l*, CEq(a@TypeVar(_), b@TypeVar(_)), r*) -> (l*, [r*, na*, nb*])
+		where concat := [l*, r*]
+			; nb* := <filter(has-subterm(|a)); topdown(try(?a;!b)); filter(not(has-identity))> concat
+			; na* := <filter(has-subterm(|b)); topdown(try(?b;!a)); filter(not(has-identity))> concat
+	
+	has-subterm(|t): x -> x
+		where <is-subterm> (t, x)
+		
+	has-identity: CEq(x, x) -> []
 	
 	solve-constraints-rename: [] -> []
-	solve-constraints-rename: l -> <walk-values(try(rename-equality))> l
-		// where <debug> l
+	solve-constraints-rename: l -> <walk-values(rename-equality)> l
 
 strategies
 	walk-values(s) = !([], <id>); walk-value-tuple(s); ?(res, []); !res
-	walk-value-tuple(s) = ?(_, [])
-		< id
-		+ ?(l*, [e | tail]) ; !(l*, e, tail); s ; ?(ln*, en, tailn) ; !([ln*, en], tailn) ; walk-value-tuple(s) 
+
+	continue-value-tuple = ?(ln*, e, tailn); !([ln*, e], tailn)
+ 	walk-value-tuple(s) = ?(_, [])
+  		< id
+  		+ ?(l*, [e | tail]) ; !(l*, e, tail); (s <+ continue-value-tuple) ; walk-value-tuple(s)
 
 rules // subtype constraints
 	solve-constraints-simple-subtype(|x*): CSub(var, type) -> [CEq(var, type)]
@@ -99,6 +100,7 @@ rules // subtype constraints
 			  
 	find-upper-bound: [x] -> x
 	find-upper-bound: [Reference(CRef("java/lang/Object")),Reference(CRef("java/lang/String"))] -> Reference(CRef("java/lang/String"))
+	find-upper-bound: [Reference(CRef("java/lang/String")),Reference(CRef("java/lang/Object"))] -> Reference(CRef("java/lang/String"))
 			  
 	solve-constraints-sub-eliminate(|x*): c* -> cnew*
 		where

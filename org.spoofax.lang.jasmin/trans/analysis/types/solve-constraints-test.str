@@ -10,7 +10,7 @@ imports
 	
 rules
 	solve-test-constraints: x -> ["Equality", eq*, "Subtyping", sub*, "Or", or*, "inequality", notEq*, "complex", complex*]
-		where eq* := /*<solve-eq-test-constraints> x*/[]
+		where eq* := <solve-eq-test-constraints> x
 			; sub* := <solve-sub-test-constraints> x
 			; or* := [] // TODO testcases
 			; notEq* := [] // TODO testcases
@@ -33,11 +33,10 @@ rules
 			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
 			  
 			  
-	solve-sub-test-constraints: _ -> [/*a, b, c, d, e,*/ f]	  
-		where /*a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
+	solve-sub-test-constraints: _ -> [a, b, c, d, e, f]
+		where a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
 			; b := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]
 			; c := <try(solve-constraints)> [CSub(Array(TypeVar("a")), Array(Int()))]
 			; d := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/Object"))), CSub(TypeVar("a"), Reference(CRef("java/lang/String")))]
 			; e := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
-			; f := <walk-values(debug)> [1, 2, 3]*/
-			  f := <solve-constraints-rename> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
+			; f := <try(solve-constraints)> [CSub(TypeVar("b"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))]
