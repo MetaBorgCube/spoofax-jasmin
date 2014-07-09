@@ -97,7 +97,8 @@ rules // subtype constraints
 			csub* := <map(\ t -> CSub(TypeVar(x), t) \)> l
 		;	tail* := <inflate-csub-types> tail
 		;	result := [csub*, tail*]
-			  
+
+	// TODO: make the upper bound finder
 	find-upper-bound: [x] -> x
 	find-upper-bound: [Reference(CRef("java/lang/Object")),Reference(CRef("java/lang/String"))] -> Reference(CRef("java/lang/String"))
 	find-upper-bound: [Reference(CRef("java/lang/String")),Reference(CRef("java/lang/Object"))] -> Reference(CRef("java/lang/String"))
