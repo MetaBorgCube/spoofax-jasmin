@@ -12,8 +12,8 @@ imports
 rules
   fresh-var = !TypeVar(<new>)
 
-  stack-constraints(|ctx): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> ([], [CEq(r, Void())])
-  stack-constraints(|ctx): JBCMethod(_, _, JBCMethodDesc(p*,r), l) -> ([stack-start, push*, pop*, next*, complex*], [])
+  stack-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> ([], [CEq(r, Void())])
+  stack-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(p,r), l) -> ([stack-start, push*, pop*, next*, complex*], [reg-start])
     where l'@[h|_] := <filter(match-Instruction)> l
     	; h-in  := <get-in-stack>  h
     	; stack-start := CEq(TypeVar(h-in), [])
@@ -22,9 +22,7 @@ rules
         ; pop*  := <filter(pop-constraints)> l'
         ; next* := <foldl(next-constraints(|ctx));Snd> (l', (h-out, []))
         ; complex* := <foldl(complex-constraints(|r))> (l', [])
-          // TODO: add initial types for local variables
-            // using the class defined in the file (get through NaBL)
-            // using parameter types p*
+        ; reg-start := CEq(TypeVar(h-in), ([ Reference(CRef(classname)) | p ], <fresh-var>))
           // TODO: add more constraints for local variables
   
   pop-constraints: instr -> CEq(TypeVar(i-in), (p*, <fresh-var>))
