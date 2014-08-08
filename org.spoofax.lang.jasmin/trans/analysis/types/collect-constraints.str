@@ -12,8 +12,8 @@ imports
 rules
   fresh-var = !TypeVar(<new>)
 
-  stack-constraints(|ctx): JBCMethod(_, _, _, []) -> []
-  stack-constraints(|ctx): JBCMethod(_, _, _, l) -> [stack-start, push*, pop*, next*, complex*]
+  stack-constraints(|ctx): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> ([], [CEq(r, Void())])
+  stack-constraints(|ctx): JBCMethod(_, _, JBCMethodDesc(p*,r), l) -> ([stack-start, push*, pop*, next*, complex*], [])
     where l'@[h|_] := <filter(match-Instruction)> l
     	; h-in  := <get-in-stack>  h
     	; stack-start := CEq(TypeVar(h-in), [])
@@ -21,7 +21,11 @@ rules
         ; push* := <filter(push-constraints)> l'
         ; pop*  := <filter(pop-constraints)> l'
         ; next* := <foldl(next-constraints(|ctx));Snd> (l', (h-out, []))
-        ; complex* := <foldl(complex-constraints);Snd> (l', (h-out, []))
+        ; complex* := <foldl(complex-constraints(|r))> (l', [])
+          // TODO: add initial types for local variables
+            // using the class defined in the file (get through NaBL)
+            // using parameter types p*
+          // TODO: add more constraints for local variables
   
   pop-constraints: instr -> CEq(TypeVar(i-in), (p*, <fresh-var>))
     where p* := <pop-type> instr
@@ -41,23 +45,23 @@ rules
                                  <+ \LabelRef(l) -> CEq(TypeVar(prev-out),<get-in-stack> l)\
   next-instr = get-next-instr <+ ![NEXT()]
   
-  complex-constraints = complex-constraint <+ \(instr, (prev-out, c*)) -> (<get-out-stack> instr, c*)\
+  complex-constraints(|r) = complex-constraint(|r) <+ \(_, c*) -> c*\
     
-  complex-constraint: (instr@ATHROW(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@ATHROW(), c*) -> [n*, c*]
     where cref  := Reference(CRef(<fresh-var>))
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
     	; n* := [ CEq(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
     	        , CEq(TypeVar(i-out), [cref])         // push-type
     	        ]
-  complex-constraint: (instr@CHECKCAST(_), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@CHECKCAST(_), c*) -> [n*, c*]
     where cref  := Reference(CRef(<fresh-var>))
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
     	; n* := [ CEq(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
     	        , CEq(TypeVar(i-out), TypeVar(i-in))         // push-type
     	        ]
-  complex-constraint: (instr@DUP(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@DUP(), c*) -> [n*, c*]
     where type@TypeVar(type') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
@@ -67,7 +71,7 @@ rules
     	        , CNEq(TypeVar(type'), Double())
     	        , CNEq(TypeVar(type'), Long())
     	        ]
-  complex-constraint: (instr@DUP2(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@DUP2(), c*) -> [n*, c*]
     where type@TypeVar(type')  := <fresh-var>
         ; type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
@@ -89,7 +93,7 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint: (instr@DUP_X1(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@DUP_X1(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
@@ -102,7 +106,7 @@ rules
     	        , CNEq(TypeVar(type2'), Double())
     	        , CNEq(TypeVar(type2'), Long())
     	        ]
-  complex-constraint: (instr@DUP2_X1(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@DUP2_X1(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -126,7 +130,7 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint: (instr@DUP_X2(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@DUP_X2(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -150,7 +154,7 @@ rules
     	                 ]
     	               ])
 	            ]
-  complex-constraint: (instr@DUP2_X2(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@DUP2_X2(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -200,7 +204,7 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint: (instr@SWAP(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@SWAP(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
@@ -213,48 +217,53 @@ rules
     	        , CNEq(TypeVar(type2'), Double())
     	        , CNEq(TypeVar(type2'), Long())
     	        ]
-  complex-constraint: (instr@RETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@RETURN(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-out), []) ] // push-type
-  complex-constraint: (instr@IRETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
+    	; n* := [ CEq(TypeVar(i-out), []) // push-type
+    	        , CEq(r, Void()) ]
+  complex-constraint(|r): (instr@IRETURN(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-out), []) ] // push-type
-  complex-constraint: (instr@LRETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
+    	; n* := [ CEq(TypeVar(i-out), []) // push-type
+    	        , CEq(r, Int()) ]
+  complex-constraint(|r): (instr@LRETURN(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-out), []) ] // push-type
-  complex-constraint: (instr@FRETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
+    	; n* := [ CEq(TypeVar(i-out), []) // push-type
+    	        , CEq(r, Long()) ]
+  complex-constraint(|r): (instr@FRETURN(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-out), []) ] // push-type
-  complex-constraint: (instr@DRETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
+    	; n* := [ CEq(TypeVar(i-out), []) // push-type
+    	        , CEq(r, Float()) ]
+  complex-constraint(|r): (instr@DRETURN(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-out), []) ] // push-type
-  complex-constraint: (instr@ARETURN(), (prev-out, c*)) -> (i-out, [n*, c*])
+    	; n* := [ CEq(TypeVar(i-out), []) // push-type
+    	        , CEq(r, Double()) ]
+  complex-constraint(|r): (instr@ARETURN(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; classtype := Reference(CRef(<fresh-var>))
     	; n* := [ CEq(TypeVar(i-out), [])  // push-type
-    	        , CEq(TypeVar(i-in), [classtype]) ] // pop-type
-    	        // TODO: add subtype constraint on the classtype to the method return description
-    	        
-  complex-constraint: (instr@MONITORENTER(), (prev-out, c*)) -> (i-out, [n*, c*])
+    	        , CEq(TypeVar(i-in), [classtype]) // pop-type
+    	        , CSub(classtype, r) ]
+      	        
+  complex-constraint(|r): (instr@MONITORENTER(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
     	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
-  complex-constraint: (instr@MONITOREXIT(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@MONITOREXIT(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
     	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
     	  
-  complex-constraint: (instr@BALOAD(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@BALOAD(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
     	; n* := [ COr([ [CEq(TypeVar(i-out), ([Byte()],<fresh-var>))]
     	              , [CEq(TypeVar(i-out), ([Boolean()],<fresh-var>))]]) ] // push-type
-  complex-constraint: (instr@BASTORE(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@BASTORE(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
     	; n* := [ COr([ [CEq(TypeVar(i-in), ([Byte()],<fresh-var>))]
     	              , [CEq(TypeVar(i-in), ([Boolean()],<fresh-var>))]]) ] // pop-type
-  complex-constraint: (instr@AALOAD(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@AALOAD(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
@@ -265,7 +274,7 @@ rules
     	             , [ CEq(TypeVar(i-in), ([Int(), Array(array-type)], rest))   // pop-type
     	               , CEq(TypeVar(i-out), ([array-type],rest))               ] // push-type
     	             ])]
-  complex-constraint: (instr@AASTORE(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@AASTORE(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
@@ -274,7 +283,7 @@ rules
     	; n* := [COr([ [ CEq(TypeVar(i-in), ([class-type, Int(), Array(class-type)], rest)) ] // pop-type
     	             , [ CEq(TypeVar(i-in), ([array-type, Int(), Array(array-type)], rest)) ] // pop-type
     	             ])]
-  complex-constraint: (instr@BALOAD(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@BALOAD(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
@@ -283,7 +292,7 @@ rules
     	             , [ CEq(TypeVar(i-in), ([Int(), Array(Byte())], rest))   // pop-type
     	               , CEq(TypeVar(i-out), ([Byte()],rest))               ] // push-type
     	             ])]
-  complex-constraint: (instr@BASTORE(), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@BASTORE(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
@@ -291,31 +300,31 @@ rules
     	             , [ CEq(TypeVar(i-in), ([Byte(), Int(), Array(Byte())], rest)) ] // pop-type
     	             ])]
     	             
-  cc-aload-helper(|type): (instr, (prev-out, c*)) -> (i-out, [n*, c*])
+  cc-aload-helper(|type): (instr, c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in), ([Int(), Array(type)], rest))   // pop-type
                 , CEq(TypeVar(i-out), ([type],rest))               ] // push-type
-  cc-astore-helper(|type): (instr, (prev-out, c*)) -> (i-out, [n*, c*])
+  cc-astore-helper(|type): (instr, c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in), ([type, Int(), Array(type)], rest)) ] // pop-type
-  complex-constraint: (CALOAD(),  (_, _)) -> <cc-aload-helper(|Char())>
-  complex-constraint: (CASTORE(), (_, _)) -> <cc-astore-helper(|Char())>
-  complex-constraint: (DALOAD(),  (_, _)) -> <cc-aload-helper(|Double())>
-  complex-constraint: (DASTORE(), (_, _)) -> <cc-astore-helper(|Double())>
-  complex-constraint: (FALOAD(),  (_, _)) -> <cc-aload-helper(|Float())>
-  complex-constraint: (FASTORE(), (_, _)) -> <cc-astore-helper(|Float())>
-  complex-constraint: (IALOAD(),  (_, _)) -> <cc-aload-helper(|Int())>
-  complex-constraint: (IASTORE(), (_, _)) -> <cc-astore-helper(|Int())>
-  complex-constraint: (LALOAD(),  (_, _)) -> <cc-aload-helper(|Long())>
-  complex-constraint: (LASTORE(), (_, _)) -> <cc-astore-helper(|Long())>
-  complex-constraint: (SALOAD(),  (_, _)) -> <cc-aload-helper(|Short())>
-  complex-constraint: (SASTORE(), (_, _)) -> <cc-astore-helper(|Short())>
+  complex-constraint(|r): (CALOAD(),  (_, _)) -> <cc-aload-helper(|Char())>
+  complex-constraint(|r): (CASTORE(), (_, _)) -> <cc-astore-helper(|Char())>
+  complex-constraint(|r): (DALOAD(),  (_, _)) -> <cc-aload-helper(|Double())>
+  complex-constraint(|r): (DASTORE(), (_, _)) -> <cc-astore-helper(|Double())>
+  complex-constraint(|r): (FALOAD(),  (_, _)) -> <cc-aload-helper(|Float())>
+  complex-constraint(|r): (FASTORE(), (_, _)) -> <cc-astore-helper(|Float())>
+  complex-constraint(|r): (IALOAD(),  (_, _)) -> <cc-aload-helper(|Int())>
+  complex-constraint(|r): (IASTORE(), (_, _)) -> <cc-astore-helper(|Int())>
+  complex-constraint(|r): (LALOAD(),  (_, _)) -> <cc-aload-helper(|Long())>
+  complex-constraint(|r): (LASTORE(), (_, _)) -> <cc-astore-helper(|Long())>
+  complex-constraint(|r): (SALOAD(),  (_, _)) -> <cc-aload-helper(|Short())>
+  complex-constraint(|r): (SASTORE(), (_, _)) -> <cc-astore-helper(|Short())>
     	  
-  complex-constraint: (instr@name#([_]), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@name#([_]), c*) -> [n*, c*]
     where <string-starts-with(|"ASTORE")> name
     	; i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
@@ -323,7 +332,7 @@ rules
         ; class-type := Reference(CRef(<fresh-var>))
     	; n* := [ CEq(TypeVar(i-in), ([class-type], rest)) ] // pop-type
 
-  complex-constraint: (instr@name#([JBCMethodRef(cref, _, JBCMethodDesc(p, r))]), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@name#([JBCMethodRef(cref, _, JBCMethodDesc(p, r))]), c*) -> [n*, c*]
     where (!"INVOKESPECIAL" => name + !"INVOKEVIRTUAL" => name + !"INVOKEINTERFACE" => name)
     	; i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack> instr
@@ -332,7 +341,7 @@ rules
         ; ret-type := <try(\[Void()] -> []\)> [r]
         ; n* := [ CSub(i-in, (<reverse> [class-type|p], rest))   // pop-type
                 , CSub(i-out, (ret-type, rest))                ] // push-type
-  complex-constraint: (instr@INVOKESTATIC(JBCMethodRef(_, _, JBCMethodDesc(p, r))), (prev-out, c*)) -> (i-out, [n*, c*])
+  complex-constraint(|r): (instr@INVOKESTATIC(JBCMethodRef(_, _, JBCMethodDesc(p, r))), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack> instr
         ; rest  := <fresh-var>

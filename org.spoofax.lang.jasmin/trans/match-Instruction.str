@@ -1,5 +1,6 @@
 module trans/match-Instruction
 
+// this file was semi-automatically generated from the syntax definition of the Instruction sort
 rules
   match-Instruction: a#(_) -> <id> where <match-Instruction-constr> a
 
