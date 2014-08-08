@@ -31,7 +31,8 @@ type rules
   LDC(c)    +
   LDC2_W(c) +
   LDC_W(c)  has push-type [t] where c : t
-             
+  // TODO: maybe add constraints about LDC(_W) only pushing String/int/float and LDC2 only pushing double/long?
+  // perhaps that can be done here in TS?
              
   ILOAD(vr) +
   LLOAD(vr) +

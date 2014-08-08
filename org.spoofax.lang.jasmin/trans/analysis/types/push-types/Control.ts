@@ -29,4 +29,4 @@ type rules
   GOTO_W(_) has push-type []
   
   JSR(_)   +
-  JSR_W(_) has push-type []
+  JSR_W(_) has push-type [ADDRESS()]

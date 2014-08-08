@@ -43,13 +43,13 @@ type rules
 	LSTORE(_) has pop-type [Long()]
 	FSTORE(_) has pop-type [Float()]
 	DSTORE(_) has pop-type [Double()]
-	ASTORE(_) has pop-type []
+	ASTORE(_) has pop-type [Reference(CRef("TODO: get info from local variables"))]
 	
 	ISTORE_W(_) has pop-type [Int()]   
 	LSTORE_W(_) has pop-type [Long()]  
 	FSTORE_W(_) has pop-type [Float()] 
 	DSTORE_W(_) has pop-type [Double()]
-	ASTORE_W(_) has pop-type []
+	ASTORE_W(_) has pop-type [Reference(CRef("TODO: get info from local variables"))]
 	        
 	ISTORE_0() +
 	ISTORE_1() +

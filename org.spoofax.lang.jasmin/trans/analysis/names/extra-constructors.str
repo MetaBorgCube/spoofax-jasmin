@@ -4,8 +4,10 @@ signature
   constructors
     TOP    : Type
     BOTTOM : Type
+    
+    ADDRESS : Type
 
-    NamedInstruction : String * Instruction -> PCInstruction
+    // NamedInstruction : String * Instruction -> PCInstruction
     
            : Type -> FieldType
 
