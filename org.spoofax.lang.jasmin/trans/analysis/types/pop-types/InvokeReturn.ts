@@ -2,7 +2,7 @@ module types/pop-types/InvokeReturn
 
 imports
 	include/JasminXT
-	analysis/names/extra-constructors
+	analysis/types/constraints
 
 type rules
 	// INVOKESPECIAL(JBCMethodRef(_, _, JBCMethodDesc(p, _)))     has pop-type <subtype of t> where p => t

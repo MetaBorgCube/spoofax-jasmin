@@ -2,7 +2,7 @@ module types/push-types/InvokeReturn
 
 imports
   include/JasminXT
-  analysis/names/extra-constructors
+  analysis/types/constraints
 
 type rules
   // INVOKESPECIAL(  JBCMethodRef(_, _, JBCMethodDesc(_, r))   ) +

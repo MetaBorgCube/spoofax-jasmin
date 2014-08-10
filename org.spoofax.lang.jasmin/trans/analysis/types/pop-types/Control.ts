@@ -2,7 +2,7 @@ module types/pop-types/Control
 
 imports
 	include/JasminXT
-	analysis/names/extra-constructors
+	analysis/types/constraints
 
 type rules
 	  IFEQ(_)

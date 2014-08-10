@@ -33,8 +33,8 @@ templates
   Instruction.ACONST_NULL = [aconst_null]  // pushes a null reference onto the stack
   
   Instruction.LDC    = [ldc [Constant]]    // pushes a constant from a constant pool (String, int or float) onto the stack
+  Instruction.LDC_W  = [ldc_w [Constant]]  // pushes a constant from a constant pool (String, int or float) onto the stack
   Instruction.LDC2_W = [ldc2_w [Constant]] // pushes a constant from a constant pool (double or long) onto the stack
-  Instruction.LDC_W  = [ldc_w [Constant]]  // TODO find out what the difference is between this one and the above
       
 templates
   Instruction.ILOAD = [iload [VarRef]]  // loads an int value from a local variable

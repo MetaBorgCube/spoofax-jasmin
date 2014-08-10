@@ -2,7 +2,7 @@ module types/pop-types/Arithmetic
 
 imports
 	include/JasminXT
-	analysis/names/extra-constructors
+	analysis/types/constraints
 
 type rules
 	BIPUSH(_) +
@@ -59,7 +59,7 @@ type rules
 	ASTORE_0() +
 	ASTORE_1() +
 	ASTORE_2() +
-	ASTORE_3() has pop-type []
+	ASTORE_3() has pop-type [Reference(CRef("TODO: get info from local variables"))]
 	        
 	LSTORE_0() +
 	LSTORE_1() +

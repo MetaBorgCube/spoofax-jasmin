@@ -2,7 +2,7 @@ module types/push-types/LoadStore
 
 imports
   include/JasminXT
-  analysis/names/extra-constructors
+  analysis/types/constraints
 
 type rules
   BIPUSH(_) +

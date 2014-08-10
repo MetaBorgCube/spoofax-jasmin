@@ -2,7 +2,7 @@ module analysis/names/builtins
 
 imports
 	include/JasminXT
-	analysis/names/extra-constructors
+	analysis/types/constraints
 
 rules
 	analysis-builtin-partitions:

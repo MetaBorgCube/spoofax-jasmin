@@ -2,7 +2,7 @@ module types/push-types/Arithmetic
 
 imports
   include/JasminXT
-  analysis/names/extra-constructors
+  analysis/types/constraints
 
 type rules
   IADD()  +

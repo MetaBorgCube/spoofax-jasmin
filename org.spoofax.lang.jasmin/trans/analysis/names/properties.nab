@@ -3,7 +3,7 @@ module analysis/names/properties
 imports
 
 	include/JasminXT
-	analysis/names/extra-constructors
+	analysis/types/constraints
 
 properties
 	pop-type   of Label : List(Type)

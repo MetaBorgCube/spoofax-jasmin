@@ -2,7 +2,7 @@ module types/push-types/Control
 
 imports
   include/JasminXT
-  analysis/names/extra-constructors
+  analysis/types/constraints
 
 type rules
   I2L() has push-type [Long()]

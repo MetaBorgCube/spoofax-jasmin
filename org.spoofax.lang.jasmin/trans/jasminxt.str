@@ -92,7 +92,7 @@ rules // Constraints
       partition   := $[[project-path]/[path]];
       filename := <guarantee-extension(|"generated.constraints")> path;
       JBCFile(_, _, methods) := selected;
-      result   := <map(stack-constraints(|partition))> methods
+      result   := <map(stack-constraints(|partition, <class-name> selected))> methods
 
   debug-collect-solve-constraints:
   	(selected, position, ast, path, project-path) -> (filename, result)
@@ -101,7 +101,7 @@ rules // Constraints
       task-setup(|project-path);
       partition   := $[[project-path]/[path]];
       JBCFile(_, _, methods) := selected;
-      method_constraints   := <map(stack-constraints(|partition))> methods;
+      method_constraints   := <map(stack-constraints(|partition, <class-name> selected))> methods;
       filename := <guarantee-extension(|"generated.solution")> path;
       result := <map(try(solve-constraints))> method_constraints
       

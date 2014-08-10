@@ -3,7 +3,6 @@ module analysis/names/binding
 imports
 
 	include/JasminXT
-	analysis/names/extra-constructors
 	
 namespaces
 
@@ -68,6 +67,3 @@ binding rules
 	
 	LabelRef(l): 
 		refers to Label l
-	
-	NamedInstruction(name, _):
-		defines Label name

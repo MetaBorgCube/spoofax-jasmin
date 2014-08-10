@@ -1,4 +1,4 @@
-module trans/analysis/names/extra-constructors
+module trans/analysis/types/constraints
 	
 signature
   constructors
@@ -25,3 +25,6 @@ signature
     CSup    : TypeVar * Type -> Constraint
     COr     : List(List(Constraint)) -> Constraint
     CAlias  : TypeVar * TypeVar -> Constraint
+
+strategies
+  fresh-var = !TypeVar(<new>)

@@ -1,0 +1,15 @@
+module analysis/types/complex-constraints/Exceptions
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/types/constraints
+
+rules
+  complex-constraint(|r): (instr@ATHROW(), (c*,r*)) -> ([n*, c*], [r*])
+    where cref  := Reference(CRef(<fresh-var>))
+        ; i-in  := <get-in-stack> instr
+        ; i-out := <get-out-stack> instr
+    	; n* := [ CEq(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
+    	        , CEq(TypeVar(i-out), [cref])               // push-type
+    	        ]

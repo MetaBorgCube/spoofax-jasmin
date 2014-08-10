@@ -2,7 +2,7 @@ module types/pop-types/Conversion
 
 imports
 	include/JasminXT
-	analysis/names/extra-constructors
+	analysis/types/constraints
 
 type rules
 	  I2L()

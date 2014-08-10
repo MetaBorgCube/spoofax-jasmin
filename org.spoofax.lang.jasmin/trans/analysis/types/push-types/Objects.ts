@@ -2,7 +2,7 @@ module types/push-types/Objects
 
 imports
   include/JasminXT
-  analysis/names/extra-constructors
+  analysis/types/constraints
 
 type rules
   NEW(cr) has push-type [cr]

@@ -1,0 +1,15 @@
+module analysis/types/complex-constraints/LoadStore
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/types/constraints
+
+rules
+  complex-constraint(|r): (instr@name#([_]), (c*,r*)) -> ([n*, c*], [r*])
+    where <string-starts-with(|"ASTORE")> name
+    	; i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+        ; class-type := Reference(CRef(<fresh-var>))
+    	; n* := [ CEq(TypeVar(i-in), ([class-type], rest)) ] // pop-type
