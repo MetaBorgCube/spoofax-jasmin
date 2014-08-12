@@ -17,7 +17,6 @@ rules
     	; h-in  := <get-in-stack>  h
         ; h-out := <get-out-stack> h
         ; next* := <foldl(next-constraints(|ctx));Snd> (l', (h-out, []))
-          // TODO: add more constraints for local variables
         ; (st-c*,reg-c*) := <foldl(complex-constraints(|r))> (l', ([],[]))
           
     	; st-start := CEq(TypeVar(h-in), [])
