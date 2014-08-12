@@ -28,3 +28,12 @@ signature
 
 strategies
   fresh-var = !TypeVar(<new>)
+
+  // repeat that checks against negative numbers
+  safe-repeat(s | n) =
+    if <leq>(n, 0)
+    then
+      id
+    else
+      s; repeat(s|<dec>n)
+    end
