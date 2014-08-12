@@ -45,7 +45,7 @@ templates
 templates
   ClassRef.CRef     = [[ClassName]]
   VarRef.VarNum     = [[Int]]
-  VarRef.VarRef     = [[VarName]]
+  // VarRef.VarRef     = [[VarName]] // This was in the old SDF2 grammar, but is not mentioned in the Jasmin documentation
   LabelRef.LabelRef = [[LabelName]]
   LabelRef.Absolute = [[Int]]
 
@@ -53,7 +53,7 @@ templates
   MRef.MRef = [[MethodName]]
 
 syntax		
-  <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>	 {"JBCFieldRef"}		
+  <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>  {"JBCFieldRef"}
   <ClassRef-CF> "/" <MRef-CF> <LAYOUT?-CF> <MethodDescriptor-CF> -> <MethodRef-CF> {"JBCMethodRef"}
 
 templates
