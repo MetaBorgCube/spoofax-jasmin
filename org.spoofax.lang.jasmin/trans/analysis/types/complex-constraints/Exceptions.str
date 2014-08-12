@@ -6,7 +6,7 @@ imports
   analysis/types/constraints
 
 rules
-  complex-constraint(|r): (instr@ATHROW(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@ATHROW(), c*) -> [n*, c*]
     where cref  := Reference(CRef(<fresh-var>))
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr

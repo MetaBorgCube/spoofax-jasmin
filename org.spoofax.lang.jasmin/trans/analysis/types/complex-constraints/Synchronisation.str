@@ -6,11 +6,11 @@ imports
   analysis/types/constraints
 
 rules
-  complex-constraint(|r): (instr@MONITORENTER(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@MONITORENTER(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
     	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
-  complex-constraint(|r): (instr@MONITOREXIT(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@MONITOREXIT(), c*) -> [n*, c*]
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
     	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type

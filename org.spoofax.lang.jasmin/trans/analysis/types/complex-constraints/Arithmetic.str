@@ -7,7 +7,7 @@ imports
 
 rules
   //TODO:
-  complex-constraint(|r): (instr@IINC(varname, amount), (c*,r*)) -> <id>//([n*, c*], [r*])
+  complex-constraint: (instr@IINC(varname, amount), (c*,r*)) -> <id>//([n*, c*], [r*])
     where id
     /*cref  := Reference(CRef(<fresh-var>))
         ; i-in  := <get-in-stack> instr
@@ -15,7 +15,7 @@ rules
     	; n* := [ CEq(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
     	        , CEq(TypeVar(i-out), [cref])               // push-type
     	        ]*/
-  complex-constraint(|r): (instr@IINC_W(varname, amount), (c*,r*)) -> <id>//([n*, c*], [r*])
+  complex-constraint: (instr@IINC_W(varname, amount), (c*,r*)) -> <id>//([n*, c*], [r*])
     where id
     /*cref  := Reference(CRef(<fresh-var>))
         ; i-in  := <get-in-stack> instr

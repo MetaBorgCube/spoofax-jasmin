@@ -6,7 +6,7 @@ imports
   analysis/types/constraints
 
 rules
-  complex-constraint(|r): (instr@POP(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@POP(), c*) -> [n*, c*]
     where type@TypeVar(type') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
@@ -15,7 +15,7 @@ rules
     	        , CNEq(TypeVar(type'), Double())
     	        , CNEq(TypeVar(type'), Long())
     	        ]
-  complex-constraint(|r): (instr@POP2(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@POP2(), c*) -> [n*, c*]
     where type@TypeVar(type') := <fresh-var>
         ; type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
@@ -35,7 +35,7 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint(|r): (instr@DUP(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@DUP(), c*) -> [n*, c*]
     where type@TypeVar(type') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
@@ -45,7 +45,7 @@ rules
     	        , CNEq(TypeVar(type'), Double())
     	        , CNEq(TypeVar(type'), Long())
     	        ]
-  complex-constraint(|r): (instr@DUP2(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@DUP2(), c*) -> [n*, c*]
     where type@TypeVar(type')  := <fresh-var>
         ; type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
@@ -67,7 +67,7 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint(|r): (instr@DUP_X1(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@DUP_X1(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
@@ -80,7 +80,7 @@ rules
     	        , CNEq(TypeVar(type2'), Double())
     	        , CNEq(TypeVar(type2'), Long())
     	        ]
-  complex-constraint(|r): (instr@DUP2_X1(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@DUP2_X1(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -104,7 +104,7 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint(|r): (instr@DUP_X2(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@DUP_X2(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -128,7 +128,7 @@ rules
     	                 ]
     	               ])
 	            ]
-  complex-constraint(|r): (instr@DUP2_X2(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@DUP2_X2(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -178,7 +178,7 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint(|r): (instr@SWAP(), (c*,r*)) -> ([n*, c*], [r*])
+  complex-constraint: (instr@SWAP(), c*) -> [n*, c*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr

@@ -48,5 +48,8 @@ rules
                                  <+ \LabelRef(l) -> CEq(TypeVar(prev-out),<get-in-stack> l)\
   next-instr = get-next-instr <+ ![NEXT()]
   
-  complex-constraints(|r) = complex-constraint(|r) <+ ?(_, <id>)
+  complex-constraints(|r) =  complex-constraint
+                          <+ \(i,(c,r)) -> (<complex-constraint(|r)
+                                            <+ complex-constraint> (i,c), r)\
+                          <+ ?(<debug>, <id>)
 

@@ -7,7 +7,7 @@ imports
 
 rules
   // treat *LOAD_# and *STORE_# as *LOAD(#) and *STORE(#) resp.
-  complex-constraint(|r): (instr@name#([]), (c*,r*)) -> <complex-constraint(|r)> (name'#([VarNum(i)]), (c*,r*))
+  complex-constraint: (instr@name#([]), (c*,r*)) -> <complex-constraint> (name'#([VarNum(i)]), (c*,r*))
   	where (name', i) := <split-after;(rtrim-chars(?'_'),id)> (name, "_")
   	    ; <string-ends-with(|"STORE") + string-ends-with(|"LOAD")> name'
 
@@ -22,7 +22,7 @@ rules
         ; f-i-in := <conc> (first, [<fresh-var>])
         ; fSubst := <conc> (first, [var])
 
-  complex-constraint(|r): (instr@name#([VarNum(vn)]), (c*,r*)) -> ([nc*, c*], [nr*, r*])
+  complex-constraint: (instr@name#([VarNum(vn)]), (c*,r*)) -> ([nc*, c*], [nr*, r*])
     where <string-starts-with(|"ALOAD")> name
     	; i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
@@ -38,7 +38,7 @@ rules
         ; rest := <fresh-var>
     	; nc*   := [ CEq(TypeVar(i-out), ([var], rest)) ] // push-type
 
-  complex-constraint(|r): (instr@name#([VarNum(vn)]), (c*,r*)) -> ([nc*, c*], [nr*, r*])
+  complex-constraint: (instr@name#([VarNum(vn)]), (c*,r*)) -> ([nc*, c*], [nr*, r*])
     where <string-starts-with(|"ASTORE")> name
     	; i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
@@ -71,11 +71,11 @@ rules
     	; nr*   := <cc-r-subst(|vn', type)> (i-in, i-out)
   
 
-  complex-constraint(|r): (DLOAD (VarNum(vn)), _) -> <cc-load-helper (|Double(), vn)>
-  complex-constraint(|r): (DSTORE(VarNum(vn)), _) -> <cc-store-helper(|Double(), vn)>
-  complex-constraint(|r): (FLOAD (VarNum(vn)), _) -> <cc-load-helper (|Float() , vn)>
-  complex-constraint(|r): (FSTORE(VarNum(vn)), _) -> <cc-store-helper(|Float() , vn)>
-  complex-constraint(|r): (ILOAD (VarNum(vn)), _) -> <cc-load-helper (|Int()   , vn)>
-  complex-constraint(|r): (ISTORE(VarNum(vn)), _) -> <cc-store-helper(|Int()   , vn)>
-  complex-constraint(|r): (LLOAD (VarNum(vn)), _) -> <cc-load-helper (|Long()  , vn)>
-  complex-constraint(|r): (LSTORE(VarNum(vn)), _) -> <cc-store-helper(|Long()  , vn)>
+  complex-constraint: (DLOAD (VarNum(vn)), _) -> <cc-load-helper (|Double(), vn)>
+  complex-constraint: (DSTORE(VarNum(vn)), _) -> <cc-store-helper(|Double(), vn)>
+  complex-constraint: (FLOAD (VarNum(vn)), _) -> <cc-load-helper (|Float() , vn)>
+  complex-constraint: (FSTORE(VarNum(vn)), _) -> <cc-store-helper(|Float() , vn)>
+  complex-constraint: (ILOAD (VarNum(vn)), _) -> <cc-load-helper (|Int()   , vn)>
+  complex-constraint: (ISTORE(VarNum(vn)), _) -> <cc-store-helper(|Int()   , vn)>
+  complex-constraint: (LLOAD (VarNum(vn)), _) -> <cc-load-helper (|Long()  , vn)>
+  complex-constraint: (LSTORE(VarNum(vn)), _) -> <cc-store-helper(|Long()  , vn)>
