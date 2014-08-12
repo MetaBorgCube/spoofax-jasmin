@@ -52,29 +52,29 @@ rules
     	             , [ CEq(TypeVar(i-in), ([Byte(), Int(), Array(Byte())], rest)) ]       // pop-type
     	             ])]
     	             
-  cc-aload-helper(|type): (instr, c*) -> [n*, c*]
+  cc-aload-helper(|type): (instr, (c*,r*)) -> ([n*, c*], [r*])
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in), ([Int(), Array(type)], rest))   // pop-type
                 , CEq(TypeVar(i-out), ([type],rest))               ] // push-type
-  cc-astore-helper(|type): (instr, c*) -> [n*, c*]
+  cc-astore-helper(|type): (instr, (c*,r*)) -> ([n*, c*], [r*])
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
     	; n* := [ CEq(TypeVar(i-in), ([type, Int(), Array(type)], rest)) ] // pop-type
-  complex-constraint(|r): (CALOAD(),  (_, _)) -> <cc-aload-helper(| Char())>
-  complex-constraint(|r): (CASTORE(), (_, _)) -> <cc-astore-helper(|Char())>
-  complex-constraint(|r): (DALOAD(),  (_, _)) -> <cc-aload-helper(| Double())>
-  complex-constraint(|r): (DASTORE(), (_, _)) -> <cc-astore-helper(|Double())>
-  complex-constraint(|r): (FALOAD(),  (_, _)) -> <cc-aload-helper(| Float())>
-  complex-constraint(|r): (FASTORE(), (_, _)) -> <cc-astore-helper(|Float())>
-  complex-constraint(|r): (IALOAD(),  (_, _)) -> <cc-aload-helper(| Int())>
-  complex-constraint(|r): (IASTORE(), (_, _)) -> <cc-astore-helper(|Int())>
-  complex-constraint(|r): (LALOAD(),  (_, _)) -> <cc-aload-helper(| Long())>
-  complex-constraint(|r): (LASTORE(), (_, _)) -> <cc-astore-helper(|Long())>
-  complex-constraint(|r): (SALOAD(),  (_, _)) -> <cc-aload-helper(| Short())>
-  complex-constraint(|r): (SASTORE(), (_, _)) -> <cc-astore-helper(|Short())>
+  complex-constraint(|r): (CALOAD(),  _) -> <cc-aload-helper (|Char()  )>
+  complex-constraint(|r): (CASTORE(), _) -> <cc-astore-helper(|Char()  )>
+  complex-constraint(|r): (DALOAD(),  _) -> <cc-aload-helper (|Double())>
+  complex-constraint(|r): (DASTORE(), _) -> <cc-astore-helper(|Double())>
+  complex-constraint(|r): (FALOAD(),  _) -> <cc-aload-helper (|Float() )>
+  complex-constraint(|r): (FASTORE(), _) -> <cc-astore-helper(|Float() )>
+  complex-constraint(|r): (IALOAD(),  _) -> <cc-aload-helper (|Int()   )>
+  complex-constraint(|r): (IASTORE(), _) -> <cc-astore-helper(|Int()   )>
+  complex-constraint(|r): (LALOAD(),  _) -> <cc-aload-helper (|Long()  )>
+  complex-constraint(|r): (LASTORE(), _) -> <cc-astore-helper(|Long()  )>
+  complex-constraint(|r): (SALOAD(),  _) -> <cc-aload-helper (|Short() )>
+  complex-constraint(|r): (SASTORE(), _) -> <cc-astore-helper(|Short() )>
   
   complex-constraint(|r): (instr@CHECKCAST(_), (c*,r*)) -> ([n*, c*], [r*])
     where cref  := Reference(CRef(<fresh-var>))
