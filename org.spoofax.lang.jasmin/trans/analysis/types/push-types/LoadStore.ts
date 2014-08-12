@@ -34,70 +34,70 @@ type rules
   // TODO: maybe add constraints about LDC(_W) only pushing String/int/float and LDC2 only pushing double/long?
   // perhaps that can be done here in TS?
              
-  ILOAD(vr) +
-  LLOAD(vr) +
-  FLOAD(vr) +
-  DLOAD(vr) +
-  ALOAD(vr) has push-type ["TODO: get info from local variables"]
+  // ILOAD(vr) +
+  // LLOAD(vr) +
+  // FLOAD(vr) +
+  // DLOAD(vr) +
+  // ALOAD(vr) has push-type ["info from local variables"]
              
-  ILOAD_W(vr) +                                                               
-  LLOAD_W(vr) +                                                               
-  FLOAD_W(vr) +                                                               
-  DLOAD_W(vr) +                                                               
-  ALOAD_W(vr) has push-type ["TODO: get info from local variables"]
+  // ILOAD_W(vr) +                                                               
+  // LLOAD_W(vr) +                                                               
+  // FLOAD_W(vr) +                                                               
+  // DLOAD_W(vr) +                                                               
+  // ALOAD_W(vr) has push-type ["info from local variables"]
              
-  ILOAD_0() +
-  ILOAD_1() +
-  ILOAD_2() +
-  ILOAD_3() has push-type [Int()]
+  // ILOAD_0() +
+  // ILOAD_1() +
+  // ILOAD_2() +
+  // ILOAD_3() has push-type [Int()]
              
-  ALOAD_0() +
-  ALOAD_1() +
-  ALOAD_2() +
-  ALOAD_3() has push-type [Reference(CRef("TODO: get info from local variables"))]
+  // ALOAD_0() +
+  // ALOAD_1() +
+  // ALOAD_2() +
+  // ALOAD_3() has push-type [Reference(CRef("info from local variables"))]
              
-  LLOAD_0() +
-  LLOAD_1() +
-  LLOAD_2() +
-  LLOAD_3() has push-type [Long()]
+  // LLOAD_0() +
+  // LLOAD_1() +
+  // LLOAD_2() +
+  // LLOAD_3() has push-type [Long()]
              
-  DLOAD_0() +
-  DLOAD_1() +
-  DLOAD_2() +
-  DLOAD_3() has push-type [Double()]
+  // DLOAD_0() +
+  // DLOAD_1() +
+  // DLOAD_2() +
+  // DLOAD_3() has push-type [Double()]
              
-  FLOAD_0() +
-  FLOAD_1() +
-  FLOAD_2() +
-  FLOAD_3() has push-type [Float()]
+  // FLOAD_0() +
+  // FLOAD_1() +
+  // FLOAD_2() +
+  // FLOAD_3() has push-type [Float()]
              
-  ISTORE(_)   +
-  LSTORE(_)   +
-  FSTORE(_)   +
-  DSTORE(_)   +
-  ASTORE(_)   +
-  ISTORE_W(_) +
-  LSTORE_W(_) +
-  FSTORE_W(_) +
-  DSTORE_W(_) +
-  ASTORE_W(_) +
-  ISTORE_0()  +
-  ISTORE_1()  +
-  ISTORE_2()  +
-  ISTORE_3()  +
-  ASTORE_0()  +
-  ASTORE_1()  +
-  ASTORE_2()  +
-  ASTORE_3()  +
-  LSTORE_0()  +
-  LSTORE_1()  +
-  LSTORE_2()  +
-  LSTORE_3()  +
-  FSTORE_0()  +
-  FSTORE_1()  +
-  FSTORE_2()  +
-  FSTORE_3()  +
-  DSTORE_0()  +
-  DSTORE_1()  +
-  DSTORE_2()  +
-  DSTORE_3()  has push-type []
+  // ISTORE(_)   +
+  // LSTORE(_)   +
+  // FSTORE(_)   +
+  // DSTORE(_)   +
+  // ASTORE(_)   +
+  // ISTORE_W(_) +
+  // LSTORE_W(_) +
+  // FSTORE_W(_) +
+  // DSTORE_W(_) +
+  // ASTORE_W(_) +
+  // ISTORE_0()  +
+  // ISTORE_1()  +
+  // ISTORE_2()  +
+  // ISTORE_3()  +
+  // ASTORE_0()  +
+  // ASTORE_1()  +
+  // ASTORE_2()  +
+  // ASTORE_3()  +
+  // LSTORE_0()  +
+  // LSTORE_1()  +
+  // LSTORE_2()  +
+  // LSTORE_3()  +
+  // FSTORE_0()  +
+  // FSTORE_1()  +
+  // FSTORE_2()  +
+  // FSTORE_3()  +
+  // DSTORE_0()  +
+  // DSTORE_1()  +
+  // DSTORE_2()  +
+  // DSTORE_3()  has push-type []
