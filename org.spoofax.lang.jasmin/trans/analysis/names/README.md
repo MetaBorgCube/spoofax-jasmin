@@ -12,4 +12,4 @@ code is derived. This was written by hand in
 `trans/JasminXT-Extra-PP-Rules.pp.str`.  
 In these custom error messages, the use of HTML-like tags was found to
 be interpreted by the Eclipse IDE. Since no escaping is done by Spoofax,
-this is currently being done manually. 
+this is currently being done in `check.str`. 
