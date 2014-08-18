@@ -131,9 +131,7 @@ rules // or constraints
 	// TODO
 
 rules // not equals constraints
-	// solve-constraints-neq(|x*): c* -> result
-	// 	where 
-			
+	
 	solve-constraints-neq(|x*): CNEq(var, type) -> []
 		where TypeVar(_) := var
 			; <not(?TypeVar(_))> type
