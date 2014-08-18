@@ -7,13 +7,13 @@ imports
 	runtime/types/-
 	trans/analysis/types/-
 	trans/analysis/names/-
-	
+
 rules
 	solve-test-constraints: x -> ["Equality", eq*, "Subtyping", sub*, "Or", or*, "inequality", notEq*, "complex", complex*, "stack", stack*, "real", real*]
 		where eq* := <solve-eq-test-constraints> x
 			; sub* := <solve-sub-test-constraints> x
-			; or* := [] // TODO testcases
-			; notEq* := [] // TODO testcases
+			; or* := <solve-or-test-constraints> x 
+			; notEq* := <solve-not-test-constraints> x
 			; complex* := [] // TODO testcases
 			; stack* := <solve-stack-test-constraints> x
 			; real* := <solve-real-test-constraints> x
@@ -23,7 +23,7 @@ rules
 		where a := <try(solve-constraints)> [] // empty list
 			; b := <try(solve-constraints)> [CEq(TypeVar("test"), [])] // one element in list
 			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // two elements in list
-			; d := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))] // two elements, one dependency
+			; d := <try(solve-constraints)> [CEq(TypeVar("test"), [Int()]), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))] // two elements, one dependency
 			; e := <try(solve-constraints)> [CEq(TypeVar("abc"), TypeVar("test")), CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // one dependency two elements
 			; f := <try(solve-constraints)> [CEq(TypeVar("cyclic"), TypeVar("failure")), CEq(TypeVar("test2"), []), CEq(TypeVar("failure"), TypeVar("cyclic"))] // cyclic dependency
 			; g := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")),
@@ -33,8 +33,8 @@ rules
 			; h := <try(solve-constraints)> [CEq(TypeVar("failure"), Int()), CEq(TypeVar("failure"), [])] // conflicting values for the same variable
 			; i := <try(solve-constraints)> [CEq([TypeVar("a"), TypeVar("b")], [Int(), Int()])]
 			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
-			  
-			  
+
+
 	solve-sub-test-constraints: _ -> [a, b, c, d, e, f]
 		where a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
 			; b := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]
@@ -42,7 +42,29 @@ rules
 			; d := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/Object"))), CSub(TypeVar("a"), Reference(CRef("java/lang/String")))]
 			; e := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
 			; f := <try(solve-constraints)> [CSub(TypeVar("b"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))]
-			
+
+	solve-or-test-constraints: _ -> []
+		where a := <try(solve-constraints)> [COr([[CEq(TypeVar("a"), [Int()])],
+												 [CEq(TypeVar("a"), [Boolean()])]]),
+											 CEq(TypeVar("a"), [Int()])]
+			; b := <try(solve-constraints)> [COr([[CEq(TypeVar("test"), [Int()]), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))],
+			  									[CEq(TypeVar("test"), [Double()])]])]
+			; c := <try(solve-constraints)> [COr([[CEq(TypeVar("fail"), [Int()])],
+												 [CEq(TypeVar("fail"), [Boolean()])]]),
+											 CEq(TypeVar("fail"), [Byte()])]
+
+	solve-not-test-constraints: _ -> [a, b, c, d]
+		where a := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+											 CNEq(TypeVar("a"), Byte())]
+			; b := <try(solve-constraints)> [CEq(TypeVar("fail"), Int()),
+			  								 CNEq(TypeVar("fail"), Int())]
+			; c := <try(solve-constraints)> [CEq(TypeVar("a"), TypeVar("b")),
+			  								 CNEq(TypeVar("a"), Int()),
+			  								 CEq(TypeVar("b"), Int())]
+			; d := <try(solve-constraints)> [CNEq(TypeVar("a"), TypeVar("b")),
+			  								 CEq(TypeVar("a"), Int()),
+			  								 CEq(TypeVar("b"), Int())]
+
 	solve-stack-test-constraints: _ -> [a]
 		where a := <try(solve-constraints)> [CEq(TypeVar("a"), [Int()]), CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
 			
