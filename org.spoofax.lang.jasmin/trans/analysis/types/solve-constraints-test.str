@@ -68,7 +68,7 @@ rules
 	solve-stack-test-constraints: _ -> [a, b]
 		where a := <try(solve-constraints)> [CEq(TypeVar("a"), Int()), CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
 			; b := <try(solve-constraints)> [CEq(TypeVar("a"), [Int(), Boolean(), Byte(), Int(), Boolean()]),
-			  								 CEq(TypeVar("b"), [Int(), Boolean()]),
+			  								 // CEq(TypeVar("b"), [Int(), Boolean()]),
 			  								 CEq(TypeVar("a"), ([Int(), Boolean(), Byte()], TypeVar("b")))]
 			
 	solve-real-test-constraints: _ -> []

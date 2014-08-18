@@ -23,6 +23,7 @@ strategies
                       	solve-constraints-unify(|x*) <+
                       	solve-constraints-simple-subtype(|x*) <+
                       	solve-constraints-neq(|x*) <+
+                      	solve-constraints-stack(|x*) <+
                       	![<id>]
                       );
     				  solve-constraints-sub-single(|x*);
@@ -131,7 +132,6 @@ rules // or constraints
 	// TODO
 
 rules // not equals constraints
-	
 	solve-constraints-neq(|x*): CNEq(var, type) -> []
 		where TypeVar(_) := var
 			; <not(?TypeVar(_))> type
@@ -141,3 +141,10 @@ rules // not equals constraints
 	solve-constraints-neq(|x*) : CNEq(var, type@TypeVar(t)) -> [CNEq(var, a)]
 		where TypeVar(_) := var
 			; a := <lookup> (var, x*)
+
+rules // stack constraints
+	solve-constraints-stack(|x*): CEq(var, ([], ts)) -> [CEq(var, ts)]
+	
+	solve-constraints-stack(|x*): CEq(var, ([headT|tailT], ts)) -> [CEq(headA, headT), CEq(varTail, tailA), CEq(varTail, (tailT, ts))]
+		where [headA|tailA] := <lookup> (var, x*)
+			; varTail := <fresh-var>
