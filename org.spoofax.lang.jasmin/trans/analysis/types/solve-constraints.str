@@ -8,18 +8,12 @@ imports
   	trans/analysis/types/-
   	trans/analysis/names/-
 
-rules
-	do_debug(|str): x -> <id>
-		where <debug> str
-
 strategies
 	//the input of this strategy should be a list of constraints!
-	solve-constraints = !([], <id>);fixed-point(solve-constraints-step);debug
+	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
 
     solve-step(|x*) = solve-constraints-sub-eliminate(|x*);
-    debug;
     				  solve-constraints-rename;
-    debug;
     				  mapconcat(
                       	solve-constraints-stack(|x*) <+
                       	![<id>]
@@ -31,9 +25,7 @@ strategies
                       	solve-constraints-neq(|x*) <+
                       	![<id>]
                       );
-    debug;
     				  solve-constraints-sub-single(|x*);
-    debug;
     				  uniq
     
     fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
@@ -47,7 +39,6 @@ rules // general rules
 		where mapconstr := <solve-step(|x*)> c
 			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr
 			; xnew* := <uniq; unique-keys> [x*, xn*]
-			  ; <debug> (xnew*, constr) 
 	
 	unique-keys: [] -> <id>
 	unique-keys: ([x@(key, _) | tail]) ->  [x | <unique-keys> tail]
@@ -55,14 +46,11 @@ rules // general rules
   		
   	has-vars: TypeVar(_) -> <id>
   	has-vars: _#(children*) -> <id>
-  		where
-  			<fetch(has-vars)> children*
+  		where <fetch(has-vars)> children*
 
 rules // equality constraints
 	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
-		// warning: should probably check the whole tree for vars
 		where TypeVar(_) := var
-			// ; <not(?TypeVar(_))> type
 			; <not(has-vars)> type
 			; if t := <lookup> (var, x*)
 			    then <eq> (t, type)
@@ -76,7 +64,6 @@ rules // equality constraints
 
 	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
 		where TypeVar(_) := type
-		; <debug> "Lookup"
 			; t := <lookup> (type, x*)
 	
 	rename-equality: (l*, CEq(a@TypeVar(_), b@TypeVar(_)), r*) -> (l*, [r*, na*, nb*])
@@ -90,7 +77,7 @@ rules // equality constraints
 	has-identity: CEq(x, x) -> []
 	
 	solve-constraints-rename: [] -> []
-	solve-constraints-rename: l -> <walk-values(debug;rename-equality)> l
+	solve-constraints-rename: l -> <walk-values(rename-equality)> l
 
 strategies
 	walk-values(s) = !([], <id>); walk-value-tuple(s); ?(res, []); !res
@@ -107,17 +94,15 @@ rules // subtype constraints
 			
 	collect-csub-types: [] -> []
 	collect-csub-types: [CSub(TypeVar(x), t) | tail] -> [pair | ftail]
-		where
-			tailpairs := <collect-csub-types> tail
-		;	l := <lookup <+ ![]> (x, tailpairs)
-		;	pair := (x, [t | l])
-		;	ftail := <filter(not(?(x, _)))> tailpairs
+		where tailpairs := <collect-csub-types> tail
+			; l := <lookup <+ ![]> (x, tailpairs)
+			; pair := (x, [t | l])
+			; ftail := <filter(not(?(x, _)))> tailpairs
 	inflate-csub-types: [] -> []
 	inflate-csub-types: [(x, l) | tail] -> result
-		where
-			csub* := <map(\ t -> CSub(TypeVar(x), t) \)> l
-		;	tail* := <inflate-csub-types> tail
-		;	result := [csub*, tail*]
+		where csub* := <map(\ t -> CSub(TypeVar(x), t) \)> l
+			; tail* := <inflate-csub-types> tail
+			; result := [csub*, tail*]
 
 	// TODO: make the upper bound finder
 	find-upper-bound: [x] -> x
@@ -125,19 +110,17 @@ rules // subtype constraints
 	find-upper-bound: [Reference(CRef("java/lang/String")),Reference(CRef("java/lang/Object"))] -> Reference(CRef("java/lang/String"))
 			  
 	solve-constraints-sub-eliminate(|x*): c* -> cnew*
-		where
-			(csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
-		;	club* := <collect-csub-types;map(\ (a,b) -> CSub(TypeVar(a), <find-upper-bound> b) \)> csub*
-		;	cnew* := [club*, cold*]
+		where (csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
+			; club* := <collect-csub-types;map(\ (a,b) -> CSub(TypeVar(a), <find-upper-bound> b) \)> csub*
+			; cnew* := [club*, cold*]
 		  	
 	solve-constraints-sub-single(|x*): c* -> cnew*
-		where
-			(csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
-		;	csubs := <collect-csub-types> csub*
-		;	(csingles, cmore*) := <partition(?(x, [_]);id)> csubs
-		;	(ceq*, cevenmore*) := <partition(?(x, [t]); !TypeVar(x); find-references(|cold*); ?[]; !CEq(TypeVar(x), t))> csingles
-		;	ckeep* := <inflate-csub-types> [cmore*, cevenmore*]
-		;	cnew* := [cold*, ceq*, ckeep*]
+		where (csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
+			; csubs := <collect-csub-types> csub*
+			; (csingles, cmore*) := <partition(?(x, [_]);id)> csubs
+			; (ceq*, cevenmore*) := <partition(?(x, [t]); !TypeVar(x); find-references(|cold*); ?[]; !CEq(TypeVar(x), t))> csingles
+			; ckeep* := <inflate-csub-types> [cmore*, cevenmore*]
+			; cnew* := [cold*, ceq*, ckeep*]
 		   	
 	find-references(|constraints): t@TypeVar(_) -> l
 		where
