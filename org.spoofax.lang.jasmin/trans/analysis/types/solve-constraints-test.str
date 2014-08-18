@@ -22,15 +22,23 @@ rules
 	solve-eq-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j]
 		where a := <try(solve-constraints)> [] // empty list
 			; b := <try(solve-constraints)> [CEq(TypeVar("test"), [])] // one element in list
-			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // two elements in list
-			; d := <try(solve-constraints)> [CEq(TypeVar("test"), [Int()]), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))] // two elements, one dependency
-			; e := <try(solve-constraints)> [CEq(TypeVar("abc"), TypeVar("test")), CEq(TypeVar("test"), []), CEq(TypeVar("test2"), [])] // one dependency two elements
-			; f := <try(solve-constraints)> [CEq(TypeVar("cyclic"), TypeVar("failure")), CEq(TypeVar("test2"), []), CEq(TypeVar("failure"), TypeVar("cyclic"))] // cyclic dependency
-			; g := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")),
+			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), // two elements in list
+			  								 CEq(TypeVar("test2"), [])]
+			; d := <try(solve-constraints)> [CEq(TypeVar("test"), [Int()]), // two elements, one dependency
+			  								 CEq(TypeVar("test2"), []),
+			  								 CEq(TypeVar("abc"), TypeVar("test"))]
+			; e := <try(solve-constraints)> [CEq(TypeVar("abc"), TypeVar("test")), // one dependency two elements
+			  								 CEq(TypeVar("test"), []),
+			  								 CEq(TypeVar("test2"), [])]
+			; f := <try(solve-constraints)> [CEq(TypeVar("cyclic"), TypeVar("failure")), // cyclic dependency
+			  								 CEq(TypeVar("test2"), []),
+			  								 CEq(TypeVar("failure"), TypeVar("cyclic"))]
+			; g := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")), // cyclic dependency solved with multi-ceq
 			  								 CEq(TypeVar("test2"), []),
 			  								 CEq(TypeVar("abc"), TypeVar("test")),
-			  								 CEq(TypeVar("abc"), [])] // cyclic dependency solved with multi-ceq
-			; h := <try(solve-constraints)> [CEq(TypeVar("failure"), Int()), CEq(TypeVar("failure"), [])] // conflicting values for the same variable
+			  								 CEq(TypeVar("abc"), [])]
+			; h := <try(solve-constraints)> [CEq(TypeVar("failure"), Int()), // conflicting values for the same variable
+			  								 CEq(TypeVar("failure"), [])]
 			; i := <try(solve-constraints)> [CEq([TypeVar("a"), TypeVar("b")], [Int(), Int()])]
 			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
 
@@ -39,9 +47,14 @@ rules
 		where a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
 			; b := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]
 			; c := <try(solve-constraints)> [CSub(Array(TypeVar("a")), Array(Int()))]
-			; d := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/Object"))), CSub(TypeVar("a"), Reference(CRef("java/lang/String")))]
-			; e := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
-			; f := <try(solve-constraints)> [CSub(TypeVar("b"), Reference(CRef("java/lang/String"))), CEq(TypeVar("a"), TypeVar("b")), CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))]
+			; d := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/Object"))),
+			  								 CSub(TypeVar("a"), Reference(CRef("java/lang/String")))]
+			; e := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))),
+			  								 CEq(TypeVar("a"), TypeVar("b")),
+			  								 CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
+			; f := <try(solve-constraints)> [CSub(TypeVar("b"), Reference(CRef("java/lang/String"))),
+			  								 CEq(TypeVar("a"), TypeVar("b")),
+			  								 CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))]
 
 	solve-or-test-constraints: _ -> []
 		where a := <try(solve-constraints)> [COr([[CEq(TypeVar("a"), [Int()])],
