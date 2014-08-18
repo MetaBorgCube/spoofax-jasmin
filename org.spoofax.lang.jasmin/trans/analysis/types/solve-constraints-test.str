@@ -58,8 +58,8 @@ rules
 											 CNEq(TypeVar("a"), Byte())]
 			; b := <try(solve-constraints)> [CEq(TypeVar("fail"), Int()),
 			  								 CNEq(TypeVar("fail"), Int())]
-			; c := <try(solve-constraints)> [CEq(TypeVar("a"), TypeVar("b")),
-			  								 CNEq(TypeVar("a"), Int()),
+			; c := <try(solve-constraints)> [CEq(TypeVar("fail"), TypeVar("b")),
+			  								 CNEq(TypeVar("fail"), Int()),
 			  								 CEq(TypeVar("b"), Int())]
 			; d := <try(solve-constraints)> [CNEq(TypeVar("a"), TypeVar("b")),
 			  								 CEq(TypeVar("a"), Int()),

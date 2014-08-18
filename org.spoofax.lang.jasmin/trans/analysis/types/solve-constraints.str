@@ -22,6 +22,7 @@ strategies
     					solve-constraints-lookup(|x*) <+
                       	solve-constraints-unify(|x*) <+
                       	solve-constraints-simple-subtype(|x*) <+
+                      	solve-constraints-neq(|x*) <+
                       	![<id>]
                       );
     				  solve-constraints-sub-single(|x*);
@@ -130,4 +131,15 @@ rules // or constraints
 	// TODO
 
 rules // not equals constraints
-	// TODO
+	// solve-constraints-neq(|x*): c* -> result
+	// 	where 
+			
+	solve-constraints-neq(|x*): CNEq(var, type) -> []
+		where TypeVar(_) := var
+			; <not(?TypeVar(_))> type
+			; t := <lookup> (var, x*)
+			; <not(eq)> (t, type)
+		
+	solve-constraints-neq(|x*) : CNEq(var, type@TypeVar(t)) -> [CNEq(var, a)]
+		where TypeVar(_) := var
+			; a := <lookup> (var, x*)
