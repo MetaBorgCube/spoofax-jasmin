@@ -14,19 +14,26 @@ rules
 
 strategies
 	//the input of this strategy should be a list of constraints!
-	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
+	solve-constraints = !([], <id>);fixed-point(solve-constraints-step);debug
 
     solve-step(|x*) = solve-constraints-sub-eliminate(|x*);
+    debug;
     				  solve-constraints-rename;
+    debug;
     				  mapconcat(
-    					solve-constraints-lookup(|x*) <+
+                      	solve-constraints-stack(|x*) <+
+                      	![<id>]
+					  );
+    				  mapconcat(
+    				  	solve-constraints-lookup(|x*) <+
                       	solve-constraints-unify(|x*) <+
                       	solve-constraints-simple-subtype(|x*) <+
                       	solve-constraints-neq(|x*) <+
-                      	solve-constraints-stack(|x*) <+
                       	![<id>]
                       );
+    debug;
     				  solve-constraints-sub-single(|x*);
+    debug;
     				  uniq
     
     fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
@@ -40,16 +47,23 @@ rules // general rules
 		where mapconstr := <solve-step(|x*)> c
 			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr
 			; xnew* := <uniq; unique-keys> [x*, xn*]
+			  ; <debug> (xnew*, constr) 
 	
 	unique-keys: [] -> <id>
 	unique-keys: ([x@(key, _) | tail]) ->  [x | <unique-keys> tail]
   		where <not(lookup)> (key, tail)
+  		
+  	has-vars: TypeVar(_) -> <id>
+  	has-vars: _#(children*) -> <id>
+  		where
+  			<fetch(has-vars)> children*
 
 rules // equality constraints
 	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
 		// warning: should probably check the whole tree for vars
 		where TypeVar(_) := var
-			; <not(?TypeVar(_))> type
+			// ; <not(?TypeVar(_))> type
+			; <not(has-vars)> type
 			; if t := <lookup> (var, x*)
 			    then <eq> (t, type)
 			  end
@@ -62,6 +76,7 @@ rules // equality constraints
 
 	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
 		where TypeVar(_) := type
+		; <debug> "Lookup"
 			; t := <lookup> (type, x*)
 	
 	rename-equality: (l*, CEq(a@TypeVar(_), b@TypeVar(_)), r*) -> (l*, [r*, na*, nb*])
@@ -75,7 +90,7 @@ rules // equality constraints
 	has-identity: CEq(x, x) -> []
 	
 	solve-constraints-rename: [] -> []
-	solve-constraints-rename: l -> <walk-values(rename-equality)> l
+	solve-constraints-rename: l -> <walk-values(debug;rename-equality)> l
 
 strategies
 	walk-values(s) = !([], <id>); walk-value-tuple(s); ?(res, []); !res

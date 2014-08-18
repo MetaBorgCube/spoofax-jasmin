@@ -9,7 +9,7 @@ imports
 	trans/analysis/names/-
 
 rules
-	solve-test-constraints: x -> ["Equality", eq*, "Subtyping", sub*, "Or", or*, "inequality", notEq*, "complex", complex*, "stack", stack*, "real", real*]
+	solve-test-constraints: x -> [/*"Equality", eq*, "Subtyping", sub*, "Or", or*, "inequality", notEq*, "complex", complex*, */ "stack", stack*, "real", real*]
 		where eq* := <solve-eq-test-constraints> x
 			; sub* := <solve-sub-test-constraints> x
 			; or* := <solve-or-test-constraints> x 
@@ -81,7 +81,7 @@ rules
 	solve-stack-test-constraints: _ -> [a, b]
 		where a := <try(solve-constraints)> [CEq(TypeVar("a"), Int()), CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
 			; b := <try(solve-constraints)> [CEq(TypeVar("a"), [Int(), Boolean(), Byte(), Int(), Boolean()]),
-			  								 // CEq(TypeVar("b"), [Int(), Boolean()]),
+			  								 // CEq(TypeVar("b"), [Int(), Boolean(), Int()]),
 			  								 CEq(TypeVar("a"), ([Int(), Boolean(), Byte()], TypeVar("b")))]
 			
 	solve-real-test-constraints: _ -> []
