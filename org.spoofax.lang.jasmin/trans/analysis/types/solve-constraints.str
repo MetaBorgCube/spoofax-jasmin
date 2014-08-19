@@ -136,9 +136,8 @@ rules // not equals constraints
 			; t := <lookup> (var, x*)
 			; <not(eq)> (t, type)
 		
-	solve-constraints-neq(|x*) : CNEq(var, type@TypeVar(t)) -> [CNEq(var, a)]
-		where TypeVar(_) := var
-			; a := <lookup> (var, x*)
+	solve-constraints-neq(|x*) : CNEq(var@TypeVar(_), type@TypeVar(t)) -> [CNEq(var, b)]
+		where b := <lookup> (type, x*)
 
 rules // stack constraints
 	solve-constraints-stack(|x*): CEq(var, ([], ts)) -> [CEq(var, ts)]

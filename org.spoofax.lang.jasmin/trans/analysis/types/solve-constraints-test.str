@@ -66,7 +66,7 @@ rules
 												 [CEq(TypeVar("fail"), [Boolean()])]]),
 											 CEq(TypeVar("fail"), [Byte()])]
 
-	solve-not-test-constraints: _ -> [a, b, c, d]
+	solve-not-test-constraints: _ -> [a, b, c, d, e]
 		where a := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
 											 CNEq(TypeVar("a"), Byte())]
 			; b := <try(solve-constraints)> [CEq(TypeVar("fail"), Int()),
@@ -77,6 +77,9 @@ rules
 			; d := <try(solve-constraints)> [CNEq(TypeVar("a"), TypeVar("b")),
 			  								 CEq(TypeVar("a"), Int()),
 			  								 CEq(TypeVar("b"), Int())]
+			; e := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+			  								 CNEq(TypeVar("a"), TypeVar("b")),
+			  								 CEq(TypeVar("b"), Boolean())]
 
 	solve-stack-test-constraints: _ -> [a, b]
 		where a := <try(solve-constraints)> [CEq(TypeVar("a"), [Int()]), CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
