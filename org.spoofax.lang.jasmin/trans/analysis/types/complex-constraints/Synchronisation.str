@@ -1,0 +1,17 @@
+module analysis/types/complex-constraints/Synchronisation
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/types/constraints
+
+rules
+  complex-constraint: (instr@MONITORENTER(), c*) -> [n*, c*]
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-out-stack> instr
+    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
+  complex-constraint: (instr@MONITOREXIT(), c*) -> [n*, c*]
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-out-stack> instr
+    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
+    	  

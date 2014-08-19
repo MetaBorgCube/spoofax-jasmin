@@ -1,0 +1,27 @@
+module types/store-properties
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+  trans/match-Instruction
+
+rules 
+  create-in-stack-task(|ctx):
+    a -> <task-create-id(|ctx,[x848])> x848
+    where
+      <match-Instruction> a 
+    ; x848 := <type-is(|ctx)> <newname> "in"
+  
+  create-out-stack-task(|ctx):
+    a -> <task-create-id(|ctx,[x848])> x848
+    where
+      <match-Instruction> a 
+    ; x848 := <type-is(|ctx)> <newname> "out"
+       
+  nabl-prop-site(|lang__, partition__, uris__, states__, implicits__):
+    JBCLabel(l) -> <fail>
+    where <store-in-stack(|partition__, <newname> "in")> l
+        ; <store-out-stack(|partition__, <newname> "out")> l

@@ -49,7 +49,7 @@ templates
   [LookupEntry*; separator="\n\t"]
 	default[]: [LabelRef]]
 
-  TableEntry.Jump   = [[LabelRef]]
+  TableEntry        = [[LabelRef]]
   LookupEntry.NPAIR = [[Int]: [LabelRef]]
 
   Instruction.GOTO   = [goto [LabelRef]]

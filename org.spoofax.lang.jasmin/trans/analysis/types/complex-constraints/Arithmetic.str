@@ -1,0 +1,23 @@
+module analysis/types/complex-constraints/Arithmetic
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/types/constraints
+
+rules
+  cc-r-match-int(|at) = where( rest := <fresh-var>
+      ; first  := <safe-repeat(![<fresh-var> | <id>] | <dec> at)> [Int()])
+    ; !(first, rest)
+
+  // IINC and IINC_W
+  complex-constraint: (instr@name#([VarNum(vn), _]), (c*,r*)) -> (c*, [nr*, r*])
+    where <string-starts-with(|"IINC")> name
+    with cref  := Reference(CRef(<fresh-var>))
+       ; i-in  := <get-in-stack> instr
+       ; i-out := <get-out-stack> instr
+       ; vn'   := <dec-string-to-int> vn
+       ; stack := <cc-r-match-int(|vn')>
+       ; nr*   := [ CEq(TypeVar(i-in),  stack) // pop-type
+                  , CEq(TypeVar(i-out), stack) // push-type
+                  ]

@@ -3,7 +3,6 @@ module analysis/names/binding
 imports
 
 	include/JasminXT
-	analysis/names/extra-constructors
 	
 namespaces
 
@@ -44,6 +43,9 @@ binding rules
 binding rules
   
 	JBCField(_, name, type-desc, _, _): 
+		defines Field name of type type-desc
+	
+	JBCExtField(_, name, type-desc, _, _, _):
 		defines Field name of type type-desc
 	
 	JBCFieldRef(CRef(c), FRef(name), type-desc):
