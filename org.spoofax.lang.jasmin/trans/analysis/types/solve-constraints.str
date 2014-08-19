@@ -7,6 +7,8 @@ imports
   	runtime/types/-
   	trans/analysis/types/-
   	trans/analysis/names/-
+  	
+// TODO document the strategies
 
 strategies
 	//the input of this strategy should be a list of constraints!
