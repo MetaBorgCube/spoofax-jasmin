@@ -44,4 +44,17 @@ these instruction represent.
 
 Solving constraints
 -------------------
-TODO
+Solving the collected constraints is fully implemented in Stratego and
+uses a fixed-point iteration approach, meaning that the
+`solve-constraints-step` strategy will be executed until an iteration
+did not change anything in the intermediate result.  
+Once the fixed-point iterations stop, the solver returns its final output.
+This consists of a tuple of two lists, being respectively the solved and
+unsolved constraints. In the case the second list is empty, the type 
+analysis succeeded and no errors are found. In the case the second list is
+not empty, the result can be used to give errors in the analysed code.
+However, this is not part of this project.
+
+Each iteration in the constraint solving contains a number of steps to be
+performed and multiple types of constraints have to be handled, which as well
+might be dependent upon each other.
