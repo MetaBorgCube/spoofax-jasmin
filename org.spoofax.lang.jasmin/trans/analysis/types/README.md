@@ -57,4 +57,28 @@ However, this is not part of this project.
 
 Each iteration in the constraint solving contains a number of steps to be
 performed and multiple types of constraints have to be handled, which as well
-might be dependent upon each other.
+might be dependent upon each other.  
+The most common constraint is the `equals` constraint, which specifies that
+a certain variable has a certain type. Also the type equivalence of two
+variables is specified using this constraint.  
+Besides that, the equivalence constraint is also used to express that a
+certain variable is equal to a stack of types with in the first position a
+type, followed by another variable referring to the rest of the stack.  
+Another relationship of variables is described by the `subtype` constraint,
+indicating that a variable is a subtype of some type or other variable. In
+many cases solving these constraints requires finding a least upper bound
+of two arbitrary types. This however is not part this project and therefore
+not implemented.  
+Third, we have the `not equals` constraint, which indicates that a variable
+does not have a certain type or does not have the same type as another
+variable. In the first case, the solver removes the constraint from the list,
+if the type of the variable (when known) is not equal to the specified type.
+In the second case the constraint is rewritten into another `not equals`
+constraint holding that the type of the first variable is not equal to the
+type of the second variable, which is looked up. This reduced the constraint
+to the first case.
+
+TODO:
+
+* more specific description of what equals and subtype do?
+* highlevel description of the COr
