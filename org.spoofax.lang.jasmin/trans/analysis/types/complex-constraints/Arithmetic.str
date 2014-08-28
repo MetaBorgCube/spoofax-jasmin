@@ -11,7 +11,7 @@ rules
     ; !(first, rest)
 
   // IINC and IINC_W
-  complex-constraint: (instr@name#([VarNum(vn), _]), (c*,r*)) -> (c*, [nr*, r*])
+  complex-constraint: instr@name#([VarNum(vn), _]) -> nr*
     where <string-starts-with(|"IINC")> name
     with cref  := Reference(CRef(<fresh-var>))
        ; i-in  := <get-in-stack> instr

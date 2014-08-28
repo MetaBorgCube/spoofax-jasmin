@@ -15,12 +15,12 @@ rules
   stack-constraints(|ctx, classname) = collect-constraints(|ctx, classname)
   
   collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> [CEq(r, Void())]
-  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(p,r), l) -> [st-start, push*, pop*, next*, st-c*, reg-start, reg-next*, reg-c*]
+  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(p,r), l) -> [st-start, push*, pop*, next*, cc*, reg-start, reg-next*]
     where l'@[h|_] := <filter(match-Instruction)> l
     	; h-in  := <get-in-stack>  h
         ; h-out := <get-out-stack> h
         ; next* := <foldl(next-constraints(|ctx));Snd> (l', (h-out, []))
-        ; (st-c*,reg-c*) := <foldl(complex-constraints(|r))> (l', ([],[]))
+        ; cc*   := <filter(complex-constraints(|r));concat> l'
           
     	; st-start := CEq(TypeVar(h-in), [])
         ; push* := <filter(push-constraints)> l'
@@ -51,8 +51,5 @@ rules
                                  <+ \LabelRef(l) -> CEq(TypeVar(prev-out),TypeVar(<get-in-stack> l))\
   next-instr = get-next-instr <+ ![NEXT()]
   
-  complex-constraints(|ret) =  \(i,(c,r)) -> (<complex-constraint(|ret)
-                                            <+ complex-constraint> (i,c), r)\
-                          <+ complex-constraint
-                          <+ \(i,rest) -> rest\ // where <debug(!"No complex-constraints for: ")> i\
+  complex-constraints(|ret) = complex-constraint(|ret) <+ complex-constraint
 
