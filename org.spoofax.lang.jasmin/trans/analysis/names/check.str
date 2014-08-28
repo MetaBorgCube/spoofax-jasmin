@@ -23,7 +23,7 @@ strategies
   pp-ClassName  = strip-annos ; prettyprint-ClassName  ; abox2text <+ !"PRETTYPRINTFAILURE"
   pp-MethodName = strip-annos ; prettyprint-MethodName ; abox2text; html-escape <+ !"PRETTYPRINTFAILURE"
   pp-FieldName  = strip-annos ; prettyprint-FieldName  ; abox2text <+ !"PRETTYPRINTFAILURE"
-  pp-ParameterDescriptors = mapconcat(prettyprint-ParameterDescriptor ; abox2text) <+ !"PRETTYPRINTFAILURE"
+  pp-ParameterDescriptors = map(prettyprint-ParameterDescriptor ; abox2text);concat-strings <+ !"PRETTYPRINTFAILURE"
   pp-ReturnDescriptor = prettyprint-ReturnDescriptor ; abox2text <+ !"PRETTYPRINTFAILURE"
   
 rules
@@ -65,13 +65,14 @@ rules
       ; <task-create-error-on-multiple(|ctx, task, msg)> c
         
   nabl-constraint(|ctx):
-  	JBCMethod(_, m, JBCMethodDesc(pd*, rd), _) -> <fail>
+  	JBCMethod(_, m, type-desc@JBCMethodDesc(pd*, rd), _) -> <fail>
   	  where
         task := <nabl-lookup-lexical(|ctx, NablNsMethod())> m
       ; type := <type-lookup(|ctx)> task
-      ; type-match := <type-match(|ctx, JBCMethodDesc(pd*, rd))> type
-      ; msg := $[Method [<pp-MethodName> m] with type description ([<pp-ParameterDescriptors> pd*])[<pp-ReturnDescriptor> rd] was already defined]
-      ; <task-create-error-on-multiple(|ctx, type-match, msg)> m
+      ; type-match := <type-match(|ctx, type-desc)> type
+      ; msg := $[Method [<pp-MethodName> m]([<pp-ParameterDescriptors> pd*])[<pp-ReturnDescriptor> rd] was already defined]
+      // TODO: This type-match task inexplicably comes up with many many method with the same descriptor. 
+      // ; <task-create-error-on-multiple(|ctx, type-match, msg)> m
         
   nabl-constraint(|ctx):
   	JBCField(_, f, _, _, _) -> <fail>
