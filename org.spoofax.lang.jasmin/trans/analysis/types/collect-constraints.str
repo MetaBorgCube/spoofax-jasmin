@@ -11,8 +11,11 @@ imports
   analysis/types/complex-constraints/-
 
 rules
-  stack-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> ([], [CEq(r, Void())])
-  stack-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(p,r), l) -> ([st-start, push*, pop*, next*, st-c*], [reg-start, next*, reg-c*])
+  // Deprecated: legacy name
+  stack-constraints(|ctx, classname) = collect-constraints(|ctx, classname)
+  
+  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> ([], [CEq(r, Void())])
+  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(p,r), l) -> ([st-start, push*, pop*, next*, st-c*], [reg-start, next*, reg-c*])
     where l'@[h|_] := <filter(match-Instruction)> l
     	; h-in  := <get-in-stack>  h
         ; h-out := <get-out-stack> h
