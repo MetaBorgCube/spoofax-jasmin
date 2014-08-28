@@ -47,7 +47,7 @@ rules
         ; n* := <next-instr;map(next-helper(|ctx, prev-out, i-in))> instr
   
   next-helper(|ctx,prev-out,i-in) = \NEXT() -> CEq(TypeVar(prev-out),TypeVar(i-in))\
-                                 <+ \LabelRef(l) -> CEq(TypeVar(prev-out),<get-in-stack> l)\
+                                 <+ \LabelRef(l) -> CEq(TypeVar(prev-out),TypeVar(<get-in-stack> l))\
   next-instr = get-next-instr <+ ![NEXT()]
   
   complex-constraints(|ret) =  \(i,(c,r)) -> (<complex-constraint(|ret)
