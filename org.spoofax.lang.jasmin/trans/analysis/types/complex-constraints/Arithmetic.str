@@ -18,6 +18,6 @@ rules
        ; i-out := <get-out-stack> instr
        ; vn'   := <dec-string-to-int> vn
        ; stack := <cc-r-match-int(|vn')>
-       ; nr*   := [ CEq(TypeVar(i-in),  stack) // pop-type
-                  , CEq(TypeVar(i-out), stack) // push-type
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in),  stack) // pop-type
+                  , CEq(<var-rename-hack> TypeVar(i-out), stack) // push-type
                   ]

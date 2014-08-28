@@ -14,12 +14,12 @@ rules
             ; <string-ends-with(|"STORE") + string-ends-with(|"LOAD")> name'\
     )> instr
 
-  cc-r-match(|at, var): i-in -> CEq(TypeVar(i-in), (first, rest))
+  cc-r-match(|at, var): i-in -> CEq(<var-rename-hack> TypeVar(i-in), (first, rest))
     with rest   := <fresh-var>
        ; first  := <safe-repeat(![<fresh-var> | <id>] | <dec> at)> [var]
   cc-r-subst(|at, var): (i-in, i-out) ->
-      [ CEq(TypeVar(i-in),  (f-i-in, rest))
-      , CEq(TypeVar(i-out), (fSubst, rest)) ]
+      [ CEq(<var-rename-hack> TypeVar(i-in),  (f-i-in, rest))
+      , CEq(<var-rename-hack> TypeVar(i-out), (fSubst, rest)) ]
     with rest   := <fresh-var>
        ; first  := <safe-repeat(![<fresh-var> | <id>] | <dec> at)> []
        ; f-i-in := <conc> (first, [<fresh-var>])
@@ -61,8 +61,7 @@ rules
        ; i-in  := <get-in-stack>  instr
        ; rest  := <fresh-var>
        ; vn'   := <dec-string-to-int> vn
-       ; nrm   := <cc-r-match(|vn', type)> i-in
-       ; nr*   := [ nrm ]
+       ; nr*   := [ <cc-r-match(|vn', type)> i-in ]
        ; nc*   := [ CEq(TypeVar(i-out), ([type],rest)) ] // push-type
   
   cc-store-helper(|type, vn): (instr, (c*,r*)) -> ([nc*, c*], [nr*, r*])

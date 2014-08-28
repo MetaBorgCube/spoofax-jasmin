@@ -14,8 +14,8 @@ rules
   // Deprecated: legacy name
   stack-constraints(|ctx, classname) = collect-constraints(|ctx, classname)
   
-  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> ([], [CEq(r, Void())])
-  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(p,r), l) -> ([st-start, push*, pop*, next*, st-c*], [reg-start, next*, reg-c*])
+  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(_,r), []) -> [CEq(r, Void())]
+  collect-constraints(|ctx, classname): JBCMethod(_, _, JBCMethodDesc(p,r), l) -> [st-start, push*, pop*, next*, st-c*, reg-start, reg-next*, reg-c*]
     where l'@[h|_] := <filter(match-Instruction)> l
     	; h-in  := <get-in-stack>  h
         ; h-out := <get-out-stack> h
@@ -27,7 +27,8 @@ rules
         ; pop*  := <filter(pop-constraints)> l'
           
         ; locals-start := ([ Reference(CRef(classname)) | p ], <fresh-var>)
-        ; reg-start := CEq(TypeVar(h-in), locals-start)
+        ; reg-start := CEq(<var-rename-hack> TypeVar(h-in), locals-start)
+        ; reg-next* := <alltd(var-rename-hack)> next*
         // TODO: handle limits in constraints. 
           // limit locals can be done with a single constraint wherever it is found, setting the locals CSub of [TOP(), ..., TOP()] of the size given in the limit locals phrase
           // limit stack may need intelligent constaints on every in/out stack.. Not sure yet how to solve this

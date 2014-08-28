@@ -28,6 +28,10 @@ signature
 
 strategies
   fresh-var = !TypeVar(<new>)
+  
+  var-rename-hack: TypeVar(str) -> TypeVar(str')
+    where <string-starts-with(|"in") + string-starts-with(|"out")> str
+        ; str' := $[[str]-locals]
 
   // repeat that checks against negative numbers
   safe-repeat(s | n) =
