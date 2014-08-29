@@ -1,0 +1,92 @@
+module translator
+
+imports
+	include/JasminXT
+	syntax/ASM
+	trans/translator/directives
+	trans/translator/flags
+	trans/translator/instructions
+
+rules
+	jasmin-file-to-asm-class:
+		JBCFile(JBCHeader(_, _, cspec, sspec, _, _, _, _, _, _), jfields, jmethods) -> ASMClass(196653, iflags, name, None(), super, [], fields, methods)
+		where
+			name := <jasmin-classspec-get-name> cspec
+		;	super := <jasmin-superspec-to-asm> sspec
+		;	fields := <map(jasmin-field-to-asm-field)> jfields
+		;	methods := <map(jasmin-method-to-asm-method)> jmethods
+		;	iflags := <jasmin-flags-to-int> <jasmin-classspec-get-flags> cspec
+			
+	jasmin-classspec-get-name:
+		JBCClass(_, name) -> name
+	jasmin-classspec-get-name:
+		JBCInterface(_, name) -> name
+	jasmin-classspec-get-flags:
+		JBCClass(flags, _) -> flags
+	jasmin-classspec-get-flags:
+		JBCInterface(flags, _) -> flags
+		
+	jasmin-superspec-to-asm:
+		None() -> None()
+	jasmin-superspec-to-asm:
+		JBCSuper(s) -> s
+		
+	jasmin-field-to-asm-field:
+		JBCField(jflags, name, JBCFieldDesc(jdesc), jsignature, jinit) -> ASMField(iflags, name, desc, None(), None())
+		where
+			desc := <jasmin-fieldtype-to-descriptor> jdesc
+		;	iflags := <jasmin-flags-to-int> jflags
+			
+	jasmin-fieldtype-to-descriptor:
+		Byte() -> "B"
+	jasmin-fieldtype-to-descriptor:
+		Char() -> "C"
+	jasmin-fieldtype-to-descriptor:
+		Double() -> "D"
+	jasmin-fieldtype-to-descriptor:
+		Float() -> "F"
+	jasmin-fieldtype-to-descriptor:
+		Int() -> "I"
+	jasmin-fieldtype-to-descriptor:
+		Long() -> "J"
+	jasmin-fieldtype-to-descriptor:
+		Short() -> "S"
+	jasmin-fieldtype-to-descriptor:
+		Boolean() -> "Z"
+	jasmin-fieldtype-to-descriptor:
+		Reference(CRef(c)) -> $[L[c];]
+	jasmin-fieldtype-to-descriptor:
+		Array(t) -> $[[lb][dt]]
+		where
+			lb := "["
+		;	dt := <jasmin-fieldtype-to-descriptor> t
+		 	
+	jasmin-method-to-asm-method:
+		JBCMethod(jflags, jname, JBCMethodDesc(paramdesc, returndesc), jinstructions) -> ASMMethod(iflags, name, desc, None(), [], instr)
+		where
+			name := <jasmin-methodname-to-name> jname
+		;	desc := <jasmin-methodtype-to-descriptor> (paramdesc, returndesc)
+		;	iflags := <jasmin-flags-to-int> jflags
+		;	instr := <jasmin-instructions-directives-to-asm> jinstructions
+			
+	jasmin-methodname-to-name:
+		Init() -> "<init>"
+	jasmin-methodname-to-name:
+		str -> str
+		where
+			<is-string> str
+			
+	jasmin-methodtype-to-descriptor:
+		(paramdesc, returndesc) -> result
+		where
+			paramstr := <concat-strings> <map(jasmin-fieldtype-to-descriptor)> paramdesc
+		;	retstr := <jasmin-returntype-to-descriptor> returndesc
+		;	result := $[([paramstr])[retstr]]
+		 	
+	jasmin-returntype-to-descriptor:
+		Void() -> "V"
+	jasmin-returntype-to-descriptor:
+		type -> <jasmin-fieldtype-to-descriptor> type	
+		
+strategies
+	jasmin-instructions-directives-to-asm	=	collect-maxs; map(jasmin-instruction-to-asm <+ jasmin-directive-to-asm)

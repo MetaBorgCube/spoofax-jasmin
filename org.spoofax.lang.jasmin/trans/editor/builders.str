@@ -2,19 +2,36 @@ module editor/builders
 
 imports
 	lib/editor-common.generated
-	analysis/names/project
+	analysis/names/project	
+	syntax/ASM
+	trans/translator/-
 	
 rules
 	
 	// Generates the Java class file
-	generate-class:
+	/*generate-class:
 		(selected, position, ast, path, project-path) -> None()
 		with
 			parentdir := <dirname> path ;
 			<try(call)> ("java", ["-jar", $[[<project-path>]/lib/jasmin.jar], "-d", parentdir, path])
 		where
 			cfname := <concat-strings ; guarantee-extension(|"class")> [project-path, "/", <dirname> path, "/", <class-name> ast] ;
-			<refresh-workspace-file> cfname
+			<refresh-workspace-file> cfname*/
+			
+	generate-class:
+		(selected, position, ast, path, project-path) -> None()
+		where
+			filename := <guarantee-extension(|"class")> path
+		where
+			<write-class-file(|filename)> <jasmin-file-to-asm-class> ast;
+			result := None()
+			
+	translate-class:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			filename := <guarantee-extension(|"asm.aterm")> path
+		where
+			result := <jasmin-file-to-asm-class> ast
 			
 	execute-class:
 		(selected, position, ast, path, project-path) -> (filename, result)
@@ -39,3 +56,4 @@ strategies
 	
 	external execute-java(|path)
 	external execute-jasmin(|)
+	external write-class-file(|fname)

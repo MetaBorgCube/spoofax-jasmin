@@ -1,5 +1,6 @@
 package org.spoofax.lang.jasmin.strategies;
 
+import org.spoofax.interpreter.terms.IStrategoAppl;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.strategoxt.lang.Context;
 import org.strategoxt.lang.Strategy;
@@ -23,7 +24,10 @@ public class execute_jasmin_0_0 extends Strategy {
 
 	@Override
 	public IStrategoTerm invoke(Context context, IStrategoTerm current) {
-	
+		context.getIOAgent().printError(Boolean.toString(current.getTermType() == IStrategoTerm.APPL));
+		context.getIOAgent().printError(((IStrategoAppl) current).getConstructor().getName());
+		return null;
+		
 //		fname = "/Users/guwac/Documents/EclipseWorkspaces/IN4303/JasminXT/test/HelloWorld.j" ;
 //		cpath = "/Users/guwac/Documents/EclipseWorkspaces/IN4303/JasminXT/test/";
 //		
@@ -114,6 +118,6 @@ public class execute_jasmin_0_0 extends Strategy {
 //            }
 //        }
 
-		return current;
+//		return current;
 	}
 }
