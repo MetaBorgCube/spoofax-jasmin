@@ -44,41 +44,33 @@ these instruction represent.
 
 Solving constraints
 -------------------
-Solving the collected constraints is fully implemented in Stratego and
-uses a fixed-point iteration approach, meaning that the
-`solve-constraints-step` strategy will be executed until an iteration
-did not change anything in the intermediate result.  
-Once the fixed-point iterations stop, the solver returns its final output.
-This consists of a tuple of two lists, being respectively the solved and
-unsolved constraints. In the case the second list is empty, the type 
-analysis succeeded and no errors are found. In the case the second list is
-not empty, the result can be used to give errors in the analysed code.
-However, this is not part of this project.
+Solving the collected constraints is fully implemented in Stratego and uses a fixed-point iteration approach, meaning that the `solve-constraints-step` strategy will be executed until an iteration did not change anything in the intermediate result.  
+Once the fixed-point iterations stop, the solver returns its final output, being a tuple of two lists. The first list is a dictionary with solved constraints in the form of a tuple like `(TypeVar("a"), Int())`, meaning that the type variable `"a"` has type `Int()`. The second list holds the constraints that could not be solved. In the case this list is empty, the type analysis succeeded and no type errors were found. Otherwise, type errors are found on the locations the constraints originate from. These unresolved constraints can potentially be used to give errors in the analysed code, although that is not part of this project.
 
-Each iteration in the constraint solving contains a number of steps to be
-performed and multiple types of constraints have to be handled, which as well
-might be dependent upon each other.  
-The most common constraint is the `equals` constraint, which specifies that
-a certain variable has a certain type. Also the type equivalence of two
-variables is specified using this constraint.  
-Besides that, the equivalence constraint is also used to express that a
-certain variable is equal to a stack of types with in the first position a
-type, followed by another variable referring to the rest of the stack.  
-Another relationship of variables is described by the `subtype` constraint,
-indicating that a variable is a subtype of some type or other variable. In
-many cases solving these constraints requires finding a least upper bound
-of two arbitrary types. This however is not part this project and therefore
-not implemented.  
-Third, we have the `not equals` constraint, which indicates that a variable
-does not have a certain type or does not have the same type as another
-variable. In the first case, the solver removes the constraint from the list,
-if the type of the variable (when known) is not equal to the specified type.
-In the second case the constraint is rewritten into another `not equals`
-constraint holding that the type of the first variable is not equal to the
-type of the second variable, which is looked up. This reduced the constraint
-to the first case.
+Type constraints are specified in 4 different forms. The most common of all is the `equals` constraint, which specifies that a certain variable has a certain type (for example: `CEq(TypeVar("a"), Int())`). These once can directly be put in the resulting dictionary in the form of a tuple as shown before.  
+Besides that, the `equals` constraint can be used to indicate that 2 type variables share a certain type (for example: `CEq(TypeVar("a"), TypeVar("b"))`). With the previous constraint already in its dictionary, the algorithm can derive that type variable `"b"` also has type `Int()`.  
+The `equals` constraint also has a third use: to express that a certain variable is equal to a stack of types with in the first position a type, followed by another type variable referring to the rest of the stack. So suppose the dictionary contains `(TypeVar("a"), [Int(), Boolean(), Byte()])`, then it can infer from `CEq(TypeVar("a"), ([Int()], TypeVar("b")))` that `(TypeVar("b"), [Boolean(), Byte()])`.
 
-TODO:
+Another type constraint is the `subtype` constraint, indicating that a type variable's type is a subtype of some other type or that a type variable's type is a subtype of another type variable's type. This can for instance be used to state that type variable `"b"` is a subtype of `java/lang/String`, type variable `"a"` is a subtype of `java/lang/Object` and that `"a"` and `"b"` have the same type:
 
-* more specific description of what equals and subtype do?
-* highlevel description of the COr
+* `CSub(TypeVar("b"), Reference(CRef("java/lang/String")))`
+* `CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))`
+* `CEq(TypeVar("a"), TypeVar("b"))`
+
+In order to try to find the types of both type variables, the constraint solver must find an upper-bound of the presented types. However, finding this upper-bound is not part of the project, so it is hard-coded for the instance at hand. In this case, the upper-bound of the 2 types is `java/lang/String`, from which the constraint solver concludes that both `"a"` and `"b"` have at least the type `java/lang/String`. 
+
+A third type of constraint is the `not equals` constraint, which indicates that a type variable is not of a certain type or does not have the same type as another type variable. In the first case, the solver simply removes the constraint from the list, if and only if the tuple (`<variable>`, `<type>`) does not occur in the dictionary yet. In the second case the constraint is rewritten into another `not equals` constraint holding that the type of the first variable is not equal to the type of the second variable, which is looked up. This reduces the constraint to one of the first case.  
+The following example states that type variables `"a"` and `"b"` have the same type, that type variable `"a"` is not of type `Int()`, and that type variable `"b"` is of type `Int()`:
+
+* CEq(TypeVar("a"), TypeVar("b"))
+* CNEq(TypeVar("a"), Int())
+* CEq(TypeVar("b"), Int())
+
+It is clear that this is a contradiction, therefore the constraint solver ends up in failure:
+
+* Resolved: `(TypeVar("b"), Int())` and `(TypeVar("fail"), Int())`
+* Unresolved: `CNEq(TypeVar("fail"), Int())` and `CNEq(TypeVar("b"), Int())`
+
+Notice that this yields an extra `not equals` constraint, since type variables `"a"` and `"b"` share the same type and type variable `"a"` is not of type `Int()`. Therefore type variable `"b"` cannot be of type `Int()`, although it claims it is.
+
+The final type constraint is the `or` constraint. **TODO - highlevel description of the COr**
