@@ -42,6 +42,16 @@ For every instruction that deals with classes, local variables or stack
 instructions like pop and swap, the Stratego rules define the behaviour
 these instruction represent. 
 
+The constraints being collected take the forms:
+ * Equivalence (`CEq`, e.g. introduced by `next-instr`)
+ * Subtype (`CSub`, e.g. when a class is loaded/stored)
+ * Disjunction (`COr`, e.g. `ALOAD` can load a class OR a `JSR` address)
+ * Non-Equivalence (`CNEq`, e.g. `SWAP` is not allowed on a `double`)
+
+The constraints are collected in a list which implicitly means that a
+conjunction of these constraints must be true for the program to
+type-check. 
+
 Solving constraints
 -------------------
 Solving the collected constraints is fully implemented in Stratego and uses a fixed-point iteration approach, meaning that the `solve-constraints-step` strategy will be executed until an iteration did not change anything in the intermediate result.  
