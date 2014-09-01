@@ -50,7 +50,9 @@ The constraints being collected take the forms:
 
 The constraints are collected in a list which implicitly means that a
 conjunction of these constraints must be true for the program to
-type-check. 
+type-check. The constraints can be between types and variables, but also
+between whole stacks or local variable lists. The latter means the
+constraint should be considered pointwise for each of the entries. 
 
 Solving constraints
 -------------------
