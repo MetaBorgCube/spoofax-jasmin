@@ -39,7 +39,8 @@ rules
                         ])
                   ]
        ; rest  := <fresh-var>
-       ; nc*   := [ CEq(TypeVar(i-out), ([var], rest)) ] // push-type
+       ; nc*   := [ CEq(TypeVar(i-out), ([var], rest))   // push-type
+                  , CEq(TypeVar(i-in), rest)           ] 
 
   complex-constraint: instr@name#([VarNum(vn)]) -> [nc*, nr*]
     where <string-starts-with(|"ASTORE")> name
@@ -49,9 +50,10 @@ rules
        ; rest  := <fresh-var>
        ; class-type := Reference(CRef(<fresh-var>))
        ; nc*   := [ CEq(TypeVar(i-in), ([var], rest))
-                    , COr([ [CSub(var, class-type)] // pop-type
-                          , [CEq (var, ADDRESS() )] // pop-type
-                          ])
+                  , COr([ [CSub(var, class-type)] // pop-type
+                        , [CEq (var, ADDRESS() )] // pop-type
+                        ])
+                  , CEq(TypeVar(i-out), rest)
                   ]
        ; vn'   := <dec-string-to-int> vn
        ; nr*   := <cc-r-subst(|vn', var)> (i-in, i-out)
@@ -62,13 +64,15 @@ rules
        ; rest  := <fresh-var>
        ; vn'   := <dec-string-to-int> vn
        ; nr*   := [ <cc-r-match(|vn', type)> i-in ]
-       ; nc*   := [ CEq(TypeVar(i-out), ([type],rest)) ] // push-type
+       ; nc*   := [ CEq(TypeVar(i-out), ([type],rest))   // push-type
+                  , CEq(TypeVar(i-in), rest)           ]
   
   cc-store-helper(|type, vn): instr -> [nc*, nr*]
     with i-out := <get-out-stack> instr
        ; i-in  := <get-in-stack>  instr
        ; rest  := <fresh-var>
-       ; nc*   := [ CEq(TypeVar(i-in), ([type], rest)) ] // pop-type
+       ; nc*   := [ CEq(TypeVar(i-in), ([type], rest))   // pop-type
+                  , CEq(TypeVar(i-out), rest)          ]
        ; vn'   := <dec-string-to-int> vn
        ; nr*   := <cc-r-subst(|vn', type)> (i-in, i-out)
   

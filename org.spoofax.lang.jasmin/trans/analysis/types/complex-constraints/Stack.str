@@ -11,9 +11,10 @@ rules
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
-    	; n* := [ CEq(TypeVar(i-in),  ([type], rest))       // pop-type
+    	; n* := [ CEq(TypeVar(i-in),  ([type], rest)) // pop-type
     	        , CNEq(TypeVar(type'), Double())
     	        , CNEq(TypeVar(type'), Long())
+    	        , CEq(TypeVar(i-out), rest)           // push-type
     	        ]
   complex-constraint: instr@POP2() -> n*
     where type@TypeVar(type') := <fresh-var>
@@ -34,6 +35,7 @@ rules
               	        , CNEq(TypeVar(type2'), Long())
     	                ]
     	              ])
+    	        , CEq(TypeVar(i-out), rest)                           // push-type
     	        ]
   complex-constraint: instr@DUP() -> n*
     where type@TypeVar(type') := <fresh-var>

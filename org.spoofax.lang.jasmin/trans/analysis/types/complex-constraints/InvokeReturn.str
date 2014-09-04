@@ -25,7 +25,12 @@ rules
 
   cc-return(|r, type): instr -> n*
     with i-out := <get-out-stack> instr
-       ; n* := [ CEq(TypeVar(i-out), []) // push-type (pop-type is statically known and taken care of already)
+       ; i-in  := <get-in-stack> instr
+       ; rest  := <fresh-var>
+       ; ret-type := <try(\[Void()] -> []\)> [r]
+       ; n* := [ CEq(TypeVar(i-out), [])              // push-type
+               , CEq(TypeVar(i-out), rest)
+               , CEq(TypeVar(i-in), (ret-type, rest)) // pop-type
                , CEq(r, type) ]
   complex-constraint(|r): RETURN()  -> <cc-return(|r, Void())>
   complex-constraint(|r): IRETURN() -> <cc-return(|r, Int())>
@@ -35,7 +40,9 @@ rules
   complex-constraint(|r): instr@ARETURN() -> n*
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
         ; classtype := Reference(CRef(<fresh-var>))
-        ; n* := [ CEq(TypeVar(i-out), [])         // push-type
-                , CEq(TypeVar(i-in), [classtype]) // pop-type
+        ; n* := [ CEq(TypeVar(i-out), [])                 // push-type
+                , CEq(TypeVar(i-out), rest)
+                , CEq(TypeVar(i-in), ([classtype], rest)) // pop-type
                 , CSub(classtype, r) ]

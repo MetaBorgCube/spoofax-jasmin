@@ -9,9 +9,13 @@ rules
   complex-constraint: instr@MONITORENTER() -> n*
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
+        ; rest  := <fresh-var>
+    	; n* := [ CEq(TypeVar(i-in), ([Reference(CRef(<fresh-var>))],rest))   // pop-type
+    	        , CEq(TypeVar(i-out), rest)                                 ] // push-type
   complex-constraint: instr@MONITOREXIT() -> n*
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))]) ] // pop-type
+        ; rest  := <fresh-var>
+    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))])   // pop-type
+    	        , CEq(TypeVar(i-out), rest)                          ] // push-type
     	  
