@@ -6,7 +6,7 @@ imports
   analysis/types/constraints
 
 rules
-  complex-constraint: instr@POP() -> n*
+  complex-constraint: instr@POP() -> [n*,nr*]
     where type@TypeVar(type') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
@@ -16,7 +16,8 @@ rules
     	        , CNEq(TypeVar(type'), Long())
     	        , CEq(TypeVar(i-out), rest)           // push-type
     	        ]
-  complex-constraint: instr@POP2() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@POP2() -> [n*,nr*]
     where type@TypeVar(type') := <fresh-var>
         ; type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
@@ -37,7 +38,8 @@ rules
     	              ])
     	        , CEq(TypeVar(i-out), rest)                           // push-type
     	        ]
-  complex-constraint: instr@DUP() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@DUP() -> [n*,nr*]
     where type@TypeVar(type') := <fresh-var>
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
@@ -47,7 +49,8 @@ rules
     	        , CNEq(TypeVar(type'), Double())
     	        , CNEq(TypeVar(type'), Long())
     	        ]
-  complex-constraint: instr@DUP2() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@DUP2() -> [n*,nr*]
     where type@TypeVar(type')  := <fresh-var>
         ; type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
@@ -69,7 +72,8 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint: instr@DUP_X1() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@DUP_X1() -> [n*,nr*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
@@ -82,7 +86,8 @@ rules
     	        , CNEq(TypeVar(type2'), Double())
     	        , CNEq(TypeVar(type2'), Long())
     	        ]
-  complex-constraint: instr@DUP2_X1() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@DUP2_X1() -> [n*,nr*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -106,7 +111,8 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint: instr@DUP_X2() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@DUP_X2() -> [n*,nr*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -130,7 +136,8 @@ rules
     	                 ]
     	               ])
 	            ]
-  complex-constraint: instr@DUP2_X2() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@DUP2_X2() -> [n*,nr*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; type3@TypeVar(type3') := <fresh-var>
@@ -180,7 +187,8 @@ rules
     	                ]
     	              ])
     	        ]
-  complex-constraint: instr@SWAP() -> n*
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@SWAP() -> [n*,nr*]
     where type1@TypeVar(type1') := <fresh-var>
         ; type2@TypeVar(type2') := <fresh-var>
         ; i-in  := <get-in-stack> instr
@@ -193,3 +201,4 @@ rules
     	        , CNEq(TypeVar(type2'), Double())
     	        , CNEq(TypeVar(type2'), Long())
     	        ]
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]

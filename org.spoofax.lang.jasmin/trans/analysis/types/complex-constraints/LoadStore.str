@@ -35,6 +35,7 @@ rules
        ; nrm   := <cc-r-match(|vn', var)> i-in
        ; nr*   := [ nrm
                   , CSub(var, class-type)
+                  , CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out))
                   ]
        ; rest  := <fresh-var>
        ; nc*   := [ CEq(TypeVar(i-out), ([var], rest))   // push-type
@@ -61,7 +62,8 @@ rules
        ; i-in  := <get-in-stack>  instr
        ; rest  := <fresh-var>
        ; vn'   := <dec-string-to-int> vn
-       ; nr*   := [ <cc-r-match(|vn', type)> i-in ]
+       ; nr*   := [ <cc-r-match(|vn', type)> i-in 
+                  , CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
        ; nc*   := [ CEq(TypeVar(i-out), ([type],rest))   // push-type
                   , CEq(TypeVar(i-in), rest)           ]
   

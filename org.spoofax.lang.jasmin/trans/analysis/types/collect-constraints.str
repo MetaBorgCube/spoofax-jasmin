@@ -32,12 +32,14 @@ rules
           // limit locals can be done with a single constraint wherever it is found, setting the locals CSub of [TOP(), ..., TOP()] of the size given in the limit locals phrase
           // limit stack may need intelligent constaints on every in/out stack.. Not sure yet how to solve this
   
-  push-pop-constraints: instr -> [ CEq(TypeVar(i-out), (push*, rest)), CEq(TypeVar(i-in), (pop*, rest)) ]
+  push-pop-constraints: instr -> [n*,nr*]
     where push* := <push-type> instr
         ; pop*  := <pop-type> instr
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
         ; rest  := <fresh-var>
+        ; n*    := [ CEq(TypeVar(i-out), (push*, rest)), CEq(TypeVar(i-in), (pop*, rest)) ]
+        ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
   pop-type = get-pop-type;not(?[])
   push-type = get-push-type;not(?[])
 

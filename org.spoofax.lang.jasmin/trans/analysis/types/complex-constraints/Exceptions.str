@@ -6,10 +6,11 @@ imports
   analysis/types/constraints
 
 rules
-  complex-constraint: instr@ATHROW() -> n*
+  complex-constraint: instr@ATHROW() -> [n*, nr*]
     with cref  := Reference(CRef("java/lang/Object"))
        ; i-in  := <get-in-stack> instr
        ; i-out := <get-out-stack> instr
        ; n* := [ CSub(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
                , CSub(TypeVar(i-out), [cref])               // push-type
                ]
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
