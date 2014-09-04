@@ -19,7 +19,7 @@ rules
 			; real* := <solve-real-test-constraints> x
 
 rules
-	solve-eq-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j]
+	solve-eq-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j, k, l]
 		where a := <try(solve-constraints)> [] // empty list
 			; b := <try(solve-constraints)> [CEq(TypeVar("test"), [])] // one element in list
 			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), // two elements in list
@@ -41,6 +41,10 @@ rules
 			  								 CEq(TypeVar("failure"), [])]
 			; i := <try(solve-constraints)> [CEq([TypeVar("a"), TypeVar("b")], [Int(), Int()])]
 			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
+			; k := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+			  								 CEq(TypeVar("a"), TypeVar("b"))]
+			; l := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+			  								 CEq(TypeVar("b"), TypeVar("a"))]
 
 
 	solve-sub-test-constraints: _ -> [a, b, c, d, e, f]
@@ -82,7 +86,8 @@ rules
 			  								 CEq(TypeVar("b"), Boolean())]
 
 	solve-stack-test-constraints: _ -> [a, b]
-		where a := <try(solve-constraints)> [CEq(TypeVar("a"), [Int()]), CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
+		where a := <try(solve-constraints)> [CEq(TypeVar("a"), [Int()]),
+											 CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
 			; b := <try(solve-constraints)> [CEq(TypeVar("a"), [Int(), Boolean(), Byte(), Int(), Boolean()]),
 			  								 // CEq(TypeVar("b"), [Int(), Boolean()]),
 			  								 CEq(TypeVar("a"), ([Int(), Boolean(), Byte()], TypeVar("b")))]

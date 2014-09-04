@@ -7,6 +7,8 @@ imports
   	runtime/types/-
   	trans/analysis/types/-
   	trans/analysis/names/-
+  	
+// TODO document the strategies
 
 strategies
 	//the input of this strategy should be a list of constraints!
@@ -48,13 +50,17 @@ rules // general rules
   	has-vars: _#(children*) -> <id>
   		where <fetch(has-vars)> children*
 
+
 rules // equality constraints
-	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
-		where TypeVar(_) := var
-			; <not(has-vars)> type
+	solve-constraints-simplify(|x*): CEq(var@TypeVar(_), type) -> (var, type)
+		where <not(has-vars)> type
+			; <not(?Alias(_))> type
 			; if t := <lookup> (var, x*)
 			    then <eq> (t, type)
 			  end
+			  
+	solve-constraints-simplify(|x*): CEq(var@TypeVar(_), Alias(al)) -> (var, t)
+		where t := <lookup> (TypeVar(al), x*)
 			 
 	solve-constraints-unify(|x*): n#([lt, rt]) -> result
 		where <?"CEq" <+ ?"CSub"> n
@@ -62,14 +68,13 @@ rules // equality constraints
 			; vars := <unify(?TypeVar(_))> [(lt, rt)]
         	; result := <map(\ (l,r) -> <mkterm> (n, [l,r]) \)> vars
 
-	solve-constraints-lookup(|x*): CEq(var, type) -> [CEq(var, t)]
-		where TypeVar(_) := type
-			; t := <lookup> (type, x*)
+	solve-constraints-lookup(|x*): CEq(var, type@TypeVar(_)) -> [CEq(var, t)]
+		where t := <lookup> (type, x*)
 	
-	rename-equality: (l*, CEq(a@TypeVar(_), b@TypeVar(_)), r*) -> (l*, [r*, na*, nb*])
+	rename-equality: (l*, CEq(a@TypeVar(name_a), b@TypeVar(_)), r*) -> (l*, [r*, na*, alias])
 		where concat := [l*, r*]
-			; nb* := <filter(has-subterm(|a)); topdown(try(?a;!b)); filter(not(has-identity))> concat
 			; na* := <filter(has-subterm(|b)); topdown(try(?b;!a)); filter(not(has-identity))> concat
+			; alias := CEq(b, Alias(name_a))
 	
 	has-subterm(|t): x -> x
 		where <is-subterm> (t, x)
@@ -88,9 +93,8 @@ strategies
   		+ ?(l*, [e | tail]) ; !(l*, e, tail); (s <+ continue-value-tuple) ; walk-value-tuple(s)
 
 rules // subtype constraints
-	solve-constraints-simple-subtype(|x*): CSub(var, type) -> [CEq(var, type)]
-		where TypeVar(_) := var
-			; <is-simple-type <+ ?[]> type
+	solve-constraints-simple-subtype(|x*): CSub(var@TypeVar(_), type) -> [CEq(var, type)]
+		where <is-simple-type <+ ?[]> type
 			
 	collect-csub-types: [] -> []
 	collect-csub-types: [CSub(TypeVar(x), t) | tail] -> [pair | ftail]
@@ -123,16 +127,14 @@ rules // subtype constraints
 			; cnew* := [cold*, ceq*, ckeep*]
 		   	
 	find-references(|constraints): t@TypeVar(_) -> l
-		where
-			l := <filter(\ x -> x where <is-subterm> (t, x) \)> constraints
+		where l := <filter(\ x -> x where <is-subterm> (t, x) \)> constraints
 		  	
 rules // or constraints
 	// TODO
 
 rules // not equals constraints
-	solve-constraints-neq(|x*): CNEq(var, type) -> []
-		where TypeVar(_) := var
-			; <not(?TypeVar(_))> type
+	solve-constraints-neq(|x*): CNEq(var@TypeVar(_), type) -> []
+		where <not(?TypeVar(_))> type
 			; t := <lookup> (var, x*)
 			; <not(eq)> (t, type)
 		
