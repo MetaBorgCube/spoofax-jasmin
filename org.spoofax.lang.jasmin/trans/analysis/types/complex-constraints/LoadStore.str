@@ -34,9 +34,7 @@ rules
        ; var   := <fresh-var>
        ; nrm   := <cc-r-match(|vn', var)> i-in
        ; nr*   := [ nrm
-                  , COr([ [CSub(var, class-type)]
-                        , [CEq (var, ADDRESS() )]
-                        ])
+                  , CSub(var, class-type)
                   ]
        ; rest  := <fresh-var>
        ; nc*   := [ CEq(TypeVar(i-out), ([var], rest))   // push-type
