@@ -50,13 +50,19 @@ rules // general rules
   	has-vars: _#(children*) -> <id>
   		where <fetch(has-vars)> children*
 
+
 rules // equality constraints
 	solve-constraints-simplify(|x*): CEq(var, type) -> (var, type)
 		where TypeVar(_) := var
 			; <not(has-vars)> type
+			; <not(?Alias(_))> type
 			; if t := <lookup> (var, x*)
 			    then <eq> (t, type)
 			  end
+			  
+	solve-constraints-simplify(|x*): CEq(var, Alias(al)) -> (var, t)
+		where TypeVar(_) := var
+			; t := <lookup> (TypeVar(al), x*)
 			 
 	solve-constraints-unify(|x*): n#([lt, rt]) -> result
 		where <?"CEq" <+ ?"CSub"> n
@@ -68,10 +74,10 @@ rules // equality constraints
 		where TypeVar(_) := type
 			; t := <lookup> (type, x*)
 	
-	rename-equality: (l*, CEq(a@TypeVar(_), b@TypeVar(_)), r*) -> (l*, [r*, na*, nb*])
+	rename-equality: (l*, CEq(a@TypeVar(name_a), b@TypeVar(_)), r*) -> (l*, [r*, na*, alias])
 		where concat := [l*, r*]
-			; nb* := <filter(has-subterm(|a)); topdown(try(?a;!b)); filter(not(has-identity))> concat
 			; na* := <filter(has-subterm(|b)); topdown(try(?b;!a)); filter(not(has-identity))> concat
+			; alias := CEq(b, Alias(name_a))
 	
 	has-subterm(|t): x -> x
 		where <is-subterm> (t, x)
