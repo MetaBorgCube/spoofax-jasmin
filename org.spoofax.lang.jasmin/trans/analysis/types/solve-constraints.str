@@ -9,17 +9,26 @@ imports
   	trans/analysis/names/-
   	
 // TODO document the strategies
+rules
+	do_debug(|str): _ -> <id>
+		where <debug> str
 
 strategies
 	//the input of this strategy should be a list of constraints!
 	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
 
-    solve-step(|x*) = solve-constraints-sub-eliminate(|x*);
+    solve-step(|x*) = do_debug(|"A");
+    				  solve-constraints-sub-eliminate(|x*);
+    				  debug;
+    				  do_debug(|"B");
     				  solve-constraints-rename;
+    				  do_debug(|"C");
     				  mapconcat(
                       	solve-constraints-stack(|x*) <+
                       	![<id>]
 					  );
+					  debug;
+					  do_debug(|"D");
     				  mapconcat(
     				  	solve-constraints-lookup(|x*) <+
                       	solve-constraints-unify(|x*) <+
@@ -27,7 +36,10 @@ strategies
                       	solve-constraints-neq(|x*) <+
                       	![<id>]
                       );
+                      do_debug(|"E");
     				  solve-constraints-sub-single(|x*);
+    				  do_debug(|"F");
+    				  debug;
     				  uniq
     
     fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
@@ -71,8 +83,13 @@ rules // equality constraints
 	solve-constraints-lookup(|x*): CEq(var, type@TypeVar(_)) -> [CEq(var, t)]
 		where t := <lookup> (type, x*)
 	
-	rename-equality: (l*, CEq(a@TypeVar(name_a), b@TypeVar(_)), r*) -> (l*, [r*, na*, alias])
-		where concat := [l*, r*]
+	rename-equality: (l*, ceq@CEq(a@TypeVar(name_a), b@TypeVar(_)), r*) -> (nl*, [nr*, na*, alias])
+		where <not(has-identity)> ceq
+			; concat := [l*, r*]
+			; <debug> (l*, ceq, r*)
+			; nl* := <filter(not(has-subterm(|b)))> l*
+			; nr* := <filter(not(has-subterm(|b)))> r*
+			; <debug> ceq
 			; na* := <filter(has-subterm(|b)); topdown(try(?b;!a)); filter(not(has-identity))> concat
 			; alias := CEq(b, Alias(name_a))
 	
