@@ -31,8 +31,9 @@ into constraints. When one or more things are to be popped from the
 stack, then at that point the stack should have those things to pop
 off. So the `in-stack` of the instruction is said to be equal to a
 tuple of the `pop-type` and the rest of the stack, which is represented
-as a fresh type variable.  
-Something similar is done for the `push-type` and the `out-stack`.  
+as a fresh type variable. Something similar is done for the `push-type`
+and the `out-stack`, but the fresh type variable from the pop-type is
+reused so the in and out stack of the instruction are connected. 
 The `next-instr` is translated into constraints by saying the
 `out-stack` of one instruction is equal to the `in-stack` of another. 
 
@@ -40,7 +41,11 @@ To deal with local variables and instructions that do things relative
 to the stack, the `complex-constraints` are defined in Stratego.  
 For every instruction that deals with classes, local variables or stack
 instructions like pop and swap, the Stratego rules define the behaviour
-these instruction represent. 
+these instruction represent.  
+These complex constraints always take care of both stack and local
+variable constraints. This is to keep things simple: an instruction is
+put into the `complex-constraints` strategy, and if that fails is put
+through the `push-pop-constraints` strategy
 
 The constraints being collected take the forms:
  * Equivalence (`CEq`, e.g. introduced by `next-instr`)
