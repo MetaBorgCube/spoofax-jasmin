@@ -10,12 +10,12 @@ rules
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
         ; rest  := <fresh-var>
-    	; n* := [ CEq(TypeVar(i-in), ([Reference(CRef(<fresh-var>))],rest))   // pop-type
+    	; n* := [ CSub(TypeVar(i-in), ([Reference(CRef("java/lang/Object"))],rest))   // pop-type
     	        , CEq(TypeVar(i-out), rest)                                 ] // push-type
   complex-constraint: instr@MONITOREXIT() -> n*
     where i-out := <get-out-stack> instr
         ; i-in  := <get-out-stack> instr
         ; rest  := <fresh-var>
-    	; n* := [ CEq(TypeVar(i-in), [Reference(CRef(<fresh-var>))])   // pop-type
+    	; n* := [ CSub(TypeVar(i-in), [Reference(CRef("java/lang/Object"))])   // pop-type
     	        , CEq(TypeVar(i-out), rest)                          ] // push-type
     	  

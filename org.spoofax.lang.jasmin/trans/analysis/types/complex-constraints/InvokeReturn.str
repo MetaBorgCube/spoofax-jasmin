@@ -41,8 +41,8 @@ rules
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
-        ; classtype := Reference(CRef(<fresh-var>))
+        ; classtype := Reference(CRef("java/lang/Object"))
         ; n* := [ CEq(TypeVar(i-out), [])                 // push-type
                 , CEq(TypeVar(i-out), rest)
-                , CEq(TypeVar(i-in), ([classtype], rest)) // pop-type
+                , CSub(TypeVar(i-in), ([classtype], rest)) // pop-type
                 , CSub(classtype, r) ]

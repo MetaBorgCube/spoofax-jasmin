@@ -29,7 +29,7 @@ rules
     where <string-starts-with(|"ALOAD")> name
     with i-out := <get-out-stack> instr
        ; i-in  := <get-in-stack>  instr
-       ; class-type := Reference(CRef(<fresh-var>))
+       ; class-type := Reference(CRef("java/lang/Object"))
        ; vn'   := <dec-string-to-int> vn
        ; var   := <fresh-var>
        ; nrm   := <cc-r-match(|vn', var)> i-in
@@ -48,7 +48,7 @@ rules
        ; i-in  := <get-in-stack>  instr
        ; var   := <fresh-var>
        ; rest  := <fresh-var>
-       ; class-type := Reference(CRef(<fresh-var>))
+       ; class-type := Reference(CRef("java/lang/Object"))
        ; nc*   := [ CEq(TypeVar(i-in), ([var], rest))
                   , COr([ [CSub(var, class-type)] // pop-type
                         , [CEq (var, ADDRESS() )] // pop-type

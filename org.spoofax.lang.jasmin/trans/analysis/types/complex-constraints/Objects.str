@@ -10,10 +10,10 @@ rules
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
-        ; class-type := Reference(CRef(<fresh-var>))
+        ; class-type := Reference(CRef("java/lang/Object"))
         ; array-type := Array(<fresh-var>)
     	; n* := [COr([ [ CEq(TypeVar(i-in), ([Int(), Array(class-type)], rest))   // pop-type
-    	               , CEq(TypeVar(i-out), ([class-type],rest))               ] // push-type
+    	               , CSub(TypeVar(i-out), ([class-type],rest))              ] // push-type
     	             , [ CEq(TypeVar(i-in), ([Int(), Array(array-type)], rest))   // pop-type
     	               , CEq(TypeVar(i-out), ([array-type],rest))               ] // push-type
     	             ])]
@@ -21,10 +21,10 @@ rules
     where i-out := <get-out-stack> instr
         ; i-in  := <get-in-stack>  instr
         ; rest  := <fresh-var>
-        ; class-type := Reference(CRef(<fresh-var>))
+        ; class-type := Reference(CRef("java/lang/Object"))
         ; array-type := Array(<fresh-var>)
-    	; n* := [COr([ [ CEq(TypeVar(i-in), ([class-type, Int(), Array(class-type)], rest)) ] // pop-type
-    	             , [ CEq(TypeVar(i-in), ([array-type, Int(), Array(array-type)], rest)) ] // pop-type
+    	; n* := [COr([ [ CSub(TypeVar(i-in), ([class-type, Int(), Array(class-type)], rest)) ] // pop-type
+    	             , [ CEq(TypeVar(i-in), ([array-type, Int(), Array(array-type)], rest))  ] // pop-type
     	             ])]
   complex-constraint: instr@BALOAD() -> n*
     where i-out := <get-out-stack> instr
@@ -69,9 +69,9 @@ rules
   complex-constraint: SASTORE() -> <cc-astore-helper(|Short() )>
   
   complex-constraint: instr@CHECKCAST(_) -> n*
-    where cref  := Reference(CRef(<fresh-var>))
+    where cref  := Reference(CRef("java/lang/Object"))
         ; i-in  := <get-in-stack> instr
         ; i-out := <get-out-stack> instr
-    	; n* := [ CEq(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
-    	        , CEq(TypeVar(i-out), TypeVar(i-in))        // push-type
+    	; n* := [ CSub(TypeVar(i-in), ([cref], <fresh-var>)) // pop-type
+    	        , CEq(TypeVar(i-out), TypeVar(i-in))         // push-type
     	        ]
