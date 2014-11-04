@@ -25,7 +25,7 @@ rules
     	; st-start := CEq(TypeVar(h-in), [])
         ; push-pop* := <filter(push-pop-constraints);concat> todo
           
-        ; locals-start := ([ Reference(CRef(classname)) | p ], <fresh-var>)
+        ; locals-start := ([ Reference(CRef(classname)) | p ], [])
         ; reg-start := CEq(<var-rename-hack> TypeVar(h-in), locals-start)
         ; reg-next* := <alltd(var-rename-hack)> next*
         // TODO: handle limits in constraints. 
