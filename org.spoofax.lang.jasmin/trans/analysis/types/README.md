@@ -1,5 +1,4 @@
-Type Analysis
-=============
+#Type Analysis
 As described in
 [issue #3 on YellowGrass](http://yellowgrass.org/issue/Jasmin/3) type
 analysis on Jasmin can be done in multiple ways as described in
@@ -9,8 +8,7 @@ Leroy.
 We chose to use a 2-phase (collect/solve) solution to the problem,
 first collecting constraints, then solving those constraints. 
 
-Collecting constraints
-----------------------
+##Collecting constraints
 The constraints to collect describe the stack and the local variables
 before and after every instruction in a Jasmin program. 
 Because most information about this is statically known, we tried to
@@ -59,15 +57,16 @@ type-check. The constraints can be between types and variables, but also
 between whole stacks or local variable lists. The latter means the
 constraint should be considered pointwise for each of the entries. 
 
-Solving constraints
--------------------
+##Solving constraints
 Solving the collected constraints is fully implemented in Stratego and uses a fixed-point iteration approach, meaning that the `solve-constraints-step` strategy will be executed until an iteration did not change anything in the intermediate result.  
 Once the fixed-point iterations stop, the solver returns its final output, being a tuple of two lists. The first list is a dictionary with solved constraints in the form of a tuple like `(TypeVar("a"), Int())`, meaning that the type variable `"a"` has type `Int()`. The second list holds the constraints that could not be solved. In the case this list is empty, the type analysis succeeded and no type errors were found. Otherwise, type errors are found on the locations the constraints originate from. These unresolved constraints can potentially be used to give errors in the analysed code, although that is not part of this project.
 
+###Equals constraint
 Type constraints are specified in 4 different forms. The most common of all is the `equals` constraint, which specifies that a certain variable has a certain type (for example: `CEq(TypeVar("a"), Int())`). These once can directly be put in the resulting dictionary in the form of a tuple as shown before.  
 Besides that, the `equals` constraint can be used to indicate that 2 type variables share a certain type (for example: `CEq(TypeVar("a"), TypeVar("b"))`). In this case, the algorithm will 'rename' all occurences of `TypeVar("b")` to `TypeVar("b")`, and stores the fact it has done so in a new constraint. With the previous constraint already in its dictionary, the algorithm can then derive that type variable `"b"` also has type `Int()`.  
 The `equals` constraint also has a third use: to express that a certain variable is equal to a stack of types with in the first position a type, followed by another type variable referring to the rest of the stack. So suppose the dictionary contains `(TypeVar("a"), [Int(), Boolean(), Byte()])`, then it can infer from `CEq(TypeVar("a"), ([Int()], TypeVar("b")))` that `(TypeVar("b"), [Boolean(), Byte()])`.
 
+###Subtype constraint
 Another type constraint is the `subtype` constraint, indicating that a type variable's type is a subtype of some other type or that a type variable's type is a subtype of another type variable's type. This can for instance be used to state that type variable `"b"` is a subtype of `java/lang/String`, type variable `"a"` is a subtype of `java/lang/Object` and that `"a"` and `"b"` have the same type:
 
 * `CSub(TypeVar("b"), Reference(CRef("java/lang/String")))`
@@ -76,6 +75,7 @@ Another type constraint is the `subtype` constraint, indicating that a type vari
 
 In order to try to find the types of both type variables, the constraint solver must find an upper-bound of the presented types. However, finding this upper-bound is not part of the project, so it is hard-coded for the instance at hand. In this case, the upper-bound of the 2 types is `java/lang/String`, from which the constraint solver concludes that both `"a"` and `"b"` have at least the type `java/lang/String`. 
 
+###Not equals constraint
 A third type of constraint is the `not equals` constraint, which indicates that a type variable is not of a certain type or does not have the same type as another type variable. In the first case, the solver simply removes the constraint from the list, if and only if the tuple (`<variable>`, `<type>`) does not occur in the dictionary yet. In the second case the constraint is rewritten into another `not equals` constraint holding that the type of the first variable is not equal to the type of the second variable, which is looked up. This reduces the constraint to one of the first case.  
 The following example states that type variables `"a"` and `"b"` have the same type, that type variable `"a"` is not of type `Int()`, and that type variable `"b"` is of type `Int()`:
 
@@ -90,4 +90,7 @@ It is clear that this is a contradiction, therefore the constraint solver ends u
 
 Notice that this yields an extra `not equals` constraint, since type variables `"a"` and `"b"` share the same type and type variable `"a"` is not of type `Int()`. Therefore type variable `"b"` cannot be of type `Int()`, although it claims it is.
 
-The final type constraint is the `or` constraint. **TODO - highlevel description of the COr**
+###Or constraint
+The final type constraint is the `or` constraint, which specifies that either the left or the right argument is correct. For example, `COr(CEq(Typevar("a"), Int()), CEq(TypeVar("a"), Boolean()))`, which states that `"a"` is either an `Int` or a `Boolean`. We did not implement this particular constraint, since we ran out of time. We instead discussed about how to implement this and which implications this had on the overall performance of the constraint solver. First of all, we should notice that this constraint is particularly difficult, since it introduces a new exponential level of complexity with every `COr` in the list of constraints.
+
+TODO, more text about this
