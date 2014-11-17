@@ -29,17 +29,17 @@ rules
     where <string-starts-with(|"ALOAD")> name
     with i-out := <get-out-stack> instr
        ; i-in  := <get-in-stack>  instr
-       ; class-type := Reference(CRef(<fresh-var>))
+       ; class-type := Reference(CRef("java/lang/Object"))
        ; vn'   := <dec-string-to-int> vn
        ; var   := <fresh-var>
        ; nrm   := <cc-r-match(|vn', var)> i-in
        ; nr*   := [ nrm
-                  , COr([ [CSub(var, class-type)]
-                        , [CEq (var, ADDRESS() )]
-                        ])
+                  , CSub(var, class-type)
+                  , CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out))
                   ]
        ; rest  := <fresh-var>
-       ; nc*   := [ CEq(TypeVar(i-out), ([var], rest)) ] // push-type
+       ; nc*   := [ CEq(TypeVar(i-out), ([var], rest))   // push-type
+                  , CEq(TypeVar(i-in), rest)           ] 
 
   complex-constraint: instr@name#([VarNum(vn)]) -> [nc*, nr*]
     where <string-starts-with(|"ASTORE")> name
@@ -47,11 +47,12 @@ rules
        ; i-in  := <get-in-stack>  instr
        ; var   := <fresh-var>
        ; rest  := <fresh-var>
-       ; class-type := Reference(CRef(<fresh-var>))
+       ; class-type := Reference(CRef("java/lang/Object"))
        ; nc*   := [ CEq(TypeVar(i-in), ([var], rest))
-                    , COr([ [CSub(var, class-type)] // pop-type
-                          , [CEq (var, ADDRESS() )] // pop-type
-                          ])
+                  , COr([ [CSub(var, class-type)] // pop-type
+                        , [CEq (var, ADDRESS() )] // pop-type
+                        ])
+                  , CEq(TypeVar(i-out), rest)
                   ]
        ; vn'   := <dec-string-to-int> vn
        ; nr*   := <cc-r-subst(|vn', var)> (i-in, i-out)
@@ -61,14 +62,17 @@ rules
        ; i-in  := <get-in-stack>  instr
        ; rest  := <fresh-var>
        ; vn'   := <dec-string-to-int> vn
-       ; nr*   := [ <cc-r-match(|vn', type)> i-in ]
-       ; nc*   := [ CEq(TypeVar(i-out), ([type],rest)) ] // push-type
+       ; nr*   := [ <cc-r-match(|vn', type)> i-in 
+                  , CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+       ; nc*   := [ CEq(TypeVar(i-out), ([type],rest))   // push-type
+                  , CEq(TypeVar(i-in), rest)           ]
   
   cc-store-helper(|type, vn): instr -> [nc*, nr*]
     with i-out := <get-out-stack> instr
        ; i-in  := <get-in-stack>  instr
        ; rest  := <fresh-var>
-       ; nc*   := [ CEq(TypeVar(i-in), ([type], rest)) ] // pop-type
+       ; nc*   := [ CEq(TypeVar(i-in), ([type], rest))   // pop-type
+                  , CEq(TypeVar(i-out), rest)          ]
        ; vn'   := <dec-string-to-int> vn
        ; nr*   := <cc-r-subst(|vn', type)> (i-in, i-out)
   

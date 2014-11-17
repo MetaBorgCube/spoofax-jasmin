@@ -4,6 +4,6 @@ imports
   include/JasminXT
   analysis/types/constraints
 
-type rules
-  MONITORENTER() +
-  MONITOREXIT()  has push-type []
+// type rules
+  // MONITORENTER() +
+  // MONITOREXIT()  has push-type []

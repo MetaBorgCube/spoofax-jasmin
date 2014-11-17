@@ -11,7 +11,8 @@ package org.spoofax.lang.jasmin.strategies;
          public InteropRegisterer() {
            super(new Strategy[] { 
         		   execute_java_0_1.instance, 
-        		   execute_jasmin_0_0.instance
+        		   execute_jasmin_0_0.instance,
+        		   write_class_file_0_1.instance
            });
        
          }

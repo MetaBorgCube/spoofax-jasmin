@@ -11,13 +11,13 @@ rules
     ; !(first, rest)
 
   // IINC and IINC_W
-  complex-constraint: instr@name#([VarNum(vn), _]) -> nr*
+  complex-constraint: instr@name#([VarNum(vn), _]) -> [nc*, nr*]
     where <string-starts-with(|"IINC")> name
-    with cref  := Reference(CRef(<fresh-var>))
-       ; i-in  := <get-in-stack> instr
+    with i-in  := <get-in-stack> instr
        ; i-out := <get-out-stack> instr
        ; vn'   := <dec-string-to-int> vn
        ; stack := <cc-r-match-int(|vn')>
-       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in),  stack) // pop-type
-                  , CEq(<var-rename-hack> TypeVar(i-out), stack) // push-type
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in),  stack) // pop-reg-type
+                  , CEq(<var-rename-hack> TypeVar(i-out), stack) // push-reg-type
                   ]
+       ; nc*   := [ CEq(TypeVar(i-in), TypeVar(i-out)) ]

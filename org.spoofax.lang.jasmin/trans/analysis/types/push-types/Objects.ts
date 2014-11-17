@@ -19,23 +19,23 @@ type rules
   PUTFIELD(_)   +
   PUTSTATIC(_)  has push-type []
                 
-  IALOAD() has push-type [Int()]
-  LALOAD() has push-type [Long()]
+  // IALOAD() has push-type [Int()]
+  // LALOAD() has push-type [Long()]
   // BALOAD() has push-type Byte() /\ Boolean()
-  CALOAD() has push-type [Char()]
-  SALOAD() has push-type [Short()]
-  FALOAD() has push-type [Float()]
-  DALOAD() has push-type [Double()]
+  // CALOAD() has push-type [Char()]
+  // SALOAD() has push-type [Short()]
+  // FALOAD() has push-type [Float()]
+  // DALOAD() has push-type [Double()]
   // AALOAD() has push-type Reference(CRef(<see array type on stack>)) /\ Array(<see array type on stack>)
                 
-  IASTORE() +
-  LASTORE() +
-  BASTORE() +
-  CASTORE() +
-  SASTORE() +
-  FASTORE() +
-  DASTORE() +
-  AASTORE() has push-type []
+  // IASTORE() +
+  // LASTORE() +
+  // BASTORE() +
+  // CASTORE() +
+  // SASTORE() +
+  // FASTORE() +
+  // DASTORE() +
+  // AASTORE() has push-type []
                 
   ARRAYLENGTH() has push-type [Int()]
                 

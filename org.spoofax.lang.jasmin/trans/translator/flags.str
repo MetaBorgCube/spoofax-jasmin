@@ -1,0 +1,60 @@
+module translator/flags
+
+imports
+	include/JasminXT
+
+rules	
+	bitwise-or:
+		(0, 0) -> 0
+	bitwise-or:
+		(x, 0) -> x
+	bitwise-or:
+		(0, x) -> x
+	bitwise-or:
+		(1, 1) -> 1
+	bitwise-or:
+		(a, b) -> result
+		where
+			lsa := <mod> (a, 2)
+		;	lsb := <mod> (b, 2)
+		;	ls := <bitwise-or> (lsa, lsb)
+		;	resta := <divi> (a, 2)
+		;	restb := <divi> (b, 2)
+		;	restor := <bitwise-or> (resta, restb)
+		;	restors := <muli> (restor, 2)
+		;	result := <addi> (restors, ls)
+	
+	// jasmin-flags-to-int:
+	// 	[] -> 0
+	// jasmin-flags-to-int:
+	// 	[f | t] -> result
+	// 	where
+	// 		i := <jasmin-flag-intvalue> f
+	// 	;	it := <jasmin-flags-to-int> t
+	// 	;	result := <bitwise-or> (i, it)
+		 	
+	jasmin-flag-intvalue: PUBLIC() -> 1
+	jasmin-flag-intvalue: PRIVATE() -> 2
+	jasmin-flag-intvalue: PROTECTED() -> 4
+	jasmin-flag-intvalue: STATIC() -> 8
+	jasmin-flag-intvalue: FINAL() -> 16
+	jasmin-flag-intvalue: SUPER() -> 32
+	jasmin-flag-intvalue: SYNCHRONIZED() -> 32
+	jasmin-flag-intvalue: VOLATILE() -> 64
+	// jasmin-flag-intvalue: BRIDGE() -> 64
+	// jasmin-flag-intvalue: VARARGS() -> 128
+	jasmin-flag-intvalue: TRANSIENT() -> 128
+	jasmin-flag-intvalue: NATIVE() -> 256
+	jasmin-flag-intvalue: INTERFACE() -> 512
+	jasmin-flag-intvalue: ABSTRACT() -> 1024
+	jasmin-flag-intvalue: ABSTRACT() -> 1024
+	// jasmin-flag-intvalue: STRICT() -> 2048
+	// jasmin-flag-intvalue: SYNTHETIC() -> 4096
+	// jasmin-flag-intvalue: ANNOTATION() -> 8192
+	// jasmin-flag-intvalue: ENUM() -> 16384
+	// jasmin-flag-intvalue: MANDATED() -> 32768
+	// jasmin-flag-intvalue: DEPRECATED() -> 131072
+	
+strategies
+	jasmin-flags-to-int = map(jasmin-flag-intvalue); foldr(!0, bitwise-or)
+		

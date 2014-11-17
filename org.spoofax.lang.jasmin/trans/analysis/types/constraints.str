@@ -24,7 +24,9 @@ signature
     CSub    : TypeVar * Type -> Constraint
     CSup    : TypeVar * Type -> Constraint
     COr     : List(List(Constraint)) -> Constraint
-    CAlias  : TypeVar * TypeVar -> Constraint
+    
+    // The variable has the same value as the variable with the name it contains
+    Alias 	: String -> Type
 
 strategies
   fresh-var = !TypeVar(<new>)
