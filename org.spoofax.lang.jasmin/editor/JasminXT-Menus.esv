@@ -32,11 +32,11 @@ menus
       action: "Partition"          = debug-partition (openeditor) (meta)
     end
     
-    submenu: "Constraints"
-      action: "Collect"			   = debug-collect-file-constraints (openeditor) (realtime) (meta)
-      action: "Solve"			   = debug-collect-solve-constraints (openeditor) (realtime) (meta)
-      action: "Test solve"		   = debug-solve-test-constraints (openeditor) (realtime) (meta)
-    end
+    // submenu: "Constraints"
+    //   action: "Collect"			   = debug-collect-file-constraints (openeditor) (realtime) (meta)
+    //   action: "Solve"			   = debug-collect-solve-constraints (openeditor) (realtime) (meta)
+    //   action: "Test solve"		   = debug-solve-test-constraints (openeditor) (realtime) (meta)
+    // end
   
   menu: "JVM"
  

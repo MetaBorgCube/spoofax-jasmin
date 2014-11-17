@@ -9,37 +9,24 @@ imports
   	trans/analysis/names/-
   	
 // TODO document the strategies
-rules
-	do_debug(|str): _ -> <id>
-		where <debug> str
-
 strategies
 	//the input of this strategy should be a list of constraints!
 	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
 
-    solve-step(|x*) = do_debug(|"A");
-    				  solve-constraints-sub-eliminate(|x*);
-    				  debug;
-    				  do_debug(|"B");
+    solve-step(|x*) = solve-constraints-sub-eliminate(|x*);
     				  solve-constraints-rename;
-    				  do_debug(|"C");
     				  mapconcat(
                       	solve-constraints-stack(|x*) <+
                       	![<id>]
 					  );
-					  debug;
-					  do_debug(|"D");
-    				  mapconcat(
+					  mapconcat(
     				  	solve-constraints-lookup(|x*) <+
                       	solve-constraints-unify(|x*) <+
                       	solve-constraints-simple-subtype(|x*) <+
                       	solve-constraints-neq(|x*) <+
                       	![<id>]
                       );
-                      do_debug(|"E");
-    				  solve-constraints-sub-single(|x*);
-    				  do_debug(|"F");
-    				  debug;
+                      solve-constraints-sub-single(|x*);
     				  uniq
     
     fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
@@ -89,12 +76,8 @@ rules // equality constraints
 	
 	solve-constraints-lookup(|x*): CSub(var@TypeVar(_), type) -> []
 		where <not(?Alias(_))> type
-			; <debug> "geen Alias"
-			; <debug> $[var = [var]]
 			; t := <lookup> (var, x*)
-			; <debug> t
 			; super := <find-upper-bound> [t, type]
-			; <debug> super
 			; <eq> (super, type)
 	
 	rename-equality: (l*, ceq@CEq(a@TypeVar(name_a), b@TypeVar(_)), r*) -> (nl*, [nr*, na*, alias])
