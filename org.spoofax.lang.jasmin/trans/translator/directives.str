@@ -1,0 +1,51 @@
+module translator/directives
+	
+
+imports
+	include/JasminXT
+	syntax/ASM
+	trans/translator/-
+
+signature
+	constructors
+		Label	:	String -> Instruction
+		Maxs	:	Int * Int -> Instruction
+		TryCatch:	String * String * String * String -> Instruction
+		LocalVar:	String * String * String * String * String * Int -> Instruction
+	
+rules
+	jasmin-directive-to-asm:
+		Maxs(sl, ll) -> Maxs(<to-int> sl, <to-int> ll)
+	jasmin-directive-to-asm:
+		JBCCatch(CRef(t), LabelRef(from), LabelRef(to), LabelRef(handler)) -> TryCatch(from, to, handler, t)
+	jasmin-directive-to-asm:
+		JBCLabel(x)	-> Label(x)
+	jasmin-directive-to-asm:
+	 	JBCVarDecl(ind, name, JBCFieldDesc(fdesc), LabelRef(from), LabelRef(to)) -> LocalVar(name, desc, None(), from, to, index)
+	 	where
+	 		index := <to-int> ind
+	 	;	desc := <jasmin-fieldtype-to-descriptor> fdesc
+
+	collect-maxs:
+		l			->	result
+		where
+			<is-list>	l
+		;	result := <collect-maxs> (Maxs(1,1), [], l)
+	collect-maxs:
+		(m, l, []) -> [m | l]
+	collect-maxs:
+		(Maxs(sl, ll), tail, [h | t])	->	result
+		where
+			JBCLimitStack(nsl) := h
+		;	result := <collect-maxs> (Maxs(nsl, ll), tail, t)
+	collect-maxs:
+		(Maxs(sl, ll), tail, [h | t])	->	result
+		where
+			JBCLimitLocals(nll) := h
+		;	result := <collect-maxs> (Maxs(sl, nll), tail, t)
+	collect-maxs:
+		(Maxs(sl, ll), tail*, [h | t])	->	result
+		where
+			not(JBCLimitLocals(_) := h)
+		;	not(JBCLimitStack(_) := h)
+		;	result := <collect-maxs> (Maxs(sl, ll), [tail*, h], t)

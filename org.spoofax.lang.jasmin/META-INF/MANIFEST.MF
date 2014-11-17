@@ -4,7 +4,8 @@ Bundle-Name: JasminXT Plug-in
 Bundle-SymbolicName: org.spoofax.lang.jasmin; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.spoofax.lang.jasmin.Activator
-Import-Package: org.osgi.framework;version="1.3.0"
+Import-Package: org.osgi.framework;version="1.3.0",
+ org.spoofax.terms.attachments
 Require-Bundle: org.eclipse.core.runtime,
   org.eclipse.core.resources,
   org.eclipse.imp.runtime,

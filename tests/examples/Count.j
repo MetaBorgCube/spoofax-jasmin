@@ -25,7 +25,7 @@
        ;    1 - the PrintStream object held in java.lang.System.out
        getstatic java/lang/System/out Ljava/io/PrintStream;
        astore_1
-
+      
        ;    2 - the integer 10 - the counter used in the loop
        bipush 10
        istore_2
