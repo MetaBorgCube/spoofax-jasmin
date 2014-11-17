@@ -1,0 +1,53 @@
+module analysis/types/complex-constraints/InvokeReturn
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/types/constraints
+
+rules
+  complex-constraint: instr@name#([JBCMethodRef(cref, _, JBCMethodDesc(p, r))]) -> [n*,nr*]
+    where (!"INVOKESPECIAL" => name + !"INVOKEVIRTUAL" => name + !"INVOKEINTERFACE" => name)
+    with i-out := <get-out-stack> instr
+       ; i-in  := <get-in-stack> instr
+       ; rest  := <fresh-var>
+       ; class-type := Reference(cref)
+       ; out-stack := <try(?([Void()],<id>))> ([r], rest)
+       ; n* := [ CSub(TypeVar(i-in), (<reverse> [class-type|p], rest))   // pop-type
+               , CSub(TypeVar(i-out), out-stack)                       ] // push-type
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+
+  complex-constraint: instr@INVOKESTATIC(JBCMethodRef(_, _, JBCMethodDesc(p, r))) -> [n*,nr*]
+    with i-out := <get-out-stack> instr
+       ; i-in  := <get-in-stack> instr
+       ; rest  := <fresh-var>
+       ; ret-type := <try(\[Void()] -> []\)> [r]
+       ; n* := [ CSub(TypeVar(i-in), (<reverse> p, rest))   // pop-type
+               , CSub(TypeVar(i-out), (ret-type, rest))   ] // push-type
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+
+  cc-return(|r, type): instr -> [n*,nr*]
+    with i-out := <get-out-stack> instr
+       ; i-in  := <get-in-stack> instr
+       ; rest  := <fresh-var>
+       ; ret-type := <try(\[Void()] -> []\)> [r]
+       ; n* := [ CEq(TypeVar(i-out), [])              // push-type
+               , CEq(TypeVar(i-out), rest)
+               , CEq(TypeVar(i-in), (ret-type, rest)) // pop-type
+               , CEq(r, type) ]
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint(|r): RETURN()  -> <cc-return(|r, Void())>
+  complex-constraint(|r): IRETURN() -> <cc-return(|r, Int())>
+  complex-constraint(|r): LRETURN() -> <cc-return(|r, Long())>
+  complex-constraint(|r): FRETURN() -> <cc-return(|r, Float())>
+  complex-constraint(|r): DRETURN() -> <cc-return(|r, Double())>
+  complex-constraint(|r): instr@ARETURN() -> [n*,nr*]
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-in-stack>  instr
+        ; rest  := <fresh-var>
+        ; classtype := Reference(CRef("java/lang/Object"))
+        ; n* := [ CEq(TypeVar(i-out), [])                 // push-type
+                , CEq(TypeVar(i-out), rest)
+                , CSub(TypeVar(i-in), ([classtype], rest)) // pop-type
+                , CSub(classtype, r) ]
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]

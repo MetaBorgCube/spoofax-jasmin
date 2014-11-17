@@ -1,0 +1,116 @@
+module analysis/types/solve-constraints-test
+
+imports
+	include/JasminXT
+	runtime/nabl/-
+	runtime/task/-
+	runtime/types/-
+	trans/analysis/types/-
+	trans/analysis/names/-
+
+rules
+	solve-test-constraints: x -> ["Equality", eq*, "Subtyping", sub*, "Or", or*, "inequality", notEq*, "complex", complex*, "stack", stack*, "real", real*]
+		where eq* := <solve-eq-test-constraints> x
+			; sub* := <solve-sub-test-constraints> x
+			; or* := <solve-or-test-constraints> x 
+			; notEq* := <solve-not-test-constraints> x
+			; complex* := [] // TODO testcases
+			; stack* := <solve-stack-test-constraints> x
+			; real* := <solve-real-test-constraints> x
+
+rules
+	solve-eq-test-constraints: _ -> [a, b, c, d, e, f, g, h, i, j, k, l]
+		where a := <try(solve-constraints)> [] // empty list
+			; b := <try(solve-constraints)> [CEq(TypeVar("test"), [])] // one element in list
+			; c := <try(solve-constraints)> [CEq(TypeVar("test"), []), // two elements in list
+			  								 CEq(TypeVar("test2"), [])]
+			; d := <try(solve-constraints)> [CEq(TypeVar("test"), [Int()]), // two elements, one dependency
+			  								 CEq(TypeVar("test2"), []),
+			  								 CEq(TypeVar("abc"), TypeVar("test"))]
+			; e := <try(solve-constraints)> [CEq(TypeVar("abc"), TypeVar("test")), // one dependency two elements
+			  								 CEq(TypeVar("test"), []),
+			  								 CEq(TypeVar("test2"), [])]
+			; f := <try(solve-constraints)> [CEq(TypeVar("cyclic"), TypeVar("failure")), // cyclic dependency
+			  								 CEq(TypeVar("test2"), []),
+			  								 CEq(TypeVar("failure"), TypeVar("cyclic"))]
+			; g := <try(solve-constraints)> [CEq(TypeVar("test"), TypeVar("abc")), // cyclic dependency solved with multi-ceq
+			  								 CEq(TypeVar("test2"), []),
+			  								 CEq(TypeVar("abc"), TypeVar("test")),
+			  								 CEq(TypeVar("abc"), [])]
+			; h := <try(solve-constraints)> [CEq(TypeVar("failure"), Int()), // conflicting values for the same variable
+			  								 CEq(TypeVar("failure"), [])]
+			; i := <try(solve-constraints)> [CEq([TypeVar("a"), TypeVar("b")], [Int(), Int()])]
+			; j := <try(solve-constraints)> [CEq(Array(TypeVar("a")), Array(Int()))]
+			; k := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+			  								 CEq(TypeVar("a"), TypeVar("b"))]
+			; l := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+			  								 CEq(TypeVar("b"), TypeVar("a"))]
+
+
+	solve-sub-test-constraints: _ -> [a, b, c, d, e, f]
+		where a := <try(solve-constraints)> [CSub(TypeVar("a"), Int())]
+			; b := <try(solve-constraints)> [CSub(TypeVar("a"), Boolean())]
+			; c := <try(solve-constraints)> [CSub(Array(TypeVar("a")), Array(Int()))]
+			; d := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/Object"))),
+			  								 CSub(TypeVar("a"), Reference(CRef("java/lang/String")))]
+			; e := <try(solve-constraints)> [CSub(TypeVar("a"), Reference(CRef("java/lang/String"))),
+			  								 CEq(TypeVar("a"), TypeVar("b")),
+			  								 CSub(TypeVar("b"), Reference(CRef("java/lang/Object")))]
+			; f := <try(solve-constraints)> [CSub(TypeVar("b"), Reference(CRef("java/lang/String"))),
+			  								 CEq(TypeVar("a"), TypeVar("b")),
+			  								 CSub(TypeVar("a"), Reference(CRef("java/lang/Object")))]
+
+	solve-or-test-constraints: _ -> []
+		where a := <try(solve-constraints)> [COr([[CEq(TypeVar("a"), [Int()])],
+												 [CEq(TypeVar("a"), [Boolean()])]]),
+											 CEq(TypeVar("a"), [Int()])]
+			; b := <try(solve-constraints)> [COr([[CEq(TypeVar("test"), [Int()]), CEq(TypeVar("test2"), []), CEq(TypeVar("abc"), TypeVar("test"))],
+			  									[CEq(TypeVar("test"), [Double()])]])]
+			; c := <try(solve-constraints)> [COr([[CEq(TypeVar("fail"), [Int()])],
+												 [CEq(TypeVar("fail"), [Boolean()])]]),
+											 CEq(TypeVar("fail"), [Byte()])]
+
+	solve-not-test-constraints: _ -> [a, b, c, d, e]
+		where a := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+											 CNEq(TypeVar("a"), Byte())]
+			; b := <try(solve-constraints)> [CEq(TypeVar("fail"), Int()),
+			  								 CNEq(TypeVar("fail"), Int())]
+			; c := <try(solve-constraints)> [CEq(TypeVar("fail"), TypeVar("b")),
+			  								 CNEq(TypeVar("fail"), Int()),
+			  								 CEq(TypeVar("b"), Int())]
+			; d := <try(solve-constraints)> [CNEq(TypeVar("a"), TypeVar("b")),
+			  								 CEq(TypeVar("a"), Int()),
+			  								 CEq(TypeVar("b"), Int())]
+			; e := <try(solve-constraints)> [CEq(TypeVar("a"), Int()),
+			  								 CNEq(TypeVar("a"), TypeVar("b")),
+			  								 CEq(TypeVar("b"), Boolean())]
+
+	solve-stack-test-constraints: _ -> [a, b, c]
+		where a := <try(solve-constraints)> [CEq(TypeVar("a"), [Int()]),
+											 CEq(TypeVar("a"), ([Int()], TypeVar("b")))]
+			; b := <try(solve-constraints)> [CEq(TypeVar("a"), [Int(), Boolean(), Byte(), Int(), Boolean()]),
+			  								 // CEq(TypeVar("b"), [Int(), Boolean()]),
+			  								 CEq(TypeVar("a"), ([Int(), Boolean(), Byte()], TypeVar("b")))]
+			; c := <try(solve-constraints)> [CEq(TypeVar("a"), ([TypeVar("b")], TypeVar("c"))),
+			  								 CEq(TypeVar("a"), ([Int()], TypeVar("d")))]
+			
+	solve-real-test-constraints: _ -> [a]
+		where a := <try(solve-constraints)> [CEq(TypeVar("in0"), []),
+											 CEq(TypeVar("out0"), TypeVar("in1")),
+											 CEq(TypeVar("out1"), TypeVar("in2")),
+											 CEq(TypeVar("out0"), ([TypeVar("n_26125")], TypeVar("p_26125"))),
+											 CEq(TypeVar("in0"), TypeVar("p_26125")),
+											 CEq(TypeVar("in0-locals"), ([TypeVar("n_26125")], TypeVar("o_26125"))),
+											 CSub(TypeVar("n_26125"), Reference(CRef("java/lang/Object"))),
+											 CEq(TypeVar("in0-locals"), TypeVar("out0-locals")),
+											 CSub(TypeVar("in1"), ([Reference(CRef("java/lang/Object"))], TypeVar("q_26125"))),
+											 CSub(TypeVar("out1"), TypeVar("q_26125")),
+											 CEq(TypeVar("in1-locals"), TypeVar("out1-locals")),
+											 CEq(TypeVar("out2"), []),
+											 CEq(TypeVar("out2"), TypeVar("r_26125")),
+											 CEq(TypeVar("in2"), ([], TypeVar("r_26125"))),
+											 CEq(Void(), Void()),
+											 CEq(TypeVar("in2-locals"), TypeVar("out2-locals")),
+											 CEq(TypeVar("in0-locals"), ([Reference(CRef("examples/Count"))], TypeVar("s_26125"))),
+											 CEq(TypeVar("out0-locals"), TypeVar("in1-locals")),
+											 CEq(TypeVar("out1-locals"), TypeVar("in2-locals"))]

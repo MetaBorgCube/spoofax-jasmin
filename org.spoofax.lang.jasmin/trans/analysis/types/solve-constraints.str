@@ -1,0 +1,193 @@
+module analysis/types/solve-constraints
+
+imports
+	include/JasminXT
+	runtime/nabl/-
+	runtime/task/-
+  	runtime/types/-
+  	trans/analysis/types/-
+  	trans/analysis/names/-
+  	
+// TODO document the strategies
+rules
+	do_debug(|str): _ -> <id>
+		where <debug> str
+
+strategies
+	//the input of this strategy should be a list of constraints!
+	solve-constraints = !([], <id>);fixed-point(solve-constraints-step)
+
+    solve-step(|x*) = do_debug(|"A");
+    				  solve-constraints-sub-eliminate(|x*);
+    				  debug;
+    				  do_debug(|"B");
+    				  solve-constraints-rename;
+    				  do_debug(|"C");
+    				  mapconcat(
+                      	solve-constraints-stack(|x*) <+
+                      	![<id>]
+					  );
+					  debug;
+					  do_debug(|"D");
+    				  mapconcat(
+    				  	solve-constraints-lookup(|x*) <+
+                      	solve-constraints-unify(|x*) <+
+                      	solve-constraints-simple-subtype(|x*) <+
+                      	solve-constraints-neq(|x*) <+
+                      	![<id>]
+                      );
+                      do_debug(|"E");
+    				  solve-constraints-sub-single(|x*);
+    				  do_debug(|"F");
+    				  debug;
+    				  uniq
+    
+    fixed-point(s) = !(<id>, <s> <id>); if(not(eq), Snd; fixed-point(s), Snd)
+    
+    is-simple-type = ?Int() <+ ?Double() <+ ?Float() <+ ?Boolean() <+ ?Char() <+ ?Byte() <+ ?Long() <+ ?Short()
+
+rules // general rules
+	solve-constraints-step: (x, []) -> (x, [])
+	
+	solve-constraints-step: (x*, c) -> (xnew*, constr)
+		where mapconstr := <solve-step(|x*)> c
+			; (xn*, constr) := <partition(solve-constraints-simplify(|x*))> mapconstr
+			; xnew* := <uniq; unique-keys> [x*, xn*]
+	
+	unique-keys: [] -> <id>
+	unique-keys: ([x@(key, _) | tail]) ->  [x | <unique-keys> tail]
+  		where <not(lookup)> (key, tail)
+  		
+  	has-vars: TypeVar(_) -> <id>
+  	has-vars: _#(children*) -> <id>
+  		where <fetch(has-vars)> children*
+
+
+rules // equality constraints
+	solve-constraints-simplify(|x*): CEq(var@TypeVar(_), type) -> (var, type)
+		where <not(has-vars)> type
+			; <not(?Alias(_))> type
+			; if t := <lookup> (var, x*)
+			    then <eq> (t, type)
+			  end
+			  
+	solve-constraints-simplify(|x*): CEq(var@TypeVar(_), Alias(al)) -> (var, t)
+		where t := <lookup> (TypeVar(al), x*)
+			 
+	solve-constraints-unify(|x*): n#([lt, rt]) -> result
+		where <?"CEq" <+ ?"CSub"> n
+		    ; not(TypeVar(_) := lt)
+			; vars := <unify(?TypeVar(_))> [(lt, rt)]
+        	; result := <map(\ (l,r) -> <mkterm> (n, [l,r]) \)> vars
+
+	solve-constraints-lookup(|x*): CEq(var, type@TypeVar(_)) -> [CEq(var, t)]
+		where t := <lookup> (type, x*)
+	
+	solve-constraints-lookup(|x*): CEq(var@TypeVar(_), type) -> [CEq(t, type)]
+		where <not(?Alias(_))> type
+			; t := <lookup> (var, x*)
+	
+	solve-constraints-lookup(|x*): CSub(var@TypeVar(_), type) -> []
+		where <not(?Alias(_))> type
+			; <debug> "geen Alias"
+			; <debug> $[var = [var]]
+			; t := <lookup> (var, x*)
+			; <debug> t
+			; super := <find-upper-bound> [t, type]
+			; <debug> super
+			; <eq> (super, type)
+	
+	rename-equality: (l*, ceq@CEq(a@TypeVar(name_a), b@TypeVar(_)), r*) -> (nl*, [nr*, na*, alias])
+		where <not(has-identity)> ceq
+			; concat := [l*, r*]
+			; nl* := <filter(not(has-subterm(|b)))> l*
+			; nr* := <filter(not(has-subterm(|b)))> r*
+			; na* := <filter(has-subterm(|b)); topdown(try(?b;!a)); filter(not(has-identity))> concat
+			; alias := CEq(b, Alias(name_a))
+			; temp := (nl*, [nr*, na*, alias])
+	
+	has-subterm(|t): x -> x
+		where <is-subterm> (t, x)
+		
+	has-identity: CEq(x, x) -> []
+	
+	solve-constraints-rename: [] -> []
+	solve-constraints-rename: l -> <walk-values(rename-equality)> l
+
+strategies
+	walk-values(s) = !([], <id>); walk-value-tuple(s); ?(res, []); !res
+
+	continue-value-tuple = ?(ln*, e, tailn); !([ln*, e], tailn)
+ 	walk-value-tuple(s) = ?(_, [])
+  		< id
+  		+ ?(l*, [e | tail]) ; !(l*, e, tail); (s <+ continue-value-tuple) ; walk-value-tuple(s)
+
+rules // subtype constraints
+	solve-constraints-simple-subtype(|x*): CSub(var@TypeVar(_), type) -> [CEq(var, type)]
+		where <is-simple-type <+ ?[]> type
+			
+	collect-csub-types: [] -> []
+	collect-csub-types: [CSub(TypeVar(x), t) | tail] -> [pair | ftail]
+		where tailpairs := <collect-csub-types> tail
+			; l := <lookup <+ ![]> (x, tailpairs)
+			; pair := (x, [t | l])
+			; ftail := <filter(not(?(x, _)))> tailpairs
+	inflate-csub-types: [] -> []
+	inflate-csub-types: [(x, l) | tail] -> result
+		where csub* := <map(\ t -> CSub(TypeVar(x), t) \)> l
+			; tail* := <inflate-csub-types> tail
+			; result := [csub*, tail*]
+
+	// TODO: make the upper bound finder
+	find-upper-bound: [x] -> x
+	find-upper-bound: [Reference(CRef("java/lang/Object")),Reference(CRef("java/lang/String"))] -> Reference(CRef("java/lang/String"))
+	find-upper-bound: [Reference(CRef("java/lang/String")),Reference(CRef("java/lang/Object"))] -> Reference(CRef("java/lang/String"))
+	find-upper-bound: [Reference(CRef("java/lang/Object")),Reference(CRef("examples/Count"))] -> Reference(CRef("examples/Count"))
+	find-upper-bound: [Reference(CRef("examples/Count")),Reference(CRef("java/lang/Object"))] -> Reference(CRef("examples/Count"))
+			  
+	solve-constraints-sub-eliminate(|x*): c* -> cnew*
+		where (csub*, cold*) := <partition(?CSub(TypeVar(_), _);id)> c*
+			; club* := <collect-csub-types;map(\ (a,b) -> CSub(TypeVar(a), <find-upper-bound> b) \)> csub*
+			; cnew* := [club*, cold*]
+	
+	is-sub-of-one-of(|vars): CSub(TypeVar(x), _) -> <id>
+		where <elem> (x, vars)
+		  	
+	solve-constraints-sub-single(|x*): c* -> cnew*
+		where (csub*, cother*) := <partition(?CSub(TypeVar(_), _);id)> c*
+			; csubs := <collect-csub-types> csub*
+			; ceq* := <filter(?(x, [t]); !TypeVar(x); find-references(|cother*);?[]; !CEq(TypeVar(x), t))> csubs
+			; removed-vars := <map(?CEq(TypeVar(x), _); !x)> ceq*
+			; ckeep* := <filter(not(is-sub-of-one-of(|removed-vars)))> c*
+			; cnew* := [ckeep*, ceq*]
+		   	
+	find-references(|constraints): t@TypeVar(_) -> l
+		where l := <filter(\ x -> x where <is-subterm> (t, x) \)> constraints
+		  	
+rules // or constraints
+	// TODO
+
+rules // not equals constraints
+	solve-constraints-neq(|x*): CNEq(var@TypeVar(_), type) -> []
+		where <not(?TypeVar(_))> type
+			; t := <lookup> (var, x*)
+			; <not(eq)> (t, type)
+		
+	solve-constraints-neq(|x*) : CNEq(var@TypeVar(_), type@TypeVar(t)) -> [CNEq(var, b)]
+		where b := <lookup> (type, x*)
+
+rules // stack constraints CEq
+	solve-constraints-stack(|x*): CEq(var, ([], ts)) -> [CEq(var, ts)]
+	
+	solve-constraints-stack(|x*): CEq(var, ([headT|tailT], ts)) -> [CEq(headA, headT), CEq(varTail, tailA), CEq(varTail, (tailT, ts))]
+		where [headA|tailA] := <lookup> (var, x*)
+			; varTail := <fresh-var>
+
+	solve-constraints-stack(|x*): CEq(var@TypeVar(name), (head, tail)) -> [CEq(headVar, head), CEq(tailVar, tail), CEq(var, (headVar, tailVar))]
+		where headVar := TypeVar($[[name]-head])
+			; tailVar := TypeVar($[[name]-tail])
+
+rules // stack constraints CSub
+	solve-constraints-stack(|x*): CSub(var@TypeVar(name), (head, tail)) -> [CSub(headVar, head), CSub(tailVar, tail), CEq(var, (headVar, tailVar))]
+		where headVar := TypeVar($[[name]-head])
+			; tailVar := TypeVar($[[name]-tail])

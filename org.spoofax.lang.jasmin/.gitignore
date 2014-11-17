@@ -5,8 +5,9 @@
 /lib/runtime
 /lib-refactoring
 
-**/*.generated.*
+*.generated.*
 /trans/analysis/names/binding.str
+/trans/analysis/names/properties.str
 
 /syntax/*.sdf
 /syntax/*/*.sdf
