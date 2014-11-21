@@ -114,7 +114,7 @@ rules
 		;	num := <to-int> tnum
 		 	
 	npair-to-tuple: NPAIR(i, LabelRef(l)) -> (<to-int> i, l)
-	jumplabel-name: Jump(LabelRef(l)) -> l
+	jumplabel-name: LabelRef(l) -> l
 	
 	// Zero-operand instructions
 	jasmin-opcode:	"NOP"		->	(0,	T_INSN())
