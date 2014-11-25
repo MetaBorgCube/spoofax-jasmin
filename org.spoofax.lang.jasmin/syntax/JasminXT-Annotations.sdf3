@@ -1,10 +1,10 @@
 module JasminXT-Annotations
 
 imports
-  lexical/JasminXT-Strings
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Names
-  lexical/JasminXT-Descriptors
+  JasminXT-Strings
+  JasminXT-Numbers
+  JasminXT-Names
+  JasminXT-Descriptors
 
 context-free syntax
   // The manual is not at all clear about annotations 

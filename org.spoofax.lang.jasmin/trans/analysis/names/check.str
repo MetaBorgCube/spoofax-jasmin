@@ -9,8 +9,6 @@ imports
   runtime/types/-
   libstratego-gpp
   src-gen/pp/-
-  src-gen/pp/instructions/-
-  src-gen/pp/lexical/-
 	
 strategies
 

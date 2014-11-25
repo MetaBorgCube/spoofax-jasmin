@@ -1,8 +1,8 @@
-module instructions/JasminXT-Control
+module JasminXT-Control
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
+  JasminXT-Names
+  JasminXT-Numbers
 
 context-free start-symbols
   Instruction
@@ -15,13 +15,13 @@ context-free start-symbols
 context-free syntax
   // The manual is a bit ambiguous on which of these two should be supported..
   // So both are for now.
-  RelOffset.RelativeFwd = [$+[Int]]
+  // RelOffset.RelativeFwd = [$+[Int]]
   RelOffset.RelativeFwd = [+[Int]]
-  RelOffset.RelativeBwd = [$-[Int]]
+  // RelOffset.RelativeBwd = [$-[Int]]
   RelOffset.RelativeBwd = [-[Int]]
 
-  Target = [[LabelRef]]
-  Target = [[RelOffset]] {prefer} // disamb with LabelRef that starts with + or $+
+  Target = LabelRef
+  Target = RelOffset {prefer} // disamb with LabelRef that starts with + or $+
 
 context-free syntax
   Instruction.IFEQ      = [ifeq [Target]]
@@ -49,7 +49,7 @@ context-free syntax
   [{LookupEntry "\n\t"}*]
 	default[]: [LabelRef]]
 
-  TableEntry        = [[LabelRef]]
+  TableEntry        = LabelRef
   LookupEntry.NPAIR = [[Int]: [LabelRef]]
 
   Instruction.GOTO   = [goto [LabelRef]]

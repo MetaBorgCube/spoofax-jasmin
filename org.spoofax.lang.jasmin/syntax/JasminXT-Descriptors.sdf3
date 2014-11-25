@@ -1,6 +1,6 @@
-module lexical/JasminXT-Descriptors
+module JasminXT-Descriptors
 
-imports lexical/JasminXT-Names
+imports JasminXT-Names
 
 context-free start-symbols
   FieldDescriptor
@@ -8,16 +8,16 @@ context-free start-symbols
   BaseType
 
 context-free syntax
-  FieldDescriptor.JBCFieldDesc = [[FieldType]]
+  FieldDescriptor.JBCFieldDesc = FieldType
 
-  ParameterDescriptor   = [[FieldType]]
-  AnnotationDescriptor  = [[FieldType]] // NB: This is a guess
-  ReturnDescriptor      = [[FieldType]]
+  ParameterDescriptor   = FieldType
+  AnnotationDescriptor  = FieldType // NB: This is a guess
+  ReturnDescriptor      = FieldType
   ReturnDescriptor.Void = [V]
 
-  FieldType = [[BaseType]]
-  FieldType = [[ObjectType]]
-  FieldType = [[ArrayType]]
+  FieldType = BaseType
+  FieldType = ObjectType
+  FieldType = ArrayType
 
   BaseType.Byte    = [B]
   BaseType.Char    = [C]
@@ -28,7 +28,7 @@ context-free syntax
   BaseType.Short   = [S]
   BaseType.Boolean = [Z]
 
-  ComponentType = [[FieldType]]
+  ComponentType = FieldType
 
 syntax // avoid whitespaces in method descriptors, reference types, array types	
   MethodDescriptor-CF.JBCMethodDesc = "(" ParameterDescriptor-CF* ")" ReturnDescriptor-CF

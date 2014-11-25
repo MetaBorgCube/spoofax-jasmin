@@ -1,9 +1,9 @@
-module instructions/JasminXT-Objects
+module JasminXT-Objects
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Descriptors
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Descriptors
 
 context-free start-symbols
   Instruction
@@ -12,8 +12,9 @@ context-free syntax
   Instruction.NEW = [new [ClassRef]]
   
   Instruction.NEWARRAY       = [newarray [BaseTypeName]]  
-  Instruction.ANEWARRAY      = [anewarray [ClassRef]]       
-  Instruction.ANEWARRAY      = [anewarray [ArrayType]]     
+  Instruction.ANEWARRAY      = [anewarray [ANewArrayArg]]
+  ANewArrayArg = ClassRef
+  ANewArrayArg = ArrayType     
   Instruction.MULTIANEWARRAY = [multianewarray [ArrayType] [Int]] 
 
   Instruction.GETFIELD  = [getfield [FieldRef]]

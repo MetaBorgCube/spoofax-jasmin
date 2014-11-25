@@ -1,7 +1,7 @@
 module JasminXT
 
 imports
-  lexical/JasminXT-Whitespace
+  JasminXT-Whitespace
   JasminXT-Header
   JasminXT-Fields
   JasminXT-Methods
@@ -10,6 +10,6 @@ context-free start-symbols
   Start
 
 context-free syntax
-  Start = [[JasminFile]]
+  Start = JasminFile
 
   JasminFile.JBCFile = [[JasminHeader] [{Field "\n"}*] [{Method "\n\n"}*]]

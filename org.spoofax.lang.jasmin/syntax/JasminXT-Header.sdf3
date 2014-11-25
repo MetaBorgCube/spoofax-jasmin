@@ -1,10 +1,10 @@
 module JasminXT-Header
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Strings
-  lexical/JasminXT-Descriptors
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+  JasminXT-Descriptors
 
 context-free start-symbols
   JasminHeader
@@ -25,7 +25,7 @@ context-free syntax
   BytecodeSpec.JBCVersion = [.bytecode [MajorVersion] [MinorVersion]]
   BytecodeSpec.None       = []
 
-  MajorVersion.Major = [[Int]]
+  MajorVersion.Major = Int
   MinorVersion.Minor = [.[Int]]
   MinorVersion.None  = []
 
@@ -59,10 +59,10 @@ context-free syntax
   InnerClassSpec.JBCInnerClass = [.inner class [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
   InnerInterfaceSpec.JBCInnerInterface = [.inner interface [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
   
-  InnerClassAccess = [[ClassAccess]]
+  InnerClassAccess = ClassAccess
   InnerClassAccess.None = []
   
-  InnerClassName = [[ClassName]]
+  InnerClassName = ClassName
   InnerClassName.None = []
   
   InnerName.InnerNameSpec = [inner [{ClassName "$"}+]]

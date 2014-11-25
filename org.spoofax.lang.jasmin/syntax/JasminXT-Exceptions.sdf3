@@ -1,4 +1,4 @@
-module instructions/JasminXT-Exceptions
+module JasminXT-Exceptions
 
 context-free start-symbols
   Instruction

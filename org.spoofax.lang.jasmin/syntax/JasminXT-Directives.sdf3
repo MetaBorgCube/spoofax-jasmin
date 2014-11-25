@@ -1,10 +1,10 @@
 module JasminXT-Directives
 
 imports
-lexical/JasminXT-Descriptors
-lexical/JasminXT-Names
-lexical/JasminXT-Numbers
-lexical/JasminXT-Strings
+JasminXT-Descriptors
+JasminXT-Names
+JasminXT-Numbers
+JasminXT-Strings
 JasminXT-Annotations
 
 context-free start-symbols

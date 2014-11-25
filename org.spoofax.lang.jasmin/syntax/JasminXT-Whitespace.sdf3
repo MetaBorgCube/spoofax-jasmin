@@ -1,4 +1,4 @@
-module lexical/JasminXT-Whitespace
+module JasminXT-Whitespace
 
 lexical syntax
   LAYOUT = [\ \t\n\r]

@@ -1,4 +1,4 @@
-module instructions/JasminXT-Synchronisation
+module JasminXT-Synchronisation
 
 context-free start-symbols
   Instruction

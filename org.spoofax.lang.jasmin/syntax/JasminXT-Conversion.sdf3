@@ -1,4 +1,4 @@
-module instructions/JasminXT-Conversion
+module JasminXT-Conversion
 
 context-free start-symbols
   Instruction

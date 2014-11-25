@@ -1,4 +1,4 @@
-module instructions/JasminXT-Stack
+module JasminXT-Stack
 
 context-free start-symbols
   Instruction

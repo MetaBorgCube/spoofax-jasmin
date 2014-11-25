@@ -1,10 +1,10 @@
 module JasminXT-Fields
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Strings
-  lexical/JasminXT-Descriptors
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+  JasminXT-Descriptors
   JasminXT-Annotations
 
 context-free start-symbols
@@ -19,7 +19,7 @@ context-free syntax
   FieldAttribute.JBCSignature  = [.signature [String]] 
   FieldAttribute.JBCDeprecated = [.deprecated]
   FieldAttribute.JBCAttribute  = [.attribute [AttributeName] [FileName]]
-  FieldAttribute.JBCAnnotation = [[Annotation]]
+  FieldAttribute.JBCAnnotation = Annotation
 
   FieldSignatureSpec.FieldSig = [signature [String]]
   FieldSignatureSpec.None     = []

@@ -1,12 +1,12 @@
 module JasminXT-Methods
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Strings
-  lexical/JasminXT-Descriptors
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+  JasminXT-Descriptors
   
-  instructions/JasminXT-Instructions
+  JasminXT-Instructions
   JasminXT-Directives
 
 context-free start-symbols
@@ -27,9 +27,9 @@ context-free syntax
   MethodAccess.ABSTRACT     = [abstract]
 
 context-free syntax
-  Statement = [[PCInstruction]]
-  Statement = [[Directive]]
-  Statement = [[Label]]
+  Statement = PCInstruction
+  Statement = Directive
+  Statement = Label
   
   Label.JBCLabel = [[LabelName]:]
 

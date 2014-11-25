@@ -17,8 +17,6 @@ imports
   lib/runtime/tmpl/pp
   // JasminXT-Extra-PP-Rules.pp
   src-gen/pp/-
-  src-gen/pp/instructions/-
-  src-gen/pp/lexical/-
   
 imports
   	

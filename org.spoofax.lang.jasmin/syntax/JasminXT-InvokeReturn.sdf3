@@ -1,9 +1,9 @@
-module instructions/JasminXT-InvokeReturn
+module JasminXT-InvokeReturn
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Descriptors
-  lexical/JasminXT-Numbers
+  JasminXT-Names
+  JasminXT-Descriptors
+  JasminXT-Numbers
 
 context-free start-symbols
   Instruction

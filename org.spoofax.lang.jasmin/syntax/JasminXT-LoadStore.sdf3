@@ -1,9 +1,9 @@
-module instructions/JasminXT-LoadStore
+module JasminXT-LoadStore
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Strings
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
 
 context-free start-symbols
   Instruction
