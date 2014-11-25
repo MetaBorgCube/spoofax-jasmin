@@ -15,7 +15,7 @@ imports
   lib/runtime/properties/-
   lib/runtime/types/-
   lib/runtime/tmpl/pp
-  // JasminXT-Extra-PP-Rules.pp
+  JasminXT-Extra-PP-Rules.pp
   src-gen/pp/-
   
 imports
