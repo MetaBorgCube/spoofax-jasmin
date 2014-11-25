@@ -9,7 +9,7 @@ imports
 context-free start-symbols
   Start
 
-templates
+context-free syntax
   Start = [[JasminFile]]
 
-  JasminFile.JBCFile = [[JasminHeader] [Field*; separator = "\n"] [Method*; separator = "\n\n"]]
+  JasminFile.JBCFile = [[JasminHeader] [{Field "\n"}*] [{Method "\n\n"}*]]

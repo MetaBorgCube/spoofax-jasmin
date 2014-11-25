@@ -1,391 +1,347 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project name="build.generated">
-	<target name="spoofaximp.default" depends="spoofaximp.default.ctree" />
-	<target name="spoofaximp.default.ctree" depends="
-			      check-classpath,
-			      call-onsave,
-			      init,
-			      sdf2table,
-			      meta-sdf2table,
-			      ppgen,
-			      pppack,
-			      sdf2imp.eclipse,
-			      sdf2imp.standalone,
-			      sdf2parenthesize,
-			      stratego.aster,
-			      java.jar,
-			      stratego.ctree,
-			      refresh,
-			      sdf2imp.eclipse.load" />
-	<target name="spoofaximp.default.jar" depends="
-			      check-classpath,
-			      call-onsave,
-			      init,
-			      sdf2table,
-			      meta-sdf2table,
-			      ppgen,
-			      pppack,
-			      sdf2imp.eclipse,
-			      sdf2imp.standalone,
-			      sdf2parenthesize,
-			      stratego.aster,
-			      java.jar,
-			      stratego.jar.helper,
-			      refresh,
-			      sdf2imp.eclipse.load" />
-	<target name="spoofaximp.default.nostr" depends="
-			      check-classpath,
-			      call-onsave,
-			      init,
-			      sdf2table,
-			      meta-sdf2table,
-			      ppgen,
-			      pppack,
-			      sdf2imp.eclipse,
-			      sdf2imp.standalone,
-			      sdf2parenthesize,
-			      stratego.aster,
-			      java.jar,
-			      refresh,
-			      sdf2imp.eclipse.load" />
+	<target depends="spoofaximp.default.ctree" name="spoofaximp.default"/>
+	<target depends="          check-classpath,          call-onsave,          init,          sdf2table,          meta-sdf2table,          ppgen,          pppack,          sdf2imp.eclipse,          sdf2imp.standalone,          sdf2parenthesize,          stratego.aster,          java.jar,          stratego.ctree,          refresh,          sdf2imp.eclipse.load" name="spoofaximp.default.ctree"/>
+	<target depends="          check-classpath,          call-onsave,          init,          sdf2table,          meta-sdf2table,          ppgen,          pppack,          sdf2imp.eclipse,          sdf2imp.standalone,          sdf2parenthesize,          stratego.aster,          java.jar,          stratego.jar.helper,          refresh,          sdf2imp.eclipse.load" name="spoofaximp.default.jar"/>
+	<target depends="          check-classpath,          call-onsave,          init,          sdf2table,          meta-sdf2table,          ppgen,          pppack,          sdf2imp.eclipse,          sdf2imp.standalone,          sdf2parenthesize,          stratego.aster,          java.jar,          refresh,          sdf2imp.eclipse.load" name="spoofaximp.default.nostr"/>
 
 	<!-- Initialization -->
-	<available file="${src-gen}/org/spoofax/lang/jasmin/strategies/Main.java" property="java.jar.enabled" />
-	<condition property="java.jar.import" value="-la org.spoofax.lang.jasmin.strategies" else="">
-		<isset property="java.jar.enabled" />
+	<available file="${src-gen}/org/spoofax/lang/jasmin/strategies/Main.java" property="java.jar.enabled"/>
+	<condition else="" property="java.jar.import" value="-la org.spoofax.lang.jasmin.strategies">
+		<isset property="java.jar.enabled"/>
 	</condition>
-	<condition property="java.jar.classpath" value=":${include}/${strmodule}-java.jar" else="">
-		<isset property="java.jar.enabled" />
+	<condition else="" property="java.jar.classpath" value=":${include}/${strmodule}-java.jar">
+		<isset property="java.jar.enabled"/>
 	</condition>
-	<available file="${trans}/${strmodule}.str" property="build.stratego.enabled" />
-	<dirname property="externaldefdir" file="${externaldef}" />
-	<condition property="externaldefimport" value="-I &quot;${externaldefdir}&quot;" else="">
-		<isset property="externaldef" />
+	<available file="${trans}/${strmodule}.str" property="build.stratego.enabled"/>
+	<dirname file="${externaldef}" property="externaldefdir"/>
+	<condition else="" property="externaldefimport" value="-I &quot;${externaldefdir}&quot;">
+		<isset property="externaldef"/>
 	</condition>
-	<condition property="externaljarimport1" value=":${externaljar}" else="">
-		<isset property="externaljar" />
+	<condition else="" property="externaljarimport1" value=":${externaljar}">
+		<isset property="externaljar"/>
 	</condition>
-	<condition property="externaljarimport2" value=":${externaljarx}" else="">
-		<isset property="externaljarx" />
-	</condition>
-	<condition property="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter">
-		<isset property="eclipse.running" />
+	<condition else="" property="externaljarimport2" value=":${externaljarx}">
+		<isset property="externaljarx"/>
 	</condition>
 	<condition property="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter">
-		<available classname="org.eclipse.jdt.core.JDTCompilerAdapter" />
+		<isset property="eclipse.running"/>
 	</condition>
-	<condition property="externaljarflags" value="${externaljarflags}" else="">
-		<isset property="externaljarflags" />
+	<condition property="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter">
+		<available classname="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+	</condition>
+	<condition else="" property="externaljarflags" value="${externaljarflags}">
+		<isset property="externaljarflags"/>
 	</condition>
 	<condition property="metasdfmodule.available" value="1">
-		<available file="${syntax}/${metasdfmodule}.sdf" />
+		<available file="${syntax}/${metasdfmodule}.sdf"/>
   </condition>
-  <condition property="src-dirs" value="${src-dirs}" else="${src-gen}">
-    <isset property="src-dirs" />
+  <condition else="${src-gen}" property="src-dirs" value="${src-dirs}">
+    <isset property="src-dirs"/>
   </condition>
 
-	<fail unless="build" message="Please use build.main.xml to build this project or configure the required properties manually" />
-	<mkdir dir="${build}" />
-	<mkdir dir="${src-gen}" />
-	<mkdir dir="${dist}" />
-	<mkdir dir="${include}" />
-	<mkdir dir="${lib}" />
-	<mkdir dir="${syntax}" />
+	<fail message="Please use build.main.xml to build this project or configure the required properties manually" unless="build"/>
+	<mkdir dir="${build}"/>
+	<mkdir dir="${src-gen}"/>
+	<mkdir dir="${dist}"/>
+	<mkdir dir="${include}"/>
+	<mkdir dir="${lib}"/>
+	<mkdir dir="${syntax}"/>
 
 	<!-- The files for which the on-save handler is called before building. -->
 	<path id="call-onsave.files">
 		<fileset dir=".">
-			<include name="**/*.tmpl" />
-			<include name="**/*.sdf3" />
-			<include name="**/*.nab" />
-			<include name="**/*.ts" />
+			<include name="**/*.tmpl"/>
+			<include name="**/*.sdf3"/>
+			<include name="**/*.nab"/>
+			<include name="**/*.ts"/>
 		</fileset>
 	</path>
 
 	<!-- Call on-save handler for template and name binding files so that their generated files are present. -->
-	<target name="call-onsave" if="eclipse.running">
-		<pathconvert pathsep=";;;" property="call-onsave.args" refid="call-onsave.files" />
+	<target if="eclipse.running" name="call-onsave">
+		<pathconvert pathsep=";;;" property="call-onsave.args" refid="call-onsave.files"/>
 		<java classname="org.strategoxt.imp.metatooling.building.AntForceOnSave">
-			<arg value="${call-onsave.args}" />
+			<arg value="${call-onsave.args}"/>
 		</java>
 	</target>
 
-	<target name="sdf2imp" depends="sdf2table,sdf2imp.eclipse,sdf2imp.standalone,sdf2parenthesize" />
+	<target depends="sdf2table,sdf2imp.eclipse,sdf2imp.standalone,sdf2parenthesize" name="sdf2imp"/>
 
-	<target name="sdf2imp.eclipse" if="eclipse.running" depends="sdf2rtg">
+	<target depends="sdf2rtg" if="eclipse.running" name="sdf2imp.eclipse">
 		<java classname="org.strategoxt.imp.metatooling.building.AntDescriptorBuilder" failonerror="true">
-			<arg value="${include}/${esvmodule}.packed.esv" />
+			<arg value="${include}/${esvmodule}.packed.esv"/>
 		</java>
 	</target>
 
-	<target name="sdf2imp.eclipse.load" if="eclipse.running">
+	<target if="eclipse.running" name="sdf2imp.eclipse.load">
 		<java classname="org.strategoxt.imp.metatooling.loading.AntDescriptorLoader" failonerror="true">
-			<arg value="${include}/${esvmodule}.packed.esv" />
+			<arg value="${include}/${esvmodule}.packed.esv"/>
 		</java>
 	</target>
 
-	<target name="refresh" if="eclipse.running">
-		<eclipse.convertPath fileSystemPath="${basedir}" property="projectdir" />
-		<eclipse.convertPath fileSystemPath="${syntax}" property="syntaxdir" />
-		<eclipse.convertPath fileSystemPath="${lib}" property="libdir" />
-		<eclipse.refreshLocal resource="${libdir}" depth="infinite" />
-		<eclipse.refreshLocal resource="${syntaxdir}/${sdfmodule}.pp.generated" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/build.generated.xml" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-Builders.generated.esv" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-Colorer.generated.esv" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-Completions.generated.esv" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-Folding.generated.esv" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-Outliner.generated.esv" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-Outliner.generated.str" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-References.generated.esv" depth="infinite" />
-		<eclipse.refreshLocal resource="${projectdir}/editor/${sdfmodule}-Syntax.generated.esv" depth="infinite" />
-		<eclipse.convertPath fileSystemPath="${src-gen}" property="eclipse.path.src-gen" />
-		<eclipse.refreshLocal resource="${eclipse.path.src-gen}" depth="infinite" />
-		<eclipse.convertPath fileSystemPath="${build}" property="eclipse.path.build" />
-		<eclipse.refreshLocal resource="${eclipse.path.build}" depth="infinite" />
+	<target if="eclipse.running" name="refresh">
+		<eclipse.convertPath fileSystemPath="${basedir}" property="projectdir"/>
+		<eclipse.convertPath fileSystemPath="${syntax}" property="syntaxdir"/>
+		<eclipse.convertPath fileSystemPath="${lib}" property="libdir"/>
+		<eclipse.refreshLocal depth="infinite" resource="${libdir}"/>
+		<eclipse.refreshLocal depth="infinite" resource="${syntaxdir}/${sdfmodule}.pp.generated"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/build.generated.xml"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-Builders.generated.esv"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-Colorer.generated.esv"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-Completions.generated.esv"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-Folding.generated.esv"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-Outliner.generated.esv"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-Outliner.generated.str"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-References.generated.esv"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}/editor/${sdfmodule}-Syntax.generated.esv"/>
+		<eclipse.convertPath fileSystemPath="${src-gen}" property="eclipse.path.src-gen"/>
+		<eclipse.refreshLocal depth="infinite" resource="${eclipse.path.src-gen}"/>
+		<eclipse.convertPath fileSystemPath="${build}" property="eclipse.path.build"/>
+		<eclipse.refreshLocal depth="infinite" resource="${eclipse.path.build}"/>
 	</target>
 
-	<target name="sdf2imp.standalone" unless="eclipse.running" depends="sdf2rtg">
+	<target depends="sdf2rtg" name="sdf2imp.standalone" unless="eclipse.running">
 		<java classname="org.strategoxt.imp.generator.sdf2imp" failonerror="true">
-			<arg value="-i" />
-			<arg value="${basedir}/editor/${esvmodule}.main.esv" />
-			<arg value="-p" />
-			<arg value="${include}/${sdfmodule}.tbl" />
+			<arg value="-i"/>
+			<arg value="${basedir}/editor/${esvmodule}.main.esv"/>
+			<arg value="-p"/>
+			<arg value="${include}/${sdfmodule}.tbl"/>
 		</java>
 	</target>
 
 	<target name="check-classpath">
-		<available classname="org.strategoxt.imp.generator.sdf2imp" property="check-classpath.available" />
-		<antcall target="check-classpath.helper" />
+		<available classname="org.strategoxt.imp.generator.sdf2imp" property="check-classpath.available"/>
+		<antcall target="check-classpath.helper"/>
 	</target>
 
-	<target name="init" if="eclipse.running">
+	<target if="eclipse.running" name="init">
 		<!-- refresh one file/dir in the project to trigger an Ant rebuild with the next build command -->
 		<java classname="org.strategoxt.imp.metatooling.building.AntForceRefreshScheduler" failonerror="false">
-			<arg value="${include}" />
+			<arg value="${include}"/>
 		</java>
 	</target>
 
 	<target name="check-classpath.helper" unless="check-classpath.available">
-		<echo level="error" message="Could not load the Spoofax plugin loading classes." />
-		<echo level="error" message="Make sure it is on the class path." />
-		<echo level="error" message="" />
-		<echo level="error" message="In Eclipse, make sure the Ant builder is configured properly:" />
-		<echo level="error" message="right-click on build.main.xml, go to Run as, Ant build..., JRE tab," />
-		<echo level="error" message="and ensure Run in the same JRE as the workspace is selected" />
-		<echo level="error" message="alternatively, build the project using Build Project in the Project menu" />
-		<fail />
+		<echo level="error" message="Could not load the Spoofax plugin loading classes."/>
+		<echo level="error" message="Make sure it is on the class path."/>
+		<echo level="error" message=""/>
+		<echo level="error" message="In Eclipse, make sure the Ant builder is configured properly:"/>
+		<echo level="error" message="right-click on build.main.xml, go to Run as, Ant build..., JRE tab,"/>
+		<echo level="error" message="and ensure Run in the same JRE as the workspace is selected"/>
+		<echo level="error" message="alternatively, build the project using Build Project in the Project menu"/>
+		<fail/>
 	</target>
 
-	<target name="sdf2table" depends="make-permissive">
-		<apply executable="${build.strategoxt.sdf}sdf2table" dest="${include}" failonerror="true">
-			<arg value="-i" />
-			<srcfile />
-			<arg value="-o" />
-			<targetfile />
-			<arg value="-m" />
-			<arg value="${sdfmodule}" />
+	<target depends="make-permissive" name="sdf2table">
+		<apply dest="${include}" executable="${build.strategoxt.sdf}sdf2table" failonerror="true">
+			<arg value="-i"/>
+			<srcfile/>
+			<arg value="-o"/>
+			<targetfile/>
+			<arg value="-m"/>
+			<arg value="${sdfmodule}"/>
 
-			<fileset file="${include}/${sdfmodule}-Permissive.def" />
-			<mapper type="glob" from="*-Permissive.def" to="*.tbl" />
+			<fileset file="${include}/${sdfmodule}-Permissive.def"/>
+			<mapper from="*-Permissive.def" to="*.tbl" type="glob"/>
 		</apply>
 	</target>
 
-	<target name="meta-sdf2table" if="metasdfmodule.available">
-		<fail unless="eclipse.spoofaximp.jars" message="Property eclipse.spoofaximp.jars must point to the directory containing StrategoMix.def" />
+	<target if="metasdfmodule.available" name="meta-sdf2table">
+		<fail message="Property eclipse.spoofaximp.jars must point to the directory containing StrategoMix.def" unless="eclipse.spoofaximp.jars"/>
 		<antcall target="sdf2table">
-			<param name="sdfmodule" value="${metasdfmodule}" />
-			<param name="build.sdf.imports" value="-Idef &quot;${eclipse.spoofaximp.jars}/StrategoMix.def&quot; ${build.sdf.imports}" />
+			<param name="sdfmodule" value="${metasdfmodule}"/>
+			<param name="build.sdf.imports" value="-Idef &quot;${eclipse.spoofaximp.jars}/StrategoMix.def&quot; ${build.sdf.imports}"/>
 		</antcall>
-		<antcall target="meta-sdf2table.helper" />
+		<antcall target="meta-sdf2table.helper"/>
 	</target>
 
-	<target name="meta-sdf2table.helper" if="eclipse.running">
-		<eclipse.convertPath fileSystemPath="${include}" property="includeresource" />
-		<eclipse.refreshLocal resource="${includeresource}/${metasdfmodule}.tbl" depth="infinite" />
+	<target if="eclipse.running" name="meta-sdf2table.helper">
+		<eclipse.convertPath fileSystemPath="${include}" property="includeresource"/>
+		<eclipse.refreshLocal depth="infinite" resource="${includeresource}/${metasdfmodule}.tbl"/>
 	</target>
 
-	<target name="make-permissive" depends="pack-sdf,copy-sdf">
+	<target depends="pack-sdf,copy-sdf" name="make-permissive">
 		<dependset>
-			<srcfileset file="${include}/${sdfmodule}.def" />
-			<targetfileset file="${include}/${sdfmodule}-Permissive.def" />
+			<srcfileset file="${include}/${sdfmodule}.def"/>
+			<targetfileset file="${include}/${sdfmodule}-Permissive.def"/>
 		</dependset>
-		<available file="${include}/${sdfmodule}-Permissive.def" property="permissive-grammar.available" />
-		<antcall target="make-permissive.helper" />
+		<available file="${include}/${sdfmodule}-Permissive.def" property="permissive-grammar.available"/>
+		<antcall target="make-permissive.helper"/>
 	</target>
 
 	<target name="make-permissive.helper" unless="permissive-grammar.available">
 		<java classname="org.strategoxt.permissivegrammars.make_permissive" failonerror="true">
-			<arg value="-i" />
-			<arg value="${include}/${sdfmodule}.def" />
-			<arg value="-o" />
-			<arg value="${include}/${sdfmodule}-Permissive.def" />
-			<arg line="--optimize on" />
+			<arg value="-i"/>
+			<arg value="${include}/${sdfmodule}.def"/>
+			<arg value="-o"/>
+			<arg value="${include}/${sdfmodule}-Permissive.def"/>
+			<arg line="--optimize on"/>
 		</java>
 	</target>
 
 	<target name="utils-files">
 		<!-- only useful for builds outside of Eclipse -->
-		<mkdir dir="utils" />
-		<copy file="${eclipse.spoofaximp.jars}/make_permissive.jar" todir="utils" failonerror="false" />
-		<copy file="${eclipse.spoofaximp.jars}/sdf2imp.jar" todir="utils" failonerror="false" />
-		<copy file="${eclipse.spoofaximp.jars}/aster.jar" todir="utils" failonerror="false" />
-		<copy file="${eclipse.spoofaximp.jars}/StrategoMix.def" todir="utils" failonerror="false" />
-		<copy file="${eclipse.spoofaximp.strategojar}" todir="utils" failonerror="false" />
+		<mkdir dir="utils"/>
+		<copy failonerror="false" file="${eclipse.spoofaximp.jars}/make_permissive.jar" todir="utils"/>
+		<copy failonerror="false" file="${eclipse.spoofaximp.jars}/sdf2imp.jar" todir="utils"/>
+		<copy failonerror="false" file="${eclipse.spoofaximp.jars}/aster.jar" todir="utils"/>
+		<copy failonerror="false" file="${eclipse.spoofaximp.jars}/StrategoMix.def" todir="utils"/>
+		<copy failonerror="false" file="${eclipse.spoofaximp.strategojar}" todir="utils"/>
 	</target>
 
 	<target name="pack-sdf" unless="externaldef">
 		<dependset>
 			<srcfileset dir="${basedir}">
-				<include name="**/*.sdf" />
+				<include name="**/*.sdf"/>
 			</srcfileset>
 			<srcfileset dir="${lib}">
-				<include name="**/*.def" />
+				<include name="**/*.def"/>
 			</srcfileset>
-			<targetfileset file="${include}/${sdfmodule}.def" />
+			<targetfileset file="${include}/${sdfmodule}.def"/>
 		</dependset>
-		<available file="${include}/${sdfmodule}.def" property="pack-sdf.available" />
-		<antcall target="pack-sdf.helper" />
+		<available file="${include}/${sdfmodule}.def" property="pack-sdf.available"/>
+		<antcall target="pack-sdf.helper"/>
 	</target>
 
 	<target name="pack-sdf.helper" unless="pack-sdf.available">
-		<condition property="utils-include" value="-I ${utils}" else="">
-			<available file="${utils}" />
+		<condition else="" property="utils-include" value="-I ${utils}">
+			<available file="${utils}"/>
 		</condition>
 		<java classname="run" failonerror="true">
-			<arg value="org.strategoxt.tools.main-pack-sdf" />
-			<arg value="-i" />
-			<arg value="${syntax}/${sdfmodule}.sdf" />
-			<arg value="-o" />
-			<arg value="${include}/${sdfmodule}.def" />
-			<arg value="-I" />
-			<arg value="${syntax}" />
-			<arg value="-I" />
-			<arg value="${lib}" />
-			<arg line="${utils-include}" />
-			<arg line="${build.sdf.imports}" />
+			<arg value="org.strategoxt.tools.main-pack-sdf"/>
+			<arg value="-i"/>
+			<arg value="${syntax}/${sdfmodule}.sdf"/>
+			<arg value="-o"/>
+			<arg value="${include}/${sdfmodule}.def"/>
+			<arg value="-I"/>
+			<arg value="${syntax}"/>
+			<arg value="-I"/>
+			<arg value="${lib}"/>
+			<arg line="${utils-include}"/>
+			<arg line="${build.sdf.imports}"/>
 		</java>
 	</target>
 
-	<target name="copy-sdf" if="externaldef">
-		<copy file="${externaldef}" tofile="${include}/${sdfmodule}.def" preservelastmodified="true" />
+	<target if="externaldef" name="copy-sdf">
+		<copy file="${externaldef}" preservelastmodified="true" tofile="${include}/${sdfmodule}.def"/>
 	</target>
 
-	<target name="copy-jar" if="externaljar">
-		<copy file="${externaljar}" todir="${include}" preservelastmodified="true" />
+	<target if="externaljar" name="copy-jar">
+		<copy file="${externaljar}" preservelastmodified="true" todir="${include}"/>
 	</target>
 
-	<target name="rtg2sig" if="build.stratego.enabled" depends="sdf2rtg">
+	<target depends="sdf2rtg" if="build.stratego.enabled" name="rtg2sig">
 		<dependset>
-			<srcfileset file="${include}/${sdfmodule}.rtg" />
-			<targetfileset file="${include}/${sdfmodule}.str" />
+			<srcfileset file="${include}/${sdfmodule}.rtg"/>
+			<targetfileset file="${include}/${sdfmodule}.str"/>
 		</dependset>
-		<available file="${include}/${sdfmodule}.str" property="rtg2sig.available" />
-		<antcall target="rtg2sig.helper" />
+		<available file="${include}/${sdfmodule}.str" property="rtg2sig.available"/>
+		<antcall target="rtg2sig.helper"/>
 	</target>
 
 	<target name="rtg2sig.helper" unless="rtg2sig.available">
 		<java classname="run" failonerror="true">
-			<arg value="org.strategoxt.tools.main-rtg2sig" />
-			<arg value="-i" />
-			<arg value="${include}/${sdfmodule}.rtg" />
-			<arg value="-o" />
-			<arg value="${include}/${sdfmodule}.str" />
-			<arg value="--module" />
-			<arg value="${sdfmodule}" />
+			<arg value="org.strategoxt.tools.main-rtg2sig"/>
+			<arg value="-i"/>
+			<arg value="${include}/${sdfmodule}.rtg"/>
+			<arg value="-o"/>
+			<arg value="${include}/${sdfmodule}.str"/>
+			<arg value="--module"/>
+			<arg value="${sdfmodule}"/>
 		</java>
 	</target>
 
-	<target name="sdf2rtg" depends="pack-sdf,copy-sdf">
+	<target depends="pack-sdf,copy-sdf" name="sdf2rtg">
 		<dependset>
-			<srcfileset file="${include}/${sdfmodule}.def" />
-			<targetfileset file="${include}/${sdfmodule}.rtg" />
+			<srcfileset file="${include}/${sdfmodule}.def"/>
+			<targetfileset file="${include}/${sdfmodule}.rtg"/>
 		</dependset>
-		<available file="${include}/${sdfmodule}.rtg" property="sdf2rtg.available" />
-		<antcall target="sdf2rtg.helper" />
+		<available file="${include}/${sdfmodule}.rtg" property="sdf2rtg.available"/>
+		<antcall target="sdf2rtg.helper"/>
 	</target>
 
 	<target name="sdf2rtg.helper" unless="sdf2rtg.available">
 		<java classname="run" failonerror="true">
-			<arg value="org.strategoxt.tools.main-sdf2rtg" />
-			<arg value="-i" />
-			<arg value="${include}/${sdfmodule}.def" />
-			<arg value="-m" />
-			<arg value="${sdfmodule}" />
-			<arg value="-o" />
-			<arg value="${include}/${sdfmodule}.rtg" />
-			<arg value="--ignore-missing-cons" />
-			<arg value="-Xnativepath" />
-			<arg value="${build.strategoxt.sdf}" />
+			<arg value="org.strategoxt.tools.main-sdf2rtg"/>
+			<arg value="-i"/>
+			<arg value="${include}/${sdfmodule}.def"/>
+			<arg value="-m"/>
+			<arg value="${sdfmodule}"/>
+			<arg value="-o"/>
+			<arg value="${include}/${sdfmodule}.rtg"/>
+			<arg value="--ignore-missing-cons"/>
+			<arg value="-Xnativepath"/>
+			<arg value="${build.strategoxt.sdf}"/>
 		</java>
 	</target>
 
-	<target name="sdf2parenthesize" depends="pack-sdf,copy-sdf">
+	<target depends="pack-sdf,copy-sdf" name="sdf2parenthesize">
 		<dependset>
-			<srcfileset file="${include}/${sdfmodule}.def" />
-			<targetfileset file="${include}/${sdfmodule}-parenthesize.str" />
+			<srcfileset file="${include}/${sdfmodule}.def"/>
+			<targetfileset file="${include}/${sdfmodule}-parenthesize.str"/>
 		</dependset>
-		<available file="${include}/${sdfmodule}-parenthesize.str" property="sdf2parenthesize.available" />
-		<antcall target="sdf2parenthesize.helper" />
-		<available file="${include}/${sdfmodule}-parenthesize.str" property="sdf2parenthesize.available" />
-		<antcall target="sdf2parenthesize.helper.fallback" />
+		<available file="${include}/${sdfmodule}-parenthesize.str" property="sdf2parenthesize.available"/>
+		<antcall target="sdf2parenthesize.helper"/>
+		<available file="${include}/${sdfmodule}-parenthesize.str" property="sdf2parenthesize.available"/>
+		<antcall target="sdf2parenthesize.helper.fallback"/>
 	</target>
 
 	<target name="sdf2parenthesize.helper" unless="sdf2parenthesize.available">
 		<java classname="run" failonerror="false">
-			<arg value="org.strategoxt.tools.main-sdf2parenthesize" />
-			<arg value="-i" />
-			<arg value="${include}/${sdfmodule}.def" />
-			<arg value="-m" />
-			<arg value="${sdfmodule}" />
-			<arg value="-o" />
-			<arg value="${include}/${sdfmodule}-parenthesize.str" />
-			<arg value="--omod" />
-			<arg value="include/${sdfmodule}-parenthesize" />
-			<arg value="--main-strategy" />
-			<arg value="io-${sdfmodule}-parenthesize" />
-			<arg value="--lang" />
-			<arg value="${sdfmodule}" />
-			<arg value="--rule-prefix" />
-			<arg value="${sdfmodule}" />
-			<arg value="--sig-module" />
-			<arg value="include/${sdfmodule}" />
+			<arg value="org.strategoxt.tools.main-sdf2parenthesize"/>
+			<arg value="-i"/>
+			<arg value="${include}/${sdfmodule}.def"/>
+			<arg value="-m"/>
+			<arg value="${sdfmodule}"/>
+			<arg value="-o"/>
+			<arg value="${include}/${sdfmodule}-parenthesize.str"/>
+			<arg value="--omod"/>
+			<arg value="include/${sdfmodule}-parenthesize"/>
+			<arg value="--main-strategy"/>
+			<arg value="io-${sdfmodule}-parenthesize"/>
+			<arg value="--lang"/>
+			<arg value="${sdfmodule}"/>
+			<arg value="--rule-prefix"/>
+			<arg value="${sdfmodule}"/>
+			<arg value="--sig-module"/>
+			<arg value="include/${sdfmodule}"/>
 		</java>
 	</target>
 
 	<target name="sdf2parenthesize.helper.fallback" unless="sdf2parenthesize.available">
-		<echo file="${include}/${sdfmodule}-parenthesize.str" message="module include/${sdfmodule}-parenthesize rules parenthesize-${sdfmodule} = id" />
+		<echo file="${include}/${sdfmodule}-parenthesize.str" message="module include/${sdfmodule}-parenthesize rules parenthesize-${sdfmodule} = id"/>
 	</target>
 
-	<target name="ppgen" if="build.stratego.enabled" depends="pack-sdf">
+	<target depends="pack-sdf" if="build.stratego.enabled" name="ppgen">
 		<dependset>
-			<srcfileset file="${include}/${sdfmodule}.def" />
-			<targetfileset file="${syntax}/${sdfmodule}.generated.pp" />
-			<targetfileset file="${include}/${sdfmodule}.generated.pp.af" />
+			<srcfileset file="${include}/${sdfmodule}.def"/>
+			<targetfileset file="${syntax}/${sdfmodule}.generated.pp"/>
+			<targetfileset file="${include}/${sdfmodule}.generated.pp.af"/>
 		</dependset>
-		<available file="${include}/${sdfmodule}.generated.pp.af" property="ppgen.available" />
-		<antcall target="ppgen.helper" />
-		<available file="${include}/${sdfmodule}.generated.pp.af" property="ppgen.available" />
-		<antcall target="ppgen.helper.fallback" />
+		<available file="${include}/${sdfmodule}.generated.pp.af" property="ppgen.available"/>
+		<antcall target="ppgen.helper"/>
+		<available file="${include}/${sdfmodule}.generated.pp.af" property="ppgen.available"/>
+		<antcall target="ppgen.helper.fallback"/>
 	</target>
 
 	<target name="ppgen.helper" unless="ppgen.available">
 		<!-- Any failures here are ignored; they are only a problem when imported from Stratego -->
 		<java classname="run" failonerror="true">
-			<arg value="org.strategoxt.tools.main-ppgen" />
-			<arg value="-i" />
-			<arg value="${include}/${sdfmodule}.def" />
-			<arg value="-t" />
-			<arg value="-b" />
-			<arg value="-o" />
-			<arg value="${include}/${sdfmodule}.generated.pp.af" />
+			<arg value="org.strategoxt.tools.main-ppgen"/>
+			<arg value="-i"/>
+			<arg value="${include}/${sdfmodule}.def"/>
+			<arg value="-t"/>
+			<arg value="-b"/>
+			<arg value="-o"/>
+			<arg value="${include}/${sdfmodule}.generated.pp.af"/>
 		</java>
 		<java classname="run" failonerror="true">
-			<arg value="org.strategoxt.tools.main-pp-pp-table" />
-			<arg value="-i" />
-			<arg value="${include}/${sdfmodule}.generated.pp.af" />
-			<arg value="-o" />
-			<arg value="${syntax}/${sdfmodule}.generated.pp" />
+			<arg value="org.strategoxt.tools.main-pp-pp-table"/>
+			<arg value="-i"/>
+			<arg value="${include}/${sdfmodule}.generated.pp.af"/>
+			<arg value="-o"/>
+			<arg value="${syntax}/${sdfmodule}.generated.pp"/>
 		</java>
 	</target>
 
@@ -393,25 +349,25 @@
 		<echo file="${include}/${sdfmodule}.generated.pp.af" message="PP-Table([])"/>
 	</target>
 
-	<target name="pppack" if="build.stratego.enabled" depends="pack-sdf">
+	<target depends="pack-sdf" if="build.stratego.enabled" name="pppack">
 		<dependset>
-			<srcfileset file="${syntax}/${sdfmodule}.pp" />
-			<targetfileset file="${include}/${sdfmodule}.pp.af" />
+			<srcfileset file="${syntax}/${sdfmodule}.pp"/>
+			<targetfileset file="${include}/${sdfmodule}.pp.af"/>
 		</dependset>
-		<available file="${syntax}/${sdfmodule}.pp" property="pppack.source-available" />
-		<available file="${include}/${sdfmodule}.pp.af" property="pppack.available" />
-		<antcall target="pppack.helper" />
-		<available file="${include}/${sdfmodule}.pp.af" property="pppack.available" />
-		<antcall target="pppack.helper.fallback" />
+		<available file="${syntax}/${sdfmodule}.pp" property="pppack.source-available"/>
+		<available file="${include}/${sdfmodule}.pp.af" property="pppack.available"/>
+		<antcall target="pppack.helper"/>
+		<available file="${include}/${sdfmodule}.pp.af" property="pppack.available"/>
+		<antcall target="pppack.helper.fallback"/>
 	</target>
 
-	<target name="pppack.helper" unless="pppack.available" if="pppack.source-available">
+	<target if="pppack.source-available" name="pppack.helper" unless="pppack.available">
 		<java classname="run" failonerror="true">
-			<arg value="org.strategoxt.tools.main-parse-pp-table" />
-			<arg value="-i" />
-			<arg value="${syntax}/${sdfmodule}.pp" />
-			<arg value="-o" />
-			<arg value="${include}/${sdfmodule}.pp.af" />
+			<arg value="org.strategoxt.tools.main-parse-pp-table"/>
+			<arg value="-i"/>
+			<arg value="${syntax}/${sdfmodule}.pp"/>
+			<arg value="-o"/>
+			<arg value="${include}/${sdfmodule}.pp.af"/>
 		</java>
 	</target>
 
@@ -421,133 +377,133 @@
 
 	<!-- Aster to Stratego -->
 	<target name="stratego.aster">
-		<available file="${trans}/${strmodule}.rtree" property="aster-output.available" />
+		<available file="${trans}/${strmodule}.rtree" property="aster-output.available"/>
 		<fileset dir="${basedir}" id="aster-input-set">
-			<include name="**/*.astr" />
+			<include name="**/*.astr"/>
 		</fileset>
-		<pathconvert pathsep=" " setonempty="false" property="aster-input" refid="aster-input-set" />
+		<pathconvert pathsep=" " property="aster-input" refid="aster-input-set" setonempty="false"/>
 		<dependset>
 			<srcfileset dir="${basedir}">
-				<include name="**/*.astr" />
+				<include name="**/*.astr"/>
 			</srcfileset>
-			<targetfileset file="${trans}/${strmodule}.rtree" />
+			<targetfileset file="${trans}/${strmodule}.rtree"/>
 		</dependset>
 		<condition property="aster-output.uptodate">
 			<and>
-				<isset property="aster-output.available" />
-				<available file="${trans}/${strmodule}.rtree" />
+				<isset property="aster-output.available"/>
+				<available file="${trans}/${strmodule}.rtree"/>
 			</and>
 		</condition>
-		<available file="${trans}/${strmodule}.rtree" property="aster-output.uptodate" />
-		<antcall target="stratego.aster.helper" />
+		<available file="${trans}/${strmodule}.rtree" property="aster-output.uptodate"/>
+		<antcall target="stratego.aster.helper"/>
 	</target>
 
-	<target name="stratego.aster.helper" if="aster-input" unless="aster-output.uptodate">
+	<target if="aster-input" name="stratego.aster.helper" unless="aster-output.uptodate">
 		<java classname="org.strategoxt.aster.Main" failonerror="true">
-			<arg value="-i" />
-			<arg line="${aster-input}" />
+			<arg value="-i"/>
+			<arg line="${aster-input}"/>
 		</java>
 	</target>
 
-	<target name="java.jar" if="java.jar.enabled">
-		<jar basedir="${build}" excludes="trans/**" update="true" destfile="${include}/${strmodule}-java.jar" />
+	<target if="java.jar.enabled" name="java.jar">
+		<jar basedir="${build}" destfile="${include}/${strmodule}-java.jar" excludes="trans/**" update="true"/>
 	</target>
 
 	<!-- Stratego to Java interpreter -->
-	<target name="stratego.ctree" depends="rtg2sig">
+	<target depends="rtg2sig" name="stratego.ctree">
 		<fail message="Main stratego file '${strmodule}.str' not found.">
 			<condition>
 				<not>
-					<isset property="build.stratego.enabled" />
+					<isset property="build.stratego.enabled"/>
 				</not>
 			</condition>
 		</fail>
 		<dependset>
 			<srcfileset dir="${basedir}">
-				<include name="**/*.str" />
-				<include name="**/*.astr" />
-				<exclude name="lib/*.generated.str" />
+				<include name="**/*.str"/>
+				<include name="**/*.astr"/>
+				<exclude name="lib/*.generated.str"/>
 			</srcfileset>
-			<targetfileset file="${include}/${strmodule}.ctree" />
+			<targetfileset file="${include}/${strmodule}.ctree"/>
 		</dependset>
-		<available file="${include}/${strmodule}.ctree" property="strc-java.available" />
-		<antcall target="copy-jar" />
+		<available file="${include}/${strmodule}.ctree" property="strc-java.available"/>
+		<antcall target="copy-jar"/>
 		<antcall target="stratego.jvm.helper">
-			<param name="build.stratego.outputfile" value="${include}/${strmodule}.ctree" />
-			<param name="build.stratego.extraargs" value="-F" />
+			<param name="build.stratego.outputfile" value="${include}/${strmodule}.ctree"/>
+			<param name="build.stratego.extraargs" value="-F"/>
 		</antcall>
 	</target>
 
 	<!-- Stratego to Java compiler -->
-	<target name="stratego.jar" depends="rtg2sig,utils-files">
+	<target depends="rtg2sig,utils-files" name="stratego.jar">
 		<fail message="Main stratego file '${strmodule}.str' not found.">
 			<condition>
 				<not>
-					<isset property="build.stratego.enabled" />
+					<isset property="build.stratego.enabled"/>
 				</not>
 			</condition>
 		</fail>
 		<dependset>
 			<srcfileset dir="${basedir}">
-				<include name="**/*.str" />
-				<include name="**/*.astr" />
-				<exclude name="lib/*.generated.str" />
+				<include name="**/*.str"/>
+				<include name="**/*.astr"/>
+				<exclude name="lib/*.generated.str"/>
 			</srcfileset>
-			<targetfileset file="${src-gen}/trans/Main.java" />
+			<targetfileset file="${src-gen}/trans/Main.java"/>
 		</dependset>
-		<available file="${src-gen}/trans/Main.java" property="strc-java.available" />
-		<antcall target="copy-jar" />
-		<antcall target="stratego.jar.deletehelper" />
+		<available file="${src-gen}/trans/Main.java" property="strc-java.available"/>
+		<antcall target="copy-jar"/>
+		<antcall target="stratego.jar.deletehelper"/>
 		<antcall target="stratego.jvm.helper">
-			<param name="build.stratego.outputfile" value="${src-gen}/trans/Main.java" />
-			<param name="build.stratego.extraargs" value="-la java-front ${java.jar.import}" />
+			<param name="build.stratego.outputfile" value="${src-gen}/trans/Main.java"/>
+			<param name="build.stratego.extraargs" value="-la java-front ${java.jar.import}"/>
 		</antcall>
-		<javac srcdir="${src-dirs}" includes="trans/**" destdir="${build}" source="1.7" target="1.7" debug="on">
+		<javac debug="on" destdir="${build}" includes="trans/**" source="1.7" srcdir="${src-dirs}" target="1.7">
 			<classpath>
-				<pathelement path="utils/strategoxt.jar:${src-gen}${externaljarimport1}${externaljarimport2}${java.jar.classpath}" />
+				<pathelement path="utils/strategoxt.jar:${src-gen}${externaljarimport1}${externaljarimport2}${java.jar.classpath}"/>
 				<fileset dir="${eclipse.home}/plugins">
-					<include name="*.jar" />
+					<include name="*.jar"/>
 				</fileset>
 				<!-- Spoofax/322 -->
 			</classpath>
 		</javac>
 		<!-- copy imported terms -->
 		<copy todir="${build}/trans">
-			<fileset dir="${src-gen}/trans" excludes="**/*.java" />
+			<fileset dir="${src-gen}/trans" excludes="**/*.java"/>
 		</copy>
-		<jar basedir="${build}" includes="trans/**" destfile="${include}/${strmodule}.tmp.jar" />
-		<move file="${include}/${strmodule}.tmp.jar" tofile="${include}/${strmodule}.jar" />
+		<jar basedir="${build}" destfile="${include}/${strmodule}.tmp.jar" includes="trans/**"/>
+		<move file="${include}/${strmodule}.tmp.jar" tofile="${include}/${strmodule}.jar"/>
 		<delete>
-			<fileset dir="${build}" includes="trans/**" />
+			<fileset dir="${build}" includes="trans/**"/>
 		</delete>
 	</target>
 
 	<target name="stratego.jar.deletehelper" unless="strc-java.available">
 		<delete>
-			<fileset dir="${src-gen}" includes="trans/**" />
-			<fileset dir="${build}" includes="trans/**" />
+			<fileset dir="${src-gen}" includes="trans/**"/>
+			<fileset dir="${build}" includes="trans/**"/>
 		</delete>
 	</target>
 
-	<target name="stratego.jvm.helper" unless="strc-java.available" if="build.stratego.enabled">
-		<delete file="${include}/${strmodule}.rtree" failonerror="false" />
+	<target if="build.stratego.enabled" name="stratego.jvm.helper" unless="strc-java.available">
+		<delete failonerror="false" file="${include}/${strmodule}.rtree"/>
 		<java classname="org.strategoxt.strj.Main" failonerror="true">
-			<arg value="-i" />
-			<arg value="${trans}/${strmodule}.str" />
-			<arg value="-o" />
-			<arg value="${build.stratego.outputfile}" />
-			<arg value="-p" />
-			<arg value="trans" />
-			<arg value="--library" />
-			<arg value="--clean" />
-			<arg line="${build.stratego.args}" />
-			<arg line="${build.stratego.extraargs}" />
-			<arg line="${externaljarflags}" />
-			<arg line="${externaldefimport}" />
-			<arg line="-I &quot;${lib}&quot; -I &quot;${include}&quot; --cache-dir &quot;${basedir}/.cache&quot;" />
+			<arg value="-i"/>
+			<arg value="${trans}/${strmodule}.str"/>
+			<arg value="-o"/>
+			<arg value="${build.stratego.outputfile}"/>
+			<arg value="-p"/>
+			<arg value="trans"/>
+			<arg value="--library"/>
+			<arg value="--clean"/>
+			<arg line="${build.stratego.args}"/>
+			<arg line="${build.stratego.extraargs}"/>
+			<arg line="${externaljarflags}"/>
+			<arg line="${externaldefimport}"/>
+			<arg line="-I &quot;${lib}&quot; -I &quot;${include}&quot; --cache-dir &quot;${basedir}/.cache&quot;"/>
 		</java>
-		<delete file="${include}/${strmodule}.rtree" failonerror="false" />
-		<mkdir dir="${build}/trans" />
+		<delete failonerror="false" file="${include}/${strmodule}.rtree"/>
+		<mkdir dir="${build}/trans"/>
 	</target>
 
 	<!-- begin: targets used for adding debugging instrumentation to stratego -->
@@ -556,8 +512,8 @@
             if "debug.the.debug.transformer" is set, debug the debug instrumentation, do not output rtree-files, but str-files
             Only used by stratego.jvm.helper.debug 
         -->
-	<condition property="transformer-output" value="" else="--output-rtree">
-		<isset property="debug.the.debug.transformer" />
+	<condition else="--output-rtree" property="transformer-output" value="">
+		<isset property="debug.the.debug.transformer"/>
 	</condition>
 
 	<!-- 
@@ -565,110 +521,110 @@
             if debug.the.debug.transformer is NOT set then the debug.transformer outputs rtree files (much faster generated), so the strj-compiler should accept a rtree-file
             Only used by stratego.jvm.helper.debug
         -->
-	<condition property="strj.input.file.type" value="str" else="rtree">
-		<isset property="debug.the.debug.transformer" />
+	<condition else="rtree" property="strj.input.file.type" value="str">
+		<isset property="debug.the.debug.transformer"/>
 	</condition>
 
 	<!-- value determines which target will be executed.
             If the file ".debugmode" can be found in the project root call stratego.jar.debug
             else call stratego.jar
         -->
-	<condition property="stratego.jar.target" value="call.stratego.jar.debug" else="call.stratego.jar">
-		<available file=".debugmode" />
+	<condition else="call.stratego.jar" property="stratego.jar.target" value="call.stratego.jar.debug">
+		<available file=".debugmode"/>
 	</condition>
 
 	<!-- will save the stratego files with debug info in this folder -->
-	<property name="trans-debug" location="trans-debug" />
+	<property location="trans-debug" name="trans-debug"/>
 
 	<!-- this helper target determines what target to call, based on debug.build.enabled -->
 	<target name="stratego.jar.helper">
-		<antcall target="${stratego.jar.target}" />
+		<antcall target="${stratego.jar.target}"/>
 	</target>
 
 	<!-- call stratego.jar unless debug.build.enabled property is set -->
-	<target name="call.stratego.jar" depends="stratego.jar">
-		<echo message="call.stratego.jar - ${stratego.jar.target}" />
+	<target depends="stratego.jar" name="call.stratego.jar">
+		<echo message="call.stratego.jar - ${stratego.jar.target}"/>
 	</target>
 
 	<!-- call stratego.jar.debug when debug.build.enabled property is set -->
-	<target name="call.stratego.jar.debug" depends="stratego.jar.debug">
-		<echo message="call.stratego.jar.debug - ${stratego.jar.target}" />
+	<target depends="stratego.jar.debug" name="call.stratego.jar.debug">
+		<echo message="call.stratego.jar.debug - ${stratego.jar.target}"/>
 	</target>
 
 	<!-- copy stratego runtime jars to utils folder -->
-	<target name="utils-files-debug" depends="utils-files">
-		<copy file="${eclipse.spoofaximp.stratego-debug-runtime-jar}" todir="utils" failonerror="false" />
-		<copy file="${eclipse.spoofaximp.stratego-debug-runtime-java-jar}" todir="utils" failonerror="false" />
+	<target depends="utils-files" name="utils-files-debug">
+		<copy failonerror="false" file="${eclipse.spoofaximp.stratego-debug-runtime-jar}" todir="utils"/>
+		<copy failonerror="false" file="${eclipse.spoofaximp.stratego-debug-runtime-java-jar}" todir="utils"/>
 	</target>
 
 	<!-- Stratego to Java compiler with debugging capabilities -->
-	<target name="stratego.jar.debug" depends="rtg2sig,utils-files-debug">
+	<target depends="rtg2sig,utils-files-debug" name="stratego.jar.debug">
 		<dependset>
 			<srcfileset dir="${basedir}">
-				<include name="**/*.str" />
-				<include name="**/*.astr" />
-				<exclude name="lib/editor-common.generated.str" />
+				<include name="**/*.str"/>
+				<include name="**/*.astr"/>
+				<exclude name="lib/editor-common.generated.str"/>
 			</srcfileset>
-			<targetfileset file="${src-gen}/trans/Main.java" />
+			<targetfileset file="${src-gen}/trans/Main.java"/>
 		</dependset>
-		<available file="${src-gen}/trans/Main.java" property="strc-java.available" />
-		<antcall target="copy-jar" />
-		<antcall target="stratego.jar.deletehelper" />
+		<available file="${src-gen}/trans/Main.java" property="strc-java.available"/>
+		<antcall target="copy-jar"/>
+		<antcall target="stratego.jar.deletehelper"/>
 		<!-- compile stratego to java -->
 		<antcall target="stratego.jvm.helper.debug">
-			<param name="build.stratego.outputfile" value="${src-gen}/trans/Main.java" />
-			<param name="build.stratego.extraargs" value="-la java-front ${java.jar.import}" />
+			<param name="build.stratego.outputfile" value="${src-gen}/trans/Main.java"/>
+			<param name="build.stratego.extraargs" value="-la java-front ${java.jar.import}"/>
 		</antcall>
 		<!-- compile java to class -->
-		<javac srcdir="${src-dirs}" destdir="${build}" source="1.7" target="1.7" debug="on">
+		<javac debug="on" destdir="${build}" source="1.7" srcdir="${src-dirs}" target="1.7">
 			<!-- attribute in javac: classpath="utils/strategoxt.jar:${src-gen}${externaljarimport1}${externaljarimport2}${java.jar.classpath}"  -->
 			<classpath>
-				<pathelement path="utils/strategoxt.jar:${src-gen}${externaljarimport1}${externaljarimport2}${java.jar.classpath}" />
+				<pathelement path="utils/strategoxt.jar:${src-gen}${externaljarimport1}${externaljarimport2}${java.jar.classpath}"/>
 				<!-- the path attribute accepts colon- or semicolon-separated lists of locations -->
 				<fileset dir="${eclipse.home}/plugins">
-					<include name="*.jar" />
+					<include name="*.jar"/>
 				</fileset>
 				<!-- Spoofax/322 -->
-				<pathelement location="utils/stratego-debug-runtime.jar" />
+				<pathelement location="utils/stratego-debug-runtime.jar"/>
 				<!-- The location attribute specifies a single file or directory relative to the project's base directory (or an absolute filename) -->
-				<pathelement location="utils/stratego-debug-runtime-java.jar" />
+				<pathelement location="utils/stratego-debug-runtime-java.jar"/>
 			</classpath>
 			<!-- attribute in javac: includes="trans/**"  -->
-			<include name="trans/**" />
+			<include name="trans/**"/>
 		</javac>
 		<!-- copy imported terms -->
 		<copy todir="${build}/trans">
-			<fileset dir="${src-gen}/trans" excludes="**/*.java" />
+			<fileset dir="${src-gen}/trans" excludes="**/*.java"/>
 		</copy>
 		<!-- create a jar from the class files -->
-		<jar basedir="${build}" includes="trans/**" destfile="${include}/${strmodule}.tmp.jar" />
-		<move file="${include}/${strmodule}.tmp.jar" tofile="${include}/${strmodule}.jar" />
+		<jar basedir="${build}" destfile="${include}/${strmodule}.tmp.jar" includes="trans/**"/>
+		<move file="${include}/${strmodule}.tmp.jar" tofile="${include}/${strmodule}.jar"/>
 		<delete>
-			<fileset dir="${build}" includes="trans/**" />
+			<fileset dir="${build}" includes="trans/**"/>
 		</delete>
 	</target>
 
 	<!-- instrument the stratego program and compile it to java -->
-	<target name="stratego.jvm.helper.debug" unless="strc-java.available" if="build.stratego.enabled">
-		<echo message="generate stratego with debug information" />
-		<echo message="${basedir}" />
-		<available classname="org.strategoxt.imp.debug.stratego.transformer.trans.Main" property="transformer.available" />
+	<target if="build.stratego.enabled" name="stratego.jvm.helper.debug" unless="strc-java.available">
+		<echo message="generate stratego with debug information"/>
+		<echo message="${basedir}"/>
+		<available classname="org.strategoxt.imp.debug.stratego.transformer.trans.Main" property="transformer.available"/>
 		<!-- add debug information -->
 		<java classname="org.strategoxt.imp.debug.stratego.transformer.trans.Main" failonerror="true" fork="true">
 			<classpath>
-				<pathelement location="${eclipse.spoofaximp.stratego-transformer-jar}" />
-				<pathelement location="${eclipse.spoofaximp.stratego-transformer-java-jar}" />
-				<pathelement location="${eclipse.spoofaximp.strategojar}" />
+				<pathelement location="${eclipse.spoofaximp.stratego-transformer-jar}"/>
+				<pathelement location="${eclipse.spoofaximp.stratego-transformer-java-jar}"/>
+				<pathelement location="${eclipse.spoofaximp.strategojar}"/>
 			</classpath>
-			<arg value="-i" />
-			<arg value="${trans}/${strmodule}.str" />
-			<arg value="--gen-dir" />
-			<arg value="${trans-debug}" />
-			<arg value="--base-dir" />
+			<arg value="-i"/>
+			<arg value="${trans}/${strmodule}.str"/>
+			<arg value="--gen-dir"/>
+			<arg value="${trans-debug}"/>
+			<arg value="--base-dir"/>
 			<!-- set the basedir to the project dir -->
-			<arg value="${basedir}" />
+			<arg value="${basedir}"/>
 			<!-- "arg line='val'" val should contain space-separated arguments -->
-			<arg line="--charoffset-converter --fail-catch ${transformer-output}" />
+			<arg line="--charoffset-converter --fail-catch ${transformer-output}"/>
 
 			<!-- arguments should start with two '-'-characters -->
 			<!-- <arg value="-charoffset-converter"/> -->
@@ -678,27 +634,27 @@
 			<!-- <arg value="-output-rtree"/> -->
 		</java>
 		<!-- now compile instrumented stratego to java -->
-		<delete file="${include}/${strmodule}.rtree" failonerror="false" />
+		<delete failonerror="false" file="${include}/${strmodule}.rtree"/>
 		<java classname="org.strategoxt.strj.Main" failonerror="true">
-			<arg value="-i" />
-			<arg value="${trans-debug}/trans/${strmodule}.${strj.input.file.type}" />
-			<arg value="-o" />
-			<arg value="${build.stratego.outputfile}" />
-			<arg value="-p" />
-			<arg value="trans" />
-			<arg value="--library" />
-			<arg value="--clean" />
-			<arg line="${build.stratego.args}" />
-			<arg line="${build.stratego.extraargs}" />
-			<arg line="${externaljarflags}" />
-			<arg line="${externaldefimport}" />
-			<arg line="-I &quot;${lib}&quot; -I &quot;${include}&quot; --cache-dir &quot;${basedir}/.cache&quot;" />
+			<arg value="-i"/>
+			<arg value="${trans-debug}/trans/${strmodule}.${strj.input.file.type}"/>
+			<arg value="-o"/>
+			<arg value="${build.stratego.outputfile}"/>
+			<arg value="-p"/>
+			<arg value="trans"/>
+			<arg value="--library"/>
+			<arg value="--clean"/>
+			<arg line="${build.stratego.args}"/>
+			<arg line="${build.stratego.extraargs}"/>
+			<arg line="${externaljarflags}"/>
+			<arg line="${externaldefimport}"/>
+			<arg line="-I &quot;${lib}&quot; -I &quot;${include}&quot; --cache-dir &quot;${basedir}/.cache&quot;"/>
 			<!-- put strategodebuglib.rtree on the include path -->
-			<arg line="-I &quot;${eclipse.spoofaximp.strategodebuglib-folder}&quot;" />
-			<arg line="-la org.strategoxt.imp.debug.stratego.runtime.trans" />
+			<arg line="-I &quot;${eclipse.spoofaximp.strategodebuglib-folder}&quot;"/>
+			<arg line="-la org.strategoxt.imp.debug.stratego.runtime.trans"/>
 		</java>
-		<delete file="${include}/${strmodule}.rtree" failonerror="false" />
-		<mkdir dir="${build}/trans" />
+		<delete failonerror="false" file="${include}/${strmodule}.rtree"/>
+		<mkdir dir="${build}/trans"/>
 	</target>
 
 
@@ -708,67 +664,71 @@
 	<!-- Stratego to C-based native executable -->
 	<target name="stratego.c">
 		<antcall target="stratego.c.helper">
-			<param name="build.stratego.outputpath" value="${basedir}/include" />
-			<param name="build.stratego.extraargs" value="" />
-			<param name="build.stratego.extension" value="" />
-			<param name="build.stratego.compiler" value="strc" />
+			<param name="build.stratego.outputpath" value="${basedir}/include"/>
+			<param name="build.stratego.extraargs" value=""/>
+			<param name="build.stratego.extension" value=""/>
+			<param name="build.stratego.compiler" value="strc"/>
 		</antcall>
 	</target>
 
 	<!-- Helper target for calling the stratego compiler -->
-	<target name="stratego.c.helper" depends="rtg2sig" if="build.stratego.enabled">
-		<apply executable="${build.strategoxt.stratego}/${build.stratego.compiler}" dest="${build.stratego.outputpath}" failonerror="true">
-			<arg value="-i" />
-			<srcfile />
-			<arg value="-o" />
-			<targetfile />
-			<arg line="${build.stratego.args}" />
-			<arg line="${build.stratego.extraargs}" />
-			<arg line="${externaldefimport}" />
-			<arg line="-I &quot;${lib}&quot; --cache-dir &quot;${basedir}/.cache&quot;" />
+	<target depends="rtg2sig" if="build.stratego.enabled" name="stratego.c.helper">
+		<apply dest="${build.stratego.outputpath}" executable="${build.strategoxt.stratego}/${build.stratego.compiler}" failonerror="true">
+			<arg value="-i"/>
+			<srcfile/>
+			<arg value="-o"/>
+			<targetfile/>
+			<arg line="${build.stratego.args}"/>
+			<arg line="${build.stratego.extraargs}"/>
+			<arg line="${externaldefimport}"/>
+			<arg line="-I &quot;${lib}&quot; --cache-dir &quot;${basedir}/.cache&quot;"/>
 
-			<fileset file="${trans}/${strmodule}.str" />
-			<mapper type="glob" from="*.str" to="*.${build.stratego.extension}" />
+			<fileset file="${trans}/${strmodule}.str"/>
+			<mapper from="*.str" to="*.${build.stratego.extension}" type="glob"/>
 		</apply>
 	</target>
 
-	<target name="clean" description="Clean project">
-		<delete dir="${build}" />
-		<delete dir=".cache" />
-		<delete file="${include}/${sdfmodule}.def" />
-		<delete file="${include}/${sdfmodule}-parenthesize.str" />
-		<delete file="${include}/${sdfmodule}-Permissive.def" />
-		<delete file="${include}/${sdfmodule}.generated.pp.af" />
-		<delete file="${include}/${sdfmodule}.packed.esv" />
-		<delete file="${include}/${sdfmodule}.pp.af" />
-		<delete file="${include}/${sdfmodule}.rtg" />
-		<delete file="${include}/${sdfmodule}.str" />
-		<delete file="${include}/${sdfmodule}.tbl" />
-		<delete file="${include}/${strmodule}.rtree" />
-		<delete file="${include}/${strmodule}.ctree" />
-		<delete file="${include}/${strmodule}.ctree.dep" />
-		<delete file="${include}/${strmodule}.jar" />
+	<target description="Clean project" name="clean">
+		<delete dir="${build}"/>
+		<delete dir=".cache"/>
+		<delete file="${include}/${sdfmodule}.def"/>
+		<delete file="${include}/${sdfmodule}-parenthesize.str"/>
+		<delete file="${include}/${sdfmodule}-Permissive.def"/>
+		<delete file="${include}/${sdfmodule}.generated.pp.af"/>
+		<delete file="${include}/${sdfmodule}.packed.esv"/>
+		<delete file="${include}/${sdfmodule}.pp.af"/>
+		<delete file="${include}/${sdfmodule}.rtg"/>
+		<delete file="${include}/${sdfmodule}.str"/>
+		<delete file="${include}/${sdfmodule}.tbl"/>
+		<delete file="${include}/${strmodule}.rtree"/>
+		<delete file="${include}/${strmodule}.ctree"/>
+		<delete file="${include}/${strmodule}.ctree.dep"/>
+		<delete file="${include}/${strmodule}.jar"/>
 		<delete>
-			<fileset dir="editor" includes="*.generated.*" />
-      <fileset dir="trans" includes="*.pp.generated.str" />
+			<fileset dir="editor" includes="*.generated.*"/>
+      <fileset dir="trans" includes="*.pp.generated.str"/>
 		</delete>
-		<delete dir="${src-gen}/trans" />
-		<delete file="editor/${sdfmodule}.generated.esv" />
-		<delete file="${syntax}/${sdfmodule}.generated.esv" />
-		<delete file="${syntax}/${sdfmodule}.generated.pp" />
-		<delete file="${include}/${metasdfmodule}-Permissive.def" />
-		<delete file="${include}/${metasdfmodule}.def" />
-		<delete file="${include}/${metasdfmodule}.tbl" />
-		<delete file=".settings/org.eclipse.jdt.core.prefs" />
-		<delete dir="utils" />
+		<delete dir="${src-gen}/trans"/>
+		<delete file="editor/${sdfmodule}.generated.esv"/>
+		<delete file="${syntax}/${sdfmodule}.generated.esv"/>
+		<delete file="${syntax}/${sdfmodule}.generated.pp"/>
+		<delete file="${include}/${metasdfmodule}-Permissive.def"/>
+		<delete file="${include}/${metasdfmodule}.def"/>
+		<delete file="${include}/${metasdfmodule}.tbl"/>
+		<delete file=".settings/org.eclipse.jdt.core.prefs"/>
+		<delete dir="utils"/>
 		<delete>
-			<fileset dir="${lib}" includes="*.generated.str" />
+			<fileset dir="${lib}" includes="*.generated.str"/>
 		</delete>
-		<antcall target="refresh-cleaned" />
+		<antcall target="refresh-cleaned"/>
 	</target>
 
-	<target name="refresh-cleaned" if="eclipse.running">
-		<eclipse.convertPath fileSystemPath="${basedir}" property="projectdir" />
-		<eclipse.refreshLocal resource="${projectdir}" depth="infinite" />
+	<target if="eclipse.running" name="refresh-cleaned">
+		<eclipse.convertPath fileSystemPath="${basedir}" property="projectdir"/>
+		<eclipse.refreshLocal depth="infinite" resource="${projectdir}"/>
 	</target>
+<target name="generate-sources-java"/>
+  <target name="package-java"/>
+  <target name="generate-sources-ctree"/>
+  <target name="package-ctree"/>
 </project>

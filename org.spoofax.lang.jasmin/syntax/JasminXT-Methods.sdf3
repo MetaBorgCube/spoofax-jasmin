@@ -12,9 +12,9 @@ imports
 context-free start-symbols
   Method
 
-templates
-  Method.JBCMethod = [.method [MethodAccess*; separator = " "] [MethodName] [MethodDescriptor]
-	[Statement*; separator = "\n\t"]
+context-free syntax
+  Method.JBCMethod = [.method [{MethodAccess " "}*] [MethodName] [MethodDescriptor]
+	[{Statement "\n\t"}*]
 .end method] 
 
   MethodAccess.PUBLIC       = [public]
@@ -26,7 +26,7 @@ templates
   MethodAccess.NATIVE       = [native]
   MethodAccess.ABSTRACT     = [abstract]
 
-templates
+context-free syntax
   Statement = [[PCInstruction]]
   Statement = [[Directive]]
   Statement = [[Label]]

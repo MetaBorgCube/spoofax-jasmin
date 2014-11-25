@@ -8,7 +8,7 @@ imports
 context-free start-symbols
   Instruction
   
-templates
+context-free syntax
   Instruction.NEW = [new [ClassRef]]
   
   Instruction.NEWARRAY       = [newarray [BaseTypeName]]  

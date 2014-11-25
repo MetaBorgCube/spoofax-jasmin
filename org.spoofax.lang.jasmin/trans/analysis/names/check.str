@@ -8,8 +8,9 @@ imports
   runtime/task/-
   runtime/types/-
   libstratego-gpp
-  JasminXT-Descriptors.pp.generated
-  JasminXT-Names.pp.generated
+  src-gen/pp/-
+  src-gen/pp/instructions/-
+  src-gen/pp/lexical/-
 	
 strategies
 

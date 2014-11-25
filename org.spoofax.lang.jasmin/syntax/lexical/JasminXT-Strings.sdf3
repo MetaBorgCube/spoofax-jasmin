@@ -10,5 +10,5 @@ lexical syntax
   StringChar = [\\] 'u' HexDigit HexDigit HexDigit HexDigit
   HexDigit = [0-9a-fA-F]
 
-templates
+context-free syntax
   Constant.String = [[String]]

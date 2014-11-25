@@ -14,7 +14,7 @@ lexical syntax
 lexical restrictions
   Int -/- [0-9]
 
-templates
+context-free syntax
   Constant.Double = [[Double]]
   Constant.Float = [[Float]]
   Constant.Int = [[Int]]

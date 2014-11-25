@@ -17,7 +17,7 @@ context-free start-symbols
   Instruction
   PCInstruction
 
-templates
+context-free syntax
   Instruction.NOP        = [nop]
   Instruction.BREAKPOINT = [breakpoint]
   	

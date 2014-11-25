@@ -12,7 +12,7 @@ context-free start-symbols
   TableEntry
   LookupEntry
 
-templates
+context-free syntax
   // The manual is a bit ambiguous on which of these two should be supported..
   // So both are for now.
   RelOffset.RelativeFwd = [$+[Int]]
@@ -23,7 +23,7 @@ templates
   Target = [[LabelRef]]
   Target = [[RelOffset]] {prefer} // disamb with LabelRef that starts with + or $+
 
-templates
+context-free syntax
   Instruction.IFEQ      = [ifeq [Target]]
   Instruction.IFLT      = [iflt [Target]]
   Instruction.IFLE      = [ifle [Target]]
@@ -42,11 +42,11 @@ templates
   Instruction.IF_ACMPNE = [if_acmpne [Target]]
 
   Instruction.Table  = [tableswitch [Int]
-  [TableEntry*; separator="\n\t"]
+  [{TableEntry "\n\t"}*]
 	default[]: [LabelRef]]
 	
   Instruction.Lookup = [lookupswitch
-  [LookupEntry*; separator="\n\t"]
+  [{LookupEntry "\n\t"}*]
 	default[]: [LabelRef]]
 
   TableEntry        = [[LabelRef]]

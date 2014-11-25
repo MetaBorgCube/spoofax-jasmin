@@ -7,7 +7,7 @@ context-free start-symbols
   ReturnDescriptor
   BaseType
 
-templates
+context-free syntax
   FieldDescriptor.JBCFieldDesc = [[FieldType]]
 
   ParameterDescriptor   = [[FieldType]]
@@ -31,7 +31,7 @@ templates
   ComponentType = [[FieldType]]
 
 syntax // avoid whitespaces in method descriptors, reference types, array types	
-"(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {"JBCMethodDesc"}
+  MethodDescriptor-CF.JBCMethodDesc = "(" ParameterDescriptor-CF* ")" ReturnDescriptor-CF
 
-"L" <ClassRef-CF> ";" -> <ObjectType-CF> {"Reference"}	
-"[" <ComponentType-CF> -> <ArrayType-CF>  {"Array"}
+  ObjectType.Reference = "L" ClassRef-CF ";"	
+  ArrayType-CF.Array = "[" ComponentType-CF

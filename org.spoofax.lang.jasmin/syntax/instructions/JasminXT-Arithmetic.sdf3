@@ -9,7 +9,7 @@ context-free start-symbols
   Instruction
   Amount
 
-templates
+context-free syntax
   Instruction.IADD  = [iadd]
   Instruction.IAND  = [iand]
   Instruction.IDIV  = [idiv]

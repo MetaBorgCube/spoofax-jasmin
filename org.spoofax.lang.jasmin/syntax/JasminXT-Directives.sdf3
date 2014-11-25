@@ -13,7 +13,7 @@ context-free start-symbols
   StackDirLocalVar
   StackDirStackVar
 
-templates
+context-free syntax
   Directive.JBCLimitStack  = [.limit stack [Int]]
   Directive.JBCLimitLocals = [.limit locals [Int]]
   Directive.JBCLine        = [.line [Int]]
@@ -23,13 +23,13 @@ templates
   Directive.JBCSignature   = [.signature [String]]
   Directive.JBCStack       = [.stack
   	[StackDirOffset]
-  	[StackDirLocalVar*; separator="\n\t"]
-	[StackDirStackVar*; separator="\n\t"]
+  	[{StackDirLocalVar "\n\t"}*]
+	[{StackDirStackVar "\n\t"}*]
 .end stack]
   Directive.JBCStack       = [.stack use [Int] locals
   	[StackDirOffset]
-  	[StackDirLocalVar*; separator="\n\t"]
-	[StackDirStackVar*; separator="\n\t"]
+  	[{StackDirLocalVar "\n\t"}*]
+	[{StackDirStackVar "\n\t"}*]
 .end stack]
   Directive.JBCDeprecated  = [.deprecated]
   Directive.JBCAttribute   = [.attribute [AttributeName] [FileName]]

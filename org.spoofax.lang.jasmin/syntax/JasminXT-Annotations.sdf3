@@ -6,25 +6,25 @@ imports
   lexical/JasminXT-Names
   lexical/JasminXT-Descriptors
 
-templates
+context-free syntax
   // The manual is not at all clear about annotations 
   // I found some examples from ClassFileAnalyzer (http://classfileanalyzer.javaseiten.de/)
   // Those seem to indicate this
   Annotation.RuntimeVisible   = [.annotation visible [ClassName]
-	[AnnotationField*; separator="\n\t"]
+	[{AnnotationField "\n\t"}*]
 .end annotation]
   Annotation.RuntimeInvisible = [.annotation invisible [ClassName]
-	[AnnotationField*; separator="\n\t"]
+	[{AnnotationField "\n\t"}*]
 .end annotation]
   Annotation.RuntimeVisibleParam   = [.annotation visibleparam [Int] [ClassName]
-	[AnnotationField*; separator="\n\t"]
+	[{AnnotationField "\n\t"}*]
 .end annotation]
   Annotation.RuntimeInvisibleParam = [.annotation invisibleparam [Int] [ClassName]
-	[AnnotationField*; separator="\n\t"]
+	[{AnnotationField "\n\t"}*]
 .end annotation]
   Annotation.AnnotationDefault = [.annotation default
-	[AnnotationName] = [Constant*; separator=" "]
+	[AnnotationName] = [{Constant " "}*]
 .end annotation]
 
-  AnnotationField.AnnotationField  = [[AnnotationName] [AnnotationDescriptor] = [Constant*; separator=" "]]
+  AnnotationField.AnnotationField  = [[AnnotationName] [AnnotationDescriptor] = [{Constant " "}*]]
   AnnotationField.NestedAnnotation = [[AnnotationName] @ = [Annotation]]

@@ -32,7 +32,7 @@ lexical restrictions
   Identifier -/- [a-zA-Z0-9\_]
   LabelName  -/- ~[\=\:\.\"\-\ \t\n\r]
 
-templates
+context-free syntax
   FileName        = [[String]]
   ClassName       = [[QualifiedName]]
   AttributeName   = [[Identifier]]
@@ -42,7 +42,7 @@ templates
   MethodName.Init = [<init>]
   VarName         = [[SQIdentifier]]
 
-templates
+context-free syntax
   ClassRef.CRef     = [[ClassName]]
   VarRef.VarNum     = [[Int]]
   // VarRef.VarRef     = [[VarName]] // This was in the old SDF2 grammar, but is not mentioned in the Jasmin documentation
@@ -53,10 +53,10 @@ templates
   MRef.MRef = [[MethodName]]
 
 syntax		
-  <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>  {"JBCFieldRef"}
-  <ClassRef-CF> "/" <MRef-CF> <LAYOUT?-CF> <MethodDescriptor-CF> -> <MethodRef-CF> {"JBCMethodRef"}
+  FieldRef-CF.JBCFieldRef = ClassRef-CF "/" FRef-CF LAYOUT?-CF FieldDescriptor-CF
+  MethodRef-CF.JBCMethodRef = ClassRef-CF "/" MRef-CF LAYOUT?-CF MethodDescriptor-CF
 
-templates
+context-free syntax
   BaseTypeName.ByteName    = [byte]
   BaseTypeName.CharName    = [char]
   BaseTypeName.DoubleName  = [double]

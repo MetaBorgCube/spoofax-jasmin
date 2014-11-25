@@ -15,34 +15,19 @@ imports
   lib/runtime/properties/-
   lib/runtime/types/-
   lib/runtime/tmpl/pp
-  JasminXT-Annotations.pp.generated
-  JasminXT-Arithmetic.pp.generated
-  JasminXT-Control.pp.generated
-  JasminXT-Conversion.pp.generated
-  JasminXT-Descriptors.pp.generated
-  JasminXT-Directives.pp.generated
-  JasminXT-Exceptions.pp.generated
-  JasminXT-Extra-PP-Rules.pp
-  JasminXT-Fields.pp.generated
-  JasminXT-Header.pp.generated
-  JasminXT-Instructions.pp.generated
-  JasminXT-InvokeReturn.pp.generated
-  JasminXT-LoadStore.pp.generated
-  JasminXT-Methods.pp.generated
-  JasminXT-Names.pp.generated
-  JasminXT-Numbers.pp.generated
-  JasminXT-Objects.pp.generated
-  JasminXT.pp.generated
-  JasminXT-Stack.pp.generated
-  JasminXT-Strings.pp.generated
-  JasminXT-Synchronisation.pp.generated
-  JasminXT-Whitespace.pp.generated
+  // JasminXT-Extra-PP-Rules.pp
+  src-gen/pp/-
+  src-gen/pp/instructions/-
+  src-gen/pp/lexical/-
   
 imports
   	
 	include/JasminXT
 
-	analysis/names/- 
+	analysis/names/binding
+	analysis/names/check
+	analysis/names/project
+	// analysis/names/- 
 	// analysis/types/- 
 	// analysis/types/next-instr/-
 	// analysis/types/pop-types/-

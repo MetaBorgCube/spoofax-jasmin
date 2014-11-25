@@ -8,7 +8,7 @@ imports
 context-free start-symbols
   Instruction
 
-templates
+context-free syntax
   Instruction.INVOKESPECIAL   = [invokenonvirtual [MethodRef]]     
   Instruction.INVOKEVIRTUAL   = [invokevirtual [MethodRef]]      
   Instruction.INVOKESTATIC    = [invokestatic [MethodRef]]     
