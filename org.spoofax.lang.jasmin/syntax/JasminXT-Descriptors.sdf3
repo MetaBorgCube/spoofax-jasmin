@@ -33,5 +33,5 @@ context-free syntax
 syntax // avoid whitespaces in method descriptors, reference types, array types	
   MethodDescriptor-CF.JBCMethodDesc = "(" ParameterDescriptor-CF* ")" ReturnDescriptor-CF
 
-  ObjectType.Reference = "L" ClassRef-CF ";"	
+  ObjectType-CF.Reference = "L" ClassRef-CF ";"	
   ArrayType-CF.Array = "[" ComponentType-CF
