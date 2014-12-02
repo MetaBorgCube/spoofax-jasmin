@@ -1,0 +1,49 @@
+module trans/analysis/types/Literals.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-type-task(|ctx) :
+    Int(i) -> <task-create-id(|ctx,[x0])> x0
+    where 
+      x0 := <type-is(|ctx)> Int()
+  
+  create-type-task(|ctx) :
+    Float(f) -> <task-create-id(|ctx,[x1])> x1
+    where 
+      x1 := <type-is(|ctx)> Float()
+  
+  create-type-task(|ctx) :
+    Double(d) -> <task-create-id(|ctx,[x2])> x2
+    where 
+      x2 := <type-is(|ctx)> Double()
+  
+  create-type-task(|ctx) :
+    String(s) -> <task-create-id(|ctx,[x3])> x3
+    where 
+      x3 := <type-is(|ctx)> CRef("java/lang/String")
+  
+
+rules // projections
+  

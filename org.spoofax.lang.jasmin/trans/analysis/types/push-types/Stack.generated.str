@@ -1,0 +1,40 @@
+module trans/analysis/types/push-types/Stack.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-push-type-task(|ctx) :
+    POP() -> <task-create-id(|ctx,[x114])> x114
+    where 
+      x114 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    POP2() -> <task-create-id(|ctx,[x115])> x115
+    where 
+      x115 := <type-is(|ctx)> []
+  
+
+rules // projections
+  

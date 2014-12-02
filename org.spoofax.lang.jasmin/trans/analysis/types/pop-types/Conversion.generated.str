@@ -1,0 +1,105 @@
+module trans/analysis/types/pop-types/Conversion.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-pop-type-task(|ctx) :
+    I2L() -> <task-create-id(|ctx,[x20])> x20
+    where 
+      x20 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    I2F() -> <task-create-id(|ctx,[x20])> x20
+    where 
+      x20 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    I2D() -> <task-create-id(|ctx,[x20])> x20
+    where 
+      x20 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    I2B() -> <task-create-id(|ctx,[x20])> x20
+    where 
+      x20 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    I2S() -> <task-create-id(|ctx,[x20])> x20
+    where 
+      x20 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    I2C() -> <task-create-id(|ctx,[x20])> x20
+    where 
+      x20 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    L2F() -> <task-create-id(|ctx,[x21])> x21
+    where 
+      x21 := <type-is(|ctx)> [Long()]
+  
+  create-pop-type-task(|ctx) :
+    L2D() -> <task-create-id(|ctx,[x21])> x21
+    where 
+      x21 := <type-is(|ctx)> [Long()]
+  
+  create-pop-type-task(|ctx) :
+    L2I() -> <task-create-id(|ctx,[x21])> x21
+    where 
+      x21 := <type-is(|ctx)> [Long()]
+  
+  create-pop-type-task(|ctx) :
+    F2D() -> <task-create-id(|ctx,[x22])> x22
+    where 
+      x22 := <type-is(|ctx)> [Float()]
+  
+  create-pop-type-task(|ctx) :
+    F2I() -> <task-create-id(|ctx,[x22])> x22
+    where 
+      x22 := <type-is(|ctx)> [Float()]
+  
+  create-pop-type-task(|ctx) :
+    F2L() -> <task-create-id(|ctx,[x22])> x22
+    where 
+      x22 := <type-is(|ctx)> [Float()]
+  
+  create-pop-type-task(|ctx) :
+    D2I() -> <task-create-id(|ctx,[x23])> x23
+    where 
+      x23 := <type-is(|ctx)> [Double()]
+  
+  create-pop-type-task(|ctx) :
+    D2L() -> <task-create-id(|ctx,[x23])> x23
+    where 
+      x23 := <type-is(|ctx)> [Double()]
+  
+  create-pop-type-task(|ctx) :
+    D2F() -> <task-create-id(|ctx,[x23])> x23
+    where 
+      x23 := <type-is(|ctx)> [Double()]
+  
+
+rules // projections
+  

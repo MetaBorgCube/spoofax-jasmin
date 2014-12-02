@@ -1,0 +1,130 @@
+module trans/analysis/types/pop-types/Control.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-pop-type-task(|ctx) :
+    IFEQ(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IFLT(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IFLE(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IFNE(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IFGT(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IFGE(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IFNULL(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IFNONNULL(_) -> <task-create-id(|ctx,[x17])> x17
+    where 
+      x17 := <type-is(|ctx)> [Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ICMPEQ(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ICMPLT(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ICMPLE(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ICMPNE(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ICMPGT(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ICMPGE(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ACMPEQ(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IF_ACMPNE(_) -> <task-create-id(|ctx,[x18])> x18
+    where 
+      x18 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    GOTO(_) -> <task-create-id(|ctx,[x19])> x19
+    where 
+      x19 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    GOTO_W(_) -> <task-create-id(|ctx,[x19])> x19
+    where 
+      x19 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    JSR(_) -> <task-create-id(|ctx,[x19])> x19
+    where 
+      x19 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    JSR_W(_) -> <task-create-id(|ctx,[x19])> x19
+    where 
+      x19 := <type-is(|ctx)> []
+  
+
+rules // projections
+  

@@ -1,0 +1,130 @@
+module trans/analysis/types/next-instr/Control.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-next-instr-task(|ctx) :
+    IFEQ(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IFLT(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IFLE(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IFNE(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IFGT(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IFGE(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IFNULL(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IFNONNULL(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ICMPEQ(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ICMPLT(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ICMPLE(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ICMPNE(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ICMPGT(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ICMPGE(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ACMPEQ(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    IF_ACMPNE(t) -> <task-create-id(|ctx,[x4])> x4
+    where 
+      x4 := <type-is(|ctx)> [NEXT(), t]
+  
+  create-next-instr-task(|ctx) :
+    GOTO(t) -> <task-create-id(|ctx,[x5])> x5
+    where 
+      x5 := <type-is(|ctx)> [t]
+  
+  create-next-instr-task(|ctx) :
+    GOTO_W(t) -> <task-create-id(|ctx,[x5])> x5
+    where 
+      x5 := <type-is(|ctx)> [t]
+  
+  create-next-instr-task(|ctx) :
+    JSR(t) -> <task-create-id(|ctx,[x5])> x5
+    where 
+      x5 := <type-is(|ctx)> [t]
+  
+  create-next-instr-task(|ctx) :
+    JSR_W(t) -> <task-create-id(|ctx,[x5])> x5
+    where 
+      x5 := <type-is(|ctx)> [t]
+  
+
+rules // projections
+  

@@ -1,0 +1,80 @@
+module trans/analysis/types/push-types/Objects.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-push-type-task(|ctx) :
+    NEW(cr) -> <task-create-id(|ctx,[x106])> x106
+    where 
+      x106 := <type-is(|ctx)> [cr]
+  
+  create-push-type-task(|ctx) :
+    NEWARRAY(ct) -> <task-create-id(|ctx,[x107])> x107
+    where 
+      x107 := <type-is(|ctx)> [Array(ct)]
+  
+  create-push-type-task(|ctx) :
+    ANEWARRAY(ct) -> <task-create-id(|ctx,[x107])> x107
+    where 
+      x107 := <type-is(|ctx)> [Array(ct)]
+  
+  create-push-type-task(|ctx) :
+    MULTIANEWARRAY(ct, _) -> <task-create-id(|ctx,[x107])> x107
+    where 
+      x107 := <type-is(|ctx)> [Array(ct)]
+  
+  create-push-type-task(|ctx) :
+    GETFIELD(JBCFieldRef(_, _, JBCFieldDesc(ft))) -> <task-create-id(|ctx,[x108])> x108
+    where 
+      x108 := <type-is(|ctx)> [ft]
+  
+  create-push-type-task(|ctx) :
+    GETSTATIC(JBCFieldRef(_, _, JBCFieldDesc(ft))) -> <task-create-id(|ctx,[x109])> x109
+    where 
+      x109 := <type-is(|ctx)> [ft]
+  
+  create-push-type-task(|ctx) :
+    PUTFIELD(_) -> <task-create-id(|ctx,[x110])> x110
+    where 
+      x110 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    PUTSTATIC(_) -> <task-create-id(|ctx,[x110])> x110
+    where 
+      x110 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    ARRAYLENGTH() -> <task-create-id(|ctx,[x111])> x111
+    where 
+      x111 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    INSTANCEOF(cr) -> <task-create-id(|ctx,[x112])> x112
+    where 
+      x112 := <type-is(|ctx)> [Boolean()]
+  
+
+rules // projections
+  

@@ -1,0 +1,669 @@
+module analysis/names/binding
+
+imports
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/properties/-
+  lib/runtime/types/-
+  lib/runtime/relations/-
+  lib/runtime/editor/-
+  include/JasminXT
+
+
+signature
+  constructors
+    NablNsClass    : Namespace
+    NablNsMethod   : Namespace
+    NablNsField    : Namespace
+    NablNsVariable : Namespace
+    NablNsLabel    : Namespace
+
+
+signature
+  constructors
+    
+
+
+rules
+
+  nabl-custom-properties(add-properties) =
+    ![] ; add-properties
+
+
+rules
+
+  nabl-get-scope =
+    ?JBCFile(
+       JBCHeader(
+         _
+       , _
+       , JBCClass(_, c)
+       , JBCSuper(p)
+       , _
+       , _
+       , _
+       , _
+       , _
+       , _
+       )
+     , _
+     , _
+     )
+    ; ![NablNsMethod(), NablNsField()]
+
+  nabl-get-name :
+    JBCFile(
+      JBCHeader(
+        _
+      , _
+      , JBCClass(_, c)
+      , JBCSuper(p)
+      , _
+      , _
+      , _
+      , _
+      , _
+      , _
+      )
+    , _
+    , _
+    ) -> c
+
+  nabl-name-apply(s) =
+    JBCFile(
+      JBCHeader(
+        id
+      , id
+      , JBCClass(id, s)
+      , JBCSuper(id)
+      , id
+      , id
+      , id
+      , id
+      , id
+      , id
+      )
+    , id
+    , id
+    )
+
+  nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, ctx__, uniques__, uri__, states__) =
+    ?JBCFile(
+       JBCHeader(
+         _
+       , _
+       , JBCClass(_, c)
+       , JBCSuper(p)
+       , _
+       , _
+       , _
+       , _
+       , _
+       , _
+       )
+     , _
+     , _
+     )
+    ; origin-track-forced(
+        JBCFile(
+          origin-track-forced(
+            JBCHeader(
+              id
+            , id
+            , origin-track-forced(
+                JBCClass(
+                  id
+                , nabl-def(
+                    ?c-uri1__
+                  , ?s-uri1__
+                  | lang__
+                  , ctx__
+                  , uniques__
+                  , uri__
+                  , uri__
+                  , NablNsClass()
+                  , Unique()
+                  , Current()
+                  , [NablNsMethod(), NablNsField()]
+                  , []
+                  )
+                )
+              |
+              )
+            , origin-track-forced(JBCSuper(id)|)
+            , id
+            , id
+            , id
+            , id
+            , id
+            , id
+            )
+          |
+          )
+        , id
+        , id
+        )
+      |
+      )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
+
+  nabl-prop-site(|lang__, ctx__, uris__, states__, implicits__) =
+    ?JBCFile(
+       JBCHeader(
+         _
+       , _
+       , JBCClass(_, c)
+       , JBCSuper(p)
+       , _
+       , _
+       , _
+       , _
+       , _
+       , _
+       )
+     , _
+     , _
+     )
+    ; (where(id)
+       ; JBCFile(
+           JBCHeader(
+             id
+           , id
+           , JBCClass(
+               id
+             , nabl-store-props(
+               | ctx__
+               , [Prop(Type(), p, [])]
+               )
+             )
+           , JBCSuper(id)
+           , id
+           , id
+           , id
+           , id
+           , id
+           , id
+           )
+         , id
+         , id
+         ))
+    ; fail
+
+  nabl-use-site(|lang__, ctx__, uniques__, uris__, states__) =
+    ?JBCSuper(c)
+    ; origin-track-forced(
+        JBCSuper(
+          nabl-use(
+          | lang__
+          , ctx__
+          , uniques__
+          , uris__
+          , [ <{:
+                 id
+                 ; !UseCandidate(
+                      NablNsClass()
+                    , []
+                    , Current()
+                    , True()
+                    , []
+                    )
+               }>
+            ]
+          )
+        )
+      |
+      )
+    ; origin-track-forced(
+        JBCSuper(
+          nabl-use(
+          | lang__
+          , ctx__
+          , uniques__
+          , uris__
+          , [ <{:
+                 id
+                 ; !UseCandidate(
+                      NablNsClass()
+                    , []
+                    , Current()
+                    , True()
+                    , []
+                    )
+               }>
+            ]
+          )
+        )
+      |
+      )
+
+  nabl-import-site(|lang__, ctx__, uniques__, uris__, states__) =
+    ?JBCSuper(c)
+    ; origin-track-forced(
+        nabl-import(
+        | lang__
+        , ctx__
+        , uniques__
+        , uris__
+        , [ <{:
+               id
+               ; !Wildcard(
+                    [ Import(lang__, NablNsMethod())
+                    , Import(lang__, NablNsField())
+                    , Import(lang__, Imported(NablNsMethod()))
+                    , Import(lang__, Imported(NablNsField()))
+                    ]
+                  , Context(
+                      NablNsClass()
+                    , c
+                    , []
+                    , Current()
+                    )
+                  , Current()
+                  , []
+                  )
+             }>
+          ]
+        )
+      |
+      )
+
+  nabl-get-name :
+    CRef(c) -> c
+
+  nabl-name-apply(s) =
+    CRef(s)
+
+  nabl-use-site(|lang__, ctx__, uniques__, uris__, states__) =
+    ?CRef(c)
+    ; origin-track-forced(
+        CRef(
+          nabl-use(
+          | lang__
+          , ctx__
+          , uniques__
+          , uris__
+          , [ <{:
+                 id
+                 ; !UseCandidate(
+                      NablNsClass()
+                    , []
+                    , Current()
+                    , True()
+                    , []
+                    )
+               }>
+            ]
+          )
+        )
+      |
+      )
+
+  nabl-get-scope =
+    ?JBCMethod(_, name, type-desc, _)
+    ; ![NablNsLabel(), NablNsVariable()]
+
+  nabl-get-name :
+    JBCMethod(_, name, type-desc, _) -> name
+
+  nabl-name-apply(s) =
+    JBCMethod(id, s, id, id)
+
+  nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, ctx__, uniques__, uri__, states__) =
+    ?JBCMethod(_, name, type-desc, _)
+    ; origin-track-forced(
+        JBCMethod(
+          id
+        , nabl-def(
+            ?c-uri1__
+          , ?s-uri1__
+          | lang__
+          , ctx__
+          , uniques__
+          , uri__
+          , uri__
+          , NablNsMethod()
+          , Unique()
+          , Current()
+          , [NablNsLabel(), NablNsVariable()]
+          , []
+          )
+        , id
+        , id
+        )
+      |
+      )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
+
+  nabl-prop-site(|lang__, ctx__, uris__, states__, implicits__) =
+    ?JBCMethod(_, name, type-desc, _)
+    ; (where(id)
+       ; JBCMethod(
+           id
+         , nabl-store-props(
+           | ctx__
+           , [Prop(Type(), type-desc, [])]
+           )
+         , id
+         , id
+         ))
+    ; fail
+
+  nabl-get-name :
+    JBCMethodRef(CRef(c), MRef(name), type-desc) -> name
+
+  nabl-name-apply(s) =
+    JBCMethodRef(CRef(id), MRef(s), id)
+
+  nabl-use-site(|lang__, ctx__, uniques__, uris__, states__) =
+    ?JBCMethodRef(CRef(c), MRef(name), type-desc)
+    ; origin-track-forced(
+        JBCMethodRef(
+          origin-track-forced(CRef(id)|)
+        , origin-track-forced(
+            MRef(
+              nabl-use(
+              | lang__
+              , ctx__
+              , uniques__
+              , uris__
+              , [ <{:
+                     id
+                     ; !UseCandidate(
+                          NablNsMethod()
+                        , []
+                        , Context(
+                            NablNsClass()
+                          , c
+                          , []
+                          , Current()
+                          )
+                        , True()
+                        , []
+                        )
+                   }>
+                ]
+              )
+            )
+          |
+          )
+        , id
+        )
+      |
+      )
+
+  nabl-get-name :
+    JBCField(_, name, type-desc, _, _) -> name
+
+  nabl-name-apply(s) =
+    JBCField(id, s, id, id, id)
+
+  nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, ctx__, uniques__, uri__, states__) =
+    ?JBCField(_, name, type-desc, _, _)
+    ; origin-track-forced(
+        JBCField(
+          id
+        , nabl-def(
+            ?c-uri1__
+          , ?s-uri1__
+          | lang__
+          , ctx__
+          , uniques__
+          , uri__
+          , uri__
+          , NablNsField()
+          , Unique()
+          , Current()
+          , []
+          , []
+          )
+        , id
+        , id
+        , id
+        )
+      |
+      )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
+
+  nabl-prop-site(|lang__, ctx__, uris__, states__, implicits__) =
+    ?JBCField(_, name, type-desc, _, _)
+    ; (where(id)
+       ; JBCField(
+           id
+         , nabl-store-props(
+           | ctx__
+           , [Prop(Type(), type-desc, [])]
+           )
+         , id
+         , id
+         , id
+         ))
+    ; fail
+
+  nabl-get-name :
+    JBCExtField(_, name, type-desc, _, _, _) -> name
+
+  nabl-name-apply(s) =
+    JBCExtField(id, s, id, id, id, id)
+
+  nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, ctx__, uniques__, uri__, states__) =
+    ?JBCExtField(_, name, type-desc, _, _, _)
+    ; origin-track-forced(
+        JBCExtField(
+          id
+        , nabl-def(
+            ?c-uri1__
+          , ?s-uri1__
+          | lang__
+          , ctx__
+          , uniques__
+          , uri__
+          , uri__
+          , NablNsField()
+          , Unique()
+          , Current()
+          , []
+          , []
+          )
+        , id
+        , id
+        , id
+        , id
+        )
+      |
+      )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
+
+  nabl-prop-site(|lang__, ctx__, uris__, states__, implicits__) =
+    ?JBCExtField(_, name, type-desc, _, _, _)
+    ; (where(id)
+       ; JBCExtField(
+           id
+         , nabl-store-props(
+           | ctx__
+           , [Prop(Type(), type-desc, [])]
+           )
+         , id
+         , id
+         , id
+         , id
+         ))
+    ; fail
+
+  nabl-get-name :
+    JBCFieldRef(CRef(c), FRef(name), type-desc) -> name
+
+  nabl-name-apply(s) =
+    JBCFieldRef(CRef(id), FRef(s), id)
+
+  nabl-use-site(|lang__, ctx__, uniques__, uris__, states__) =
+    ?JBCFieldRef(CRef(c), FRef(name), type-desc)
+    ; origin-track-forced(
+        JBCFieldRef(
+          origin-track-forced(CRef(id)|)
+        , origin-track-forced(
+            FRef(
+              nabl-use(
+              | lang__
+              , ctx__
+              , uniques__
+              , uris__
+              , [ <{:
+                     id
+                     ; !UseCandidate(
+                          NablNsField()
+                        , []
+                        , Context(
+                            NablNsClass()
+                          , c
+                          , []
+                          , Current()
+                          )
+                        , True()
+                        , []
+                        )
+                   }>
+                ]
+              )
+            )
+          |
+          )
+        , id
+        )
+      |
+      )
+
+  nabl-get-name :
+    JBCVarDecl(n, _, _, _, _) -> n
+
+  nabl-name-apply(s) =
+    JBCVarDecl(s, id, id, id, id)
+
+  nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, ctx__, uniques__, uri__, states__) =
+    ?JBCVarDecl(n, _, _, _, _)
+    ; origin-track-forced(
+        JBCVarDecl(
+          nabl-def(
+            ?c-uri1__
+          , ?s-uri1__
+          | lang__
+          , ctx__
+          , uniques__
+          , uri__
+          , uri__
+          , NablNsVariable()
+          , Unique()
+          , Current()
+          , []
+          , []
+          )
+        , id
+        , id
+        , id
+        , id
+        )
+      |
+      )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
+
+  nabl-get-name :
+    VarNum(n) -> n
+
+  nabl-name-apply(s) =
+    VarNum(s)
+
+  nabl-use-site(|lang__, ctx__, uniques__, uris__, states__) =
+    ?VarNum(n)
+    ; origin-track-forced(
+        VarNum(
+          nabl-use(
+          | lang__
+          , ctx__
+          , uniques__
+          , uris__
+          , [ <{:
+                 id
+                 ; !UseCandidate(
+                      NablNsVariable()
+                    , []
+                    , Current()
+                    , True()
+                    , []
+                    )
+               }>
+            ]
+          )
+        )
+      |
+      )
+
+  nabl-get-name :
+    JBCLabel(l) -> l
+
+  nabl-name-apply(s) =
+    JBCLabel(s)
+
+  nabl-def-site(child-uris__, sibl-uris__, implicits__|lang__, ctx__, uniques__, uri__, states__) =
+    ?JBCLabel(l)
+    ; origin-track-forced(
+        JBCLabel(
+          nabl-def(
+            ?c-uri1__
+          , ?s-uri1__
+          | lang__
+          , ctx__
+          , uniques__
+          , uri__
+          , uri__
+          , NablNsLabel()
+          , Unique()
+          , Current()
+          , []
+          , []
+          )
+        )
+      |
+      )
+    ; match(child-uris__|c-uri1__)
+    ; match(sibl-uris__|s-uri1__)
+    ; match(implicits__|[])
+
+  nabl-get-name :
+    LabelRef(l) -> l
+
+  nabl-name-apply(s) =
+    LabelRef(s)
+
+  nabl-use-site(|lang__, ctx__, uniques__, uris__, states__) =
+    ?LabelRef(l)
+    ; origin-track-forced(
+        LabelRef(
+          nabl-use(
+          | lang__
+          , ctx__
+          , uniques__
+          , uris__
+          , [ <{:
+                 id
+                 ; !UseCandidate(
+                      NablNsLabel()
+                    , []
+                    , Current()
+                    , True()
+                    , []
+                    )
+               }>
+            ]
+          )
+        )
+      |
+      )

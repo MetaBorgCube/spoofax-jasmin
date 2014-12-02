@@ -1,0 +1,40 @@
+module trans/analysis/types/pop-types/InvokeReturn.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-pop-type-task(|ctx) :
+    RET(_) -> <task-create-id(|ctx,[x33])> x33
+    where 
+      x33 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    RET_W(_) -> <task-create-id(|ctx,[x33])> x33
+    where 
+      x33 := <type-is(|ctx)> []
+  
+
+rules // projections
+  

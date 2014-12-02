@@ -1,0 +1,40 @@
+module trans/analysis/types/push-types/Instructions.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-push-type-task(|ctx) :
+    NOP() -> <task-create-id(|ctx,[x81])> x81
+    where 
+      x81 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    BREAKPOINT() -> <task-create-id(|ctx,[x81])> x81
+    where 
+      x81 := <type-is(|ctx)> []
+  
+
+rules // projections
+  

@@ -1,0 +1,245 @@
+module trans/analysis/types/pop-types/Arithmetic.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-pop-type-task(|ctx) :
+    IADD() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IAND() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IDIV() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IMUL() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    INEG() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IOR() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IREM() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    ISHL() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    ISHR() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    ISUB() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IUSHR() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    IXOR() -> <task-create-id(|ctx,[x10])> x10
+    where 
+      x10 := <type-is(|ctx)> [Int(), Int()]
+  
+  create-pop-type-task(|ctx) :
+    LADD() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LAND() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LDIV() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LMUL() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LNEG() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LOR() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LREM() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LSHL() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LSHR() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LSUB() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LUSHR() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LXOR() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    LCMP() -> <task-create-id(|ctx,[x11])> x11
+    where 
+      x11 := <type-is(|ctx)> [Long(), Long()]
+  
+  create-pop-type-task(|ctx) :
+    FADD() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    FDIV() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    FMUL() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    FNEG() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    FREM() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    FSUB() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    FCMPG() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    FCMPL() -> <task-create-id(|ctx,[x12])> x12
+    where 
+      x12 := <type-is(|ctx)> [Float(), Float()]
+  
+  create-pop-type-task(|ctx) :
+    DADD() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    DDIV() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    DMUL() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    DNEG() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    DREM() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    DSUB() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    DCMPG() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    DCMPL() -> <task-create-id(|ctx,[x13])> x13
+    where 
+      x13 := <type-is(|ctx)> [Double(), Double()]
+  
+  create-pop-type-task(|ctx) :
+    IINC(_, _) -> <task-create-id(|ctx,[x14])> x14
+    where 
+      x14 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    IINC_W(_, _) -> <task-create-id(|ctx,[x14])> x14
+    where 
+      x14 := <type-is(|ctx)> []
+  
+
+rules // projections
+  

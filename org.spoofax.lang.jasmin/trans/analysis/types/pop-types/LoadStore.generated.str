@@ -1,0 +1,130 @@
+module trans/analysis/types/pop-types/LoadStore.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-pop-type-task(|ctx) :
+    BIPUSH(_) -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    SIPUSH(_) -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ICONST_M1() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ICONST_0() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ICONST_1() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ICONST_2() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ICONST_3() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ICONST_4() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ICONST_5() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    LCONST_0() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    LCONST_1() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    FCONST_0() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    FCONST_1() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    FCONST_2() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    DCONST_0() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    DCONST_1() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    ACONST_NULL() -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    LDC(_) -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    LDC2_W(_) -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    LDC_W(_) -> <task-create-id(|ctx,[x38])> x38
+    where 
+      x38 := <type-is(|ctx)> []
+  
+
+rules // projections
+  

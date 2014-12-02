@@ -1,0 +1,40 @@
+module trans/analysis/types/pop-types/Instructions.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-pop-type-task(|ctx) :
+    NOP() -> <task-create-id(|ctx,[x29])> x29
+    where 
+      x29 := <type-is(|ctx)> []
+  
+  create-pop-type-task(|ctx) :
+    BREAKPOINT() -> <task-create-id(|ctx,[x29])> x29
+    where 
+      x29 := <type-is(|ctx)> []
+  
+
+rules // projections
+  

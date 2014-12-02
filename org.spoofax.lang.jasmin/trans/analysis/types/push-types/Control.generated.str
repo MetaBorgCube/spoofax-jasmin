@@ -1,0 +1,140 @@
+module trans/analysis/types/push-types/Control.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-push-type-task(|ctx) :
+    IFEQ(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IFLT(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IFLE(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IFNE(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IFGT(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IFGE(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IFNULL(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IFNONNULL(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ICMPEQ(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ICMPLT(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ICMPLE(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ICMPNE(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ICMPGT(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ICMPGE(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ACMPEQ(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IF_ACMPNE(_) -> <task-create-id(|ctx,[x49])> x49
+    where 
+      x49 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    Table(_, _, _) -> <task-create-id(|ctx,[x50])> x50
+    where 
+      x50 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    Lookup(_, _) -> <task-create-id(|ctx,[x50])> x50
+    where 
+      x50 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    GOTO(_) -> <task-create-id(|ctx,[x51])> x51
+    where 
+      x51 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    GOTO_W(_) -> <task-create-id(|ctx,[x51])> x51
+    where 
+      x51 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    JSR(_) -> <task-create-id(|ctx,[x52])> x52
+    where 
+      x52 := <type-is(|ctx)> [ADDRESS()]
+  
+  create-push-type-task(|ctx) :
+    JSR_W(_) -> <task-create-id(|ctx,[x52])> x52
+    where 
+      x52 := <type-is(|ctx)> [ADDRESS()]
+  
+
+rules // projections
+  

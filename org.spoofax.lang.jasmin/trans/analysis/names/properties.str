@@ -1,0 +1,280 @@
+module analysis/names/properties
+
+imports
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/properties/-
+  lib/runtime/types/-
+  lib/runtime/relations/-
+  lib/runtime/editor/-
+  include/JasminXT
+  analysis/types/constraints
+
+
+signature
+  constructors
+    
+
+
+signature
+  constructors
+    NablProp_pop-type   : Property
+    NablProp_push-type  : Property
+    NablProp_next-instr : Property
+    NablProp_in-stack   : Property
+    NablProp_out-stack  : Property
+
+
+rules
+
+  nabl-custom-properties(add-properties) =
+    ![ NablProp_pop-type()
+     , NablProp_push-type()
+     , NablProp_next-instr()
+     , NablProp_in-stack()
+     , NablProp_out-stack()
+     ]
+    ; add-properties
+
+  pop-type-is(|ctx__) =
+    nabl-prop-calc(|ctx__, [])
+
+  pop-type-is(|ctx__, dep*) =
+    nabl-prop-calc(|ctx__, dep*)
+
+  pop-type-task(|ctx__) =
+    get-or-create-property-task(|ctx__, NablProp_pop-type())
+
+  pop-type-list(|ctx__) =
+    nabl-prop-list(|ctx__, [])
+
+  pop-type-list(|ctx__, dep*) =
+    nabl-prop-list(|ctx__, dep*)
+
+  pop-type-lookup(|ctx__) =
+    nabl-prop-lookup(|NablProp_pop-type(), ctx__, [])
+
+  pop-type-lookup(|ctx__, dep*) =
+    nabl-prop-lookup(|NablProp_pop-type(), ctx__, dep*)
+
+  pop-type-match(|ctx__, expected) =
+    nabl-prop-match(
+    | NablProp_pop-type()
+    , ctx__
+    , Eq()
+    , expected
+    )
+
+  pop-type-match(|ctx__, relation, expected) =
+    nabl-prop-match(|NablProp_pop-type(), ctx__, relation, expected)
+
+  create-pop-type-task(|ctx__) =
+    fail
+
+  get-pop-type(|) =
+    get-property(|NablProp_pop-type())
+
+  store-pop-type(|ctx__, prop) =
+    nabl-store-prop(
+    | ctx__
+    , Prop(NablProp_pop-type(), prop, [])
+    )
+
+  create-property-task(|ctx__, kind):
+    term -> <create-pop-type-task(|ctx__)> term
+    where NablProp_pop-type() := kind
+
+  push-type-is(|ctx__) =
+    nabl-prop-calc(|ctx__, [])
+
+  push-type-is(|ctx__, dep*) =
+    nabl-prop-calc(|ctx__, dep*)
+
+  push-type-task(|ctx__) =
+    get-or-create-property-task(|ctx__, NablProp_push-type())
+
+  push-type-list(|ctx__) =
+    nabl-prop-list(|ctx__, [])
+
+  push-type-list(|ctx__, dep*) =
+    nabl-prop-list(|ctx__, dep*)
+
+  push-type-lookup(|ctx__) =
+    nabl-prop-lookup(|NablProp_push-type(), ctx__, [])
+
+  push-type-lookup(|ctx__, dep*) =
+    nabl-prop-lookup(|NablProp_push-type(), ctx__, dep*)
+
+  push-type-match(|ctx__, expected) =
+    nabl-prop-match(
+    | NablProp_push-type()
+    , ctx__
+    , Eq()
+    , expected
+    )
+
+  push-type-match(|ctx__, relation, expected) =
+    nabl-prop-match(|NablProp_push-type(), ctx__, relation, expected)
+
+  create-push-type-task(|ctx__) =
+    fail
+
+  get-push-type(|) =
+    get-property(|NablProp_push-type())
+
+  store-push-type(|ctx__, prop) =
+    nabl-store-prop(
+    | ctx__
+    , Prop(NablProp_push-type(), prop, [])
+    )
+
+  create-property-task(|ctx__, kind):
+    term -> <create-push-type-task(|ctx__)> term
+    where NablProp_push-type() := kind
+
+  next-instr-is(|ctx__) =
+    nabl-prop-calc(|ctx__, [])
+
+  next-instr-is(|ctx__, dep*) =
+    nabl-prop-calc(|ctx__, dep*)
+
+  next-instr-task(|ctx__) =
+    get-or-create-property-task(|ctx__, NablProp_next-instr())
+
+  next-instr-list(|ctx__) =
+    nabl-prop-list(|ctx__, [])
+
+  next-instr-list(|ctx__, dep*) =
+    nabl-prop-list(|ctx__, dep*)
+
+  next-instr-lookup(|ctx__) =
+    nabl-prop-lookup(|NablProp_next-instr(), ctx__, [])
+
+  next-instr-lookup(|ctx__, dep*) =
+    nabl-prop-lookup(|NablProp_next-instr(), ctx__, dep*)
+
+  next-instr-match(|ctx__, expected) =
+    nabl-prop-match(
+    | NablProp_next-instr()
+    , ctx__
+    , Eq()
+    , expected
+    )
+
+  next-instr-match(|ctx__, relation, expected) =
+    nabl-prop-match(|NablProp_next-instr(), ctx__, relation, expected)
+
+  create-next-instr-task(|ctx__) =
+    fail
+
+  get-next-instr(|) =
+    get-property(|NablProp_next-instr())
+
+  store-next-instr(|ctx__, prop) =
+    nabl-store-prop(
+    | ctx__
+    , Prop(NablProp_next-instr(), prop, [])
+    )
+
+  create-property-task(|ctx__, kind):
+    term -> <create-next-instr-task(|ctx__)> term
+    where NablProp_next-instr() := kind
+
+  in-stack-is(|ctx__) =
+    nabl-prop-calc(|ctx__, [])
+
+  in-stack-is(|ctx__, dep*) =
+    nabl-prop-calc(|ctx__, dep*)
+
+  in-stack-task(|ctx__) =
+    get-or-create-property-task(|ctx__, NablProp_in-stack())
+
+  in-stack-list(|ctx__) =
+    nabl-prop-list(|ctx__, [])
+
+  in-stack-list(|ctx__, dep*) =
+    nabl-prop-list(|ctx__, dep*)
+
+  in-stack-lookup(|ctx__) =
+    nabl-prop-lookup(|NablProp_in-stack(), ctx__, [])
+
+  in-stack-lookup(|ctx__, dep*) =
+    nabl-prop-lookup(|NablProp_in-stack(), ctx__, dep*)
+
+  in-stack-match(|ctx__, expected) =
+    nabl-prop-match(
+    | NablProp_in-stack()
+    , ctx__
+    , Eq()
+    , expected
+    )
+
+  in-stack-match(|ctx__, relation, expected) =
+    nabl-prop-match(|NablProp_in-stack(), ctx__, relation, expected)
+
+  create-in-stack-task(|ctx__) =
+    fail
+
+  get-in-stack(|) =
+    get-property(|NablProp_in-stack())
+
+  store-in-stack(|ctx__, prop) =
+    nabl-store-prop(
+    | ctx__
+    , Prop(NablProp_in-stack(), prop, [])
+    )
+
+  create-property-task(|ctx__, kind):
+    term -> <create-in-stack-task(|ctx__)> term
+    where NablProp_in-stack() := kind
+
+  out-stack-is(|ctx__) =
+    nabl-prop-calc(|ctx__, [])
+
+  out-stack-is(|ctx__, dep*) =
+    nabl-prop-calc(|ctx__, dep*)
+
+  out-stack-task(|ctx__) =
+    get-or-create-property-task(|ctx__, NablProp_out-stack())
+
+  out-stack-list(|ctx__) =
+    nabl-prop-list(|ctx__, [])
+
+  out-stack-list(|ctx__, dep*) =
+    nabl-prop-list(|ctx__, dep*)
+
+  out-stack-lookup(|ctx__) =
+    nabl-prop-lookup(|NablProp_out-stack(), ctx__, [])
+
+  out-stack-lookup(|ctx__, dep*) =
+    nabl-prop-lookup(|NablProp_out-stack(), ctx__, dep*)
+
+  out-stack-match(|ctx__, expected) =
+    nabl-prop-match(
+    | NablProp_out-stack()
+    , ctx__
+    , Eq()
+    , expected
+    )
+
+  out-stack-match(|ctx__, relation, expected) =
+    nabl-prop-match(|NablProp_out-stack(), ctx__, relation, expected)
+
+  create-out-stack-task(|ctx__) =
+    fail
+
+  get-out-stack(|) =
+    get-property(|NablProp_out-stack())
+
+  store-out-stack(|ctx__, prop) =
+    nabl-store-prop(
+    | ctx__
+    , Prop(NablProp_out-stack(), prop, [])
+    )
+
+  create-property-task(|ctx__, kind):
+    term -> <create-out-stack-task(|ctx__)> term
+    where NablProp_out-stack() := kind
+
+
+rules

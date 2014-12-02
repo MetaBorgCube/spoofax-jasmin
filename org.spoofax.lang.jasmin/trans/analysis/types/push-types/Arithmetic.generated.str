@@ -1,0 +1,245 @@
+module trans/analysis/types/push-types/Arithmetic.generated
+
+imports
+  
+  lib/runtime/nabl/-
+  lib/runtime/task/-
+  lib/runtime/types/-
+  lib/runtime/properties/-
+  lib/runtime/relations/-
+
+imports
+
+  include/JasminXT
+  analysis/types/constraints
+  
+signature constructors
+  
+  
+  
+rules // functions 
+  
+
+rules // relations
+  
+
+rules // rules
+  
+  create-push-type-task(|ctx) :
+    IADD() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    IAND() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    IDIV() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    IMUL() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    INEG() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    IOR() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    IREM() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    ISHL() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    ISHR() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    ISUB() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    IUSHR() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    IXOR() -> <task-create-id(|ctx,[x40])> x40
+    where 
+      x40 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    LADD() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LAND() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LDIV() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LMUL() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LNEG() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LOR() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LREM() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LSHL() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LSHR() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LSUB() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LUSHR() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    LXOR() -> <task-create-id(|ctx,[x41])> x41
+    where 
+      x41 := <type-is(|ctx)> [Long()]
+  
+  create-push-type-task(|ctx) :
+    FADD() -> <task-create-id(|ctx,[x42])> x42
+    where 
+      x42 := <type-is(|ctx)> [Float()]
+  
+  create-push-type-task(|ctx) :
+    FDIV() -> <task-create-id(|ctx,[x42])> x42
+    where 
+      x42 := <type-is(|ctx)> [Float()]
+  
+  create-push-type-task(|ctx) :
+    FMUL() -> <task-create-id(|ctx,[x42])> x42
+    where 
+      x42 := <type-is(|ctx)> [Float()]
+  
+  create-push-type-task(|ctx) :
+    FNEG() -> <task-create-id(|ctx,[x42])> x42
+    where 
+      x42 := <type-is(|ctx)> [Float()]
+  
+  create-push-type-task(|ctx) :
+    FREM() -> <task-create-id(|ctx,[x42])> x42
+    where 
+      x42 := <type-is(|ctx)> [Float()]
+  
+  create-push-type-task(|ctx) :
+    FSUB() -> <task-create-id(|ctx,[x42])> x42
+    where 
+      x42 := <type-is(|ctx)> [Float()]
+  
+  create-push-type-task(|ctx) :
+    DADD() -> <task-create-id(|ctx,[x43])> x43
+    where 
+      x43 := <type-is(|ctx)> [Double()]
+  
+  create-push-type-task(|ctx) :
+    DDIV() -> <task-create-id(|ctx,[x43])> x43
+    where 
+      x43 := <type-is(|ctx)> [Double()]
+  
+  create-push-type-task(|ctx) :
+    DMUL() -> <task-create-id(|ctx,[x43])> x43
+    where 
+      x43 := <type-is(|ctx)> [Double()]
+  
+  create-push-type-task(|ctx) :
+    DNEG() -> <task-create-id(|ctx,[x43])> x43
+    where 
+      x43 := <type-is(|ctx)> [Double()]
+  
+  create-push-type-task(|ctx) :
+    DREM() -> <task-create-id(|ctx,[x43])> x43
+    where 
+      x43 := <type-is(|ctx)> [Double()]
+  
+  create-push-type-task(|ctx) :
+    DSUB() -> <task-create-id(|ctx,[x43])> x43
+    where 
+      x43 := <type-is(|ctx)> [Double()]
+  
+  create-push-type-task(|ctx) :
+    IINC(_, _) -> <task-create-id(|ctx,[x44])> x44
+    where 
+      x44 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    IINC_W(_, _) -> <task-create-id(|ctx,[x44])> x44
+    where 
+      x44 := <type-is(|ctx)> []
+  
+  create-push-type-task(|ctx) :
+    FCMPG() -> <task-create-id(|ctx,[x45])> x45
+    where 
+      x45 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    FCMPL() -> <task-create-id(|ctx,[x45])> x45
+    where 
+      x45 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    DCMPG() -> <task-create-id(|ctx,[x46])> x46
+    where 
+      x46 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    DCMPL() -> <task-create-id(|ctx,[x46])> x46
+    where 
+      x46 := <type-is(|ctx)> [Int()]
+  
+  create-push-type-task(|ctx) :
+    LCMP() -> <task-create-id(|ctx,[x47])> x47
+    where 
+      x47 := <type-is(|ctx)> [Int()]
+  
+
+rules // projections
+  
