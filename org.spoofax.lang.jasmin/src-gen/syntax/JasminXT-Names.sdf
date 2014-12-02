@@ -54,3 +54,9 @@ exports
 
   context-free syntax
     CONTENTCOMPLETE -> BaseTypeName {cons("COMPLETION-BaseTypeName")}
+
+  syntax
+    "L" <ClassRef-CF> ";" -> <ObjectType-CF> {cons("Reference")}
+
+  context-free syntax
+    ObjectType -> FieldType 
