@@ -1,4 +1,4 @@
-package org.spoofax.asm;
+package org.spoofax.lang.jasmin.strategies;
 
 import static org.spoofax.interpreter.core.Tools.asJavaString;
 import static org.spoofax.interpreter.core.Tools.hasConstructor;

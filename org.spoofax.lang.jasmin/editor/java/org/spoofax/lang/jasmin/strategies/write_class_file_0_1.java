@@ -6,7 +6,6 @@ import static org.spoofax.interpreter.core.Tools.isTermString;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.spoofax.asm.ClassGenerator;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.strategoxt.lang.Context;
 import org.strategoxt.lang.Strategy;

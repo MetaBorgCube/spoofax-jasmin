@@ -37,7 +37,7 @@ binding rules
 		scopes Label, Variable
 	
 	JBCMethodRef(CRef(c), MRef(name), type-desc):
-		refers to Method name of type type-desc
+		refers to Method name //of type type-desc
 		in Class c
 			
 binding rules
@@ -49,7 +49,7 @@ binding rules
 		defines Field name of type type-desc
 	
 	JBCFieldRef(CRef(c), FRef(name), type-desc):
-		refers to Field name of type type-desc
+		refers to Field name //of type type-desc
 		in Class c
 
 binding rules
