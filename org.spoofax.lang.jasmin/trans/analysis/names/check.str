@@ -27,33 +27,33 @@ strategies
   
 rules
   // Undefined reference errors
-  nabl-constraint(|ctx):
-    CRef(c) -> <fail>
-      where
-        <has-annotation(?Use(task))> c
-      ; msg  := $[Class [<pp-ClassName> c] is undefined]
-      ; <task-create-error-on-failure(|ctx, task, msg)> c
-  
-  nabl-constraint(|ctx):
-    JBCSuper(c) -> <fail>
-      where
-        <has-annotation(?Use(task))> c
-      ; msg  := $[Class [<pp-ClassName> c] is undefined]
-      ; <task-create-error-on-failure(|ctx, task, msg)> c
-  
-  nabl-constraint(|ctx):
-    JBCMethodRef(_, MRef(m), _) -> <fail>
-      where
-        <has-annotation(?Use(task))> m
-      ; msg  := $[Method [<pp-MethodName> m] is undefined]
-      ; <task-create-error-on-failure(|ctx, task, msg)> m
-  
-  nabl-constraint(|ctx):
-    JBCFieldRef(_, FRef(f), _) -> <fail>
-      where
-        <has-annotation(?Use(task))> f
-      ; msg  := $[Field [<pp-FieldName> f] is undefined]
-      ; <task-create-error-on-failure(|ctx, task, msg)> f
+//   nabl-constraint(|ctx):
+//     CRef(c) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> c
+//       ; msg  := $[Class [<pp-ClassName> c] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> c
+//   
+//   nabl-constraint(|ctx):
+//     JBCSuper(c) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> c
+//       ; msg  := $[Class [<pp-ClassName> c] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> c
+//   
+//   nabl-constraint(|ctx):
+//     JBCMethodRef(_, MRef(m), _) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> m
+//       ; msg  := $[Method [<pp-MethodName> m] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> m
+//   
+//   nabl-constraint(|ctx):
+//     JBCFieldRef(_, FRef(f), _) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> f
+//       ; msg  := $[Field [<pp-FieldName> f] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> f
 
   // Double names
   nabl-constraint(|ctx):
