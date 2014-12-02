@@ -430,3 +430,42 @@ strategies
 
   is-BaseTypeName =
     fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-ObjectType
+
+  prettyprint-ObjectType :
+    Reference(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [ S("L")
+                           , t1__'
+                           , S(";")
+                           ]
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
+
+  is-ObjectType =
+    ?Reference(_)
+
+  is-ObjectType =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-FieldType
+
+  prettyprint-FieldType :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-FieldType)
+    where t1__' := <pp-one-Z(prettyprint-ObjectType)> t1__
+
+  is-FieldType =
+    fail
