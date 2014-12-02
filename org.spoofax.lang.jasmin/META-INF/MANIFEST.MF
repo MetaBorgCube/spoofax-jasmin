@@ -17,4 +17,11 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osgi.framework;version="1.3.0",org.spoofax.terms.a
  ttachments
+Bundle-ClassPath: lib/asm-5.0_BETA.jar,
+ lib/asm-analysis-5.0_BETA.jar,
+ lib/asm-commons-5.0_BETA.jar,
+ lib/asm-tree-5.0_BETA.jar,
+ lib/asm-util-5.0_BETA.jar,
+ lib/asm-xml-5.0_BETA.jar,
+ .
 
