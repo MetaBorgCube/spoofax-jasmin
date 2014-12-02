@@ -1,0 +1,39 @@
+module src-gen/signatures/JasminXT-Objects-sig
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+signature
+  constructors
+    NEW            : ClassRef -> Instruction
+    NEWARRAY       : BaseTypeName -> Instruction
+    ANEWARRAY      : ANewArrayArg -> Instruction
+                   : ClassRef -> ANewArrayArg
+                   : ArrayType -> ANewArrayArg
+    MULTIANEWARRAY : ArrayType * Int -> Instruction
+    GETFIELD       : FieldRef -> Instruction
+    PUTFIELD       : FieldRef -> Instruction
+    GETSTATIC      : FieldRef -> Instruction
+    PUTSTATIC      : FieldRef -> Instruction
+    IALOAD         : Instruction
+    LALOAD         : Instruction
+    BALOAD         : Instruction
+    CALOAD         : Instruction
+    SALOAD         : Instruction
+    FALOAD         : Instruction
+    DALOAD         : Instruction
+    AALOAD         : Instruction
+    IASTORE        : Instruction
+    LASTORE        : Instruction
+    BASTORE        : Instruction
+    CASTORE        : Instruction
+    SASTORE        : Instruction
+    FASTORE        : Instruction
+    DASTORE        : Instruction
+    AASTORE        : Instruction
+    ARRAYLENGTH    : Instruction
+    CHECKCAST      : ClassRef -> Instruction
+    INSTANCEOF     : ClassRef -> Instruction

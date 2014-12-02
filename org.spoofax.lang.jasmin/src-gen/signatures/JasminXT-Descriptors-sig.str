@@ -1,0 +1,30 @@
+module src-gen/signatures/JasminXT-Descriptors-sig
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+
+
+signature
+  constructors
+    JBCFieldDesc : FieldType -> FieldDescriptor
+                 : FieldType -> ParameterDescriptor
+                 : FieldType -> AnnotationDescriptor
+                 : FieldType -> ReturnDescriptor
+    Void         : ReturnDescriptor
+                 : BaseType -> FieldType
+                 : ObjectType -> FieldType
+                 : ArrayType -> FieldType
+    Byte         : BaseType
+    Char         : BaseType
+    Double       : BaseType
+    Float        : BaseType
+    Int          : BaseType
+    Long         : BaseType
+    Short        : BaseType
+    Boolean      : BaseType
+                 : FieldType -> ComponentType
+
+  constructors
+    JBCMethodDesc : List(ParameterDescriptor) * ReturnDescriptor -> MethodDescriptor
+    Reference     : ClassRef -> ObjectType
+    Array         : ComponentType -> ArrayType

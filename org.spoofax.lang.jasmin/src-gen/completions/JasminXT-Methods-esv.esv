@@ -1,0 +1,33 @@
+module src-gen/completions/JasminXT-Methods-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Strings-esv
+  src-gen/completions/JasminXT-Descriptors-esv
+  src-gen/completions/JasminXT-Instructions-esv
+  src-gen/completions/JasminXT-Directives-esv
+
+completions
+  completion template Method : ".method MethodName MethodDescriptor .end method" =
+    ".method " <:MethodAccess> " " <MethodName:MethodName> " " <MethodDescriptor:MethodDescriptor> "\n\t" (cursor) "\n.end method" (blank)  
+  completion template MethodAccess : "public" =
+    "public"                                                                                
+  completion template MethodAccess : "private" =
+    "private"                                                                              
+  completion template MethodAccess : "protected" =
+    "protected"                                                                          
+  completion template MethodAccess : "static" =
+    "static"                                                                                
+  completion template MethodAccess : "final" =
+    "final"                                                                                  
+  completion template MethodAccess : "synchronized" =
+    "synchronized"                                                                    
+  completion template MethodAccess : "native" =
+    "native"                                                                                
+  completion template MethodAccess : "abstract" =
+    "abstract"                                                                            
+
+completions
+  completion template Label : "LabelName:" =
+    <LabelName:LabelName> ":"  

@@ -1,0 +1,18 @@
+module src-gen/signatures/JasminXT-Annotations-sig
+
+imports
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+signature
+  constructors
+    RuntimeVisible        : ClassName * List(AnnotationField) -> Annotation
+    RuntimeInvisible      : ClassName * List(AnnotationField) -> Annotation
+    RuntimeVisibleParam   : Int * ClassName * List(AnnotationField) -> Annotation
+    RuntimeInvisibleParam : Int * ClassName * List(AnnotationField) -> Annotation
+    AnnotationDefault     : AnnotationName * List(Constant) -> Annotation
+    AnnotationField       : AnnotationName * AnnotationDescriptor * List(Constant) -> AnnotationField
+    NestedAnnotation      : AnnotationName * Annotation -> AnnotationField

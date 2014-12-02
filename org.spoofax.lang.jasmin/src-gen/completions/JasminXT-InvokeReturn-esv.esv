@@ -1,0 +1,32 @@
+module src-gen/completions/JasminXT-InvokeReturn-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Descriptors-esv
+  src-gen/completions/JasminXT-Numbers-esv
+
+completions
+  completion template Instruction : "invokenonvirtual MethodRef" =
+    "invokenonvirtual " <MethodRef:MethodRef>  
+  completion template Instruction : "invokevirtual MethodRef" =
+    "invokevirtual " <MethodRef:MethodRef>  
+  completion template Instruction : "invokestatic MethodRef" =
+    "invokestatic " <MethodRef:MethodRef>  
+  completion template Instruction : "invokeinterface MethodRef Int" =
+    "invokeinterface " <MethodRef:MethodRef> " " <Int:Int>  
+  completion template Instruction : "return" =
+    "return"  
+  completion template Instruction : "ireturn" =
+    "ireturn"  
+  completion template Instruction : "lreturn" =
+    "lreturn"  
+  completion template Instruction : "freturn" =
+    "freturn"  
+  completion template Instruction : "dreturn" =
+    "dreturn"  
+  completion template Instruction : "areturn" =
+    "areturn"  
+  completion template Instruction : "ret VarRef" =
+    "ret " <VarRef:VarRef>  
+  completion template Instruction : "ret_w VarRef" =
+    "ret_w " <VarRef:VarRef>  

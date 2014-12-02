@@ -1,0 +1,80 @@
+module src-gen/pp/JasminXT-Numbers-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Int
+
+
+strategies
+  prettyprint-Double =
+    ![S(<is-string>)]
+
+  prettyprint-Float =
+    ![S(<is-string>)]
+
+  prettyprint-Int =
+    ![S(<is-string>)]
+
+  prettyprint-example =
+    prettyprint-Double
+
+  prettyprint-example =
+    prettyprint-Float
+
+  prettyprint-example =
+    prettyprint-Int
+
+
+strategies
+  prettyprint-NegInt =
+    ![S(<is-string>)]
+
+  prettyprint-example =
+    prettyprint-NegInt
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Constant
+
+  prettyprint-Constant :
+    Double(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-Double)> t1__
+
+  is-Constant =
+    ?Double(_)
+
+  prettyprint-Constant :
+    Float(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-Float)> t1__
+
+  is-Constant =
+    ?Float(_)
+
+  prettyprint-Constant :
+    Int(t1__) -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [t1__']
+                   )
+                 ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-Constant =
+    ?Int(_)
+
+  is-Constant =
+    fail

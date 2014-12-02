@@ -1,0 +1,62 @@
+module src-gen/completions/JasminXT-Objects-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Descriptors-esv
+
+completions
+  completion template Instruction : "new ClassRef" =
+    "new " <ClassRef:ClassRef>  
+  completion template Instruction : "newarray BaseTypeName" =
+    "newarray " <BaseTypeName:BaseTypeName>  
+  completion template Instruction : "anewarray ANewArrayArg" =
+    "anewarray " <ANewArrayArg:ANewArrayArg>  
+  completion template Instruction : "multianewarray ArrayType Int" =
+    "multianewarray " <ArrayType:ArrayType> " " <Int:Int>  
+  completion template Instruction : "getfield FieldRef" =
+    "getfield " <FieldRef:FieldRef>  
+  completion template Instruction : "putfield FieldRef" =
+    "putfield " <FieldRef:FieldRef>  
+  completion template Instruction : "getstatic FieldRef" =
+    "getstatic " <FieldRef:FieldRef>  
+  completion template Instruction : "putstatic FieldRef" =
+    "putstatic " <FieldRef:FieldRef>  
+  completion template Instruction : "iaload" =
+    "iaload"  
+  completion template Instruction : "laload" =
+    "laload"  
+  completion template Instruction : "baload" =
+    "baload"  
+  completion template Instruction : "caload" =
+    "caload"  
+  completion template Instruction : "saload" =
+    "saload"  
+  completion template Instruction : "faload" =
+    "faload"  
+  completion template Instruction : "daload" =
+    "daload"  
+  completion template Instruction : "aaload" =
+    "aaload"  
+  completion template Instruction : "iastore" =
+    "iastore"  
+  completion template Instruction : "lastore" =
+    "lastore"  
+  completion template Instruction : "bastore" =
+    "bastore"  
+  completion template Instruction : "castore" =
+    "castore"  
+  completion template Instruction : "sastore" =
+    "sastore"  
+  completion template Instruction : "fastore" =
+    "fastore"  
+  completion template Instruction : "dastore" =
+    "dastore"  
+  completion template Instruction : "aastore" =
+    "aastore"  
+  completion template Instruction : "arraylength" =
+    "arraylength"  
+  completion template Instruction : "checkcast ClassRef" =
+    "checkcast " <ClassRef:ClassRef>  
+  completion template Instruction : "instanceof ClassRef" =
+    "instanceof " <ClassRef:ClassRef>  

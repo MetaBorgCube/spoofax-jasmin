@@ -1,0 +1,21 @@
+module src-gen/completions/JasminXT-Stack-esv
+
+completions
+  completion template Instruction : "pop" =
+    "pop"  
+  completion template Instruction : "pop2" =
+    "pop2"  
+  completion template Instruction : "dup" =
+    "dup"  
+  completion template Instruction : "dup2" =
+    "dup2"  
+  completion template Instruction : "dup_x1" =
+    "dup_x1"  
+  completion template Instruction : "dup2_x1" =
+    "dup2_x1"  
+  completion template Instruction : "dup_x2" =
+    "dup_x2"  
+  completion template Instruction : "dup2_x2" =
+    "dup2_x2"  
+  completion template Instruction : "swap" =
+    "swap"  

@@ -1,0 +1,51 @@
+module src-gen/signatures/JasminXT-Header-sig
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+signature
+  constructors
+    JBCHeader : BytecodeSpec * SourceSpec * ClassSpec * SuperSpec * List(ImplementsSpec) * SignatureSpec * EnclosingSpec * List(DebugSpec) * List(InnerClassSpec) * List(InnerInterfaceSpec) -> JasminHeader
+
+  constructors
+    JBCVersion : MajorVersion * MinorVersion -> BytecodeSpec
+    None       : BytecodeSpec
+    Major      : Int -> MajorVersion
+    Minor      : Int -> MinorVersion
+    None       : MinorVersion
+    JBCSource  : String -> SourceSpec
+    None       : SourceSpec
+
+  constructors
+    JBCClass      : List(ClassAccess) * ClassName -> ClassSpec
+    JBCInterface  : List(ClassAccess) * ClassName -> ClassSpec
+    PUBLIC        : ClassAccess
+    FINAL         : ClassAccess
+    INTERFACE     : ClassAccess
+    ABSTRACT      : ClassAccess
+    SUPER         : ClassAccess
+    JBCSuper      : ClassName -> SuperSpec
+    JBCImplements : ClassName -> ImplementsSpec
+
+  constructors
+    JBCSignature : String -> SignatureSpec
+    None         : SignatureSpec
+    JBCEnclosing : MethodDescriptor -> EnclosingSpec
+    None         : EnclosingSpec
+    JBCDebug     : String -> DebugSpec
+
+  constructors
+    JBCInnerClass     : InnerClassAccess * InnerClassName * InnerName * OuterName -> InnerClassSpec
+    JBCInnerInterface : InnerClassAccess * InnerClassName * InnerName * OuterName -> InnerInterfaceSpec
+                      : ClassAccess -> InnerClassAccess
+    None              : InnerClassAccess
+                      : ClassName -> InnerClassName
+    None              : InnerClassName
+    InnerNameSpec     : List(ClassName) -> InnerName
+    None              : InnerName
+    OuterNameSpec     : ClassName -> OuterName
+    None              : OuterName

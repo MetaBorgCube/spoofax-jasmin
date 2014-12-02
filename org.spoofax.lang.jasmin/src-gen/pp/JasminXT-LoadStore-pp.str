@@ -1,0 +1,864 @@
+module src-gen/pp/JasminXT-LoadStore-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-LoadStore-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+
+
+imports
+  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Numbers-pp
+  src-gen/pp/JasminXT-Strings-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    BIPUSH(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("bipush "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-Instruction =
+    ?BIPUSH(_)
+
+  prettyprint-Instruction :
+    SIPUSH(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("sipush "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-Instruction =
+    ?SIPUSH(_)
+
+  prettyprint-Instruction :
+    ICONST_M1() -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("iconst_m1")]
+                     )
+                   ]
+
+  is-Instruction =
+    ?ICONST_M1()
+
+  prettyprint-Instruction :
+    ICONST_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("iconst_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ICONST_0()
+
+  prettyprint-Instruction :
+    ICONST_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("iconst_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ICONST_1()
+
+  prettyprint-Instruction :
+    ICONST_2() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("iconst_2")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ICONST_2()
+
+  prettyprint-Instruction :
+    ICONST_3() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("iconst_3")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ICONST_3()
+
+  prettyprint-Instruction :
+    ICONST_4() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("iconst_4")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ICONST_4()
+
+  prettyprint-Instruction :
+    ICONST_5() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("iconst_5")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ICONST_5()
+
+  prettyprint-Instruction :
+    LCONST_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("lconst_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?LCONST_0()
+
+  prettyprint-Instruction :
+    LCONST_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("lconst_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?LCONST_1()
+
+  prettyprint-Instruction :
+    FCONST_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("fconst_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?FCONST_0()
+
+  prettyprint-Instruction :
+    FCONST_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("fconst_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?FCONST_1()
+
+  prettyprint-Instruction :
+    FCONST_2() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("fconst_2")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?FCONST_2()
+
+  prettyprint-Instruction :
+    DCONST_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("dconst_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?DCONST_0()
+
+  prettyprint-Instruction :
+    DCONST_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("dconst_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?DCONST_1()
+
+  prettyprint-Instruction :
+    ACONST_NULL() -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("aconst_null")]
+                       )
+                     ]
+
+  is-Instruction =
+    ?ACONST_NULL()
+
+  prettyprint-Instruction :
+    LDC(t1__) -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("ldc "), t1__']
+                   )
+                 ]
+    with t1__' := <pp-one-Z(prettyprint-Constant)> t1__
+
+  is-Instruction =
+    ?LDC(_)
+
+  prettyprint-Instruction :
+    LDC_W(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("ldc_w "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-Constant)> t1__
+
+  is-Instruction =
+    ?LDC_W(_)
+
+  prettyprint-Instruction :
+    LDC2_W(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("ldc2_w "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-Constant)> t1__
+
+  is-Instruction =
+    ?LDC2_W(_)
+
+  is-Instruction =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    ILOAD(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("iload "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ILOAD(_)
+
+  prettyprint-Instruction :
+    LLOAD(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("lload "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?LLOAD(_)
+
+  prettyprint-Instruction :
+    FLOAD(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("fload "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?FLOAD(_)
+
+  prettyprint-Instruction :
+    DLOAD(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("dload "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?DLOAD(_)
+
+  prettyprint-Instruction :
+    ALOAD(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("aload "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ALOAD(_)
+
+  prettyprint-Instruction :
+    ILOAD_W(t1__) -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("iload_w "), t1__']
+                       )
+                     ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ILOAD_W(_)
+
+  prettyprint-Instruction :
+    LLOAD_W(t1__) -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("lload_w "), t1__']
+                       )
+                     ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?LLOAD_W(_)
+
+  prettyprint-Instruction :
+    FLOAD_W(t1__) -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("fload_w "), t1__']
+                       )
+                     ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?FLOAD_W(_)
+
+  prettyprint-Instruction :
+    DLOAD_W(t1__) -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("dload_w "), t1__']
+                       )
+                     ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?DLOAD_W(_)
+
+  prettyprint-Instruction :
+    ALOAD_W(t1__) -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("aload_w "), t1__']
+                       )
+                     ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ALOAD_W(_)
+
+  prettyprint-Instruction :
+    ILOAD_0() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("iload_0")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ILOAD_0()
+
+  prettyprint-Instruction :
+    ILOAD_1() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("iload_1")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ILOAD_1()
+
+  prettyprint-Instruction :
+    ILOAD_2() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("iload_2")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ILOAD_2()
+
+  prettyprint-Instruction :
+    ILOAD_3() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("iload_3")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ILOAD_3()
+
+  prettyprint-Instruction :
+    ALOAD_0() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("aload_0")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ALOAD_0()
+
+  prettyprint-Instruction :
+    ALOAD_1() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("aload_1")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ALOAD_1()
+
+  prettyprint-Instruction :
+    ALOAD_2() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("aload_2")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ALOAD_2()
+
+  prettyprint-Instruction :
+    ALOAD_3() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("aload_3")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ALOAD_3()
+
+  prettyprint-Instruction :
+    LLOAD_0() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("lload_0")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?LLOAD_0()
+
+  prettyprint-Instruction :
+    LLOAD_1() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("lload_1")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?LLOAD_1()
+
+  prettyprint-Instruction :
+    LLOAD_2() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("lload_2")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?LLOAD_2()
+
+  prettyprint-Instruction :
+    LLOAD_3() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("lload_3")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?LLOAD_3()
+
+  prettyprint-Instruction :
+    DLOAD_0() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dload_0")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DLOAD_0()
+
+  prettyprint-Instruction :
+    DLOAD_1() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dload_1")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DLOAD_1()
+
+  prettyprint-Instruction :
+    DLOAD_2() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dload_2")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DLOAD_2()
+
+  prettyprint-Instruction :
+    DLOAD_3() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dload_3")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DLOAD_3()
+
+  prettyprint-Instruction :
+    FLOAD_0() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("fload_0")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?FLOAD_0()
+
+  prettyprint-Instruction :
+    FLOAD_1() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("fload_1")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?FLOAD_1()
+
+  prettyprint-Instruction :
+    FLOAD_2() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("fload_2")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?FLOAD_2()
+
+  prettyprint-Instruction :
+    FLOAD_3() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("fload_3")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?FLOAD_3()
+
+  prettyprint-Instruction :
+    ISTORE(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("istore "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ISTORE(_)
+
+  prettyprint-Instruction :
+    LSTORE(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("lstore "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?LSTORE(_)
+
+  prettyprint-Instruction :
+    FSTORE(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("fstore "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?FSTORE(_)
+
+  prettyprint-Instruction :
+    DSTORE(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("dstore "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?DSTORE(_)
+
+  prettyprint-Instruction :
+    ASTORE(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("astore "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ASTORE(_)
+
+  prettyprint-Instruction :
+    ISTORE_W(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("istore_w "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ISTORE_W(_)
+
+  prettyprint-Instruction :
+    LSTORE_W(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("lstore_w "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?LSTORE_W(_)
+
+  prettyprint-Instruction :
+    FSTORE_W(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("fstore_w "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?FSTORE_W(_)
+
+  prettyprint-Instruction :
+    DSTORE_W(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("dstore_w "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?DSTORE_W(_)
+
+  prettyprint-Instruction :
+    ASTORE_W(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("astore_w "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?ASTORE_W(_)
+
+  prettyprint-Instruction :
+    ISTORE_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("istore_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ISTORE_0()
+
+  prettyprint-Instruction :
+    ISTORE_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("istore_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ISTORE_1()
+
+  prettyprint-Instruction :
+    ISTORE_2() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("istore_2")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ISTORE_2()
+
+  prettyprint-Instruction :
+    ISTORE_3() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("istore_3")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ISTORE_3()
+
+  prettyprint-Instruction :
+    ASTORE_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("astore_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ASTORE_0()
+
+  prettyprint-Instruction :
+    ASTORE_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("astore_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ASTORE_1()
+
+  prettyprint-Instruction :
+    ASTORE_2() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("astore_2")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ASTORE_2()
+
+  prettyprint-Instruction :
+    ASTORE_3() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("astore_3")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?ASTORE_3()
+
+  prettyprint-Instruction :
+    LSTORE_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("lstore_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?LSTORE_0()
+
+  prettyprint-Instruction :
+    LSTORE_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("lstore_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?LSTORE_1()
+
+  prettyprint-Instruction :
+    LSTORE_2() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("lstore_2")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?LSTORE_2()
+
+  prettyprint-Instruction :
+    LSTORE_3() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("lstore_3")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?LSTORE_3()
+
+  prettyprint-Instruction :
+    FSTORE_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("fstore_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?FSTORE_0()
+
+  prettyprint-Instruction :
+    FSTORE_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("fstore_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?FSTORE_1()
+
+  prettyprint-Instruction :
+    FSTORE_2() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("fstore_2")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?FSTORE_2()
+
+  prettyprint-Instruction :
+    FSTORE_3() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("fstore_3")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?FSTORE_3()
+
+  prettyprint-Instruction :
+    DSTORE_0() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("dstore_0")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?DSTORE_0()
+
+  prettyprint-Instruction :
+    DSTORE_1() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("dstore_1")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?DSTORE_1()
+
+  prettyprint-Instruction :
+    DSTORE_2() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("dstore_2")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?DSTORE_2()
+
+  prettyprint-Instruction :
+    DSTORE_3() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("dstore_3")]
+                    )
+                  ]
+
+  is-Instruction =
+    ?DSTORE_3()
+
+  is-Instruction =
+    fail

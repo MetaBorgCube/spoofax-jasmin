@@ -1,0 +1,165 @@
+module src-gen/pp/JasminXT-Annotations-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Annotations-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/pp/JasminXT-Strings-pp
+  src-gen/pp/JasminXT-Numbers-pp
+  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Descriptors-pp
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Annotation
+
+  prettyprint-example =
+    prettyprint-AnnotationField
+
+  prettyprint-Annotation :
+    RuntimeVisible(t1__, t2__) -> [ H(
+                                      [SOpt(HS(), "0")]
+                                    , [S(".annotation visible "), t1__']
+                                    )
+                                  , t2__'
+                                  , H(
+                                      [SOpt(HS(), "0")]
+                                    , [S(".end annotation")]
+                                    )
+                                  ]
+    with t1__' := <pp-one-Z(prettyprint-ClassName)> t1__
+    with t2__' := <pp-indent(|"2")> [ <pp-V-list(prettyprint-AnnotationField|"0", "\t")> t2__
+                                    ]
+
+  is-Annotation =
+    ?RuntimeVisible(_, _)
+
+  prettyprint-Annotation :
+    RuntimeInvisible(t1__, t2__) -> [ H(
+                                        [SOpt(HS(), "0")]
+                                      , [S(".annotation invisible "), t1__']
+                                      )
+                                    , t2__'
+                                    , H(
+                                        [SOpt(HS(), "0")]
+                                      , [S(".end annotation")]
+                                      )
+                                    ]
+    with t1__' := <pp-one-Z(prettyprint-ClassName)> t1__
+    with t2__' := <pp-indent(|"2")> [ <pp-V-list(prettyprint-AnnotationField|"0", "\t")> t2__
+                                    ]
+
+  is-Annotation =
+    ?RuntimeInvisible(_, _)
+
+  prettyprint-Annotation :
+    RuntimeVisibleParam(t1__, t2__, t3__) -> [ H(
+                                                 [SOpt(HS(), "0")]
+                                               , [ S(".annotation visibleparam ")
+                                                 , t1__'
+                                                 , S(" ")
+                                                 , t2__'
+                                                 ]
+                                               )
+                                             , t3__'
+                                             , H(
+                                                 [SOpt(HS(), "0")]
+                                               , [S(".end annotation")]
+                                               )
+                                             ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+    with t2__' := <pp-one-Z(prettyprint-ClassName)> t2__
+    with t3__' := <pp-indent(|"2")> [ <pp-V-list(prettyprint-AnnotationField|"0", "\t")> t3__
+                                    ]
+
+  is-Annotation =
+    ?RuntimeVisibleParam(_, _, _)
+
+  prettyprint-Annotation :
+    RuntimeInvisibleParam(t1__, t2__, t3__) -> [ H(
+                                                   [SOpt(HS(), "0")]
+                                                 , [ S(".annotation invisibleparam ")
+                                                   , t1__'
+                                                   , S(" ")
+                                                   , t2__'
+                                                   ]
+                                                 )
+                                               , t3__'
+                                               , H(
+                                                   [SOpt(HS(), "0")]
+                                                 , [S(".end annotation")]
+                                                 )
+                                               ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+    with t2__' := <pp-one-Z(prettyprint-ClassName)> t2__
+    with t3__' := <pp-indent(|"2")> [ <pp-V-list(prettyprint-AnnotationField|"0", "\t")> t3__
+                                    ]
+
+  is-Annotation =
+    ?RuntimeInvisibleParam(_, _, _)
+
+  prettyprint-Annotation :
+    AnnotationDefault(t1__, t2__) -> [ H(
+                                         [SOpt(HS(), "0")]
+                                       , [S(".annotation default")]
+                                       )
+                                     , t1__'
+                                     , H(
+                                         [SOpt(HS(), "0")]
+                                       , [S(".end annotation")]
+                                       )
+                                     ]
+    with t1__' := <pp-indent(|"2")> [ <pp-one-Z(prettyprint-AnnotationName)> t1__
+                                    , S(" = ")
+                                    , <pp-H-list(prettyprint-Constant|" ")> t2__
+                                    ]
+
+  is-Annotation =
+    ?AnnotationDefault(_, _)
+
+  prettyprint-AnnotationField :
+    AnnotationField(t1__, t2__, t3__) -> [ H(
+                                             [SOpt(HS(), "0")]
+                                           , [ t1__'
+                                             , S(" ")
+                                             , t2__'
+                                             , S(" = ")
+                                             , t3__'
+                                             ]
+                                           )
+                                         ]
+    with t1__' := <pp-one-Z(prettyprint-AnnotationName)> t1__
+    with t2__' := <pp-one-Z(prettyprint-AnnotationDescriptor)> t2__
+    with t3__' := <pp-H-list(prettyprint-Constant|" ")> t3__
+
+  is-AnnotationField =
+    ?AnnotationField(_, _, _)
+
+  prettyprint-AnnotationField :
+    NestedAnnotation(t1__, t2__) -> [ H(
+                                        [SOpt(HS(), "0")]
+                                      , [t1__', S(" @ = "), t2__']
+                                      )
+                                    ]
+    with t1__' := <pp-one-Z(prettyprint-AnnotationName)> t1__
+    with t2__' := <pp-one-Z(prettyprint-Annotation)> t2__
+
+  is-AnnotationField =
+    ?NestedAnnotation(_, _)
+
+  is-Annotation =
+    fail
+
+  is-AnnotationField =
+    fail

@@ -1,0 +1,93 @@
+module src-gen/completions/JasminXT-Arithmetic-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+
+completions
+  completion template Instruction : "iadd" =
+    "iadd"  
+  completion template Instruction : "iand" =
+    "iand"  
+  completion template Instruction : "idiv" =
+    "idiv"  
+  completion template Instruction : "imul" =
+    "imul"  
+  completion template Instruction : "ineg" =
+    "ineg"  
+  completion template Instruction : "ior" =
+    "ior"  
+  completion template Instruction : "irem" =
+    "irem"  
+  completion template Instruction : "ishl" =
+    "ishl"  
+  completion template Instruction : "ishr" =
+    "ishr"  
+  completion template Instruction : "isub" =
+    "isub"  
+  completion template Instruction : "iushr" =
+    "iushr"  
+  completion template Instruction : "ixor" =
+    "ixor"  
+  completion template Instruction : "ladd" =
+    "ladd"  
+  completion template Instruction : "land" =
+    "land"  
+  completion template Instruction : "ldiv" =
+    "ldiv"  
+  completion template Instruction : "lmul" =
+    "lmul"  
+  completion template Instruction : "lneg" =
+    "lneg"  
+  completion template Instruction : "lor" =
+    "lor"  
+  completion template Instruction : "lrem" =
+    "lrem"  
+  completion template Instruction : "lshl" =
+    "lshl"  
+  completion template Instruction : "lshr" =
+    "lshr"  
+  completion template Instruction : "lsub" =
+    "lsub"  
+  completion template Instruction : "lushr" =
+    "lushr"  
+  completion template Instruction : "lxor" =
+    "lxor"  
+  completion template Instruction : "fadd" =
+    "fadd"  
+  completion template Instruction : "fdiv" =
+    "fdiv"  
+  completion template Instruction : "fmul" =
+    "fmul"  
+  completion template Instruction : "fneg" =
+    "fneg"  
+  completion template Instruction : "frem" =
+    "frem"  
+  completion template Instruction : "fsub" =
+    "fsub"  
+  completion template Instruction : "dadd" =
+    "dadd"  
+  completion template Instruction : "ddiv" =
+    "ddiv"  
+  completion template Instruction : "dmul" =
+    "dmul"  
+  completion template Instruction : "dneg" =
+    "dneg"  
+  completion template Instruction : "drem" =
+    "drem"  
+  completion template Instruction : "dsub" =
+    "dsub"  
+  completion template Instruction : "iinc VarRef Amount" =
+    "iinc " <VarRef:VarRef> " " <Amount:Amount>  
+  completion template Instruction : "iinc_w VarRef Amount" =
+    "iinc_w " <VarRef:VarRef> " " <Amount:Amount>  
+  completion template Instruction : "fcmpg" =
+    "fcmpg"  
+  completion template Instruction : "fcmpl" =
+    "fcmpl"  
+  completion template Instruction : "dcmpg" =
+    "dcmpg"  
+  completion template Instruction : "dcmpl" =
+    "dcmpl"  
+  completion template Instruction : "lcmp" =
+    "lcmp"  

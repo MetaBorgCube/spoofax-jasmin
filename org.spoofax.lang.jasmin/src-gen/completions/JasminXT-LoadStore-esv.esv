@@ -1,0 +1,170 @@
+module src-gen/completions/JasminXT-LoadStore-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Strings-esv
+
+completions
+  completion template Instruction : "bipush Int" =
+    "bipush " <Int:Int>  
+  completion template Instruction : "sipush Int" =
+    "sipush " <Int:Int>  
+  completion template Instruction : "iconst_m1" =
+    "iconst_m1"  
+  completion template Instruction : "iconst_0" =
+    "iconst_0"  
+  completion template Instruction : "iconst_1" =
+    "iconst_1"  
+  completion template Instruction : "iconst_2" =
+    "iconst_2"  
+  completion template Instruction : "iconst_3" =
+    "iconst_3"  
+  completion template Instruction : "iconst_4" =
+    "iconst_4"  
+  completion template Instruction : "iconst_5" =
+    "iconst_5"  
+  completion template Instruction : "lconst_0" =
+    "lconst_0"  
+  completion template Instruction : "lconst_1" =
+    "lconst_1"  
+  completion template Instruction : "fconst_0" =
+    "fconst_0"  
+  completion template Instruction : "fconst_1" =
+    "fconst_1"  
+  completion template Instruction : "fconst_2" =
+    "fconst_2"  
+  completion template Instruction : "dconst_0" =
+    "dconst_0"  
+  completion template Instruction : "dconst_1" =
+    "dconst_1"  
+  completion template Instruction : "aconst_null" =
+    "aconst_null"  
+  completion template Instruction : "ldc Constant" =
+    "ldc " <Constant:Constant>  
+  completion template Instruction : "ldc_w Constant" =
+    "ldc_w " <Constant:Constant>  
+  completion template Instruction : "ldc2_w Constant" =
+    "ldc2_w " <Constant:Constant>  
+
+completions
+  completion template Instruction : "iload VarRef" =
+    "iload " <VarRef:VarRef>  
+  completion template Instruction : "lload VarRef" =
+    "lload " <VarRef:VarRef>  
+  completion template Instruction : "fload VarRef" =
+    "fload " <VarRef:VarRef>  
+  completion template Instruction : "dload VarRef" =
+    "dload " <VarRef:VarRef>  
+  completion template Instruction : "aload VarRef" =
+    "aload " <VarRef:VarRef>  
+  completion template Instruction : "iload_w VarRef" =
+    "iload_w " <VarRef:VarRef>  
+  completion template Instruction : "lload_w VarRef" =
+    "lload_w " <VarRef:VarRef>  
+  completion template Instruction : "fload_w VarRef" =
+    "fload_w " <VarRef:VarRef>  
+  completion template Instruction : "dload_w VarRef" =
+    "dload_w " <VarRef:VarRef>  
+  completion template Instruction : "aload_w VarRef" =
+    "aload_w " <VarRef:VarRef>  
+  completion template Instruction : "iload_0" =
+    "iload_0"  
+  completion template Instruction : "iload_1" =
+    "iload_1"  
+  completion template Instruction : "iload_2" =
+    "iload_2"  
+  completion template Instruction : "iload_3" =
+    "iload_3"  
+  completion template Instruction : "aload_0" =
+    "aload_0"  
+  completion template Instruction : "aload_1" =
+    "aload_1"  
+  completion template Instruction : "aload_2" =
+    "aload_2"  
+  completion template Instruction : "aload_3" =
+    "aload_3"  
+  completion template Instruction : "lload_0" =
+    "lload_0"  
+  completion template Instruction : "lload_1" =
+    "lload_1"  
+  completion template Instruction : "lload_2" =
+    "lload_2"  
+  completion template Instruction : "lload_3" =
+    "lload_3"  
+  completion template Instruction : "dload_0" =
+    "dload_0"  
+  completion template Instruction : "dload_1" =
+    "dload_1"  
+  completion template Instruction : "dload_2" =
+    "dload_2"  
+  completion template Instruction : "dload_3" =
+    "dload_3"  
+  completion template Instruction : "fload_0" =
+    "fload_0"  
+  completion template Instruction : "fload_1" =
+    "fload_1"  
+  completion template Instruction : "fload_2" =
+    "fload_2"  
+  completion template Instruction : "fload_3" =
+    "fload_3"  
+  completion template Instruction : "istore VarRef" =
+    "istore " <VarRef:VarRef>  
+  completion template Instruction : "lstore VarRef" =
+    "lstore " <VarRef:VarRef>  
+  completion template Instruction : "fstore VarRef" =
+    "fstore " <VarRef:VarRef>  
+  completion template Instruction : "dstore VarRef" =
+    "dstore " <VarRef:VarRef>  
+  completion template Instruction : "astore VarRef" =
+    "astore " <VarRef:VarRef>  
+  completion template Instruction : "istore_w VarRef" =
+    "istore_w " <VarRef:VarRef>  
+  completion template Instruction : "lstore_w VarRef" =
+    "lstore_w " <VarRef:VarRef>  
+  completion template Instruction : "fstore_w VarRef" =
+    "fstore_w " <VarRef:VarRef>  
+  completion template Instruction : "dstore_w VarRef" =
+    "dstore_w " <VarRef:VarRef>  
+  completion template Instruction : "astore_w VarRef" =
+    "astore_w " <VarRef:VarRef>  
+  completion template Instruction : "istore_0" =
+    "istore_0"  
+  completion template Instruction : "istore_1" =
+    "istore_1"  
+  completion template Instruction : "istore_2" =
+    "istore_2"  
+  completion template Instruction : "istore_3" =
+    "istore_3"  
+  completion template Instruction : "astore_0" =
+    "astore_0"  
+  completion template Instruction : "astore_1" =
+    "astore_1"  
+  completion template Instruction : "astore_2" =
+    "astore_2"  
+  completion template Instruction : "astore_3" =
+    "astore_3"  
+  completion template Instruction : "lstore_0" =
+    "lstore_0"  
+  completion template Instruction : "lstore_1" =
+    "lstore_1"  
+  completion template Instruction : "lstore_2" =
+    "lstore_2"  
+  completion template Instruction : "lstore_3" =
+    "lstore_3"  
+  completion template Instruction : "fstore_0" =
+    "fstore_0"  
+  completion template Instruction : "fstore_1" =
+    "fstore_1"  
+  completion template Instruction : "fstore_2" =
+    "fstore_2"  
+  completion template Instruction : "fstore_3" =
+    "fstore_3"  
+  completion template Instruction : "dstore_0" =
+    "dstore_0"  
+  completion template Instruction : "dstore_1" =
+    "dstore_1"  
+  completion template Instruction : "dstore_2" =
+    "dstore_2"  
+  completion template Instruction : "dstore_3" =
+    "dstore_3"  

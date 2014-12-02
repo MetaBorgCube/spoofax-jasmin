@@ -12,7 +12,5 @@
 /syntax/*.sdf
 /syntax/*/*.sdf
 
-/lib/jasmin.jar
-/src-gen/
 /target/
 /utils/

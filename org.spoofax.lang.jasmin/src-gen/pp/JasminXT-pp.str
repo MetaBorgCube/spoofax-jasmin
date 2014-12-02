@@ -1,0 +1,66 @@
+module src-gen/pp/JasminXT-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Whitespace-sig
+  src-gen/signatures/JasminXT-Header-sig
+  src-gen/signatures/JasminXT-Fields-sig
+  src-gen/signatures/JasminXT-Methods-sig
+
+
+imports
+  src-gen/pp/JasminXT-Whitespace-pp
+  src-gen/pp/JasminXT-Header-pp
+  src-gen/pp/JasminXT-Fields-pp
+  src-gen/pp/JasminXT-Methods-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Start
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Start
+
+  prettyprint-example =
+    prettyprint-JasminFile
+
+  prettyprint-Start :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-Start)
+    where t1__' := <pp-one-Z(prettyprint-JasminFile)> t1__
+
+  prettyprint-JasminFile :
+    JBCFile(t1__, t2__, t3__) -> [ H(
+                                     [SOpt(HS(), "0")]
+                                   , [ t1__'
+                                     , S(" ")
+                                     , t2__'
+                                     , S(" ")
+                                     , t3__'
+                                     ]
+                                   )
+                                 ]
+    with t1__' := <pp-one-Z(prettyprint-JasminHeader)> t1__
+    with t2__' := <pp-V-list(prettyprint-Field)> t2__
+    with t3__' := <pp-V-list(prettyprint-Method|"1")> t3__
+
+  is-JasminFile =
+    ?JBCFile(_, _, _)
+
+  is-Start =
+    fail
+
+  is-JasminFile =
+    fail

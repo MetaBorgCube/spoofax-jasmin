@@ -1,0 +1,15 @@
+module src-gen/signatures/JasminXT-Numbers-sig
+
+signature
+  constructors
+     : String -> Double
+     : String -> Float
+     : String -> Int
+
+  constructors
+     : String -> NegInt
+
+  constructors
+    Double : Double -> Constant
+    Float  : Float -> Constant
+    Int    : Int -> Constant

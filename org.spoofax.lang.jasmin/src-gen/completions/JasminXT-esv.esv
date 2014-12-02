@@ -1,0 +1,11 @@
+module src-gen/completions/JasminXT-esv
+
+imports
+  src-gen/completions/JasminXT-Whitespace-esv
+  src-gen/completions/JasminXT-Header-esv
+  src-gen/completions/JasminXT-Fields-esv
+  src-gen/completions/JasminXT-Methods-esv
+
+completions
+  completion template JasminFile : "JasminHeader " =
+    <JasminHeader:JasminHeader> " " <:Field> " " <:Method>  

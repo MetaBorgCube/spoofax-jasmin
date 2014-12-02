@@ -1,0 +1,10 @@
+module JasminXT-Exceptions
+exports
+  context-free start-symbols
+    Instruction
+
+  context-free syntax
+    "athrow" -> Instruction {cons("ATHROW")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}

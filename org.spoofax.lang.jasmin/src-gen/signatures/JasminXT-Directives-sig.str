@@ -1,0 +1,36 @@
+module src-gen/signatures/JasminXT-Directives-sig
+
+imports
+  src-gen/signatures/JasminXT-Descriptors-sig
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Annotations-sig
+
+
+signature
+  constructors
+    JBCLimitStack  : Int -> Directive
+    JBCLimitLocals : Int -> Directive
+    JBCLine        : Int -> Directive
+    JBCVarDecl     : Int * VarName * FieldDescriptor * LabelRef * LabelRef -> Directive
+    JBCThrows      : ClassRef -> Directive
+    JBCCatch       : ClassRef * LabelRef * LabelRef * LabelRef -> Directive
+    JBCSignature   : String -> Directive
+    JBCStack       : StackDirOffset * List(StackDirLocalVar) * List(StackDirStackVar) -> Directive
+    JBCStack       : Int * StackDirOffset * List(StackDirLocalVar) * List(StackDirStackVar) -> Directive
+    JBCDeprecated  : Directive
+    JBCAttribute   : AttributeName * FileName -> Directive
+    Offset         : LabelRef -> StackDirOffset
+    None           : StackDirOffset
+    LocalVar       : VerificationType -> StackDirLocalVar
+    StackVar       : VerificationType -> StackDirStackVar
+    Top            : VerificationType
+    Integer        : VerificationType
+    Float          : VerificationType
+    Long           : VerificationType
+    Double         : VerificationType
+    Null           : VerificationType
+    UninitThis     : VerificationType
+    Object         : ClassName -> VerificationType
+    Uninit         : LabelRef -> VerificationType

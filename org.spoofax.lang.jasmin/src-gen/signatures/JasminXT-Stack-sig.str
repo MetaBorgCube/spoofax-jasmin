@@ -1,0 +1,13 @@
+module src-gen/signatures/JasminXT-Stack-sig
+
+signature
+  constructors
+    POP     : Instruction
+    POP2    : Instruction
+    DUP     : Instruction
+    DUP2    : Instruction
+    DUP_X1  : Instruction
+    DUP2_X1 : Instruction
+    DUP_X2  : Instruction
+    DUP2_X2 : Instruction
+    SWAP    : Instruction

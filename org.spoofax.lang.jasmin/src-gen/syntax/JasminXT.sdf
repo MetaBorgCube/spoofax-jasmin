@@ -1,0 +1,13 @@
+module JasminXT
+imports JasminXT-Whitespace JasminXT-Header JasminXT-Fields JasminXT-Methods
+
+exports
+  context-free start-symbols
+    Start
+
+  context-free syntax
+    JasminFile                  -> Start      
+    JasminHeader Field* Method* -> JasminFile {cons("JBCFile")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> JasminFile {cons("COMPLETION-JasminFile")}

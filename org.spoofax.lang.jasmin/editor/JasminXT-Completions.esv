@@ -1,12 +1,8 @@
 module JasminXT-Completions
 
-imports JasminXT-Completions.generated
+imports src-gen/completions/JasminXT-esv
 
 completions
-                                                                   
-  // This file is used to define content completion.               
-  //                                                               
-  // See the imported file for a brief introduction and examples.  
-                                                                   
+
   completion proposer : editor-complete
   

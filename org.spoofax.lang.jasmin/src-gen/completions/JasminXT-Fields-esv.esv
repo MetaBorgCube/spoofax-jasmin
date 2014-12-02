@@ -1,0 +1,43 @@
+
+module src-gen/completions/JasminXT-Fields-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Strings-esv
+  src-gen/completions/JasminXT-Descriptors-esv
+  src-gen/completions/JasminXT-Annotations-esv
+
+completions
+  completion template Field : ".field FieldName FieldDescriptor FieldSignatureSpec InitialValue" =
+    ".field " <:FieldAccess> " " <FieldName:FieldName> " " <FieldDescriptor:FieldDescriptor> " " <FieldSignatureSpec:FieldSignatureSpec> " " <InitialValue:InitialValue>  
+  completion template Field : ".field FieldName FieldDescriptor FieldSignatureSpec InitialValue .end field" =
+    ".field " <:FieldAccess> " " <FieldName:FieldName> " " <FieldDescriptor:FieldDescriptor> " " <FieldSignatureSpec:FieldSignatureSpec> " " <InitialValue:InitialValue> "\n\t" (cursor) "\n.end field" (blank)  
+  completion template FieldAttribute : ".signature String" =
+    ".signature " <String:String>                                                                                                                   
+  completion template FieldAttribute : ".deprecated" =
+    ".deprecated"                                                                                                                                         
+  completion template FieldAttribute : ".attribute AttributeName FileName" =
+    ".attribute " <AttributeName:AttributeName> " " <FileName:FileName>                                                             
+  completion template FieldSignatureSpec : "signature String" =
+    "signature " <String:String>                                                                                                                 
+  completion template InitialValue : "= Constant" =
+    "= " <Constant:Constant>                                                                                                                                 
+  completion template FieldAccess : "public" =
+    "public"                                                                                                                                                      
+  completion template FieldAccess : "private" =
+    "private"                                                                                                                                                    
+  completion template FieldAccess : "protected" =
+    "protected"                                                                                                                                                
+  completion template FieldAccess : "static" =
+    "static"                                                                                                                                                      
+  completion template FieldAccess : "final" =
+    "final"                                                                                                                                                        
+  completion template FieldAccess : "volatile" =
+    "volatile"                                                                                                                                                  
+  completion template FieldAccess : "transient" =
+    "transient"                                                                                                                                                
+  completion template FieldAccess : "fpstrict" =
+    "fpstrict"                                                                                                                                                  
+  completion template FieldAccess : "synthetic" =
+    "synthetic"                                                                                                                                                

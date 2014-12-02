@@ -1,0 +1,6 @@
+module src-gen/signatures/JasminXT-Synchronisation-sig
+
+signature
+  constructors
+    MONITORENTER : Instruction
+    MONITOREXIT  : Instruction

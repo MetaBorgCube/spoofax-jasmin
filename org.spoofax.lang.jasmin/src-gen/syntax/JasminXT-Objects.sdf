@@ -1,0 +1,44 @@
+module JasminXT-Objects
+imports JasminXT-Names JasminXT-Numbers JasminXT-Descriptors
+
+exports
+  context-free start-symbols
+    Instruction
+
+  context-free syntax
+    "new" ClassRef                 -> Instruction  {cons("NEW")}
+    "newarray" BaseTypeName        -> Instruction  {cons("NEWARRAY")}
+    "anewarray" ANewArrayArg       -> Instruction  {cons("ANEWARRAY")}
+    ClassRef                       -> ANewArrayArg 
+    ArrayType                      -> ANewArrayArg 
+    "multianewarray" ArrayType Int -> Instruction  {cons("MULTIANEWARRAY")}
+    "getfield" FieldRef            -> Instruction  {cons("GETFIELD")}
+    "putfield" FieldRef            -> Instruction  {cons("PUTFIELD")}
+    "getstatic" FieldRef           -> Instruction  {cons("GETSTATIC")}
+    "putstatic" FieldRef           -> Instruction  {cons("PUTSTATIC")}
+    "iaload"                       -> Instruction  {cons("IALOAD")}
+    "laload"                       -> Instruction  {cons("LALOAD")}
+    "baload"                       -> Instruction  {cons("BALOAD")}
+    "caload"                       -> Instruction  {cons("CALOAD")}
+    "saload"                       -> Instruction  {cons("SALOAD")}
+    "faload"                       -> Instruction  {cons("FALOAD")}
+    "daload"                       -> Instruction  {cons("DALOAD")}
+    "aaload"                       -> Instruction  {cons("AALOAD")}
+    "iastore"                      -> Instruction  {cons("IASTORE")}
+    "lastore"                      -> Instruction  {cons("LASTORE")}
+    "bastore"                      -> Instruction  {cons("BASTORE")}
+    "castore"                      -> Instruction  {cons("CASTORE")}
+    "sastore"                      -> Instruction  {cons("SASTORE")}
+    "fastore"                      -> Instruction  {cons("FASTORE")}
+    "dastore"                      -> Instruction  {cons("DASTORE")}
+    "aastore"                      -> Instruction  {cons("AASTORE")}
+    "arraylength"                  -> Instruction  {cons("ARRAYLENGTH")}
+    "checkcast" ClassRef           -> Instruction  {cons("CHECKCAST")}
+    "instanceof" ClassRef          -> Instruction  {cons("INSTANCEOF")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
+  lexical restrictions
+    "new" "newarray" "anewarray" "multianewarray" "getfield" "putfield"
+    "getstatic" "putstatic" "checkcast" "instanceof" -/- ~[\ \t]

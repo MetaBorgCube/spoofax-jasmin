@@ -1,0 +1,95 @@
+module src-gen/pp/JasminXT-Instructions-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Instructions-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Arithmetic-sig
+  src-gen/signatures/JasminXT-Control-sig
+  src-gen/signatures/JasminXT-Conversion-sig
+  src-gen/signatures/JasminXT-Exceptions-sig
+  src-gen/signatures/JasminXT-LoadStore-sig
+  src-gen/signatures/JasminXT-InvokeReturn-sig
+  src-gen/signatures/JasminXT-Objects-sig
+  src-gen/signatures/JasminXT-Stack-sig
+  src-gen/signatures/JasminXT-Synchronisation-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+imports
+  src-gen/pp/JasminXT-Arithmetic-pp
+  src-gen/pp/JasminXT-Control-pp
+  src-gen/pp/JasminXT-Conversion-pp
+  src-gen/pp/JasminXT-Exceptions-pp
+  src-gen/pp/JasminXT-LoadStore-pp
+  src-gen/pp/JasminXT-InvokeReturn-pp
+  src-gen/pp/JasminXT-Objects-pp
+  src-gen/pp/JasminXT-Stack-pp
+  src-gen/pp/JasminXT-Synchronisation-pp
+  src-gen/pp/JasminXT-Numbers-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-PCInstruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-example =
+    prettyprint-PCInstruction
+
+  prettyprint-Instruction :
+    NOP() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("nop")]
+               )
+             ]
+
+  is-Instruction =
+    ?NOP()
+
+  prettyprint-Instruction :
+    BREAKPOINT() -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("breakpoint")]
+                      )
+                    ]
+
+  is-Instruction =
+    ?BREAKPOINT()
+
+  prettyprint-PCInstruction :
+    PC(t1__, t2__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [t1__', S(": "), t2__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+    with t2__' := <pp-one-Z(prettyprint-Instruction)> t2__
+
+  is-PCInstruction =
+    ?PC(_, _)
+
+  prettyprint-PCInstruction :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-PCInstruction)
+    where t1__' := <pp-one-Z(prettyprint-Instruction)> t1__
+
+  is-Instruction =
+    fail
+
+  is-PCInstruction =
+    fail

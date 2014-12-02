@@ -1,0 +1,19 @@
+module JasminXT-Instructions
+imports JasminXT-Arithmetic JasminXT-Control JasminXT-Conversion
+        JasminXT-Exceptions JasminXT-LoadStore JasminXT-InvokeReturn
+        JasminXT-Objects JasminXT-Stack JasminXT-Synchronisation
+        JasminXT-Numbers
+
+exports
+  context-free start-symbols
+    Instruction PCInstruction
+
+  context-free syntax
+    "nop"               -> Instruction   {cons("NOP")}
+    "breakpoint"        -> Instruction   {cons("BREAKPOINT")}
+    Int ":" Instruction -> PCInstruction {cons("PC")}
+    Instruction         -> PCInstruction 
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction   {cons("COMPLETION-Instruction")}
+    CONTENTCOMPLETE -> PCInstruction {cons("COMPLETION-PCInstruction")}

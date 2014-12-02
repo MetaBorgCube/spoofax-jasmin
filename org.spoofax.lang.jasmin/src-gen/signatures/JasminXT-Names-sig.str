@@ -1,0 +1,46 @@
+module src-gen/signatures/JasminXT-Names-sig
+
+imports
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+signature
+  constructors
+     : String -> Identifier
+     : String -> SQIdentifier
+     : String -> QualifiedName
+     : String -> LabelName
+
+  constructors
+         : String -> FileName
+         : QualifiedName -> ClassName
+         : Identifier -> AttributeName
+         : Identifier -> AnnotationName
+         : Identifier -> FieldName
+         : Identifier -> MethodName
+    Init : MethodName
+         : SQIdentifier -> VarName
+
+  constructors
+    CRef     : ClassName -> ClassRef
+    VarNum   : Int -> VarRef
+    LabelRef : LabelName -> LabelRef
+    Absolute : Int -> LabelRef
+    FRef     : FieldName -> FRef
+    MRef     : MethodName -> MRef
+
+  constructors
+    JBCFieldRef  : ClassRef * FRef * FieldDescriptor -> FieldRef
+    JBCMethodRef : ClassRef * MRef * MethodDescriptor -> MethodRef
+
+  constructors
+    ByteName    : BaseTypeName
+    CharName    : BaseTypeName
+    DoubleName  : BaseTypeName
+    FloatName   : BaseTypeName
+    IntName     : BaseTypeName
+    LongName    : BaseTypeName
+    ShortName   : BaseTypeName
+    BooleanName : BaseTypeName

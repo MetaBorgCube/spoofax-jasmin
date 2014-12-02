@@ -1,0 +1,27 @@
+module JasminXT-InvokeReturn
+imports JasminXT-Names JasminXT-Descriptors JasminXT-Numbers
+
+exports
+  context-free start-symbols
+    Instruction
+
+  context-free syntax
+    "invokenonvirtual" MethodRef    -> Instruction {cons("INVOKESPECIAL")}
+    "invokevirtual" MethodRef       -> Instruction {cons("INVOKEVIRTUAL")}
+    "invokestatic" MethodRef        -> Instruction {cons("INVOKESTATIC")}
+    "invokeinterface" MethodRef Int -> Instruction {cons("INVOKEINTERFACE")}
+    "return"                        -> Instruction {cons("RETURN")}
+    "ireturn"                       -> Instruction {cons("IRETURN")}
+    "lreturn"                       -> Instruction {cons("LRETURN")}
+    "freturn"                       -> Instruction {cons("FRETURN")}
+    "dreturn"                       -> Instruction {cons("DRETURN")}
+    "areturn"                       -> Instruction {cons("ARETURN")}
+    "ret" VarRef                    -> Instruction {cons("RET")}
+    "ret_w" VarRef                  -> Instruction {cons("RET_W")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
+  lexical restrictions
+    "invokenonvirtual" "invokevirtual" "invokestatic" "invokeinterface" "ret"
+    "ret_w" -/- ~[\ \t]

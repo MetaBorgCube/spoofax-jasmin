@@ -1,0 +1,15 @@
+module JasminXT-Whitespace
+exports
+  lexical syntax
+    [\ \t\n\r]                       -> LAYOUT 
+    ";" [\n\r]                       -> LAYOUT 
+    ";" [\ \t] ~[\n\r]* [\n\r] | EOF -> LAYOUT 
+    []                               -> EOF    
+
+  lexical restrictions
+    EOF -/- ~[]
+
+  context-free restrictions
+    LAYOUT? -/- [\ \t\n\r]
+    LAYOUT? -/- [\;] . [\ \t]
+    LAYOUT? -/- [\;] . [\n\r]

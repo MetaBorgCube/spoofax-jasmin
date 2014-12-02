@@ -1,0 +1,102 @@
+module JasminXT-LoadStore
+imports JasminXT-Names JasminXT-Numbers JasminXT-Strings
+
+exports
+  context-free start-symbols
+    Instruction
+
+  context-free syntax
+    "bipush" Int      -> Instruction {cons("BIPUSH")}
+    "sipush" Int      -> Instruction {cons("SIPUSH")}
+    "iconst_m1"       -> Instruction {cons("ICONST_M1")}
+    "iconst_0"        -> Instruction {cons("ICONST_0")}
+    "iconst_1"        -> Instruction {cons("ICONST_1")}
+    "iconst_2"        -> Instruction {cons("ICONST_2")}
+    "iconst_3"        -> Instruction {cons("ICONST_3")}
+    "iconst_4"        -> Instruction {cons("ICONST_4")}
+    "iconst_5"        -> Instruction {cons("ICONST_5")}
+    "lconst_0"        -> Instruction {cons("LCONST_0")}
+    "lconst_1"        -> Instruction {cons("LCONST_1")}
+    "fconst_0"        -> Instruction {cons("FCONST_0")}
+    "fconst_1"        -> Instruction {cons("FCONST_1")}
+    "fconst_2"        -> Instruction {cons("FCONST_2")}
+    "dconst_0"        -> Instruction {cons("DCONST_0")}
+    "dconst_1"        -> Instruction {cons("DCONST_1")}
+    "aconst_null"     -> Instruction {cons("ACONST_NULL")}
+    "ldc" Constant    -> Instruction {cons("LDC")}
+    "ldc_w" Constant  -> Instruction {cons("LDC_W")}
+    "ldc2_w" Constant -> Instruction {cons("LDC2_W")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
+  context-free syntax
+    "iload" VarRef    -> Instruction {cons("ILOAD")}
+    "lload" VarRef    -> Instruction {cons("LLOAD")}
+    "fload" VarRef    -> Instruction {cons("FLOAD")}
+    "dload" VarRef    -> Instruction {cons("DLOAD")}
+    "aload" VarRef    -> Instruction {cons("ALOAD")}
+    "iload_w" VarRef  -> Instruction {cons("ILOAD_W")}
+    "lload_w" VarRef  -> Instruction {cons("LLOAD_W")}
+    "fload_w" VarRef  -> Instruction {cons("FLOAD_W")}
+    "dload_w" VarRef  -> Instruction {cons("DLOAD_W")}
+    "aload_w" VarRef  -> Instruction {cons("ALOAD_W")}
+    "iload_0"         -> Instruction {cons("ILOAD_0")}
+    "iload_1"         -> Instruction {cons("ILOAD_1")}
+    "iload_2"         -> Instruction {cons("ILOAD_2")}
+    "iload_3"         -> Instruction {cons("ILOAD_3")}
+    "aload_0"         -> Instruction {cons("ALOAD_0")}
+    "aload_1"         -> Instruction {cons("ALOAD_1")}
+    "aload_2"         -> Instruction {cons("ALOAD_2")}
+    "aload_3"         -> Instruction {cons("ALOAD_3")}
+    "lload_0"         -> Instruction {cons("LLOAD_0")}
+    "lload_1"         -> Instruction {cons("LLOAD_1")}
+    "lload_2"         -> Instruction {cons("LLOAD_2")}
+    "lload_3"         -> Instruction {cons("LLOAD_3")}
+    "dload_0"         -> Instruction {cons("DLOAD_0")}
+    "dload_1"         -> Instruction {cons("DLOAD_1")}
+    "dload_2"         -> Instruction {cons("DLOAD_2")}
+    "dload_3"         -> Instruction {cons("DLOAD_3")}
+    "fload_0"         -> Instruction {cons("FLOAD_0")}
+    "fload_1"         -> Instruction {cons("FLOAD_1")}
+    "fload_2"         -> Instruction {cons("FLOAD_2")}
+    "fload_3"         -> Instruction {cons("FLOAD_3")}
+    "istore" VarRef   -> Instruction {cons("ISTORE")}
+    "lstore" VarRef   -> Instruction {cons("LSTORE")}
+    "fstore" VarRef   -> Instruction {cons("FSTORE")}
+    "dstore" VarRef   -> Instruction {cons("DSTORE")}
+    "astore" VarRef   -> Instruction {cons("ASTORE")}
+    "istore_w" VarRef -> Instruction {cons("ISTORE_W")}
+    "lstore_w" VarRef -> Instruction {cons("LSTORE_W")}
+    "fstore_w" VarRef -> Instruction {cons("FSTORE_W")}
+    "dstore_w" VarRef -> Instruction {cons("DSTORE_W")}
+    "astore_w" VarRef -> Instruction {cons("ASTORE_W")}
+    "istore_0"        -> Instruction {cons("ISTORE_0")}
+    "istore_1"        -> Instruction {cons("ISTORE_1")}
+    "istore_2"        -> Instruction {cons("ISTORE_2")}
+    "istore_3"        -> Instruction {cons("ISTORE_3")}
+    "astore_0"        -> Instruction {cons("ASTORE_0")}
+    "astore_1"        -> Instruction {cons("ASTORE_1")}
+    "astore_2"        -> Instruction {cons("ASTORE_2")}
+    "astore_3"        -> Instruction {cons("ASTORE_3")}
+    "lstore_0"        -> Instruction {cons("LSTORE_0")}
+    "lstore_1"        -> Instruction {cons("LSTORE_1")}
+    "lstore_2"        -> Instruction {cons("LSTORE_2")}
+    "lstore_3"        -> Instruction {cons("LSTORE_3")}
+    "fstore_0"        -> Instruction {cons("FSTORE_0")}
+    "fstore_1"        -> Instruction {cons("FSTORE_1")}
+    "fstore_2"        -> Instruction {cons("FSTORE_2")}
+    "fstore_3"        -> Instruction {cons("FSTORE_3")}
+    "dstore_0"        -> Instruction {cons("DSTORE_0")}
+    "dstore_1"        -> Instruction {cons("DSTORE_1")}
+    "dstore_2"        -> Instruction {cons("DSTORE_2")}
+    "dstore_3"        -> Instruction {cons("DSTORE_3")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
+  lexical restrictions
+    "bipush" "sipush" "ldc" "ldc2_w" "ldc_w" "iload" "lload" "fload" "dload"
+    "aload" "iload_w" "lload_w" "fload_w" "dload_w" "aload_w" "istore" "lstore"
+    "fstore" "dstore" "astore" "istore_w" "lstore_w" "fstore_w" "dstore_w"
+    "astore_w" -/- ~[\ \t]

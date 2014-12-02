@@ -1,0 +1,21 @@
+module src-gen/completions/JasminXT-Instructions-esv
+
+imports
+  src-gen/completions/JasminXT-Arithmetic-esv
+  src-gen/completions/JasminXT-Control-esv
+  src-gen/completions/JasminXT-Conversion-esv
+  src-gen/completions/JasminXT-Exceptions-esv
+  src-gen/completions/JasminXT-LoadStore-esv
+  src-gen/completions/JasminXT-InvokeReturn-esv
+  src-gen/completions/JasminXT-Objects-esv
+  src-gen/completions/JasminXT-Stack-esv
+  src-gen/completions/JasminXT-Synchronisation-esv
+  src-gen/completions/JasminXT-Numbers-esv
+
+completions
+  completion template Instruction : "nop" =
+    "nop"  
+  completion template Instruction : "breakpoint" =
+    "breakpoint"  
+  completion template PCInstruction : "Int: Instruction" =
+    <Int:Int> ": " <Instruction:Instruction>  

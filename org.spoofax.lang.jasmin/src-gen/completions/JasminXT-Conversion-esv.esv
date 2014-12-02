@@ -1,0 +1,33 @@
+module src-gen/completions/JasminXT-Conversion-esv
+
+completions
+  completion template Instruction : "i2l" =
+    "i2l"  
+  completion template Instruction : "i2f" =
+    "i2f"  
+  completion template Instruction : "i2d" =
+    "i2d"  
+  completion template Instruction : "l2f" =
+    "l2f"  
+  completion template Instruction : "l2d" =
+    "l2d"  
+  completion template Instruction : "f2d" =
+    "f2d"  
+  completion template Instruction : "int2byte" =
+    "int2byte"  
+  completion template Instruction : "int2short" =
+    "int2short"  
+  completion template Instruction : "int2char" =
+    "int2char"  
+  completion template Instruction : "l2i" =
+    "l2i"  
+  completion template Instruction : "f2i" =
+    "f2i"  
+  completion template Instruction : "f2l" =
+    "f2l"  
+  completion template Instruction : "d2i" =
+    "d2i"  
+  completion template Instruction : "d2l" =
+    "d2l"  
+  completion template Instruction : "d2f" =
+    "d2f"  

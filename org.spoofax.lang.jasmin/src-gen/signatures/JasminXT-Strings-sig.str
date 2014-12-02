@@ -1,0 +1,10 @@
+module src-gen/signatures/JasminXT-Strings-sig
+
+signature
+  constructors
+     : String -> String
+     : String -> StringChar
+     : String -> HexDigit
+
+  constructors
+    String : String -> Constant

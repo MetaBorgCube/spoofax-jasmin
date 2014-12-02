@@ -1,0 +1,56 @@
+module JasminXT-Names
+imports JasminXT-Strings JasminXT-Numbers JasminXT-Descriptors
+
+exports
+  context-free start-symbols
+    Identifier SQIdentifier QualifiedName LabelName MethodName ClassRef VarRef
+    LabelRef FRef MRef BaseTypeName
+
+  lexical syntax
+    [A-Za-z] [A-Za-z0-9\_]*                         -> Identifier    
+    Identifier                                      -> SQIdentifier  
+    "'" Identifier "'"                              -> SQIdentifier  
+    {Identifier "/"}+                               -> QualifiedName 
+    ~[\=\:\.\"\-\ \t\n\r0-9] ~[\=\:\.\"\-\ \t\n\r]* -> LabelName     
+
+  lexical restrictions
+    Identifier -/- [a-zA-Z0-9\_]
+    LabelName -/- ~[\=\:\.\"\-\ \t\n\r]
+
+  context-free syntax
+    String        -> FileName       
+    QualifiedName -> ClassName      
+    Identifier    -> AttributeName  
+    Identifier    -> AnnotationName 
+    Identifier    -> FieldName      
+    Identifier    -> MethodName     
+    "<init>"      -> MethodName     {cons("Init")}
+    SQIdentifier  -> VarName        
+
+  context-free syntax
+    CONTENTCOMPLETE -> MethodName {cons("COMPLETION-MethodName")}
+
+  context-free syntax
+    ClassName  -> ClassRef {cons("CRef")}
+    Int        -> VarRef   {cons("VarNum")}
+    LabelName  -> LabelRef {cons("LabelRef")}
+    Int        -> LabelRef {cons("Absolute")}
+    FieldName  -> FRef     {cons("FRef")}
+    MethodName -> MRef     {cons("MRef")}
+
+  syntax
+    <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>  {cons("JBCFieldRef")}
+    <ClassRef-CF> "/" <MRef-CF> <LAYOUT?-CF> <MethodDescriptor-CF> -> <MethodRef-CF> {cons("JBCMethodRef")}
+
+  context-free syntax
+    "byte"    -> BaseTypeName {cons("ByteName")}
+    "char"    -> BaseTypeName {cons("CharName")}
+    "double"  -> BaseTypeName {cons("DoubleName")}
+    "float"   -> BaseTypeName {cons("FloatName")}
+    "int"     -> BaseTypeName {cons("IntName")}
+    "long"    -> BaseTypeName {cons("LongName")}
+    "short"   -> BaseTypeName {cons("ShortName")}
+    "boolean" -> BaseTypeName {cons("BooleanName")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> BaseTypeName {cons("COMPLETION-BaseTypeName")}

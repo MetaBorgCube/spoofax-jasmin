@@ -1,0 +1,432 @@
+module src-gen/pp/JasminXT-Names-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Names-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/pp/JasminXT-Strings-pp
+  src-gen/pp/JasminXT-Numbers-pp
+  src-gen/pp/JasminXT-Descriptors-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Identifier
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-SQIdentifier
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-QualifiedName
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-LabelName
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-MethodName
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-ClassRef
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-VarRef
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-LabelRef
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-FRef
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-MRef
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-BaseTypeName
+
+
+strategies
+  prettyprint-Identifier =
+    ![S(<is-string>)]
+
+  prettyprint-SQIdentifier =
+    ![S(<is-string>)]
+
+  prettyprint-QualifiedName =
+    ![S(<is-string>)]
+
+  prettyprint-LabelName =
+    ![S(<is-string>)]
+
+  prettyprint-example =
+    prettyprint-Identifier
+
+  prettyprint-example =
+    prettyprint-SQIdentifier
+
+  prettyprint-example =
+    prettyprint-QualifiedName
+
+  prettyprint-example =
+    prettyprint-LabelName
+
+
+strategies
+  prettyprint-example =
+    prettyprint-FileName
+
+  prettyprint-example =
+    prettyprint-ClassName
+
+  prettyprint-example =
+    prettyprint-AttributeName
+
+  prettyprint-example =
+    prettyprint-AnnotationName
+
+  prettyprint-example =
+    prettyprint-FieldName
+
+  prettyprint-example =
+    prettyprint-MethodName
+
+  prettyprint-example =
+    prettyprint-VarName
+
+  prettyprint-FileName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-FileName)
+    where t1__' := <pp-one-Z(prettyprint-String)> t1__
+
+  prettyprint-ClassName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-ClassName)
+    where t1__' := <pp-one-Z(prettyprint-QualifiedName)> t1__
+
+  prettyprint-AttributeName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-AttributeName)
+    where t1__' := <pp-one-Z(prettyprint-Identifier)> t1__
+
+  prettyprint-AnnotationName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-AnnotationName)
+    where t1__' := <pp-one-Z(prettyprint-Identifier)> t1__
+
+  prettyprint-FieldName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-FieldName)
+    where t1__' := <pp-one-Z(prettyprint-Identifier)> t1__
+
+  prettyprint-MethodName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-MethodName)
+    where t1__' := <pp-one-Z(prettyprint-Identifier)> t1__
+
+  prettyprint-MethodName :
+    Init() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("<init>")]
+                )
+              ]
+
+  is-MethodName =
+    ?Init()
+
+  prettyprint-VarName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-VarName)
+    where t1__' := <pp-one-Z(prettyprint-SQIdentifier)> t1__
+
+  is-FileName =
+    fail
+
+  is-ClassName =
+    fail
+
+  is-AttributeName =
+    fail
+
+  is-AnnotationName =
+    fail
+
+  is-FieldName =
+    fail
+
+  is-MethodName =
+    fail
+
+  is-VarName =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-ClassRef
+
+  prettyprint-example =
+    prettyprint-VarRef
+
+  prettyprint-example =
+    prettyprint-LabelRef
+
+  prettyprint-example =
+    prettyprint-FRef
+
+  prettyprint-example =
+    prettyprint-MRef
+
+  prettyprint-ClassRef :
+    CRef(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-ClassName)> t1__
+
+  is-ClassRef =
+    ?CRef(_)
+
+  prettyprint-VarRef :
+    VarNum(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-VarRef =
+    ?VarNum(_)
+
+  prettyprint-LabelRef :
+    LabelRef(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-LabelName)> t1__
+
+  is-LabelRef =
+    ?LabelRef(_)
+
+  prettyprint-LabelRef :
+    Absolute(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-LabelRef =
+    ?Absolute(_)
+
+  prettyprint-FRef :
+    FRef(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-FieldName)> t1__
+
+  is-FRef =
+    ?FRef(_)
+
+  prettyprint-MRef :
+    MRef(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-MethodName)> t1__
+
+  is-MRef =
+    ?MRef(_)
+
+  is-ClassRef =
+    fail
+
+  is-VarRef =
+    fail
+
+  is-LabelRef =
+    fail
+
+  is-FRef =
+    fail
+
+  is-MRef =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-FieldRef
+
+  prettyprint-example =
+    prettyprint-MethodRef
+
+  prettyprint-FieldRef :
+    JBCFieldRef(t1__, t2__, t3__) -> [ H(
+                                         [SOpt(HS(), "0")]
+                                       , [ t1__'
+                                         , S("/")
+                                         , t2__'
+                                         , S(" ")
+                                         , t3__'
+                                         ]
+                                       )
+                                     ]
+    with t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
+    with t2__' := <pp-one-Z(prettyprint-FRef)> t2__
+    with t3__' := <pp-one-Z(prettyprint-FieldDescriptor)> t3__
+
+  is-FieldRef =
+    ?JBCFieldRef(_, _, _)
+
+  prettyprint-MethodRef :
+    JBCMethodRef(t1__, t2__, t3__) -> [ H(
+                                          [SOpt(HS(), "0")]
+                                        , [ t1__'
+                                          , S("/")
+                                          , t2__'
+                                          , S(" ")
+                                          , t3__'
+                                          ]
+                                        )
+                                      ]
+    with t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
+    with t2__' := <pp-one-Z(prettyprint-MRef)> t2__
+    with t3__' := <pp-one-Z(prettyprint-MethodDescriptor)> t3__
+
+  is-MethodRef =
+    ?JBCMethodRef(_, _, _)
+
+  is-FieldRef =
+    fail
+
+  is-MethodRef =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-BaseTypeName
+
+  prettyprint-BaseTypeName :
+    ByteName() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("byte")]
+                    )
+                  ]
+
+  is-BaseTypeName =
+    ?ByteName()
+
+  prettyprint-BaseTypeName :
+    CharName() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("char")]
+                    )
+                  ]
+
+  is-BaseTypeName =
+    ?CharName()
+
+  prettyprint-BaseTypeName :
+    DoubleName() -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("double")]
+                      )
+                    ]
+
+  is-BaseTypeName =
+    ?DoubleName()
+
+  prettyprint-BaseTypeName :
+    FloatName() -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("float")]
+                     )
+                   ]
+
+  is-BaseTypeName =
+    ?FloatName()
+
+  prettyprint-BaseTypeName :
+    IntName() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("int")]
+                   )
+                 ]
+
+  is-BaseTypeName =
+    ?IntName()
+
+  prettyprint-BaseTypeName :
+    LongName() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("long")]
+                    )
+                  ]
+
+  is-BaseTypeName =
+    ?LongName()
+
+  prettyprint-BaseTypeName :
+    ShortName() -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("short")]
+                     )
+                   ]
+
+  is-BaseTypeName =
+    ?ShortName()
+
+  prettyprint-BaseTypeName :
+    BooleanName() -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("boolean")]
+                       )
+                     ]
+
+  is-BaseTypeName =
+    ?BooleanName()
+
+  is-BaseTypeName =
+    fail

@@ -1,0 +1,35 @@
+module JasminXT-Methods
+imports JasminXT-Names JasminXT-Numbers JasminXT-Strings JasminXT-Descriptors
+        JasminXT-Instructions JasminXT-Directives
+
+exports
+  context-free start-symbols
+    Method
+
+  context-free syntax
+    ".method" MethodAccess* MethodName MethodDescriptor Statement* ".end" "method" -> Method       {cons("JBCMethod")}
+    "public"                                                                       -> MethodAccess {cons("PUBLIC")}
+    "private"                                                                      -> MethodAccess {cons("PRIVATE")}
+    "protected"                                                                    -> MethodAccess {cons("PROTECTED")}
+    "static"                                                                       -> MethodAccess {cons("STATIC")}
+    "final"                                                                        -> MethodAccess {cons("FINAL")}
+    "synchronized"                                                                 -> MethodAccess {cons("SYNCHRONIZED")}
+    "native"                                                                       -> MethodAccess {cons("NATIVE")}
+    "abstract"                                                                     -> MethodAccess {cons("ABSTRACT")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Method       {cons("COMPLETION-Method")}
+    CONTENTCOMPLETE -> MethodAccess {cons("COMPLETION-MethodAccess")}
+
+  context-free syntax
+    PCInstruction -> Statement 
+    Directive     -> Statement 
+    Label         -> Statement 
+    LabelName ":" -> Label     {cons("JBCLabel")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Label {cons("COMPLETION-Label")}
+
+  lexical restrictions
+    ".method" ".end" "public" "private" "protected" "static" "final"
+    "synchronized" "native" "abstract" -/- ~[\ \t]

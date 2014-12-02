@@ -1,0 +1,16 @@
+module JasminXT-Annotations
+imports JasminXT-Strings JasminXT-Numbers JasminXT-Names JasminXT-Descriptors
+
+exports
+  context-free syntax
+    ".annotation" "visible" ClassName AnnotationField* ".end" "annotation"            -> Annotation      {cons("RuntimeVisible")}
+    ".annotation" "invisible" ClassName AnnotationField* ".end" "annotation"          -> Annotation      {cons("RuntimeInvisible")}
+    ".annotation" "visibleparam" Int ClassName AnnotationField* ".end" "annotation"   -> Annotation      {cons("RuntimeVisibleParam")}
+    ".annotation" "invisibleparam" Int ClassName AnnotationField* ".end" "annotation" -> Annotation      {cons("RuntimeInvisibleParam")}
+    ".annotation" "default" AnnotationName "=" Constant* ".end" "annotation"          -> Annotation      {cons("AnnotationDefault")}
+    AnnotationName AnnotationDescriptor "=" Constant*                                 -> AnnotationField {cons("AnnotationField")}
+    AnnotationName "@" "=" Annotation                                                 -> AnnotationField {cons("NestedAnnotation")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Annotation      {cons("COMPLETION-Annotation")}
+    CONTENTCOMPLETE -> AnnotationField {cons("COMPLETION-AnnotationField")}

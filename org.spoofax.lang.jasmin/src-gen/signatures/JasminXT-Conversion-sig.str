@@ -1,0 +1,19 @@
+module src-gen/signatures/JasminXT-Conversion-sig
+
+signature
+  constructors
+    I2L : Instruction
+    I2F : Instruction
+    I2D : Instruction
+    L2F : Instruction
+    L2D : Instruction
+    F2D : Instruction
+    I2B : Instruction
+    I2S : Instruction
+    I2C : Instruction
+    L2I : Instruction
+    F2I : Instruction
+    F2L : Instruction
+    D2I : Instruction
+    D2L : Instruction
+    D2F : Instruction

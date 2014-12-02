@@ -1,0 +1,7 @@
+module src-gen/completions/JasminXT-Synchronisation-esv
+
+completions
+  completion template Instruction : "monitorenter" =
+    "monitorenter"  
+  completion template Instruction : "monitorexit" =
+    "monitorexit"  

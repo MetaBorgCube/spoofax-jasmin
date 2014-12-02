@@ -1,0 +1,14 @@
+module src-gen/pp/JasminXT-Whitespace-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Whitespace-sig
+
+
+strategies
+  prettyprint-EOF =
+    ![S(<is-string>)]
+
+  prettyprint-example =
+    prettyprint-EOF

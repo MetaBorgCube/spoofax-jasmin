@@ -1,0 +1,59 @@
+module JasminXT-Arithmetic
+imports JasminXT-Names JasminXT-Numbers
+
+exports
+  context-free start-symbols
+    Instruction Amount
+
+  context-free syntax
+    "iadd"                 -> Instruction {cons("IADD")}
+    "iand"                 -> Instruction {cons("IAND")}
+    "idiv"                 -> Instruction {cons("IDIV")}
+    "imul"                 -> Instruction {cons("IMUL")}
+    "ineg"                 -> Instruction {cons("INEG")}
+    "ior"                  -> Instruction {cons("IOR")}
+    "irem"                 -> Instruction {cons("IREM")}
+    "ishl"                 -> Instruction {cons("ISHL")}
+    "ishr"                 -> Instruction {cons("ISHR")}
+    "isub"                 -> Instruction {cons("ISUB")}
+    "iushr"                -> Instruction {cons("IUSHR")}
+    "ixor"                 -> Instruction {cons("IXOR")}
+    "ladd"                 -> Instruction {cons("LADD")}
+    "land"                 -> Instruction {cons("LAND")}
+    "ldiv"                 -> Instruction {cons("LDIV")}
+    "lmul"                 -> Instruction {cons("LMUL")}
+    "lneg"                 -> Instruction {cons("LNEG")}
+    "lor"                  -> Instruction {cons("LOR")}
+    "lrem"                 -> Instruction {cons("LREM")}
+    "lshl"                 -> Instruction {cons("LSHL")}
+    "lshr"                 -> Instruction {cons("LSHR")}
+    "lsub"                 -> Instruction {cons("LSUB")}
+    "lushr"                -> Instruction {cons("LUSHR")}
+    "lxor"                 -> Instruction {cons("LXOR")}
+    "fadd"                 -> Instruction {cons("FADD")}
+    "fdiv"                 -> Instruction {cons("FDIV")}
+    "fmul"                 -> Instruction {cons("FMUL")}
+    "fneg"                 -> Instruction {cons("FNEG")}
+    "frem"                 -> Instruction {cons("FREM")}
+    "fsub"                 -> Instruction {cons("FSUB")}
+    "dadd"                 -> Instruction {cons("DADD")}
+    "ddiv"                 -> Instruction {cons("DDIV")}
+    "dmul"                 -> Instruction {cons("DMUL")}
+    "dneg"                 -> Instruction {cons("DNEG")}
+    "drem"                 -> Instruction {cons("DREM")}
+    "dsub"                 -> Instruction {cons("DSUB")}
+    "iinc" VarRef Amount   -> Instruction {cons("IINC")}
+    "iinc_w" VarRef Amount -> Instruction {cons("IINC_W")}
+    Int                    -> Amount      
+    NegInt                 -> Amount      {cons("Neg")}
+    "fcmpg"                -> Instruction {cons("FCMPG")}
+    "fcmpl"                -> Instruction {cons("FCMPL")}
+    "dcmpg"                -> Instruction {cons("DCMPG")}
+    "dcmpl"                -> Instruction {cons("DCMPL")}
+    "lcmp"                 -> Instruction {cons("LCMP")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
+  lexical restrictions
+    "iinc" "iinc_w" -/- ~[\ \t]

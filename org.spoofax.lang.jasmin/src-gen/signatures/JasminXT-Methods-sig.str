@@ -1,0 +1,28 @@
+module src-gen/signatures/JasminXT-Methods-sig
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+  src-gen/signatures/JasminXT-Instructions-sig
+  src-gen/signatures/JasminXT-Directives-sig
+
+
+signature
+  constructors
+    JBCMethod    : List(MethodAccess) * MethodName * MethodDescriptor * List(Statement) -> Method
+    PUBLIC       : MethodAccess
+    PRIVATE      : MethodAccess
+    PROTECTED    : MethodAccess
+    STATIC       : MethodAccess
+    FINAL        : MethodAccess
+    SYNCHRONIZED : MethodAccess
+    NATIVE       : MethodAccess
+    ABSTRACT     : MethodAccess
+
+  constructors
+             : PCInstruction -> Statement
+             : Directive -> Statement
+             : Label -> Statement
+    JBCLabel : LabelName -> Label

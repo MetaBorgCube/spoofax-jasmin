@@ -1,0 +1,500 @@
+module src-gen/pp/JasminXT-Arithmetic-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Arithmetic-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+imports
+  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Numbers-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-Amount
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Amount
+
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    IADD() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("iadd")]
+                )
+              ]
+
+  is-Instruction =
+    ?IADD()
+
+  prettyprint-Instruction :
+    IAND() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("iand")]
+                )
+              ]
+
+  is-Instruction =
+    ?IAND()
+
+  prettyprint-Instruction :
+    IDIV() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("idiv")]
+                )
+              ]
+
+  is-Instruction =
+    ?IDIV()
+
+  prettyprint-Instruction :
+    IMUL() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("imul")]
+                )
+              ]
+
+  is-Instruction =
+    ?IMUL()
+
+  prettyprint-Instruction :
+    INEG() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("ineg")]
+                )
+              ]
+
+  is-Instruction =
+    ?INEG()
+
+  prettyprint-Instruction :
+    IOR() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("ior")]
+               )
+             ]
+
+  is-Instruction =
+    ?IOR()
+
+  prettyprint-Instruction :
+    IREM() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("irem")]
+                )
+              ]
+
+  is-Instruction =
+    ?IREM()
+
+  prettyprint-Instruction :
+    ISHL() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("ishl")]
+                )
+              ]
+
+  is-Instruction =
+    ?ISHL()
+
+  prettyprint-Instruction :
+    ISHR() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("ishr")]
+                )
+              ]
+
+  is-Instruction =
+    ?ISHR()
+
+  prettyprint-Instruction :
+    ISUB() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("isub")]
+                )
+              ]
+
+  is-Instruction =
+    ?ISUB()
+
+  prettyprint-Instruction :
+    IUSHR() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("iushr")]
+                 )
+               ]
+
+  is-Instruction =
+    ?IUSHR()
+
+  prettyprint-Instruction :
+    IXOR() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("ixor")]
+                )
+              ]
+
+  is-Instruction =
+    ?IXOR()
+
+  prettyprint-Instruction :
+    LADD() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("ladd")]
+                )
+              ]
+
+  is-Instruction =
+    ?LADD()
+
+  prettyprint-Instruction :
+    LAND() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("land")]
+                )
+              ]
+
+  is-Instruction =
+    ?LAND()
+
+  prettyprint-Instruction :
+    LDIV() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("ldiv")]
+                )
+              ]
+
+  is-Instruction =
+    ?LDIV()
+
+  prettyprint-Instruction :
+    LMUL() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lmul")]
+                )
+              ]
+
+  is-Instruction =
+    ?LMUL()
+
+  prettyprint-Instruction :
+    LNEG() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lneg")]
+                )
+              ]
+
+  is-Instruction =
+    ?LNEG()
+
+  prettyprint-Instruction :
+    LOR() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("lor")]
+               )
+             ]
+
+  is-Instruction =
+    ?LOR()
+
+  prettyprint-Instruction :
+    LREM() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lrem")]
+                )
+              ]
+
+  is-Instruction =
+    ?LREM()
+
+  prettyprint-Instruction :
+    LSHL() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lshl")]
+                )
+              ]
+
+  is-Instruction =
+    ?LSHL()
+
+  prettyprint-Instruction :
+    LSHR() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lshr")]
+                )
+              ]
+
+  is-Instruction =
+    ?LSHR()
+
+  prettyprint-Instruction :
+    LSUB() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lsub")]
+                )
+              ]
+
+  is-Instruction =
+    ?LSUB()
+
+  prettyprint-Instruction :
+    LUSHR() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("lushr")]
+                 )
+               ]
+
+  is-Instruction =
+    ?LUSHR()
+
+  prettyprint-Instruction :
+    LXOR() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lxor")]
+                )
+              ]
+
+  is-Instruction =
+    ?LXOR()
+
+  prettyprint-Instruction :
+    FADD() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("fadd")]
+                )
+              ]
+
+  is-Instruction =
+    ?FADD()
+
+  prettyprint-Instruction :
+    FDIV() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("fdiv")]
+                )
+              ]
+
+  is-Instruction =
+    ?FDIV()
+
+  prettyprint-Instruction :
+    FMUL() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("fmul")]
+                )
+              ]
+
+  is-Instruction =
+    ?FMUL()
+
+  prettyprint-Instruction :
+    FNEG() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("fneg")]
+                )
+              ]
+
+  is-Instruction =
+    ?FNEG()
+
+  prettyprint-Instruction :
+    FREM() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("frem")]
+                )
+              ]
+
+  is-Instruction =
+    ?FREM()
+
+  prettyprint-Instruction :
+    FSUB() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("fsub")]
+                )
+              ]
+
+  is-Instruction =
+    ?FSUB()
+
+  prettyprint-Instruction :
+    DADD() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("dadd")]
+                )
+              ]
+
+  is-Instruction =
+    ?DADD()
+
+  prettyprint-Instruction :
+    DDIV() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("ddiv")]
+                )
+              ]
+
+  is-Instruction =
+    ?DDIV()
+
+  prettyprint-Instruction :
+    DMUL() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("dmul")]
+                )
+              ]
+
+  is-Instruction =
+    ?DMUL()
+
+  prettyprint-Instruction :
+    DNEG() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("dneg")]
+                )
+              ]
+
+  is-Instruction =
+    ?DNEG()
+
+  prettyprint-Instruction :
+    DREM() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("drem")]
+                )
+              ]
+
+  is-Instruction =
+    ?DREM()
+
+  prettyprint-Instruction :
+    DSUB() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("dsub")]
+                )
+              ]
+
+  is-Instruction =
+    ?DSUB()
+
+  prettyprint-Instruction :
+    IINC(t1__, t2__) -> [ H(
+                            [SOpt(HS(), "0")]
+                          , [ S("iinc ")
+                            , t1__'
+                            , S(" ")
+                            , t2__'
+                            ]
+                          )
+                        ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+    with t2__' := <pp-one-Z(prettyprint-Amount)> t2__
+
+  is-Instruction =
+    ?IINC(_, _)
+
+  prettyprint-Instruction :
+    IINC_W(t1__, t2__) -> [ H(
+                              [SOpt(HS(), "0")]
+                            , [ S("iinc_w ")
+                              , t1__'
+                              , S(" ")
+                              , t2__'
+                              ]
+                            )
+                          ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+    with t2__' := <pp-one-Z(prettyprint-Amount)> t2__
+
+  is-Instruction =
+    ?IINC_W(_, _)
+
+  prettyprint-Amount :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-Amount)
+    where t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  prettyprint-Amount :
+    Neg(t1__) -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [t1__']
+                   )
+                 ]
+    with t1__' := <pp-one-Z(prettyprint-NegInt)> t1__
+
+  is-Amount =
+    ?Neg(_)
+
+  prettyprint-Instruction :
+    FCMPG() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("fcmpg")]
+                 )
+               ]
+
+  is-Instruction =
+    ?FCMPG()
+
+  prettyprint-Instruction :
+    FCMPL() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("fcmpl")]
+                 )
+               ]
+
+  is-Instruction =
+    ?FCMPL()
+
+  prettyprint-Instruction :
+    DCMPG() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("dcmpg")]
+                 )
+               ]
+
+  is-Instruction =
+    ?DCMPG()
+
+  prettyprint-Instruction :
+    DCMPL() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("dcmpl")]
+                 )
+               ]
+
+  is-Instruction =
+    ?DCMPL()
+
+  prettyprint-Instruction :
+    LCMP() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("lcmp")]
+                )
+              ]
+
+  is-Instruction =
+    ?LCMP()
+
+  is-Amount =
+    fail
+
+  is-Instruction =
+    fail

@@ -1,0 +1,29 @@
+module src-gen/pp/JasminXT-Exceptions-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Exceptions-sig
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    ATHROW() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("athrow")]
+                  )
+                ]
+
+  is-Instruction =
+    ?ATHROW()
+
+  is-Instruction =
+    fail

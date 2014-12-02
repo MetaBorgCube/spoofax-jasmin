@@ -1,0 +1,18 @@
+module JasminXT-Stack
+exports
+  context-free start-symbols
+    Instruction
+
+  context-free syntax
+    "pop"     -> Instruction {cons("POP")}
+    "pop2"    -> Instruction {cons("POP2")}
+    "dup"     -> Instruction {cons("DUP")}
+    "dup2"    -> Instruction {cons("DUP2")}
+    "dup_x1"  -> Instruction {cons("DUP_X1")}
+    "dup2_x1" -> Instruction {cons("DUP2_X1")}
+    "dup_x2"  -> Instruction {cons("DUP_X2")}
+    "dup2_x2" -> Instruction {cons("DUP2_X2")}
+    "swap"    -> Instruction {cons("SWAP")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}

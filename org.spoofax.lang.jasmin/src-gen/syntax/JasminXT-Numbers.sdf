@@ -1,0 +1,20 @@
+module JasminXT-Numbers
+exports
+  context-free start-symbols
+    Int
+
+  lexical syntax
+    Int "." Int "d" -> Double 
+    Int "." Int     -> Float  
+    [0-9]+          -> Int    
+
+  lexical syntax
+    "-" Int -> NegInt 
+
+  lexical restrictions
+    Int -/- [0-9]
+
+  context-free syntax
+    Double -> Constant {cons("Double")}
+    Float  -> Constant {cons("Float")}
+    Int    -> Constant {cons("Int")}

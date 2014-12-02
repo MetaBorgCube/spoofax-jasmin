@@ -1,0 +1,11 @@
+module JasminXT-Synchronisation
+exports
+  context-free start-symbols
+    Instruction
+
+  context-free syntax
+    "monitorenter" -> Instruction {cons("MONITORENTER")}
+    "monitorexit"  -> Instruction {cons("MONITOREXIT")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}

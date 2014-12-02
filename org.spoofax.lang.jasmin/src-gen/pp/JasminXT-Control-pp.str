@@ -1,0 +1,386 @@
+module src-gen/pp/JasminXT-Control-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Control-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+imports
+  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Numbers-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-LabelRef
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-RelOffset
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-Target
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-TableEntry
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-LookupEntry
+
+
+strategies
+  prettyprint-example =
+    prettyprint-RelOffset
+
+  prettyprint-example =
+    prettyprint-Target
+
+  prettyprint-RelOffset :
+    RelativeFwd(t1__) -> [ H(
+                             [SOpt(HS(), "0")]
+                           , [S("+"), t1__']
+                           )
+                         ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-RelOffset =
+    ?RelativeFwd(_)
+
+  prettyprint-RelOffset :
+    RelativeBwd(t1__) -> [ H(
+                             [SOpt(HS(), "0")]
+                           , [S("-"), t1__']
+                           )
+                         ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-RelOffset =
+    ?RelativeBwd(_)
+
+  prettyprint-Target :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-Target)
+    where t1__' := <pp-one-Z(prettyprint-LabelRef)> t1__
+
+  prettyprint-Target :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-Target)
+    where t1__' := <pp-one-Z(prettyprint-RelOffset)> t1__
+
+  is-RelOffset =
+    fail
+
+  is-Target =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-TableEntry
+
+  prettyprint-example =
+    prettyprint-LookupEntry
+
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    IFEQ(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("ifeq "), t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFEQ(_)
+
+  prettyprint-Instruction :
+    IFLT(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("iflt "), t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFLT(_)
+
+  prettyprint-Instruction :
+    IFLE(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("ifle "), t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFLE(_)
+
+  prettyprint-Instruction :
+    IFNE(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("ifne "), t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFNE(_)
+
+  prettyprint-Instruction :
+    IFGT(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("ifgt "), t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFGT(_)
+
+  prettyprint-Instruction :
+    IFGE(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("ifge "), t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFGE(_)
+
+  prettyprint-Instruction :
+    IFNULL(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("ifnull "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFNULL(_)
+
+  prettyprint-Instruction :
+    IFNONNULL(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("ifnonnull "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IFNONNULL(_)
+
+  prettyprint-Instruction :
+    IF_ICMPEQ(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_icmpeq "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ICMPEQ(_)
+
+  prettyprint-Instruction :
+    IF_ICMPLT(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_icmplt "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ICMPLT(_)
+
+  prettyprint-Instruction :
+    IF_ICMPLE(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_icmple "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ICMPLE(_)
+
+  prettyprint-Instruction :
+    IF_ICMPNE(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_icmpne "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ICMPNE(_)
+
+  prettyprint-Instruction :
+    IF_ICMPGT(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_icmpgt "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ICMPGT(_)
+
+  prettyprint-Instruction :
+    IF_ICMPGE(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_icmpge "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ICMPGE(_)
+
+  prettyprint-Instruction :
+    IF_ACMPEQ(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_acmpeq "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ACMPEQ(_)
+
+  prettyprint-Instruction :
+    IF_ACMPNE(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("if_acmpne "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-Target)> t1__
+
+  is-Instruction =
+    ?IF_ACMPNE(_)
+
+  prettyprint-Instruction :
+    Table(t1__, t2__, t3__) -> [ H(
+                                   [SOpt(HS(), "0")]
+                                 , [S("tableswitch "), t1__']
+                                 )
+                               , t2__'
+                               , t3__'
+                               ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+    with t2__' := <pp-indent(|"2")> [ <pp-V-list(prettyprint-TableEntry|"0", "\t")> t2__
+                                    ]
+    with t3__' := <pp-indent(|"2")> [ S("default: ")
+                                    , <pp-one-Z(prettyprint-LabelRef)> t3__
+                                    ]
+
+  is-Instruction =
+    ?Table(_, _, _)
+
+  prettyprint-Instruction :
+    Lookup(t1__, t2__) -> [ H(
+                              [SOpt(HS(), "0")]
+                            , [S("lookupswitch")]
+                            )
+                          , t1__'
+                          , t2__'
+                          ]
+    with t1__' := <pp-indent(|"2")> [ <pp-V-list(prettyprint-LookupEntry|"0", "\t")> t1__
+                                    ]
+    with t2__' := <pp-indent(|"2")> [ S("default: ")
+                                    , <pp-one-Z(prettyprint-LabelRef)> t2__
+                                    ]
+
+  is-Instruction =
+    ?Lookup(_, _)
+
+  prettyprint-TableEntry :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-TableEntry)
+    where t1__' := <pp-one-Z(prettyprint-LabelRef)> t1__
+
+  prettyprint-LookupEntry :
+    NPAIR(t1__, t2__) -> [ H(
+                             [SOpt(HS(), "0")]
+                           , [t1__', S(": "), t2__']
+                           )
+                         ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+    with t2__' := <pp-one-Z(prettyprint-LabelRef)> t2__
+
+  is-LookupEntry =
+    ?NPAIR(_, _)
+
+  prettyprint-Instruction :
+    GOTO(t1__) -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("goto "), t1__']
+                    )
+                  ]
+    with t1__' := <pp-one-Z(prettyprint-LabelRef)> t1__
+
+  is-Instruction =
+    ?GOTO(_)
+
+  prettyprint-Instruction :
+    GOTO_W(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [S("goto_w "), t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-LabelRef)> t1__
+
+  is-Instruction =
+    ?GOTO_W(_)
+
+  prettyprint-Instruction :
+    JSR(t1__) -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("jsr "), t1__']
+                   )
+                 ]
+    with t1__' := <pp-one-Z(prettyprint-LabelRef)> t1__
+
+  is-Instruction =
+    ?JSR(_)
+
+  prettyprint-Instruction :
+    JSR_W(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("jsr_w "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-LabelRef)> t1__
+
+  is-Instruction =
+    ?JSR_W(_)
+
+  is-TableEntry =
+    fail
+
+  is-LookupEntry =
+    fail
+
+  is-Instruction =
+    fail

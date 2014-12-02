@@ -1,0 +1,80 @@
+module JasminXT-Header
+imports JasminXT-Names JasminXT-Numbers JasminXT-Strings JasminXT-Descriptors
+
+exports
+  context-free start-symbols
+    JasminHeader
+
+  context-free syntax
+    BytecodeSpec SourceSpec ClassSpec SuperSpec ImplementsSpec* SignatureSpec EnclosingSpec DebugSpec* InnerClassSpec* InnerInterfaceSpec* -> JasminHeader {cons("JBCHeader")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> JasminHeader {cons("COMPLETION-JasminHeader")}
+
+  context-free syntax
+    ".bytecode" MajorVersion MinorVersion -> BytecodeSpec {cons("JBCVersion")}
+                                          -> BytecodeSpec {cons("None")}
+    Int                                   -> MajorVersion {cons("Major")}
+    "." Int                               -> MinorVersion {cons("Minor")}
+                                          -> MinorVersion {cons("None")}
+    ".source" String                      -> SourceSpec   {cons("JBCSource")}
+                                          -> SourceSpec   {cons("None")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> BytecodeSpec {cons("COMPLETION-BytecodeSpec")}
+    CONTENTCOMPLETE -> MinorVersion {cons("COMPLETION-MinorVersion")}
+    CONTENTCOMPLETE -> SourceSpec   {cons("COMPLETION-SourceSpec")}
+
+  context-free syntax
+    ".class" ClassAccess* ClassName     -> ClassSpec      {cons("JBCClass")}
+    ".interface" ClassAccess* ClassName -> ClassSpec      {cons("JBCInterface")}
+    "public"                            -> ClassAccess    {cons("PUBLIC")}
+    "final"                             -> ClassAccess    {cons("FINAL")}
+    "interface"                         -> ClassAccess    {cons("INTERFACE")}
+    "abstract"                          -> ClassAccess    {cons("ABSTRACT")}
+    "super"                             -> ClassAccess    {cons("SUPER")}
+    ".super" ClassName                  -> SuperSpec      {cons("JBCSuper")}
+    ".implements" ClassName             -> ImplementsSpec {cons("JBCImplements")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> ClassSpec      {cons("COMPLETION-ClassSpec")}
+    CONTENTCOMPLETE -> ClassAccess    {cons("COMPLETION-ClassAccess")}
+    CONTENTCOMPLETE -> SuperSpec      {cons("COMPLETION-SuperSpec")}
+    CONTENTCOMPLETE -> ImplementsSpec {cons("COMPLETION-ImplementsSpec")}
+
+  context-free syntax
+    ".signature" String                    -> SignatureSpec {cons("JBCSignature")}
+                                           -> SignatureSpec {cons("None")}
+    ".enclosing" "method" MethodDescriptor -> EnclosingSpec {cons("JBCEnclosing")}
+                                           -> EnclosingSpec {cons("None")}
+    ".debug" String                        -> DebugSpec     {cons("JBCDebug")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> SignatureSpec {cons("COMPLETION-SignatureSpec")}
+    CONTENTCOMPLETE -> EnclosingSpec {cons("COMPLETION-EnclosingSpec")}
+    CONTENTCOMPLETE -> DebugSpec     {cons("COMPLETION-DebugSpec")}
+
+  context-free syntax
+    ".inner" "class" InnerClassAccess InnerClassName InnerName OuterName     -> InnerClassSpec     {cons("JBCInnerClass")}
+    ".inner" "interface" InnerClassAccess InnerClassName InnerName OuterName -> InnerInterfaceSpec {cons("JBCInnerInterface")}
+    ClassAccess                                                              -> InnerClassAccess   
+                                                                             -> InnerClassAccess   {cons("None")}
+    ClassName                                                                -> InnerClassName     
+                                                                             -> InnerClassName     {cons("None")}
+    "inner" {ClassName "$"}+                                                 -> InnerName          {cons("InnerNameSpec")}
+                                                                             -> InnerName          {cons("None")}
+    "outer" ClassName                                                        -> OuterName          {cons("OuterNameSpec")}
+                                                                             -> OuterName          {cons("None")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> InnerClassSpec     {cons("COMPLETION-InnerClassSpec")}
+    CONTENTCOMPLETE -> InnerInterfaceSpec {cons("COMPLETION-InnerInterfaceSpec")}
+    CONTENTCOMPLETE -> InnerClassAccess   {cons("COMPLETION-InnerClassAccess")}
+    CONTENTCOMPLETE -> InnerClassName     {cons("COMPLETION-InnerClassName")}
+    CONTENTCOMPLETE -> InnerName          {cons("COMPLETION-InnerName")}
+    CONTENTCOMPLETE -> OuterName          {cons("COMPLETION-OuterName")}
+
+  lexical restrictions
+    ".bytecode" ".source" ".class" ".interface" "public" "final" "interface"
+    "abstract" "super" ".super" ".implements" ".signature" ".enclosing"
+    ".deprecated" ".inner" "class" "inner" "outer" -/- ~[\ \t]

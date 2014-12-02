@@ -1,0 +1,169 @@
+module src-gen/pp/JasminXT-Conversion-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Conversion-sig
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    I2L() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("i2l")]
+               )
+             ]
+
+  is-Instruction =
+    ?I2L()
+
+  prettyprint-Instruction :
+    I2F() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("i2f")]
+               )
+             ]
+
+  is-Instruction =
+    ?I2F()
+
+  prettyprint-Instruction :
+    I2D() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("i2d")]
+               )
+             ]
+
+  is-Instruction =
+    ?I2D()
+
+  prettyprint-Instruction :
+    L2F() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("l2f")]
+               )
+             ]
+
+  is-Instruction =
+    ?L2F()
+
+  prettyprint-Instruction :
+    L2D() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("l2d")]
+               )
+             ]
+
+  is-Instruction =
+    ?L2D()
+
+  prettyprint-Instruction :
+    F2D() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("f2d")]
+               )
+             ]
+
+  is-Instruction =
+    ?F2D()
+
+  prettyprint-Instruction :
+    I2B() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("int2byte")]
+               )
+             ]
+
+  is-Instruction =
+    ?I2B()
+
+  prettyprint-Instruction :
+    I2S() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("int2short")]
+               )
+             ]
+
+  is-Instruction =
+    ?I2S()
+
+  prettyprint-Instruction :
+    I2C() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("int2char")]
+               )
+             ]
+
+  is-Instruction =
+    ?I2C()
+
+  prettyprint-Instruction :
+    L2I() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("l2i")]
+               )
+             ]
+
+  is-Instruction =
+    ?L2I()
+
+  prettyprint-Instruction :
+    F2I() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("f2i")]
+               )
+             ]
+
+  is-Instruction =
+    ?F2I()
+
+  prettyprint-Instruction :
+    F2L() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("f2l")]
+               )
+             ]
+
+  is-Instruction =
+    ?F2L()
+
+  prettyprint-Instruction :
+    D2I() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("d2i")]
+               )
+             ]
+
+  is-Instruction =
+    ?D2I()
+
+  prettyprint-Instruction :
+    D2L() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("d2l")]
+               )
+             ]
+
+  is-Instruction =
+    ?D2L()
+
+  prettyprint-Instruction :
+    D2F() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("d2f")]
+               )
+             ]
+
+  is-Instruction =
+    ?D2F()
+
+  is-Instruction =
+    fail

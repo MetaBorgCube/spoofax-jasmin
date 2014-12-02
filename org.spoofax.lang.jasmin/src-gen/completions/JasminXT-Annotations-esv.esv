@@ -1,0 +1,24 @@
+
+module src-gen/completions/JasminXT-Annotations-esv
+
+imports
+  src-gen/completions/JasminXT-Strings-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Descriptors-esv
+
+completions
+  completion template Annotation : ".annotation visible ClassName .end annotation" =
+    ".annotation visible " <ClassName:ClassName> "\n\t" (cursor) "\n.end annotation" (blank)  
+  completion template Annotation : ".annotation invisible ClassName .end annotation" =
+    ".annotation invisible " <ClassName:ClassName> "\n\t" (cursor) "\n.end annotation" (blank)  
+  completion template Annotation : ".annotation visibleparam Int ClassName .end annotation" =
+    ".annotation visibleparam " <Int:Int> " " <ClassName:ClassName> "\n\t" (cursor) "\n.end annotation" (blank)  
+  completion template Annotation : ".annotation invisibleparam Int ClassName .end annotation" =
+    ".annotation invisibleparam " <Int:Int> " " <ClassName:ClassName> "\n\t" (cursor) "\n.end annotation" (blank)  
+  completion template Annotation : ".annotation default AnnotationName = .end annotation" =
+    ".annotation default\n\t" <AnnotationName:AnnotationName> " = " <:Constant> "\n.end annotation" (blank)  
+  completion template AnnotationField : "AnnotationName AnnotationDescriptor = " =
+    <AnnotationName:AnnotationName> " " <AnnotationDescriptor:AnnotationDescriptor> " = " <:Constant>  
+  completion template AnnotationField : "AnnotationName @ = Annotation" =
+    <AnnotationName:AnnotationName> " @ = " <Annotation:Annotation>  

@@ -1,0 +1,34 @@
+module src-gen/completions/JasminXT-Names-esv
+
+imports
+  src-gen/completions/JasminXT-Strings-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Descriptors-esv
+
+completions
+  completion template MethodName : "<init>" =
+    "<init>"  
+
+completions
+  completion template FieldRef : "ClassRef/FRef FieldDescriptor" =
+    <ClassRef:ClassRef> "/" <FRef:FRef> " " <FieldDescriptor:FieldDescriptor>  
+  completion template MethodRef : "ClassRef/MRef MethodDescriptor" =
+    <ClassRef:ClassRef> "/" <MRef:MRef> " " <MethodDescriptor:MethodDescriptor>  
+
+completions
+  completion template BaseTypeName : "byte" =
+    "byte"  
+  completion template BaseTypeName : "char" =
+    "char"  
+  completion template BaseTypeName : "double" =
+    "double"  
+  completion template BaseTypeName : "float" =
+    "float"  
+  completion template BaseTypeName : "int" =
+    "int"  
+  completion template BaseTypeName : "long" =
+    "long"  
+  completion template BaseTypeName : "short" =
+    "short"  
+  completion template BaseTypeName : "boolean" =
+    "boolean"  

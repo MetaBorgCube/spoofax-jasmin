@@ -1,0 +1,340 @@
+module src-gen/pp/JasminXT-Objects-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Objects-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Numbers-pp
+  src-gen/pp/JasminXT-Descriptors-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-ANewArrayArg
+
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    NEW(t1__) -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("new "), t1__']
+                   )
+                 ]
+    with t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
+
+  is-Instruction =
+    ?NEW(_)
+
+  prettyprint-Instruction :
+    NEWARRAY(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("newarray "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-BaseTypeName)> t1__
+
+  is-Instruction =
+    ?NEWARRAY(_)
+
+  prettyprint-Instruction :
+    ANEWARRAY(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("anewarray "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-ANewArrayArg)> t1__
+
+  is-Instruction =
+    ?ANEWARRAY(_)
+
+  prettyprint-ANewArrayArg :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-ANewArrayArg)
+    where t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
+
+  prettyprint-ANewArrayArg :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-ANewArrayArg)
+    where t1__' := <pp-one-Z(prettyprint-ArrayType)> t1__
+
+  prettyprint-Instruction :
+    MULTIANEWARRAY(t1__, t2__) -> [ H(
+                                      [SOpt(HS(), "0")]
+                                    , [ S("multianewarray ")
+                                      , t1__'
+                                      , S(" ")
+                                      , t2__'
+                                      ]
+                                    )
+                                  ]
+    with t1__' := <pp-one-Z(prettyprint-ArrayType)> t1__
+    with t2__' := <pp-one-Z(prettyprint-Int)> t2__
+
+  is-Instruction =
+    ?MULTIANEWARRAY(_, _)
+
+  prettyprint-Instruction :
+    GETFIELD(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("getfield "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-FieldRef)> t1__
+
+  is-Instruction =
+    ?GETFIELD(_)
+
+  prettyprint-Instruction :
+    PUTFIELD(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("putfield "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-FieldRef)> t1__
+
+  is-Instruction =
+    ?PUTFIELD(_)
+
+  prettyprint-Instruction :
+    GETSTATIC(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("getstatic "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-FieldRef)> t1__
+
+  is-Instruction =
+    ?GETSTATIC(_)
+
+  prettyprint-Instruction :
+    PUTSTATIC(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("putstatic "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-FieldRef)> t1__
+
+  is-Instruction =
+    ?PUTSTATIC(_)
+
+  prettyprint-Instruction :
+    IALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("iaload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?IALOAD()
+
+  prettyprint-Instruction :
+    LALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("laload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?LALOAD()
+
+  prettyprint-Instruction :
+    BALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("baload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?BALOAD()
+
+  prettyprint-Instruction :
+    CALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("caload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?CALOAD()
+
+  prettyprint-Instruction :
+    SALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("saload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?SALOAD()
+
+  prettyprint-Instruction :
+    FALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("faload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?FALOAD()
+
+  prettyprint-Instruction :
+    DALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("daload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?DALOAD()
+
+  prettyprint-Instruction :
+    AALOAD() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("aaload")]
+                  )
+                ]
+
+  is-Instruction =
+    ?AALOAD()
+
+  prettyprint-Instruction :
+    IASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("iastore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?IASTORE()
+
+  prettyprint-Instruction :
+    LASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("lastore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?LASTORE()
+
+  prettyprint-Instruction :
+    BASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("bastore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?BASTORE()
+
+  prettyprint-Instruction :
+    CASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("castore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?CASTORE()
+
+  prettyprint-Instruction :
+    SASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("sastore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?SASTORE()
+
+  prettyprint-Instruction :
+    FASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("fastore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?FASTORE()
+
+  prettyprint-Instruction :
+    DASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dastore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DASTORE()
+
+  prettyprint-Instruction :
+    AASTORE() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("aastore")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?AASTORE()
+
+  prettyprint-Instruction :
+    ARRAYLENGTH() -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("arraylength")]
+                       )
+                     ]
+
+  is-Instruction =
+    ?ARRAYLENGTH()
+
+  prettyprint-Instruction :
+    CHECKCAST(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S("checkcast "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
+
+  is-Instruction =
+    ?CHECKCAST(_)
+
+  prettyprint-Instruction :
+    INSTANCEOF(t1__) -> [ H(
+                            [SOpt(HS(), "0")]
+                          , [S("instanceof "), t1__']
+                          )
+                        ]
+    with t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
+
+  is-Instruction =
+    ?INSTANCEOF(_)
+
+  is-ANewArrayArg =
+    fail
+
+  is-Instruction =
+    fail

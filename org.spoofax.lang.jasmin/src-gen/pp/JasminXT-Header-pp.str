@@ -1,0 +1,570 @@
+module src-gen/pp/JasminXT-Header-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Header-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Numbers-pp
+  src-gen/pp/JasminXT-Strings-pp
+  src-gen/pp/JasminXT-Descriptors-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-JasminHeader
+
+
+strategies
+  prettyprint-example =
+    prettyprint-JasminHeader
+
+  prettyprint-JasminHeader :
+    JBCHeader(
+      t1__
+    , t2__
+    , t3__
+    , t4__
+    , t5__
+    , t6__
+    , t7__
+    , t8__
+    , t9__
+    , t10__
+    ) -> [ H(
+             [SOpt(HS(), "0")]
+           , [t1__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t2__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t3__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t4__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t5__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t6__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t7__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t8__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t9__']
+           )
+         , H(
+             [SOpt(HS(), "0")]
+           , [t10__']
+           )
+         ]
+    with t1__' := <pp-one-Z(prettyprint-BytecodeSpec)> t1__
+    with t2__' := <pp-one-Z(prettyprint-SourceSpec)> t2__
+    with t3__' := <pp-one-Z(prettyprint-ClassSpec)> t3__
+    with t4__' := <pp-one-Z(prettyprint-SuperSpec)> t4__
+    with t5__' := <pp-V-list(prettyprint-ImplementsSpec)> t5__
+    with t6__' := <pp-one-Z(prettyprint-SignatureSpec)> t6__
+    with t7__' := <pp-one-Z(prettyprint-EnclosingSpec)> t7__
+    with t8__' := <pp-V-list(prettyprint-DebugSpec)> t8__
+    with t9__' := <pp-V-list(prettyprint-InnerClassSpec)> t9__
+    with t10__' := <pp-V-list(prettyprint-InnerInterfaceSpec)> t10__
+
+  is-JasminHeader =
+    ?JBCHeader(_, _, _, _, _, _, _, _, _, _)
+
+  is-JasminHeader =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-BytecodeSpec
+
+  prettyprint-example =
+    prettyprint-MajorVersion
+
+  prettyprint-example =
+    prettyprint-MinorVersion
+
+  prettyprint-example =
+    prettyprint-SourceSpec
+
+  prettyprint-BytecodeSpec :
+    JBCVersion(t1__, t2__) -> [ H(
+                                  [SOpt(HS(), "0")]
+                                , [ S(".bytecode ")
+                                  , t1__'
+                                  , S(" ")
+                                  , t2__'
+                                  ]
+                                )
+                              ]
+    with t1__' := <pp-one-Z(prettyprint-MajorVersion)> t1__
+    with t2__' := <pp-one-Z(prettyprint-MinorVersion)> t2__
+
+  is-BytecodeSpec =
+    ?JBCVersion(_, _)
+
+  prettyprint-BytecodeSpec :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-BytecodeSpec =
+    ?None()
+
+  prettyprint-MajorVersion :
+    Major(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-MajorVersion =
+    ?Major(_)
+
+  prettyprint-MinorVersion :
+    Minor(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("."), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-Int)> t1__
+
+  is-MinorVersion =
+    ?Minor(_)
+
+  prettyprint-MinorVersion :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-MinorVersion =
+    ?None()
+
+  prettyprint-SourceSpec :
+    JBCSource(t1__) -> [ H(
+                           [SOpt(HS(), "0")]
+                         , [S(".source "), t1__']
+                         )
+                       ]
+    with t1__' := <pp-one-Z(prettyprint-String)> t1__
+
+  is-SourceSpec =
+    ?JBCSource(_)
+
+  prettyprint-SourceSpec :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-SourceSpec =
+    ?None()
+
+  is-BytecodeSpec =
+    fail
+
+  is-MajorVersion =
+    fail
+
+  is-MinorVersion =
+    fail
+
+  is-SourceSpec =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-ClassSpec
+
+  prettyprint-example =
+    prettyprint-ClassAccess
+
+  prettyprint-example =
+    prettyprint-SuperSpec
+
+  prettyprint-example =
+    prettyprint-ImplementsSpec
+
+  prettyprint-ClassSpec :
+    JBCClass(t1__, t2__) -> [ H(
+                                [SOpt(HS(), "0")]
+                              , [ S(".class ")
+                                , t1__'
+                                , S(" ")
+                                , t2__'
+                                ]
+                              )
+                            ]
+    with t1__' := <pp-H-list(prettyprint-ClassAccess|" ")> t1__
+    with t2__' := <pp-one-Z(prettyprint-ClassName)> t2__
+
+  is-ClassSpec =
+    ?JBCClass(_, _)
+
+  prettyprint-ClassSpec :
+    JBCInterface(t1__, t2__) -> [ H(
+                                    [SOpt(HS(), "0")]
+                                  , [ S(".interface ")
+                                    , t1__'
+                                    , S(" ")
+                                    , t2__'
+                                    ]
+                                  )
+                                ]
+    with t1__' := <pp-H-list(prettyprint-ClassAccess|" ")> t1__
+    with t2__' := <pp-one-Z(prettyprint-ClassName)> t2__
+
+  is-ClassSpec =
+    ?JBCInterface(_, _)
+
+  prettyprint-ClassAccess :
+    PUBLIC() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("public")]
+                  )
+                ]
+
+  is-ClassAccess =
+    ?PUBLIC()
+
+  prettyprint-ClassAccess :
+    FINAL() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("final")]
+                 )
+               ]
+
+  is-ClassAccess =
+    ?FINAL()
+
+  prettyprint-ClassAccess :
+    INTERFACE() -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("interface")]
+                     )
+                   ]
+
+  is-ClassAccess =
+    ?INTERFACE()
+
+  prettyprint-ClassAccess :
+    ABSTRACT() -> [ H(
+                      [SOpt(HS(), "0")]
+                    , [S("abstract")]
+                    )
+                  ]
+
+  is-ClassAccess =
+    ?ABSTRACT()
+
+  prettyprint-ClassAccess :
+    SUPER() -> [ H(
+                   [SOpt(HS(), "0")]
+                 , [S("super")]
+                 )
+               ]
+
+  is-ClassAccess =
+    ?SUPER()
+
+  prettyprint-SuperSpec :
+    JBCSuper(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S(".super "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-ClassName)> t1__
+
+  is-SuperSpec =
+    ?JBCSuper(_)
+
+  prettyprint-ImplementsSpec :
+    JBCImplements(t1__) -> [ H(
+                               [SOpt(HS(), "0")]
+                             , [S(".implements "), t1__']
+                             )
+                           ]
+    with t1__' := <pp-one-Z(prettyprint-ClassName)> t1__
+
+  is-ImplementsSpec =
+    ?JBCImplements(_)
+
+  is-ClassSpec =
+    fail
+
+  is-ClassAccess =
+    fail
+
+  is-SuperSpec =
+    fail
+
+  is-ImplementsSpec =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-SignatureSpec
+
+  prettyprint-example =
+    prettyprint-EnclosingSpec
+
+  prettyprint-example =
+    prettyprint-DebugSpec
+
+  prettyprint-SignatureSpec :
+    JBCSignature(t1__) -> [ H(
+                              [SOpt(HS(), "0")]
+                            , [S(".signature "), t1__']
+                            )
+                          ]
+    with t1__' := <pp-one-Z(prettyprint-String)> t1__
+
+  is-SignatureSpec =
+    ?JBCSignature(_)
+
+  prettyprint-SignatureSpec :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-SignatureSpec =
+    ?None()
+
+  prettyprint-EnclosingSpec :
+    JBCEnclosing(t1__) -> [ H(
+                              [SOpt(HS(), "0")]
+                            , [S(".enclosing method "), t1__']
+                            )
+                          ]
+    with t1__' := <pp-one-Z(prettyprint-MethodDescriptor)> t1__
+
+  is-EnclosingSpec =
+    ?JBCEnclosing(_)
+
+  prettyprint-EnclosingSpec :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-EnclosingSpec =
+    ?None()
+
+  prettyprint-DebugSpec :
+    JBCDebug(t1__) -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S(".debug "), t1__']
+                        )
+                      ]
+    with t1__' := <pp-one-Z(prettyprint-String)> t1__
+
+  is-DebugSpec =
+    ?JBCDebug(_)
+
+  is-SignatureSpec =
+    fail
+
+  is-EnclosingSpec =
+    fail
+
+  is-DebugSpec =
+    fail
+
+
+strategies
+  prettyprint-example =
+    prettyprint-InnerClassSpec
+
+  prettyprint-example =
+    prettyprint-InnerInterfaceSpec
+
+  prettyprint-example =
+    prettyprint-InnerClassAccess
+
+  prettyprint-example =
+    prettyprint-InnerClassName
+
+  prettyprint-example =
+    prettyprint-InnerName
+
+  prettyprint-example =
+    prettyprint-OuterName
+
+  prettyprint-InnerClassSpec :
+    JBCInnerClass(t1__, t2__, t3__, t4__) -> [ H(
+                                                 [SOpt(HS(), "0")]
+                                               , [ S(".inner class ")
+                                                 , t1__'
+                                                 , S(" ")
+                                                 , t2__'
+                                                 , S(" ")
+                                                 , t3__'
+                                                 , S(" ")
+                                                 , t4__'
+                                                 ]
+                                               )
+                                             ]
+    with t1__' := <pp-one-Z(prettyprint-InnerClassAccess)> t1__
+    with t2__' := <pp-one-Z(prettyprint-InnerClassName)> t2__
+    with t3__' := <pp-one-Z(prettyprint-InnerName)> t3__
+    with t4__' := <pp-one-Z(prettyprint-OuterName)> t4__
+
+  is-InnerClassSpec =
+    ?JBCInnerClass(_, _, _, _)
+
+  prettyprint-InnerInterfaceSpec :
+    JBCInnerInterface(t1__, t2__, t3__, t4__) -> [ H(
+                                                     [SOpt(HS(), "0")]
+                                                   , [ S(".inner interface ")
+                                                     , t1__'
+                                                     , S(" ")
+                                                     , t2__'
+                                                     , S(" ")
+                                                     , t3__'
+                                                     , S(" ")
+                                                     , t4__'
+                                                     ]
+                                                   )
+                                                 ]
+    with t1__' := <pp-one-Z(prettyprint-InnerClassAccess)> t1__
+    with t2__' := <pp-one-Z(prettyprint-InnerClassName)> t2__
+    with t3__' := <pp-one-Z(prettyprint-InnerName)> t3__
+    with t4__' := <pp-one-Z(prettyprint-OuterName)> t4__
+
+  is-InnerInterfaceSpec =
+    ?JBCInnerInterface(_, _, _, _)
+
+  prettyprint-InnerClassAccess :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-InnerClassAccess)
+    where t1__' := <pp-one-Z(prettyprint-ClassAccess)> t1__
+
+  prettyprint-InnerClassAccess :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-InnerClassAccess =
+    ?None()
+
+  prettyprint-InnerClassName :
+    t1__ -> [ H(
+                [SOpt(HS(), "0")]
+              , [t1__']
+              )
+            ]
+    where not(is-InnerClassName)
+    where t1__' := <pp-one-Z(prettyprint-ClassName)> t1__
+
+  prettyprint-InnerClassName :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-InnerClassName =
+    ?None()
+
+  prettyprint-InnerName :
+    InnerNameSpec(t1__) -> [ H(
+                               [SOpt(HS(), "0")]
+                             , [S("inner "), t1__']
+                             )
+                           ]
+    with t1__' := <pp-H-list(prettyprint-ClassName|"$")> t1__
+
+  is-InnerName =
+    ?InnerNameSpec(_)
+
+  prettyprint-InnerName :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-InnerName =
+    ?None()
+
+  prettyprint-OuterName :
+    OuterNameSpec(t1__) -> [ H(
+                               [SOpt(HS(), "0")]
+                             , [S("outer "), t1__']
+                             )
+                           ]
+    with t1__' := <pp-one-Z(prettyprint-ClassName)> t1__
+
+  is-OuterName =
+    ?OuterNameSpec(_)
+
+  prettyprint-OuterName :
+    None() -> [ H(
+                  []
+                , [S("")]
+                )
+              ]
+
+  is-OuterName =
+    ?None()
+
+  is-InnerClassSpec =
+    fail
+
+  is-InnerInterfaceSpec =
+    fail
+
+  is-InnerClassAccess =
+    fail
+
+  is-InnerClassName =
+    fail
+
+  is-InnerName =
+    fail
+
+  is-OuterName =
+    fail

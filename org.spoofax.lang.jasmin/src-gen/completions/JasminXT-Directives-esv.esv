@@ -1,0 +1,57 @@
+
+module src-gen/completions/JasminXT-Directives-esv
+
+imports
+  src-gen/completions/JasminXT-Descriptors-esv
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Strings-esv
+  src-gen/completions/JasminXT-Annotations-esv
+
+completions
+  completion template Directive : ".limit stack Int" =
+    ".limit stack " <Int:Int>                                                          
+  completion template Directive : ".limit locals Int" =
+    ".limit locals " <Int:Int>                                                        
+  completion template Directive : ".line Int" =
+    ".line " <Int:Int>                                                                        
+  completion template Directive : ".var Int is VarName FieldDescriptor from LabelRef to LabelRef" =
+    ".var " <Int:Int> " is " <VarName:VarName> " " <FieldDescriptor:FieldDescriptor> " from " <LabelRef:LabelRef> " to " <LabelRef:LabelRef>  
+  completion template Directive : ".throws ClassRef" =
+    ".throws " <ClassRef:ClassRef>                                                     
+  completion template Directive : ".catch ClassRef from LabelRef to LabelRef using LabelRef" =
+    ".catch " <ClassRef:ClassRef> " from " <LabelRef:LabelRef> " to " <LabelRef:LabelRef> " using " <LabelRef:LabelRef>  
+  completion template Directive : ".signature String" =
+    ".signature " <String:String>                                                     
+  completion template Directive : ".stack StackDirOffset .end stack" =
+    ".stack\n\t\t" <StackDirOffset:StackDirOffset> "\n\t\t" (cursor) "\n.end stack" (blank)  
+  completion template Directive : ".stack use Int locals StackDirOffset .end stack" =
+    ".stack use " <Int:Int> " locals\n\t\t" <StackDirOffset:StackDirOffset> "\n\t\t" (cursor) "\n.end stack" (blank)  
+  completion template Directive : ".deprecated" =
+    ".deprecated"                                                                           
+  completion template Directive : ".attribute AttributeName FileName" =
+    ".attribute " <AttributeName:AttributeName> " " <FileName:FileName>  
+  completion template StackDirOffset : "offset LabelRef" =
+    "offset " <LabelRef:LabelRef>                                                  
+  completion template StackDirLocalVar : "locals VerificationType" =
+    "locals " <VerificationType:VerificationType>                        
+  completion template StackDirStackVar : "stack VerificationType" =
+    "stack " <VerificationType:VerificationType>                          
+  completion template VerificationType : "Top" =
+    "Top"                                                                                    
+  completion template VerificationType : "Integer" =
+    "Integer"                                                                            
+  completion template VerificationType : "Float" =
+    "Float"                                                                                
+  completion template VerificationType : "Long" =
+    "Long"                                                                                  
+  completion template VerificationType : "Double" =
+    "Double"                                                                              
+  completion template VerificationType : "Null" =
+    "Null"                                                                                  
+  completion template VerificationType : "UnitializedThis" =
+    "UnitializedThis"                                                            
+  completion template VerificationType : "Object ClassName" =
+    "Object " <ClassName:ClassName>                                             
+  completion template VerificationType : "Unitialized LabelRef" =
+    "Unitialized " <LabelRef:LabelRef>                                      

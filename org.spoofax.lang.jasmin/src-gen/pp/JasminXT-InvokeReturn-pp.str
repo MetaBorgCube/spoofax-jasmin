@@ -1,0 +1,162 @@
+module src-gen/pp/JasminXT-InvokeReturn-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-InvokeReturn-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+imports
+  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Descriptors-pp
+  src-gen/pp/JasminXT-Numbers-pp
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    INVOKESPECIAL(t1__) -> [ H(
+                               [SOpt(HS(), "0")]
+                             , [S("invokenonvirtual "), t1__']
+                             )
+                           ]
+    with t1__' := <pp-one-Z(prettyprint-MethodRef)> t1__
+
+  is-Instruction =
+    ?INVOKESPECIAL(_)
+
+  prettyprint-Instruction :
+    INVOKEVIRTUAL(t1__) -> [ H(
+                               [SOpt(HS(), "0")]
+                             , [S("invokevirtual "), t1__']
+                             )
+                           ]
+    with t1__' := <pp-one-Z(prettyprint-MethodRef)> t1__
+
+  is-Instruction =
+    ?INVOKEVIRTUAL(_)
+
+  prettyprint-Instruction :
+    INVOKESTATIC(t1__) -> [ H(
+                              [SOpt(HS(), "0")]
+                            , [S("invokestatic "), t1__']
+                            )
+                          ]
+    with t1__' := <pp-one-Z(prettyprint-MethodRef)> t1__
+
+  is-Instruction =
+    ?INVOKESTATIC(_)
+
+  prettyprint-Instruction :
+    INVOKEINTERFACE(t1__, t2__) -> [ H(
+                                       [SOpt(HS(), "0")]
+                                     , [ S("invokeinterface ")
+                                       , t1__'
+                                       , S(" ")
+                                       , t2__'
+                                       ]
+                                     )
+                                   ]
+    with t1__' := <pp-one-Z(prettyprint-MethodRef)> t1__
+    with t2__' := <pp-one-Z(prettyprint-Int)> t2__
+
+  is-Instruction =
+    ?INVOKEINTERFACE(_, _)
+
+  prettyprint-Instruction :
+    RETURN() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("return")]
+                  )
+                ]
+
+  is-Instruction =
+    ?RETURN()
+
+  prettyprint-Instruction :
+    IRETURN() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("ireturn")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?IRETURN()
+
+  prettyprint-Instruction :
+    LRETURN() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("lreturn")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?LRETURN()
+
+  prettyprint-Instruction :
+    FRETURN() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("freturn")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?FRETURN()
+
+  prettyprint-Instruction :
+    DRETURN() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dreturn")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DRETURN()
+
+  prettyprint-Instruction :
+    ARETURN() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("areturn")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?ARETURN()
+
+  prettyprint-Instruction :
+    RET(t1__) -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("ret "), t1__']
+                   )
+                 ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?RET(_)
+
+  prettyprint-Instruction :
+    RET_W(t1__) -> [ H(
+                       [SOpt(HS(), "0")]
+                     , [S("ret_w "), t1__']
+                     )
+                   ]
+    with t1__' := <pp-one-Z(prettyprint-VarRef)> t1__
+
+  is-Instruction =
+    ?RET_W(_)
+
+  is-Instruction =
+    fail

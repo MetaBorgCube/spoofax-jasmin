@@ -1,0 +1,39 @@
+module src-gen/pp/JasminXT-Synchronisation-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Synchronisation-sig
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    MONITORENTER() -> [ H(
+                          [SOpt(HS(), "0")]
+                        , [S("monitorenter")]
+                        )
+                      ]
+
+  is-Instruction =
+    ?MONITORENTER()
+
+  prettyprint-Instruction :
+    MONITOREXIT() -> [ H(
+                         [SOpt(HS(), "0")]
+                       , [S("monitorexit")]
+                       )
+                     ]
+
+  is-Instruction =
+    ?MONITOREXIT()
+
+  is-Instruction =
+    fail

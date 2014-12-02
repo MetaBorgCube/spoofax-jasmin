@@ -1,0 +1,60 @@
+
+module src-gen/completions/JasminXT-Control-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+
+completions
+  completion template RelOffset : "+Int" =
+    "+" <Int:Int>  
+  completion template RelOffset : "-Int" =
+    "-" <Int:Int>  
+
+completions
+  completion template Instruction : "ifeq Target" =
+    "ifeq " <Target:Target>           
+  completion template Instruction : "iflt Target" =
+    "iflt " <Target:Target>           
+  completion template Instruction : "ifle Target" =
+    "ifle " <Target:Target>           
+  completion template Instruction : "ifne Target" =
+    "ifne " <Target:Target>           
+  completion template Instruction : "ifgt Target" =
+    "ifgt " <Target:Target>           
+  completion template Instruction : "ifge Target" =
+    "ifge " <Target:Target>           
+  completion template Instruction : "ifnull Target" =
+    "ifnull " <Target:Target>       
+  completion template Instruction : "ifnonnull Target" =
+    "ifnonnull " <Target:Target>  
+  completion template Instruction : "if_icmpeq Target" =
+    "if_icmpeq " <Target:Target>  
+  completion template Instruction : "if_icmplt Target" =
+    "if_icmplt " <Target:Target>  
+  completion template Instruction : "if_icmple Target" =
+    "if_icmple " <Target:Target>  
+  completion template Instruction : "if_icmpne Target" =
+    "if_icmpne " <Target:Target>  
+  completion template Instruction : "if_icmpgt Target" =
+    "if_icmpgt " <Target:Target>  
+  completion template Instruction : "if_icmpge Target" =
+    "if_icmpge " <Target:Target>  
+  completion template Instruction : "if_acmpeq Target" =
+    "if_acmpeq " <Target:Target>  
+  completion template Instruction : "if_acmpne Target" =
+    "if_acmpne " <Target:Target>  
+  completion template Instruction : "tableswitch Int default: LabelRef" =
+    "tableswitch " <Int:Int> "\n\t" (cursor) "\n\tdefault: " <LabelRef:LabelRef> (blank)  
+  completion template Instruction : "lookupswitch default: LabelRef" =
+    "lookupswitch\n\t" (cursor) "\n\tdefault: " <LabelRef:LabelRef> (blank)  
+  completion template LookupEntry : "Int: LabelRef" =
+    <Int:Int> ": " <LabelRef:LabelRef>  
+  completion template Instruction : "goto LabelRef" =
+    "goto " <LabelRef:LabelRef>     
+  completion template Instruction : "goto_w LabelRef" =
+    "goto_w " <LabelRef:LabelRef>  
+  completion template Instruction : "jsr LabelRef" =
+    "jsr " <LabelRef:LabelRef>       
+  completion template Instruction : "jsr_w LabelRef" =
+    "jsr_w " <LabelRef:LabelRef>   

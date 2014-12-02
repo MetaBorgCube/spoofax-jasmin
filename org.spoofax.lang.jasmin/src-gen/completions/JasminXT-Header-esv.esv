@@ -1,0 +1,58 @@
+
+module src-gen/completions/JasminXT-Header-esv
+
+imports
+  src-gen/completions/JasminXT-Names-esv
+  src-gen/completions/JasminXT-Numbers-esv
+  src-gen/completions/JasminXT-Strings-esv
+  src-gen/completions/JasminXT-Descriptors-esv
+
+completions
+  completion template JasminHeader : "BytecodeSpec SourceSpec ClassSpec SuperSpec SignatureSpec EnclosingSpec" =
+    <BytecodeSpec:BytecodeSpec> "\n" <SourceSpec:SourceSpec> "\n" <ClassSpec:ClassSpec> "\n" <SuperSpec:SuperSpec> "\n" (cursor) "\n" <SignatureSpec:SignatureSpec> "\n" <EnclosingSpec:EnclosingSpec> (blank)  
+
+completions
+  completion template BytecodeSpec : ".bytecode MajorVersion MinorVersion" =
+    ".bytecode " <MajorVersion:MajorVersion> " " <MinorVersion:MinorVersion>  
+  completion template MinorVersion : ".Int" =
+    "." <Int:Int>               
+  completion template SourceSpec : ".source String" =
+    ".source " <String:String>  
+
+completions
+  completion template ClassSpec : ".class ClassName" =
+    ".class " <:ClassAccess> " " <ClassName:ClassName>  
+  completion template ClassSpec : ".interface ClassName" =
+    ".interface " <:ClassAccess> " " <ClassName:ClassName>  
+  completion template ClassAccess : "public" =
+    "public"  
+  completion template ClassAccess : "final" =
+    "final"   
+  completion template ClassAccess : "interface" =
+    "interface"  
+  completion template ClassAccess : "abstract" =
+    "abstract"  
+  completion template ClassAccess : "super" =
+    "super"   
+  completion template SuperSpec : ".super ClassName" =
+    ".super " <ClassName:ClassName>  
+  completion template ImplementsSpec : ".implements ClassName" =
+    ".implements " <ClassName:ClassName>  
+
+completions
+  completion template SignatureSpec : ".signature String" =
+    ".signature " <String:String>  
+  completion template EnclosingSpec : ".enclosing method MethodDescriptor" =
+    ".enclosing method " <MethodDescriptor:MethodDescriptor>  
+  completion template DebugSpec : ".debug String" =
+    ".debug " <String:String>  
+
+completions
+  completion template InnerClassSpec : ".inner class InnerClassAccess InnerClassName InnerName OuterName" =
+    ".inner class " <InnerClassAccess:InnerClassAccess> " " <InnerClassName:InnerClassName> " " <InnerName:InnerName> " " <OuterName:OuterName>  
+  completion template InnerInterfaceSpec : ".inner interface InnerClassAccess InnerClassName InnerName OuterName" =
+    ".inner interface " <InnerClassAccess:InnerClassAccess> " " <InnerClassName:InnerClassName> " " <InnerName:InnerName> " " <OuterName:OuterName>  
+  completion template InnerName : "inner ClassName" =
+    "inner " <ClassName:ClassName>                                                             
+  completion template OuterName : "outer ClassName" =
+    "outer " <ClassName:ClassName>                                                             

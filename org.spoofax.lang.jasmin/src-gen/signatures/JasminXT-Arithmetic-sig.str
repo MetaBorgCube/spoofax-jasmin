@@ -1,0 +1,54 @@
+module src-gen/signatures/JasminXT-Arithmetic-sig
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+signature
+  constructors
+    IADD   : Instruction
+    IAND   : Instruction
+    IDIV   : Instruction
+    IMUL   : Instruction
+    INEG   : Instruction
+    IOR    : Instruction
+    IREM   : Instruction
+    ISHL   : Instruction
+    ISHR   : Instruction
+    ISUB   : Instruction
+    IUSHR  : Instruction
+    IXOR   : Instruction
+    LADD   : Instruction
+    LAND   : Instruction
+    LDIV   : Instruction
+    LMUL   : Instruction
+    LNEG   : Instruction
+    LOR    : Instruction
+    LREM   : Instruction
+    LSHL   : Instruction
+    LSHR   : Instruction
+    LSUB   : Instruction
+    LUSHR  : Instruction
+    LXOR   : Instruction
+    FADD   : Instruction
+    FDIV   : Instruction
+    FMUL   : Instruction
+    FNEG   : Instruction
+    FREM   : Instruction
+    FSUB   : Instruction
+    DADD   : Instruction
+    DDIV   : Instruction
+    DMUL   : Instruction
+    DNEG   : Instruction
+    DREM   : Instruction
+    DSUB   : Instruction
+    IINC   : VarRef * Amount -> Instruction
+    IINC_W : VarRef * Amount -> Instruction
+           : Int -> Amount
+    Neg    : NegInt -> Amount
+    FCMPG  : Instruction
+    FCMPL  : Instruction
+    DCMPG  : Instruction
+    DCMPL  : Instruction
+    LCMP   : Instruction

@@ -1,0 +1,109 @@
+module src-gen/pp/JasminXT-Stack-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Stack-sig
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-Instruction
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Instruction
+
+  prettyprint-Instruction :
+    POP() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("pop")]
+               )
+             ]
+
+  is-Instruction =
+    ?POP()
+
+  prettyprint-Instruction :
+    POP2() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("pop2")]
+                )
+              ]
+
+  is-Instruction =
+    ?POP2()
+
+  prettyprint-Instruction :
+    DUP() -> [ H(
+                 [SOpt(HS(), "0")]
+               , [S("dup")]
+               )
+             ]
+
+  is-Instruction =
+    ?DUP()
+
+  prettyprint-Instruction :
+    DUP2() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("dup2")]
+                )
+              ]
+
+  is-Instruction =
+    ?DUP2()
+
+  prettyprint-Instruction :
+    DUP_X1() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("dup_x1")]
+                  )
+                ]
+
+  is-Instruction =
+    ?DUP_X1()
+
+  prettyprint-Instruction :
+    DUP2_X1() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dup2_x1")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DUP2_X1()
+
+  prettyprint-Instruction :
+    DUP_X2() -> [ H(
+                    [SOpt(HS(), "0")]
+                  , [S("dup_x2")]
+                  )
+                ]
+
+  is-Instruction =
+    ?DUP_X2()
+
+  prettyprint-Instruction :
+    DUP2_X2() -> [ H(
+                     [SOpt(HS(), "0")]
+                   , [S("dup2_x2")]
+                   )
+                 ]
+
+  is-Instruction =
+    ?DUP2_X2()
+
+  prettyprint-Instruction :
+    SWAP() -> [ H(
+                  [SOpt(HS(), "0")]
+                , [S("swap")]
+                )
+              ]
+
+  is-Instruction =
+    ?SWAP()
+
+  is-Instruction =
+    fail

@@ -1,0 +1,14 @@
+module JasminXT-Strings
+exports
+  context-free start-symbols
+    String Constant
+
+  lexical syntax
+    '"' StringChar* '"'                          -> String     
+    ~[\"\\\n\r]                                  -> StringChar 
+    [\\] [nrtfb\"\'\\]                           -> StringChar 
+    [\\] 'u' HexDigit HexDigit HexDigit HexDigit -> StringChar 
+    [0-9a-fA-F]                                  -> HexDigit   
+
+  context-free syntax
+    String -> Constant {cons("String")}

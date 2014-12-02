@@ -1,0 +1,13 @@
+module src-gen/signatures/JasminXT-sig
+
+imports
+  src-gen/signatures/JasminXT-Whitespace-sig
+  src-gen/signatures/JasminXT-Header-sig
+  src-gen/signatures/JasminXT-Fields-sig
+  src-gen/signatures/JasminXT-Methods-sig
+
+
+signature
+  constructors
+            : JasminFile -> Start
+    JBCFile : JasminHeader * List(Field) * List(Method) -> JasminFile

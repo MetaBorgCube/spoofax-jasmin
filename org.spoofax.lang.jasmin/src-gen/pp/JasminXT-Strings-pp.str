@@ -1,0 +1,53 @@
+module src-gen/pp/JasminXT-Strings-pp
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  src-gen/signatures/JasminXT-Strings-sig
+
+
+strategies
+  prettyprint-SDF-start-symbols =
+    prettyprint-String
+
+  prettyprint-SDF-start-symbols =
+    prettyprint-Constant
+
+
+strategies
+  prettyprint-String =
+    ![S(<is-string>)]
+
+  prettyprint-StringChar =
+    ![S(<is-string>)]
+
+  prettyprint-HexDigit =
+    ![S(<is-string>)]
+
+  prettyprint-example =
+    prettyprint-String
+
+  prettyprint-example =
+    prettyprint-StringChar
+
+  prettyprint-example =
+    prettyprint-HexDigit
+
+
+strategies
+  prettyprint-example =
+    prettyprint-Constant
+
+  prettyprint-Constant :
+    String(t1__) -> [ H(
+                        [SOpt(HS(), "0")]
+                      , [t1__']
+                      )
+                    ]
+    with t1__' := <pp-one-Z(prettyprint-String)> t1__
+
+  is-Constant =
+    ?String(_)
+
+  is-Constant =
+    fail

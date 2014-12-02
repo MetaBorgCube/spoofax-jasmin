@@ -1,0 +1,51 @@
+module JasminXT-Control
+imports JasminXT-Names JasminXT-Numbers
+
+exports
+  context-free start-symbols
+    Instruction LabelRef RelOffset Target TableEntry LookupEntry
+
+  context-free syntax
+    "+" Int   -> RelOffset {cons("RelativeFwd")}
+    "-" Int   -> RelOffset {cons("RelativeBwd")}
+    LabelRef  -> Target    
+    RelOffset -> Target    {prefer}
+
+  context-free syntax
+    CONTENTCOMPLETE -> RelOffset {cons("COMPLETION-RelOffset")}
+
+  context-free syntax
+    "ifeq" Target                                     -> Instruction {cons("IFEQ")}
+    "iflt" Target                                     -> Instruction {cons("IFLT")}
+    "ifle" Target                                     -> Instruction {cons("IFLE")}
+    "ifne" Target                                     -> Instruction {cons("IFNE")}
+    "ifgt" Target                                     -> Instruction {cons("IFGT")}
+    "ifge" Target                                     -> Instruction {cons("IFGE")}
+    "ifnull" Target                                   -> Instruction {cons("IFNULL")}
+    "ifnonnull" Target                                -> Instruction {cons("IFNONNULL")}
+    "if_icmpeq" Target                                -> Instruction {cons("IF_ICMPEQ")}
+    "if_icmplt" Target                                -> Instruction {cons("IF_ICMPLT")}
+    "if_icmple" Target                                -> Instruction {cons("IF_ICMPLE")}
+    "if_icmpne" Target                                -> Instruction {cons("IF_ICMPNE")}
+    "if_icmpgt" Target                                -> Instruction {cons("IF_ICMPGT")}
+    "if_icmpge" Target                                -> Instruction {cons("IF_ICMPGE")}
+    "if_acmpeq" Target                                -> Instruction {cons("IF_ACMPEQ")}
+    "if_acmpne" Target                                -> Instruction {cons("IF_ACMPNE")}
+    "tableswitch" Int TableEntry* "default:" LabelRef -> Instruction {cons("Table")}
+    "lookupswitch" LookupEntry* "default:" LabelRef   -> Instruction {cons("Lookup")}
+    LabelRef                                          -> TableEntry  
+    Int ":" LabelRef                                  -> LookupEntry {cons("NPAIR")}
+    "goto" LabelRef                                   -> Instruction {cons("GOTO")}
+    "goto_w" LabelRef                                 -> Instruction {cons("GOTO_W")}
+    "jsr" LabelRef                                    -> Instruction {cons("JSR")}
+    "jsr_w" LabelRef                                  -> Instruction {cons("JSR_W")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> LookupEntry {cons("COMPLETION-LookupEntry")}
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
+
+  lexical restrictions
+    "ifeq" "iflt" "ifle" "ifne" "ifgt" "ifge" "ifnull" "ifnonnull" "if_icmpeq"
+    "if_icmplt" "if_icmple" "if_icmpne" "if_icmpgt" "if_icmpge" "if_acmpeq"
+    "if_acmpne" "tableswitch" "goto" "goto_w" "jsr" "jsr_w" -/- ~[\ \t]
+    "lookupswitch" -/- ~[\ \t\n\r]

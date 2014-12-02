@@ -1,0 +1,24 @@
+module JasminXT-Conversion
+exports
+  context-free start-symbols
+    Instruction
+
+  context-free syntax
+    "i2l"       -> Instruction {cons("I2L")}
+    "i2f"       -> Instruction {cons("I2F")}
+    "i2d"       -> Instruction {cons("I2D")}
+    "l2f"       -> Instruction {cons("L2F")}
+    "l2d"       -> Instruction {cons("L2D")}
+    "f2d"       -> Instruction {cons("F2D")}
+    "int2byte"  -> Instruction {cons("I2B")}
+    "int2short" -> Instruction {cons("I2S")}
+    "int2char"  -> Instruction {cons("I2C")}
+    "l2i"       -> Instruction {cons("L2I")}
+    "f2i"       -> Instruction {cons("F2I")}
+    "f2l"       -> Instruction {cons("F2L")}
+    "d2i"       -> Instruction {cons("D2I")}
+    "d2l"       -> Instruction {cons("D2L")}
+    "d2f"       -> Instruction {cons("D2F")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}

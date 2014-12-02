@@ -1,0 +1,39 @@
+module JasminXT-Fields
+imports JasminXT-Names JasminXT-Numbers JasminXT-Strings JasminXT-Descriptors
+        JasminXT-Annotations
+
+exports
+  context-free start-symbols
+    Field
+
+  context-free syntax
+    ".field" FieldAccess* FieldName FieldDescriptor FieldSignatureSpec InitialValue                                -> Field              {cons("JBCField")}
+    ".field" FieldAccess* FieldName FieldDescriptor FieldSignatureSpec InitialValue FieldAttribute* ".end" "field" -> Field              {cons("JBCExtField")}
+    ".signature" String                                                                                            -> FieldAttribute     {cons("JBCSignature")}
+    ".deprecated"                                                                                                  -> FieldAttribute     {cons("JBCDeprecated")}
+    ".attribute" AttributeName FileName                                                                            -> FieldAttribute     {cons("JBCAttribute")}
+    Annotation                                                                                                     -> FieldAttribute     {cons("JBCAnnotation")}
+    "signature" String                                                                                             -> FieldSignatureSpec {cons("FieldSig")}
+                                                                                                                   -> FieldSignatureSpec {cons("None")}
+    "=" Constant                                                                                                   -> InitialValue       {cons("InitVal")}
+                                                                                                                   -> InitialValue       {cons("None")}
+    "public"                                                                                                       -> FieldAccess        {cons("PUBLIC")}
+    "private"                                                                                                      -> FieldAccess        {cons("PRIVATE")}
+    "protected"                                                                                                    -> FieldAccess        {cons("PROTECTED")}
+    "static"                                                                                                       -> FieldAccess        {cons("STATIC")}
+    "final"                                                                                                        -> FieldAccess        {cons("FINAL")}
+    "volatile"                                                                                                     -> FieldAccess        {cons("VOLATILE")}
+    "transient"                                                                                                    -> FieldAccess        {cons("TRANSIENT")}
+    "fpstrict"                                                                                                     -> FieldAccess        {cons("FPSTRICT")}
+    "synthetic"                                                                                                    -> FieldAccess        {cons("SYNTHETIC")}
+
+  context-free syntax
+    CONTENTCOMPLETE -> Field              {cons("COMPLETION-Field")}
+    CONTENTCOMPLETE -> FieldAttribute     {cons("COMPLETION-FieldAttribute")}
+    CONTENTCOMPLETE -> FieldSignatureSpec {cons("COMPLETION-FieldSignatureSpec")}
+    CONTENTCOMPLETE -> InitialValue       {cons("COMPLETION-InitialValue")}
+    CONTENTCOMPLETE -> FieldAccess        {cons("COMPLETION-FieldAccess")}
+
+  lexical restrictions
+    ".field" ".end" ".signature" ".deprecated" "signature" "=" "public"
+    "private" "protected" "static" "final" "volatile" "transient" -/- ~[\ \t]
