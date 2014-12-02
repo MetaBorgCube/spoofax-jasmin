@@ -1,0 +1,297 @@
+module translator/instructions
+	
+signature
+	constructors
+		T_INSN				:	Optype
+		T_INTINSN			:	Optype
+		T_VARINSN			:	Optype
+		T_TYPEINSN			:	Optype
+		T_FIELDINSN			:	Optype
+		T_METHODINSN		:	Optype
+		T_JUMPINSN			:	Optype
+		T_INVOKEDYNAMICINSN	:	Optype
+		T_LDCINSN			:	Optype
+		T_IINCINSN			:	Optype
+		T_TABLESWITCH		:	Optype
+		T_LOOKUPSWITCH		:	Optype
+		T_MULTIANEWARRAY	:	Optype
+	
+		Insn				:	Opcode -> OpInstruction
+		IntInsn				:	Opcode * Int -> OpInstruction
+		VarInsn				:	Opcode * Int -> OpInstruction
+		TypeInsn			:	Opcode * String -> OpInstruction
+		FieldInsn			:	Opcode * String * String * String -> OpInstruction
+		MethodInsn			:	Opcode * String * String * String -> OpInstruction
+		JumpInsn			:	Opcode * String -> OpInstruction
+		LdcInsn				:	Opcode * Constant -> OpInstruction
+		IincInsn			:	Int * Int -> OpInstruction
+		LookupSwitchInsn	:	String * List(Int) * List(String) -> OpInstruction
+		TableSwitchInsn		:	Int * Int * String * List(String) -> OpInstruction
+		MultiANewArrayInsn	:	String * Int -> OpInstruction
+
+imports
+	include/JasminXT
+	syntax/ASM
+	trans/translator/translator
+	
+rules
+	// TODO: This should be in a desugar pass.
+	simplify-insn:	ILOAD_0() -> ILOAD(0)
+	simplify-insn:	ILOAD_1() -> ILOAD(1)
+	simplify-insn:	ILOAD_2() -> ILOAD(2)
+	simplify-insn:	ILOAD_3() -> ILOAD(3)
+	simplify-insn:	ALOAD_0() -> ALOAD(0)
+	simplify-insn:	ALOAD_1() -> ALOAD(1)
+	simplify-insn:	ALOAD_2() -> ALOAD(2)
+	simplify-insn:	ALOAD_3() -> ALOAD(3)
+	simplify-insn:	ASTORE_0() -> ASTORE(0)
+	simplify-insn:	ASTORE_1() -> ASTORE(1)
+	simplify-insn:	ASTORE_2() -> ASTORE(2)
+	simplify-insn:	ASTORE_3() -> ASTORE(3)
+	simplify-insn:	ISTORE_0() -> ISTORE(0)
+	simplify-insn:	ISTORE_1() -> ISTORE(1)
+	simplify-insn:	ISTORE_2() -> ISTORE(2)
+	simplify-insn:	ISTORE_3() -> ISTORE(3)
+	
+	simplify-insn:	NEWARRAY(n) -> NEWARRAY(<jasmin-arraytype-num> n)
+	
+	jasmin-arraytype-num:	ByteName() -> 8
+	jasmin-arraytype-num:	CharName() -> 5
+	jasmin-arraytype-num:	DoubleName() -> 7
+	jasmin-arraytype-num:	FloatName() -> 6
+	jasmin-arraytype-num:	IntName() -> 10
+	jasmin-arraytype-num:	LongName() -> 11
+	jasmin-arraytype-num:	ShortName() -> 9
+	jasmin-arraytype-num:	BooleanName() -> 4
+	
+	normalize-constant:		Int(i) -> Int(<to-int> i)
+	
+	jasmin-instruction-to-asm:
+		i -> res
+		where
+			(c, p) := <explode-term> <try(simplify-insn)> i
+		;	(iop, opt) := <jasmin-opcode> c
+		;	res := <jasmin-op-to-asm> (opt, iop, p) 
+	
+	jasmin-op-to-asm:	(T_INSN(), opcode, [])		-> Insn(opcode)
+	jasmin-op-to-asm:	(T_INTINSN(), opcode, [is])	-> IntInsn(opcode, i)
+		where
+			i := <try(to-int)> is
+	jasmin-op-to-asm:	(T_VARINSN(), opcode, [v])	-> VarInsn(opcode, v)
+	jasmin-op-to-asm:	(T_TYPEINSN(), opcode, [CRef(tt)])	-> TypeInsn(opcode, tt)
+	jasmin-op-to-asm:	(T_TYPEINSN(), opcode, [t])	-> TypeInsn(opcode, tt)
+		where
+			tt := <jasmin-fieldtype-to-descriptor> t	
+	jasmin-op-to-asm:	(T_FIELDINSN(), opcode, [fref])		-> FieldInsn(opcode, c, f, desc)
+		where
+			JBCFieldRef(CRef(c), FRef(f), JBCFieldDesc(ft)) := fref
+		;	desc := <jasmin-fieldtype-to-descriptor> ft
+	jasmin-op-to-asm:	(T_METHODINSN(), opcode, [mref])	-> MethodInsn(opcode, c, mm, desc)
+		where
+			JBCMethodRef(CRef(c), MRef(m), JBCMethodDesc(paramdesc, returndesc)) := mref
+		;	desc := <jasmin-methodtype-to-descriptor> (paramdesc, returndesc)
+		;	mm := <jasmin-methodname-to-name> m
+	jasmin-op-to-asm:	(T_METHODINSN(), opcode, [mref, i])	-> result
+		where
+			result := <jasmin-op-to-asm> (T_METHODINSN(), opcode, [mref])
+	jasmin-op-to-asm:	(T_JUMPINSN(), opcode, [LabelRef(l)])	->	JumpInsn(opcode, l)
+	jasmin-op-to-asm:	(T_LDCINSN(), opcode, [c])				->	LdcInsn(opcode, <try(normalize-constant)> c)
+	jasmin-op-to-asm:	(T_IINCINSN(), opcode, [VarNum(var), inc])	->	IincInsn(vari, inci)
+		where
+			vari := <try(to-int)> var
+		;	inci := <try(to-int)> inc
+	jasmin-op-to-asm:	(T_LOOKUPSWITCH(), _, [pairs, LabelRef(default)]) -> LookupSwitchInsn(default, indices, labels)
+		where
+			(indices, labels) := <unzip(npair-to-tuple)> pairs
+	jasmin-op-to-asm:	(T_TABLESWITCH(), _, [jmin, jlabels, LabelRef(default)]) -> TableSwitchInsn(min, max, default, labels)
+		where
+			min := <to-int> jmin
+		;	max := <dec> <addi> (min, <length> jlabels)
+		;	labels := <map(jumplabel-name)> jlabels
+	jasmin-op-to-asm:	(T_MULTIANEWARRAY(), _, [ttype, tnum])	-> MultiANewArrayInsn(type, num)
+		where
+			type := <jasmin-fieldtype-to-descriptor> ttype
+		;	num := <to-int> tnum
+		 	
+	npair-to-tuple: NPAIR(i, LabelRef(l)) -> (<to-int> i, l)
+	jumplabel-name: LabelRef(l) -> l
+	
+	// Zero-operand instructions
+	jasmin-opcode:	"NOP"		->	(0,	T_INSN())
+	jasmin-opcode:	"ACONST_NULL"		->	(1,	T_INSN())
+	jasmin-opcode:	"ICONST_M1"		->	(2,	T_INSN())
+	jasmin-opcode:	"ICONST_0"		->	(3,	T_INSN())
+	jasmin-opcode:	"ICONST_1"		->	(4,	T_INSN())
+	jasmin-opcode:	"ICONST_2"		->	(5,	T_INSN())
+	jasmin-opcode:	"ICONST_3"		->	(6,	T_INSN())
+	jasmin-opcode:	"ICONST_4"		->	(7,	T_INSN())
+	jasmin-opcode:	"ICONST_5"		->	(8,	T_INSN())
+	jasmin-opcode:	"LCONST_0"		->	(9,	T_INSN())
+	jasmin-opcode:	"LCONST_1"		->	(10,	T_INSN())
+	jasmin-opcode:	"FCONST_0"		->	(11,	T_INSN())
+	jasmin-opcode:	"FCONST_1"		->	(12,	T_INSN())
+	jasmin-opcode:	"FCONST_2"		->	(13,	T_INSN())
+	jasmin-opcode:	"DCONST_0"		->	(14,	T_INSN())
+	jasmin-opcode:	"DCONST_1"		->	(15,	T_INSN())
+	jasmin-opcode:	"IALOAD"		->	(46,	T_INSN())
+	jasmin-opcode:	"LALOAD"		->	(47,	T_INSN())
+	jasmin-opcode:	"FALOAD"		->	(48,	T_INSN())
+	jasmin-opcode:	"DALOAD"		->	(49,	T_INSN())
+	jasmin-opcode:	"AALOAD"		->	(50,	T_INSN())
+	jasmin-opcode:	"BALOAD"		->	(51,	T_INSN())
+	jasmin-opcode:	"CALOAD"		->	(52,	T_INSN())
+	jasmin-opcode:	"SALOAD"		->	(53,	T_INSN())
+	jasmin-opcode:	"IASTORE"		->	(79,	T_INSN())
+	jasmin-opcode:	"LASTORE"		->	(80,	T_INSN())
+	jasmin-opcode:	"FASTORE"		->	(81,	T_INSN())
+	jasmin-opcode:	"DASTORE"		->	(82,	T_INSN())
+	jasmin-opcode:	"AASTORE"		->	(83,	T_INSN())
+	jasmin-opcode:	"BASTORE"		->	(84,	T_INSN())
+	jasmin-opcode:	"CASTORE"		->	(85,	T_INSN())
+	jasmin-opcode:	"SASTORE"		->	(86,	T_INSN())
+	jasmin-opcode:	"POP"		->	(87,	T_INSN())
+	jasmin-opcode:	"POP2"		->	(88,	T_INSN())
+	jasmin-opcode:	"DUP"		->	(89,	T_INSN())
+	jasmin-opcode:	"DUP_X1"		->	(90,	T_INSN())
+	jasmin-opcode:	"DUP_X2"		->	(91,	T_INSN())
+	jasmin-opcode:	"DUP2"		->	(92,	T_INSN())
+	jasmin-opcode:	"DUP2_X1"		->	(93,	T_INSN())
+	jasmin-opcode:	"DUP2_X2"		->	(94,	T_INSN())
+	jasmin-opcode:	"SWAP"		->	(95,	T_INSN())
+	jasmin-opcode:	"IADD"		->	(96,	T_INSN())
+	jasmin-opcode:	"LADD"		->	(97,	T_INSN())
+	jasmin-opcode:	"FADD"		->	(98,	T_INSN())
+	jasmin-opcode:	"DADD"		->	(99,	T_INSN())
+	jasmin-opcode:	"ISUB"		->	(100,	T_INSN())
+	jasmin-opcode:	"LSUB"		->	(101,	T_INSN())
+	jasmin-opcode:	"FSUB"		->	(102,	T_INSN())
+	jasmin-opcode:	"DSUB"		->	(103,	T_INSN())
+	jasmin-opcode:	"IMUL"		->	(104,	T_INSN())
+	jasmin-opcode:	"LMUL"		->	(105,	T_INSN())
+	jasmin-opcode:	"FMUL"		->	(106,	T_INSN())
+	jasmin-opcode:	"DMUL"		->	(107,	T_INSN())
+	jasmin-opcode:	"IDIV"		->	(108,	T_INSN())
+	jasmin-opcode:	"LDIV"		->	(109,	T_INSN())
+	jasmin-opcode:	"FDIV"		->	(110,	T_INSN())
+	jasmin-opcode:	"DDIV"		->	(111,	T_INSN())
+	jasmin-opcode:	"IREM"		->	(112,	T_INSN())
+	jasmin-opcode:	"LREM"		->	(113,	T_INSN())
+	jasmin-opcode:	"FREM"		->	(114,	T_INSN())
+	jasmin-opcode:	"DREM"		->	(115,	T_INSN())
+	jasmin-opcode:	"INEG"		->	(116,	T_INSN())
+	jasmin-opcode:	"LNEG"		->	(117,	T_INSN())
+	jasmin-opcode:	"FNEG"		->	(118,	T_INSN())
+	jasmin-opcode:	"DNEG"		->	(119,	T_INSN())
+	jasmin-opcode:	"ISHL"		->	(120,	T_INSN())
+	jasmin-opcode:	"LSHL"		->	(121,	T_INSN())
+	jasmin-opcode:	"ISHR"		->	(122,	T_INSN())
+	jasmin-opcode:	"LSHR"		->	(123,	T_INSN())
+	jasmin-opcode:	"IUSHR"		->	(124,	T_INSN())
+	jasmin-opcode:	"LUSHR"		->	(125,	T_INSN())
+	jasmin-opcode:	"IAND"		->	(126,	T_INSN())
+	jasmin-opcode:	"LAND"		->	(127,	T_INSN())
+	jasmin-opcode:	"IOR"		->	(128,	T_INSN())
+	jasmin-opcode:	"LOR"		->	(129,	T_INSN())
+	jasmin-opcode:	"IXOR"		->	(130,	T_INSN())
+	jasmin-opcode:	"LXOR"		->	(131,	T_INSN())
+	jasmin-opcode:	"I2L"		->	(133,	T_INSN())
+	jasmin-opcode:	"I2F"		->	(134,	T_INSN())
+	jasmin-opcode:	"I2D"		->	(135,	T_INSN())
+	jasmin-opcode:	"L2I"		->	(136,	T_INSN())
+	jasmin-opcode:	"L2F"		->	(137,	T_INSN())
+	jasmin-opcode:	"L2D"		->	(138,	T_INSN())
+	jasmin-opcode:	"F2I"		->	(139,	T_INSN())
+	jasmin-opcode:	"F2L"		->	(140,	T_INSN())
+	jasmin-opcode:	"F2D"		->	(141,	T_INSN())
+	jasmin-opcode:	"D2I"		->	(142,	T_INSN())
+	jasmin-opcode:	"D2L"		->	(143,	T_INSN())
+	jasmin-opcode:	"D2F"		->	(144,	T_INSN())
+	jasmin-opcode:	"I2B"		->	(145,	T_INSN())
+	jasmin-opcode:	"I2C"		->	(146,	T_INSN())
+	jasmin-opcode:	"I2S"		->	(147,	T_INSN())
+	jasmin-opcode:	"LCMP"		->	(148,	T_INSN())
+	jasmin-opcode:	"FCMPL"		->	(149,	T_INSN())
+	jasmin-opcode:	"FCMPG"		->	(150,	T_INSN())
+	jasmin-opcode:	"DCMPL"		->	(151,	T_INSN())
+	jasmin-opcode:	"DCMPG"		->	(152,	T_INSN())
+	jasmin-opcode:	"IRETURN"		->	(172,	T_INSN())
+	jasmin-opcode:	"LRETURN"		->	(173,	T_INSN())
+	jasmin-opcode:	"FRETURN"		->	(174,	T_INSN())
+	jasmin-opcode:	"DRETURN"		->	(175,	T_INSN())
+	jasmin-opcode:	"ARETURN"		->	(176,	T_INSN())
+	jasmin-opcode:	"RETURN"		->	(177,	T_INSN())
+	jasmin-opcode:	"ARRAYLENGTH"		->	(190,	T_INSN())
+	jasmin-opcode:	"ATHROW"		->	(191,	T_INSN())
+	jasmin-opcode:	"MONITORENTER"		->	(194,	T_INSN())
+	jasmin-opcode:	"MONITOREXIT"		->	(195,	T_INSN())
+	
+	// Integer-operand instructions
+	jasmin-opcode:	"BIPUSH"		->	(16,	T_INTINSN())
+	jasmin-opcode:	"SIPUSH"		->	(17,	T_INTINSN())
+	jasmin-opcode:	"NEWARRAY"		->	(188,	T_INTINSN())
+	
+	// Variable-operand instructions
+	jasmin-opcode:	"ILOAD"		->	(21,	T_VARINSN())
+	jasmin-opcode:	"LLOAD"		->	(22,	T_VARINSN())
+	jasmin-opcode:	"FLOAD"		->	(23,	T_VARINSN())
+	jasmin-opcode:	"DLOAD"		->	(24,	T_VARINSN())
+	jasmin-opcode:	"ALOAD"		->	(25,	T_VARINSN())
+	jasmin-opcode:	"ISTORE"		->	(54,	T_VARINSN())
+	jasmin-opcode:	"LSTORE"		->	(55,	T_VARINSN())
+	jasmin-opcode:	"FSTORE"		->	(56,	T_VARINSN())
+	jasmin-opcode:	"DSTORE"		->	(57,	T_VARINSN())
+	jasmin-opcode:	"ASTORE"		->	(58,	T_VARINSN())
+	jasmin-opcode:	"RET"		->	(169,	T_VARINSN())
+	
+	// Type-operand instructions
+	jasmin-opcode:	"NEW"		->	(187,	T_TYPEINSN())
+	jasmin-opcode:	"ANEWARRAY"		->	(189,	T_TYPEINSN())
+	jasmin-opcode:	"CHECKCAST"		->	(192,	T_TYPEINSN())
+	jasmin-opcode:	"INSTANCEOF"		->	(193,	T_TYPEINSN())
+	
+	// Field-operand instructions
+	jasmin-opcode:	"GETSTATIC"		->	(178,	T_FIELDINSN())
+	jasmin-opcode:	"PUTSTATIC"		->	(179,	T_FIELDINSN())
+	jasmin-opcode:	"GETFIELD"		->	(180,	T_FIELDINSN())
+	jasmin-opcode:	"PUTFIELD"		->	(181,	T_FIELDINSN())
+	
+	// Method-operand instructions
+	jasmin-opcode:	"INVOKEVIRTUAL"		->	(182,	T_METHODINSN())
+	jasmin-opcode:	"INVOKESPECIAL"		->	(183,	T_METHODINSN())
+	jasmin-opcode:	"INVOKESTATIC"		->	(184,	T_METHODINSN())
+	jasmin-opcode:	"INVOKEINTERFACE"		->	(185,	T_METHODINSN())
+	
+	// Jump instructions
+	jasmin-opcode:	"IFEQ"		->	(153,	T_JUMPINSN())
+	jasmin-opcode:	"IFNE"		->	(154,	T_JUMPINSN())
+	jasmin-opcode:	"IFLT"		->	(155,	T_JUMPINSN())
+	jasmin-opcode:	"IFGE"		->	(156,	T_JUMPINSN())
+	jasmin-opcode:	"IFGT"		->	(157,	T_JUMPINSN())
+	jasmin-opcode:	"IFLE"		->	(158,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ICMPEQ"		->	(159,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ICMPNE"		->	(160,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ICMPLT"		->	(161,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ICMPGE"		->	(162,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ICMPGT"		->	(163,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ICMPLE"		->	(164,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ACMPEQ"		->	(165,	T_JUMPINSN())
+	jasmin-opcode:	"IF_ACMPNE"		->	(166,	T_JUMPINSN())
+	jasmin-opcode:	"GOTO"			->	(167,	T_JUMPINSN())
+	jasmin-opcode:	"JSR"			->	(168,	T_JUMPINSN())
+	jasmin-opcode:	"IFNULL"		->	(198,	T_JUMPINSN())
+	jasmin-opcode:	"IFNONNULL"		->	(199,	T_JUMPINSN())
+	
+	// Single type instructions
+	jasmin-opcode:	"INVOKEDYNAMIC"		->	(186,	T_INVOKEDYNAMICINSN())
+	jasmin-opcode:	"LDC"				->	(18,	T_LDCINSN())
+	jasmin-opcode:	"IINC"				->	(132,	T_IINCINSN())
+	jasmin-opcode:	"Table"				->	(170,	T_TABLESWITCH())
+	jasmin-opcode:	"Lookup"			->	(171,	T_LOOKUPSWITCH())
+	jasmin-opcode:	"MULTIANEWARRAY"	->	(197,	T_MULTIANEWARRAY())
+
+
+strategies
+	jasmin-instructions-to-asm 	=	map(jasmin-instruction-to-asm)
+	
+	// to-int = (?Neg(is); !is; to-int; neg) <+ string-to-int
+	to-int = (is-int; id) <+ (?Neg(is); !is; to-int; ?i; !(0, i); subti) <+ (is-string; string-to-int)

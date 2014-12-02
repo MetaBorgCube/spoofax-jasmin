@@ -1,0 +1,139 @@
+module JasminXT-LoadStore
+
+imports
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+
+context-free start-symbols
+  Instruction
+
+context-free syntax
+  Instruction.BIPUSH = [bipush [Int]]      // pushes a byte onto the stack as an integer value
+  Instruction.SIPUSH = [sipush [Int]]      // pushes a signed integer onto the stack
+  
+  Instruction.ICONST_M1 = [iconst_m1]      // loads the int value -1 onto the stack
+  Instruction.ICONST_0  = [iconst_0]       // loads the int value 0 onto the stack
+  Instruction.ICONST_1  = [iconst_1]       // loads the int value 1 onto the stack
+  Instruction.ICONST_2  = [iconst_2]       // loads the int value 2 onto the stack
+  Instruction.ICONST_3  = [iconst_3]       // loads the int value 3 onto the stack
+  Instruction.ICONST_4  = [iconst_4]       // loads the int value 4 onto the stack
+  Instruction.ICONST_5  = [iconst_5]       // loads the int value 5 onto the stack
+  
+  Instruction.LCONST_0 = [lconst_0]        // pushes the long 0 onto the stack
+  Instruction.LCONST_1 = [lconst_1]        // pushes the long 1 onto the stack
+  
+  Instruction.FCONST_0 = [fconst_0]        // pushes 0.0f on the stack
+  Instruction.FCONST_1 = [fconst_1]        // pushes 1.0f on the stack
+  Instruction.FCONST_2 = [fconst_2]        // pushes 2.0f on the stack
+  
+  Instruction.DCONST_0 = [dconst_0]        // pushes the constant 0.0 onto the stack
+  Instruction.DCONST_1 = [dconst_1]        // pushes the constant 1.0 onto the stack
+  
+  Instruction.ACONST_NULL = [aconst_null]  // pushes a null reference onto the stack
+  
+  Instruction.LDC    = [ldc [Constant]]    // pushes a constant from a constant pool (String, int or float) onto the stack
+  Instruction.LDC_W  = [ldc_w [Constant]]  // pushes a constant from a constant pool (String, int or float) onto the stack
+  Instruction.LDC2_W = [ldc2_w [Constant]] // pushes a constant from a constant pool (double or long) onto the stack
+      
+context-free syntax
+  Instruction.ILOAD = [iload [VarRef]]  // loads an int value from a local variable
+  Instruction.LLOAD = [lload [VarRef]]  // loads a long value from a local variable
+  Instruction.FLOAD = [fload [VarRef]]  // loads a float value from a local variable
+  Instruction.DLOAD = [dload [VarRef]]  // loads a double value from a local variable
+  Instruction.ALOAD = [aload [VarRef]]  // loads a reference from a local variable
+  
+  Instruction.ILOAD_W = [iload_w [VarRef]]  // loads a wide int value from a local variable
+  Instruction.LLOAD_W = [lload_w [VarRef]]  // loads a wide long value from a local variable
+  Instruction.FLOAD_W = [fload_w [VarRef]]  // loads a wide float value from a local variable
+  Instruction.DLOAD_W = [dload_w [VarRef]]  // loads a wide double value from a local variable
+  Instruction.ALOAD_W = [aload_w [VarRef]]  // loads a wide reference from a local variable
+  
+  Instruction.ILOAD_0 = [iload_0]  
+  Instruction.ILOAD_1 = [iload_1]  
+  Instruction.ILOAD_2 = [iload_2]  
+  Instruction.ILOAD_3 = [iload_3]
+    
+  Instruction.ALOAD_0 = [aload_0]  
+  Instruction.ALOAD_1 = [aload_1]  
+  Instruction.ALOAD_2 = [aload_2]  
+  Instruction.ALOAD_3 = [aload_3]
+    
+  Instruction.LLOAD_0 = [lload_0]  
+  Instruction.LLOAD_1 = [lload_1]  
+  Instruction.LLOAD_2 = [lload_2]  
+  Instruction.LLOAD_3 = [lload_3]
+    
+  Instruction.DLOAD_0 = [dload_0]  
+  Instruction.DLOAD_1 = [dload_1]  
+  Instruction.DLOAD_2 = [dload_2]  
+  Instruction.DLOAD_3 = [dload_3]
+    
+  Instruction.FLOAD_0 = [fload_0]  
+  Instruction.FLOAD_1 = [fload_1]  
+  Instruction.FLOAD_2 = [fload_2]  
+  Instruction.FLOAD_3 = [fload_3]
+    
+  Instruction.ISTORE = [istore [VarRef]]  // stores an int value into a local variable
+  Instruction.LSTORE = [lstore [VarRef]]  // stores a long value into a local variable
+  Instruction.FSTORE = [fstore [VarRef]]  // stores a float value into a local variable
+  Instruction.DSTORE = [dstore [VarRef]]  // stores a double value into a local variable
+  Instruction.ASTORE = [astore [VarRef]]  // stores a reference into a local variable
+    
+  Instruction.ISTORE_W = [istore_w [VarRef]]  // stores a wide int value into a local variable
+  Instruction.LSTORE_W = [lstore_w [VarRef]]  // stores a wide long value into a local variable
+  Instruction.FSTORE_W = [fstore_w [VarRef]]  // stores a wide float value into a local variable
+  Instruction.DSTORE_W = [dstore_w [VarRef]]  // stores a wide double value into a local variable
+  Instruction.ASTORE_W = [astore_w [VarRef]]  // stores a wide reference into a local variable
+  
+  Instruction.ISTORE_0 = [istore_0]  
+  Instruction.ISTORE_1 = [istore_1]  
+  Instruction.ISTORE_2 = [istore_2]  
+  Instruction.ISTORE_3 = [istore_3]
+    
+  Instruction.ASTORE_0 = [astore_0]  
+  Instruction.ASTORE_1 = [astore_1]  
+  Instruction.ASTORE_2 = [astore_2]  
+  Instruction.ASTORE_3 = [astore_3]
+    
+  Instruction.LSTORE_0 = [lstore_0]  
+  Instruction.LSTORE_1 = [lstore_1]  
+  Instruction.LSTORE_2 = [lstore_2]  
+  Instruction.LSTORE_3 = [lstore_3]
+    
+  Instruction.FSTORE_0 = [fstore_0]  
+  Instruction.FSTORE_1 = [fstore_1]  
+  Instruction.FSTORE_2 = [fstore_2]  
+  Instruction.FSTORE_3 = [fstore_3]
+    
+  Instruction.DSTORE_0 = [dstore_0]  
+  Instruction.DSTORE_1 = [dstore_1]  
+  Instruction.DSTORE_2 = [dstore_2]  
+  Instruction.DSTORE_3 = [dstore_3]  
+
+lexical restrictions
+  "bipush"
+  "sipush"
+  "ldc"
+  "ldc2_w"
+  "ldc_w"
+  "iload"
+  "lload"
+  "fload"
+  "dload"
+  "aload"
+  "iload_w"
+  "lload_w"
+  "fload_w"
+  "dload_w"
+  "aload_w"
+  "istore"
+  "lstore"
+  "fstore"
+  "dstore"
+  "astore"
+  "istore_w"
+  "lstore_w"
+  "fstore_w"
+  "dstore_w"
+  "astore_w" -/- ~[\ \t]

@@ -1,0 +1,87 @@
+module analysis/types/complex-constraints/LoadStore
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/types/constraints  
+
+rules
+  // treat *LOAD_#() and *STORE_#() as *LOAD(#) and *STORE(#) resp.
+  complex-constraint: instr -> <complex-constraint> instr'
+    where instr' := <preserve-annos(
+      \name#([]) -> name'#([VarNum(i)])
+        where (name', i) := <split-after;(rtrim-chars(?'_'),id)> (name, "_")
+            ; <string-ends-with(|"STORE") + string-ends-with(|"LOAD")> name'\
+    )> instr
+
+  cc-r-match(|at, var): i-in -> CEq(<var-rename-hack> TypeVar(i-in), (first, rest))
+    with rest   := <fresh-var>
+       ; first  := <safe-repeat(![<fresh-var> | <id>] | <dec> at)> [var]
+  cc-r-subst(|at, var): (i-in, i-out) ->
+      [ CEq(<var-rename-hack> TypeVar(i-in),  (f-i-in, rest))
+      , CEq(<var-rename-hack> TypeVar(i-out), (fSubst, rest)) ]
+    with rest   := <fresh-var>
+       ; first  := <safe-repeat(![<fresh-var> | <id>] | <dec> at)> []
+       ; f-i-in := <conc> (first, [<fresh-var>])
+       ; fSubst := <conc> (first, [var])
+
+  complex-constraint: instr@name#([VarNum(vn)]) -> [nc*, nr*]
+    where <string-starts-with(|"ALOAD")> name
+    with i-out := <get-out-stack> instr
+       ; i-in  := <get-in-stack>  instr
+       ; class-type := Reference(CRef("java/lang/Object"))
+       ; vn'   := <dec-string-to-int> vn
+       ; var   := <fresh-var>
+       ; nrm   := <cc-r-match(|vn', var)> i-in
+       ; nr*   := [ nrm
+                  , CSub(var, class-type)
+                  , CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out))
+                  ]
+       ; rest  := <fresh-var>
+       ; nc*   := [ CEq(TypeVar(i-out), ([var], rest))   // push-type
+                  , CEq(TypeVar(i-in), rest)           ] 
+
+  complex-constraint: instr@name#([VarNum(vn)]) -> [nc*, nr*]
+    where <string-starts-with(|"ASTORE")> name
+    with i-out := <get-out-stack> instr
+       ; i-in  := <get-in-stack>  instr
+       ; var   := <fresh-var>
+       ; rest  := <fresh-var>
+       ; class-type := Reference(CRef("java/lang/Object"))
+       ; nc*   := [ CEq(TypeVar(i-in), ([var], rest))
+                  , COr([ [CSub(var, class-type)] // pop-type
+                        , [CEq (var, ADDRESS() )] // pop-type
+                        ])
+                  , CEq(TypeVar(i-out), rest)
+                  ]
+       ; vn'   := <dec-string-to-int> vn
+       ; nr*   := <cc-r-subst(|vn', var)> (i-in, i-out)
+
+  cc-load-helper(|type, vn): instr -> [nc*, nr*]
+    with i-out := <get-out-stack> instr
+       ; i-in  := <get-in-stack>  instr
+       ; rest  := <fresh-var>
+       ; vn'   := <dec-string-to-int> vn
+       ; nr*   := [ <cc-r-match(|vn', type)> i-in 
+                  , CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+       ; nc*   := [ CEq(TypeVar(i-out), ([type],rest))   // push-type
+                  , CEq(TypeVar(i-in), rest)           ]
+  
+  cc-store-helper(|type, vn): instr -> [nc*, nr*]
+    with i-out := <get-out-stack> instr
+       ; i-in  := <get-in-stack>  instr
+       ; rest  := <fresh-var>
+       ; nc*   := [ CEq(TypeVar(i-in), ([type], rest))   // pop-type
+                  , CEq(TypeVar(i-out), rest)          ]
+       ; vn'   := <dec-string-to-int> vn
+       ; nr*   := <cc-r-subst(|vn', type)> (i-in, i-out)
+  
+
+  complex-constraint: DLOAD (VarNum(vn)) -> <cc-load-helper (|Double(), vn)>
+  complex-constraint: DSTORE(VarNum(vn)) -> <cc-store-helper(|Double(), vn)>
+  complex-constraint: FLOAD (VarNum(vn)) -> <cc-load-helper (|Float() , vn)>
+  complex-constraint: FSTORE(VarNum(vn)) -> <cc-store-helper(|Float() , vn)>
+  complex-constraint: ILOAD (VarNum(vn)) -> <cc-load-helper (|Int()   , vn)>
+  complex-constraint: ISTORE(VarNum(vn)) -> <cc-store-helper(|Int()   , vn)>
+  complex-constraint: LLOAD (VarNum(vn)) -> <cc-load-helper (|Long()  , vn)>
+  complex-constraint: LSTORE(VarNum(vn)) -> <cc-store-helper(|Long()  , vn)>

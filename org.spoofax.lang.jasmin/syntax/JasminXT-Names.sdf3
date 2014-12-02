@@ -1,0 +1,67 @@
+module JasminXT-Names
+
+imports
+  JasminXT-Strings
+  JasminXT-Numbers
+  JasminXT-Descriptors
+
+context-free start-symbols
+  Identifier
+  SQIdentifier
+  QualifiedName
+  LabelName
+  MethodName
+  ClassRef
+  VarRef
+  LabelRef
+  FRef
+  MRef
+  BaseTypeName
+
+lexical syntax
+  Identifier = [A-Za-z] [A-Za-z0-9\_]*
+
+  SQIdentifier = Identifier
+  SQIdentifier = "'" Identifier "'"
+
+  QualifiedName = {Identifier "/"}+
+
+  LabelName = ~[\=\:\.\"\-\ \t\n\r0-9] ~[\=\:\.\"\-\ \t\n\r]*
+
+lexical restrictions		
+  Identifier -/- [a-zA-Z0-9\_]
+  LabelName  -/- ~[\=\:\.\"\-\ \t\n\r]
+
+context-free syntax
+  FileName        = String
+  ClassName       = QualifiedName
+  AttributeName   = Identifier
+  AnnotationName  = Identifier
+  FieldName       = Identifier
+  MethodName      = Identifier
+  MethodName.Init = [<init>]
+  VarName         = SQIdentifier
+
+context-free syntax
+  ClassRef.CRef     = ClassName
+  VarRef.VarNum     = Int
+  // VarRef.VarRef     = VarName // This was in the old SDF2 grammar, but is not mentioned in the Jasmin documentation
+  LabelRef.LabelRef = LabelName
+  LabelRef.Absolute = Int
+
+  FRef.FRef = FieldName
+  MRef.MRef = MethodName
+
+syntax		
+  FieldRef-CF.JBCFieldRef = ClassRef-CF "/" FRef-CF LAYOUT?-CF FieldDescriptor-CF
+  MethodRef-CF.JBCMethodRef = ClassRef-CF "/" MRef-CF LAYOUT?-CF MethodDescriptor-CF
+
+context-free syntax
+  BaseTypeName.ByteName    = [byte]
+  BaseTypeName.CharName    = [char]
+  BaseTypeName.DoubleName  = [double]
+  BaseTypeName.FloatName   = [float]
+  BaseTypeName.IntName     = [int]
+  BaseTypeName.LongName    = [long]
+  BaseTypeName.ShortName   = [short]
+  BaseTypeName.BooleanName = [boolean]

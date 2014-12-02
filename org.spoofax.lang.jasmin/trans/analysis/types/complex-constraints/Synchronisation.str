@@ -1,0 +1,23 @@
+module analysis/types/complex-constraints/Synchronisation
+
+imports
+  include/JasminXT
+  analysis/names/properties
+  analysis/types/constraints
+
+rules
+  complex-constraint: instr@MONITORENTER() -> [n*,nr*]
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-out-stack> instr
+        ; rest  := <fresh-var>
+    	; n* := [ CSub(TypeVar(i-in), ([Reference(CRef("java/lang/Object"))],rest))   // pop-type
+    	        , CEq(TypeVar(i-out), rest)                                         ] // push-type
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+  complex-constraint: instr@MONITOREXIT() -> [n*,nr*]
+    where i-out := <get-out-stack> instr
+        ; i-in  := <get-out-stack> instr
+        ; rest  := <fresh-var>
+    	; n* := [ CSub(TypeVar(i-in), [Reference(CRef("java/lang/Object"))])   // pop-type
+    	        , CEq(TypeVar(i-out), rest)                                  ] // push-type
+       ; nr*   := [ CEq(<var-rename-hack> TypeVar(i-in), <var-rename-hack> TypeVar(i-out)) ]
+    	  

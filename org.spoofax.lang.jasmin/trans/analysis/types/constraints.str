@@ -1,0 +1,45 @@
+module trans/analysis/types/constraints
+	
+signature
+  constructors
+    TOP    : Type
+    BOTTOM : Type
+    
+    ADDRESS : Type
+
+    // NamedInstruction : String * Instruction -> PCInstruction
+    
+           : Type -> FieldType
+
+    // refering to the next line
+    NEXT   : Target
+    
+    // Constraints for instructions
+            : String -> TypeVar
+    TypeVar : TypeVar -> Type
+            : List(Type) -> Stack
+            : Stack -> Type
+    CEq     : TypeVar * Type -> Constraint
+    CNEq    : TypeVar * Type -> Constraint
+    CSub    : TypeVar * Type -> Constraint
+    CSup    : TypeVar * Type -> Constraint
+    COr     : List(List(Constraint)) -> Constraint
+    
+    // The variable has the same value as the variable with the name it contains
+    Alias 	: String -> Type
+
+strategies
+  fresh-var = !TypeVar(<new>)
+  
+  var-rename-hack: TypeVar(str) -> TypeVar(str')
+    where <string-starts-with(|"in") + string-starts-with(|"out")> str
+        ; str' := $[[str]-locals]
+
+  // repeat that checks against negative numbers
+  safe-repeat(s | n) =
+    if <leq>(n, 0)
+    then
+      id
+    else
+      s; repeat(s|<dec>n)
+    end

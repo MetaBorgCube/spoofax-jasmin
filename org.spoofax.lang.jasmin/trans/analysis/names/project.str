@@ -5,5 +5,5 @@ imports
 	
 rules
 	
-	class-name: JBCFile(JBCHeader(_, _, JBCClass(_, name), _, _, _, _, _), _, _) -> name
+	class-name: JBCFile(JBCHeader(_, _, JBCClass(_, name), _, _, _, _, _, _, _), _, _) -> name
 	

@@ -1,0 +1,84 @@
+module JasminXT-Control
+
+imports
+  JasminXT-Names
+  JasminXT-Numbers
+
+context-free start-symbols
+  Instruction
+  LabelRef
+  RelOffset
+  Target
+  TableEntry
+  LookupEntry
+
+context-free syntax
+  // The manual is a bit ambiguous on which of these two should be supported..
+  // So both are for now.
+  // RelOffset.RelativeFwd = [$+[Int]]
+  RelOffset.RelativeFwd = [+[Int]]
+  // RelOffset.RelativeBwd = [$-[Int]]
+  RelOffset.RelativeBwd = [-[Int]]
+
+  Target = LabelRef
+  Target = RelOffset {prefer} // disamb with LabelRef that starts with + or $+
+
+context-free syntax
+  Instruction.IFEQ      = [ifeq [Target]]
+  Instruction.IFLT      = [iflt [Target]]
+  Instruction.IFLE      = [ifle [Target]]
+  Instruction.IFNE      = [ifne [Target]]
+  Instruction.IFGT      = [ifgt [Target]]
+  Instruction.IFGE      = [ifge [Target]]
+  Instruction.IFNULL    = [ifnull [Target]]
+  Instruction.IFNONNULL = [ifnonnull [Target]]
+  Instruction.IF_ICMPEQ = [if_icmpeq [Target]]
+  Instruction.IF_ICMPLT = [if_icmplt [Target]]
+  Instruction.IF_ICMPLE = [if_icmple [Target]]
+  Instruction.IF_ICMPNE = [if_icmpne [Target]]
+  Instruction.IF_ICMPGT = [if_icmpgt [Target]]
+  Instruction.IF_ICMPGE = [if_icmpge [Target]]
+  Instruction.IF_ACMPEQ = [if_acmpeq [Target]]
+  Instruction.IF_ACMPNE = [if_acmpne [Target]]
+
+  Instruction.Table  = [tableswitch [Int]
+  [{TableEntry "\n\t"}*]
+	default[]: [LabelRef]]
+	
+  Instruction.Lookup = [lookupswitch
+  [{LookupEntry "\n\t"}*]
+	default[]: [LabelRef]]
+
+  TableEntry        = LabelRef
+  LookupEntry.NPAIR = [[Int]: [LabelRef]]
+
+  Instruction.GOTO   = [goto [LabelRef]]
+  Instruction.GOTO_W = [goto_w [LabelRef]]
+
+  Instruction.JSR   = [jsr [LabelRef]]
+  Instruction.JSR_W = [jsr_w [LabelRef]]
+
+lexical restrictions
+ "ifeq"
+ "iflt"
+ "ifle"
+ "ifne"
+ "ifgt"
+ "ifge"
+ "ifnull"
+ "ifnonnull"
+ "if_icmpeq"
+ "if_icmplt"
+ "if_icmple"
+ "if_icmpne"
+ "if_icmpgt"
+ "if_icmpge"
+ "if_acmpeq"
+ "if_acmpne"
+ "tableswitch"
+ "goto"
+ "goto_w"
+ "jsr"
+ "jsr_w" -/- ~[\ \t]
+ 
+ "lookupswitch" -/- ~[\ \t\n\r]

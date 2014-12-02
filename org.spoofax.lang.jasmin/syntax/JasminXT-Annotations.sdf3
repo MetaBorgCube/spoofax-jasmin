@@ -1,0 +1,30 @@
+module JasminXT-Annotations
+
+imports
+  JasminXT-Strings
+  JasminXT-Numbers
+  JasminXT-Names
+  JasminXT-Descriptors
+
+context-free syntax
+  // The manual is not at all clear about annotations 
+  // I found some examples from ClassFileAnalyzer (http://classfileanalyzer.javaseiten.de/)
+  // Those seem to indicate this
+  Annotation.RuntimeVisible   = [.annotation visible [ClassName]
+	[{AnnotationField "\n\t"}*]
+.end annotation]
+  Annotation.RuntimeInvisible = [.annotation invisible [ClassName]
+	[{AnnotationField "\n\t"}*]
+.end annotation]
+  Annotation.RuntimeVisibleParam   = [.annotation visibleparam [Int] [ClassName]
+	[{AnnotationField "\n\t"}*]
+.end annotation]
+  Annotation.RuntimeInvisibleParam = [.annotation invisibleparam [Int] [ClassName]
+	[{AnnotationField "\n\t"}*]
+.end annotation]
+  Annotation.AnnotationDefault = [.annotation default
+	[AnnotationName] = [{Constant " "}*]
+.end annotation]
+
+  AnnotationField.AnnotationField  = [[AnnotationName] [AnnotationDescriptor] = [{Constant " "}*]]
+  AnnotationField.NestedAnnotation = [[AnnotationName] @ = [Annotation]]

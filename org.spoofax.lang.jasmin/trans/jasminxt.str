@@ -15,23 +15,33 @@ imports
   lib/runtime/properties/-
   lib/runtime/types/-
   lib/runtime/tmpl/pp
+  JasminXT-Extra-PP-Rules.pp
+  src-gen/pp/-
   
 imports
   	
 	include/JasminXT
 
 	analysis/names/binding
-	analysis/names/check 
+	analysis/names/check
+	analysis/names/project
+	// analysis/names/- 
+	// analysis/types/- 
+	// analysis/types/next-instr/-
+	// analysis/types/pop-types/-
+	// analysis/types/push-types/-
+	analysis/desugar
 	editor/builders
+	
 	
 rules // Analysis
   
   editor-analyze = analysis-default-editor
    
   analysis-single-default-interface = 
-    analysis-single-default(id, id, id|<language>)
+    analysis-single-default(desugar-all, id, id|<language>)
   analysis-multiple-default-interface = 
-    analysis-multiple-default(parse-file <+ !(), id, id, id|<language>, <project-path>)
+    analysis-multiple-default(parse-file <+ !(), desugar-all, id, id|<language>, <project-path>)
   
   editor-save = analysis-save-default(|<language>)
 
@@ -54,6 +64,35 @@ rules // Editor services
     (node, position, ast, path, project-path) -> proposals
     where
       proposals := <analysis-propose-completions(|<language>, project-path)> ast
+
+// rules // Constraints
+// 
+//   debug-collect-file-constraints:
+//   	(selected, position, ast, path, project-path) -> (filename, result)
+//     where
+//       index-setup(|<language>, project-path);
+//       task-setup(|project-path);
+//       partition   := $[[project-path]/[path]];
+//       filename := <guarantee-extension(|"generated.constraints")> path;
+//       JBCFile(_, _, methods) := selected;
+//       result   := <map(stack-constraints(|partition, <class-name> selected))> methods
+// 
+//   debug-collect-solve-constraints:
+//   	(selected, position, ast, path, project-path) -> (filename, result)
+//     where
+//       index-setup(|<language>, project-path);
+//       task-setup(|project-path);
+//       partition   := $[[project-path]/[path]];
+//       JBCFile(_, _, methods) := selected;
+//       method_constraints   := <map(stack-constraints(|partition, <class-name> selected))> methods;
+//       filename := <guarantee-extension(|"generated.solution")> path;
+//       result := <map(try(solve-constraints))> method_constraints
+//       
+//    debug-solve-test-constraints:
+//   	(selected, position, ast, path, project-path) -> (filename, result)
+//     where
+//       filename := <guarantee-extension(|"generated.test")> path;
+//       result   := <solve-test-constraints>
 
 rules // Debugging
   

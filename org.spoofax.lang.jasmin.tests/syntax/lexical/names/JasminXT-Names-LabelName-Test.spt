@@ -1,0 +1,15 @@
+module JasminXT-Names-LabelName-Test
+
+language JasminXT
+start symbol LabelName
+
+test correct label [[hello]] parse succeeds
+test label = [[he=llo]] parse fails
+test label : [[he:llo]] parse fails
+test label . [[he.llo]] parse fails
+test label " [[he"llo]] parse fails
+test label - [[he-llo]] parse fails
+test label <space> [[he llo]] parse fails
+test label \t [[he	llo]] parse fails
+test label \n\r [[he
+llo]] parse fails

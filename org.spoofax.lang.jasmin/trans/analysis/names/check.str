@@ -1,10 +1,81 @@
 module analysis/names/check
 
 imports
-	include/JasminXT
+  include/JasminXT
+  analysis/types/constraints
+  analysis/names/binding
+  runtime/nabl/-
+  runtime/task/-
+  runtime/types/-
+  libstratego-gpp
+  src-gen/pp/-
 	
 strategies
 
   nabl-check-disable-duplicate(|uri, ns) = id
   nabl-check-disable-hiding(|uri, ns) = id
   nabl-check-disable-unresolved = id
+  
+  html-escape = is-string ; string-replace(|"&", "&amp;") ; string-replace(|"<", "&lt;") ; string-replace(|">", "&gt;")
+  
+  abox2text = box2text-string(|10000)
+  pp-ClassName  = strip-annos ; prettyprint-ClassName  ; abox2text <+ !"PRETTYPRINTFAILURE"
+  pp-MethodName = strip-annos ; prettyprint-MethodName ; abox2text; html-escape <+ !"PRETTYPRINTFAILURE"
+  pp-FieldName  = strip-annos ; prettyprint-FieldName  ; abox2text <+ !"PRETTYPRINTFAILURE"
+  pp-ParameterDescriptors = map(prettyprint-ParameterDescriptor ; abox2text);concat-strings <+ !"PRETTYPRINTFAILURE"
+  pp-ReturnDescriptor = prettyprint-ReturnDescriptor ; abox2text <+ !"PRETTYPRINTFAILURE"
+  
+rules
+  // Undefined reference errors
+//   nabl-constraint(|ctx):
+//     CRef(c) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> c
+//       ; msg  := $[Class [<pp-ClassName> c] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> c
+//   
+//   nabl-constraint(|ctx):
+//     JBCSuper(c) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> c
+//       ; msg  := $[Class [<pp-ClassName> c] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> c
+//   
+//   nabl-constraint(|ctx):
+//     JBCMethodRef(_, MRef(m), _) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> m
+//       ; msg  := $[Method [<pp-MethodName> m] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> m
+//   
+//   nabl-constraint(|ctx):
+//     JBCFieldRef(_, FRef(f), _) -> <fail>
+//       where
+//         <has-annotation(?Use(task))> f
+//       ; msg  := $[Field [<pp-FieldName> f] is undefined]
+//       ; <task-create-error-on-failure(|ctx, task, msg)> f
+
+  // Double names
+  nabl-constraint(|ctx):
+  	JBCClass(_, c) -> <fail>
+  	  where
+        task := <nabl-lookup-all(|ctx)> c
+      ; msg := $[Class [<pp-ClassName> c] was already defined]
+      ; <task-create-error-on-multiple(|ctx, task, msg)> c
+        
+  nabl-constraint(|ctx):
+  	JBCMethod(_, m, type-desc@JBCMethodDesc(pd*, rd), _) -> <fail>
+  	  where
+        task := <nabl-lookup-lexical(|ctx, NablNsMethod())> m
+      ; type := <type-lookup(|ctx)> task
+      ; type-match := <type-match(|ctx, type-desc)> type
+      ; msg := $[Method [<pp-MethodName> m]([<pp-ParameterDescriptors> pd*])[<pp-ReturnDescriptor> rd] was already defined]
+      // TODO: This type-match task inexplicably comes up with many many method with the same descriptor. 
+      // ; <task-create-error-on-multiple(|ctx, type-match, msg)> m
+        
+  nabl-constraint(|ctx):
+  	JBCField(_, f, _, _, _) -> <fail>
+  	  where
+        task := <nabl-lookup-lexical(|ctx, NablNsField())> f
+      ; msg := $[Field [<pp-FieldName> f] was already defined]
+      ; <task-create-error-on-multiple(|ctx, task, msg)> f
