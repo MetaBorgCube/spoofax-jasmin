@@ -1,14 +1,14 @@
-module instructions/JasminXT-LoadStore
+module JasminXT-LoadStore
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Strings
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
 
 context-free start-symbols
   Instruction
 
-templates
+context-free syntax
   Instruction.BIPUSH = [bipush [Int]]      // pushes a byte onto the stack as an integer value
   Instruction.SIPUSH = [sipush [Int]]      // pushes a signed integer onto the stack
   
@@ -36,7 +36,7 @@ templates
   Instruction.LDC_W  = [ldc_w [Constant]]  // pushes a constant from a constant pool (String, int or float) onto the stack
   Instruction.LDC2_W = [ldc2_w [Constant]] // pushes a constant from a constant pool (double or long) onto the stack
       
-templates
+context-free syntax
   Instruction.ILOAD = [iload [VarRef]]  // loads an int value from a local variable
   Instruction.LLOAD = [lload [VarRef]]  // loads a long value from a local variable
   Instruction.FLOAD = [fload [VarRef]]  // loads a float value from a local variable

@@ -1,15 +1,15 @@
-module instructions/JasminXT-Arithmetic
+module JasminXT-Arithmetic
 
 imports
 
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
+  JasminXT-Names
+  JasminXT-Numbers
 
 context-free start-symbols
   Instruction
   Amount
 
-templates
+context-free syntax
   Instruction.IADD  = [iadd]
   Instruction.IAND  = [iand]
   Instruction.IDIV  = [idiv]
@@ -53,8 +53,8 @@ templates
   Instruction.IINC   = [iinc [VarRef] [Amount]]
   Instruction.IINC_W = [iinc_w [VarRef] [Amount]]
 
-  Amount            = [[Int]]
-  Amount.Neg        = [[NegInt]]
+  Amount            = Int
+  Amount.Neg        = NegInt
 
   Instruction.FCMPG = [fcmpg]
   Instruction.FCMPL = [fcmpl]

@@ -1,4 +1,4 @@
-module lexical/JasminXT-Strings
+module JasminXT-Strings
 
 context-free start-symbols
   String Constant
@@ -10,5 +10,5 @@ lexical syntax
   StringChar = [\\] 'u' HexDigit HexDigit HexDigit HexDigit
   HexDigit = [0-9a-fA-F]
 
-templates
-  Constant.String = [[String]]
+context-free syntax
+  Constant.String = String

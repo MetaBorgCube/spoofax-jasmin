@@ -15,9 +15,8 @@ language General properties
   table         : include/JasminXT.tbl
   start symbols : Start
 
-  provider: include/jasminxt.ctree                                                                           
+  provider: include/jasminxt.ctree
   provider: include/jasminxt-java.jar
-  provider: lib/jasmin.jar
   provider: lib/asm-5.0_BETA.jar
   provider: lib/asm-analysis-5.0_BETA.jar
   provider: lib/asm-commons-5.0_BETA.jar
@@ -25,6 +24,4 @@ language General properties
   provider: lib/asm-util-5.0_BETA.jar
   provider: lib/asm-xml-5.0_BETA.jar
                                                                                                                                
-  observer: editor-analyze                                                                                   
-   
-  
+  observer: editor-analyze

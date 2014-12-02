@@ -1,40 +1,40 @@
 module JasminXT-Header
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Strings
-  lexical/JasminXT-Descriptors
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+  JasminXT-Descriptors
 
 context-free start-symbols
   JasminHeader
 
-templates // header
+context-free syntax // header
   JasminHeader.JBCHeader = [[BytecodeSpec]
 [SourceSpec]
 [ClassSpec]
 [SuperSpec]
-[ImplementsSpec*; separator = "\n"]
+[{ImplementsSpec "\n"}*]
 [SignatureSpec]
 [EnclosingSpec]
-[DebugSpec*; separator="\n"]
-[InnerClassSpec*; separator="\n"]
-[InnerInterfaceSpec*; separator="\n"]]
+[{DebugSpec "\n"}*]
+[{InnerClassSpec "\n"}*]
+[{InnerInterfaceSpec "\n"}*]]
 
-templates
+context-free syntax
   BytecodeSpec.JBCVersion = [.bytecode [MajorVersion] [MinorVersion]]
   BytecodeSpec.None       = []
 
-  MajorVersion.Major = [[Int]]
+  MajorVersion.Major = Int
   MinorVersion.Minor = [.[Int]]
   MinorVersion.None  = []
 
   SourceSpec.JBCSource = [.source [String]]
   SourceSpec.None      = []
 
-templates
-  ClassSpec.JBCClass     = [.class [ClassAccess*; separator = " "] [ClassName]]
-  ClassSpec.JBCInterface = [.interface [ClassAccess*; separator = " "] [ClassName]]
+context-free syntax
+  ClassSpec.JBCClass     = [.class [{ClassAccess " "}*] [ClassName]]
+  ClassSpec.JBCInterface = [.interface [{ClassAccess " "}*] [ClassName]]
 
   ClassAccess.PUBLIC    = [public]
   ClassAccess.FINAL     = [final]
@@ -46,7 +46,7 @@ templates
 
   ImplementsSpec.JBCImplements = [.implements [ClassName]]
 
-templates
+context-free syntax
   SignatureSpec.JBCSignature = [.signature [String]]
   SignatureSpec.None         = []
 
@@ -55,17 +55,17 @@ templates
   
   DebugSpec.JBCDebug = [.debug [String]]
   
-templates
+context-free syntax
   InnerClassSpec.JBCInnerClass = [.inner class [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
   InnerInterfaceSpec.JBCInnerInterface = [.inner interface [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
   
-  InnerClassAccess = [[ClassAccess]]
+  InnerClassAccess = ClassAccess
   InnerClassAccess.None = []
   
-  InnerClassName = [[ClassName]]
+  InnerClassName = ClassName
   InnerClassName.None = []
   
-  InnerName.InnerNameSpec = [inner [ClassName+; separator="$"]]
+  InnerName.InnerNameSpec = [inner [{ClassName "$"}+]]
   InnerName.None = []
   
   OuterName.OuterNameSpec = [outer [ClassName]]

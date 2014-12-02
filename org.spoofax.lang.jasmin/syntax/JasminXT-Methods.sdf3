@@ -1,20 +1,20 @@
 module JasminXT-Methods
 
 imports
-  lexical/JasminXT-Names
-  lexical/JasminXT-Numbers
-  lexical/JasminXT-Strings
-  lexical/JasminXT-Descriptors
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+  JasminXT-Descriptors
   
-  instructions/JasminXT-Instructions
+  JasminXT-Instructions
   JasminXT-Directives
 
 context-free start-symbols
   Method
 
-templates
-  Method.JBCMethod = [.method [MethodAccess*; separator = " "] [MethodName] [MethodDescriptor]
-	[Statement*; separator = "\n\t"]
+context-free syntax
+  Method.JBCMethod = [.method [{MethodAccess " "}*] [MethodName] [MethodDescriptor]
+	[{Statement "\n\t"}*]
 .end method] 
 
   MethodAccess.PUBLIC       = [public]
@@ -26,10 +26,10 @@ templates
   MethodAccess.NATIVE       = [native]
   MethodAccess.ABSTRACT     = [abstract]
 
-templates
-  Statement = [[PCInstruction]]
-  Statement = [[Directive]]
-  Statement = [[Label]]
+context-free syntax
+  Statement = PCInstruction
+  Statement = Directive
+  Statement = Label
   
   Label.JBCLabel = [[LabelName]:]
 

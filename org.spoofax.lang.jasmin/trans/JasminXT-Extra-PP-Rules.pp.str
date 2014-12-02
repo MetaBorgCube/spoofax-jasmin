@@ -4,8 +4,8 @@ imports
   include/JasminXT    // jasmin AST nodes
   lib/runtime/tmpl/pp // pp-* strategies
   libstratego-gpp     // box language AST nodes
-  JasminXT-Descriptors.pp.generated
-  JasminXT-Names.pp.generated
+  src-gen/pp/JasminXT-Descriptors-pp
+  src-gen/pp/JasminXT-Names-pp
 
 rules
 // "(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {"JBCMethodDesc"}

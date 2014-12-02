@@ -1,7 +1,7 @@
-module instructions/JasminXT-Exceptions
+module JasminXT-Exceptions
 
 context-free start-symbols
   Instruction
 
-templates
+context-free syntax
   Instruction.ATHROW = [athrow]
