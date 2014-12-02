@@ -17,7 +17,6 @@ language General properties
 
   provider: include/jasminxt.ctree
   provider: include/jasminxt-java.jar
-  // provider: lib/jasmin.jar
   provider: lib/asm-5.0_BETA.jar
   provider: lib/asm-analysis-5.0_BETA.jar
   provider: lib/asm-commons-5.0_BETA.jar
