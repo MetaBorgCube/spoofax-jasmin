@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.spoofax.lang.jasmin.feature"
-      label="Feature"
+      label="JasminXT"
       version="1.0.0.qualifier">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="https://github.com/metaborg/spoofax-jasmin">
+      Eclipse editor for JasminXT, an assembler for the Java Virtual Machine.
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
-   </copyright>
-
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license>
+      JasminXT license information
+      
+This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the full license texts for more details. JasminXT&apos;s code is licensed under the GNU Lesser General Public License (LGPL).
    </license>
 
    <plugin
          id="org.spoofax.lang.jasmin"
          download-size="0"
          install-size="0"
-         version="1.0.0.qualifier"
-         unpack="true"/>
+         version="1.0.0.qualifier"/>
 
 </feature>

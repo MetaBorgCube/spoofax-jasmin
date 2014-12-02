@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/org.spoofax.lang.jasmin.feature_1.0.0.qualifier.jar" id="org.spoofax.lang.jasmin.feature" version="1.0.0.qualifier"/>
+  <description name="JasminXT">
+    Eclipse editor for JasminXT, an assembler for the Java Virtual Machine.
+  </description>
+   
+  <feature url="features/org.spoofax.lang.jasmin.feature_1.0.0.qualifier.jar" id="org.spoofax.lang.jasmin.feature" version="1.0.0.qualifier">
+    <category name="JasminXT"/>
+  </feature>
+  
+   <category-def name="JasminXT" label="JasminXT">
+      <description>
+         Eclipse editor for JasminXT, an assembler for the Java Virtual Machine.
+      </description>
+   </category-def>
 </site>
