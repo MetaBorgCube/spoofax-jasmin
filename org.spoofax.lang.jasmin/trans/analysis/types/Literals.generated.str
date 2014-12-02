@@ -25,24 +25,24 @@ rules // relations
 rules // rules
   
   create-type-task(|ctx) :
-    Int(i) -> <task-create-id(|ctx,[x0])> x0
+    Int(i) -> <task-create-id(|ctx,[x132])> x132
     where 
-      x0 := <type-is(|ctx)> Int()
+      x132 := <type-is(|ctx)> Int()
   
   create-type-task(|ctx) :
-    Float(f) -> <task-create-id(|ctx,[x1])> x1
+    Float(f) -> <task-create-id(|ctx,[x133])> x133
     where 
-      x1 := <type-is(|ctx)> Float()
+      x133 := <type-is(|ctx)> Float()
   
   create-type-task(|ctx) :
-    Double(d) -> <task-create-id(|ctx,[x2])> x2
+    Double(d) -> <task-create-id(|ctx,[x134])> x134
     where 
-      x2 := <type-is(|ctx)> Double()
+      x134 := <type-is(|ctx)> Double()
   
   create-type-task(|ctx) :
-    String(s) -> <task-create-id(|ctx,[x3])> x3
+    String(s) -> <task-create-id(|ctx,[x135])> x135
     where 
-      x3 := <type-is(|ctx)> CRef("java/lang/String")
+      x135 := <type-is(|ctx)> CRef("java/lang/String")
   
 
 rules // projections

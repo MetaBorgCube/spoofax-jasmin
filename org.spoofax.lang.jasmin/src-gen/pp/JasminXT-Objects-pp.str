@@ -9,13 +9,13 @@ imports
 imports
   src-gen/signatures/JasminXT-Names-sig
   src-gen/signatures/JasminXT-Numbers-sig
-  src-gen/signatures/JasminXT-Descriptors-sig
+  src-gen/signatures/JasminXT-Types-sig
 
 
 imports
   src-gen/pp/JasminXT-Names-pp
   src-gen/pp/JasminXT-Numbers-pp
-  src-gen/pp/JasminXT-Descriptors-pp
+  src-gen/pp/JasminXT-Types-pp
 
 
 strategies

@@ -1,0 +1,23 @@
+module src-gen/completions/JasminXT-Types-esv
+
+completions
+  completion template BaseType : "B" =
+    "B"  
+  completion template BaseType : "C" =
+    "C"  
+  completion template BaseType : "D" =
+    "D"  
+  completion template BaseType : "F" =
+    "F"  
+  completion template BaseType : "I" =
+    "I"  
+  completion template BaseType : "J" =
+    "J"  
+  completion template BaseType : "S" =
+    "S"  
+  completion template BaseType : "Z" =
+    "Z"  
+
+completions
+  completion template ArrayType : "[ComponentType" =
+    "[" <ComponentType:ComponentType>  

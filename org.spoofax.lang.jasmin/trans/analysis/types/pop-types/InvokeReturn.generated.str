@@ -26,14 +26,14 @@ rules // relations
 rules // rules
   
   create-pop-type-task(|ctx) :
-    RET(_) -> <task-create-id(|ctx,[x33])> x33
+    RET(_) -> <task-create-id(|ctx,[x162])> x162
     where 
-      x33 := <type-is(|ctx)> []
+      x162 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    RET_W(_) -> <task-create-id(|ctx,[x33])> x33
+    RET_W(_) -> <task-create-id(|ctx,[x162])> x162
     where 
-      x33 := <type-is(|ctx)> []
+      x162 := <type-is(|ctx)> []
   
 
 rules // projections

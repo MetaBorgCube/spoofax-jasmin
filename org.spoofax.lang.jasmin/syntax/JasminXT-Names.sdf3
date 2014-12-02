@@ -65,3 +65,10 @@ context-free syntax
   BaseTypeName.LongName    = [long]
   BaseTypeName.ShortName   = [short]
   BaseTypeName.BooleanName = [boolean]
+
+syntax // Define ObjectType (with FieldType injection) here to break cycle in ESV packing.
+  ObjectType-CF.Reference = "L" ClassRef-CF ";"
+  
+context-free syntax
+  FieldType = ObjectType
+  

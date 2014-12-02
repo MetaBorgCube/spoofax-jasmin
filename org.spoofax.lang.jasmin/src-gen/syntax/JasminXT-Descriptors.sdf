@@ -1,35 +1,20 @@
 
 module JasminXT-Descriptors
-imports JasminXT-Names
+imports JasminXT-Types
 
 exports
   context-free start-symbols
     FieldDescriptor ReturnDescriptor BaseType
 
   context-free syntax
-    FieldType  -> FieldDescriptor      {cons("JBCFieldDesc")}
-    FieldType  -> ParameterDescriptor  
-    FieldType  -> AnnotationDescriptor 
-    FieldType  -> ReturnDescriptor     
-    "V"        -> ReturnDescriptor     {cons("Void")}
-    BaseType   -> FieldType            
-    ObjectType -> FieldType            
-    ArrayType  -> FieldType            
-    "B"        -> BaseType             {cons("Byte")}
-    "C"        -> BaseType             {cons("Char")}
-    "D"        -> BaseType             {cons("Double")}
-    "F"        -> BaseType             {cons("Float")}
-    "I"        -> BaseType             {cons("Int")}
-    "J"        -> BaseType             {cons("Long")}
-    "S"        -> BaseType             {cons("Short")}
-    "Z"        -> BaseType             {cons("Boolean")}
-    FieldType  -> ComponentType        
+    FieldType -> FieldDescriptor      {cons("JBCFieldDesc")}
+    FieldType -> ParameterDescriptor  
+    FieldType -> AnnotationDescriptor 
+    FieldType -> ReturnDescriptor     
+    "V"       -> ReturnDescriptor     {cons("Void")}
 
   context-free syntax
     CONTENTCOMPLETE -> ReturnDescriptor {cons("COMPLETION-ReturnDescriptor")}
-    CONTENTCOMPLETE -> BaseType         {cons("COMPLETION-BaseType")}
 
   syntax
     "(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {cons("JBCMethodDesc")}
-    "L" <ClassRef-CF> ";"                                   -> <ObjectType-CF>       {cons("Reference")}
-    "[" <ComponentType-CF>                                  -> <ArrayType-CF>        {cons("Array")}

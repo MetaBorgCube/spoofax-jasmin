@@ -3,7 +3,7 @@ module src-gen/signatures/JasminXT-Objects-sig
 imports
   src-gen/signatures/JasminXT-Names-sig
   src-gen/signatures/JasminXT-Numbers-sig
-  src-gen/signatures/JasminXT-Descriptors-sig
+  src-gen/signatures/JasminXT-Types-sig
 
 
 signature

@@ -1,0 +1,18 @@
+module src-gen/signatures/JasminXT-Types-sig
+
+signature
+  constructors
+    Byte    : BaseType
+    Char    : BaseType
+    Double  : BaseType
+    Float   : BaseType
+    Int     : BaseType
+    Long    : BaseType
+    Short   : BaseType
+    Boolean : BaseType
+            : BaseType -> FieldType
+            : ArrayType -> FieldType
+            : FieldType -> ComponentType
+
+  constructors
+    Array : ComponentType -> ArrayType

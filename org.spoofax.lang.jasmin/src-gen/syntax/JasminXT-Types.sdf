@@ -1,0 +1,20 @@
+module JasminXT-Types
+exports
+  context-free syntax
+    "B"       -> BaseType      {cons("Byte")}
+    "C"       -> BaseType      {cons("Char")}
+    "D"       -> BaseType      {cons("Double")}
+    "F"       -> BaseType      {cons("Float")}
+    "I"       -> BaseType      {cons("Int")}
+    "J"       -> BaseType      {cons("Long")}
+    "S"       -> BaseType      {cons("Short")}
+    "Z"       -> BaseType      {cons("Boolean")}
+    BaseType  -> FieldType     
+    ArrayType -> FieldType     
+    FieldType -> ComponentType 
+
+  context-free syntax
+    CONTENTCOMPLETE -> BaseType {cons("COMPLETION-BaseType")}
+
+  syntax
+    "[" <ComponentType-CF> -> <ArrayType-CF> {cons("Array")}

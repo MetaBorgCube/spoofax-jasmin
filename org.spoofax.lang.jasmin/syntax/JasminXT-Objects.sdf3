@@ -3,7 +3,7 @@ module JasminXT-Objects
 imports
   JasminXT-Names
   JasminXT-Numbers
-  JasminXT-Descriptors
+  JasminXT-Types
 
 context-free start-symbols
   Instruction

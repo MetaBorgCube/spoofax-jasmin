@@ -26,104 +26,104 @@ rules // relations
 rules // rules
   
   create-pop-type-task(|ctx) :
-    BIPUSH(_) -> <task-create-id(|ctx,[x38])> x38
+    BIPUSH(_) -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    SIPUSH(_) -> <task-create-id(|ctx,[x38])> x38
+    SIPUSH(_) -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ICONST_M1() -> <task-create-id(|ctx,[x38])> x38
+    ICONST_M1() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ICONST_0() -> <task-create-id(|ctx,[x38])> x38
+    ICONST_0() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ICONST_1() -> <task-create-id(|ctx,[x38])> x38
+    ICONST_1() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ICONST_2() -> <task-create-id(|ctx,[x38])> x38
+    ICONST_2() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ICONST_3() -> <task-create-id(|ctx,[x38])> x38
+    ICONST_3() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ICONST_4() -> <task-create-id(|ctx,[x38])> x38
+    ICONST_4() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ICONST_5() -> <task-create-id(|ctx,[x38])> x38
+    ICONST_5() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    LCONST_0() -> <task-create-id(|ctx,[x38])> x38
+    LCONST_0() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    LCONST_1() -> <task-create-id(|ctx,[x38])> x38
+    LCONST_1() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    FCONST_0() -> <task-create-id(|ctx,[x38])> x38
+    FCONST_0() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    FCONST_1() -> <task-create-id(|ctx,[x38])> x38
+    FCONST_1() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    FCONST_2() -> <task-create-id(|ctx,[x38])> x38
+    FCONST_2() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    DCONST_0() -> <task-create-id(|ctx,[x38])> x38
+    DCONST_0() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    DCONST_1() -> <task-create-id(|ctx,[x38])> x38
+    DCONST_1() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    ACONST_NULL() -> <task-create-id(|ctx,[x38])> x38
+    ACONST_NULL() -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    LDC(_) -> <task-create-id(|ctx,[x38])> x38
+    LDC(_) -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    LDC2_W(_) -> <task-create-id(|ctx,[x38])> x38
+    LDC2_W(_) -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    LDC_W(_) -> <task-create-id(|ctx,[x38])> x38
+    LDC_W(_) -> <task-create-id(|ctx,[x170])> x170
     where 
-      x38 := <type-is(|ctx)> []
+      x170 := <type-is(|ctx)> []
   
 
 rules // projections

@@ -3,7 +3,7 @@ module src-gen/completions/JasminXT-Objects-esv
 imports
   src-gen/completions/JasminXT-Names-esv
   src-gen/completions/JasminXT-Numbers-esv
-  src-gen/completions/JasminXT-Descriptors-esv
+  src-gen/completions/JasminXT-Types-esv
 
 completions
   completion template Instruction : "new ClassRef" =

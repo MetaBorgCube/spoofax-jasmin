@@ -7,11 +7,11 @@ imports
 
 
 imports
-  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Types-sig
 
 
 imports
-  src-gen/pp/JasminXT-Names-pp
+  src-gen/pp/JasminXT-Types-pp
 
 
 strategies
@@ -37,15 +37,6 @@ strategies
 
   prettyprint-example =
     prettyprint-ReturnDescriptor
-
-  prettyprint-example =
-    prettyprint-FieldType
-
-  prettyprint-example =
-    prettyprint-BaseType
-
-  prettyprint-example =
-    prettyprint-ComponentType
 
   prettyprint-FieldDescriptor :
     JBCFieldDesc(t1__) -> [ H(
@@ -95,122 +86,6 @@ strategies
   is-ReturnDescriptor =
     ?Void()
 
-  prettyprint-FieldType :
-    t1__ -> [ H(
-                [SOpt(HS(), "0")]
-              , [t1__']
-              )
-            ]
-    where not(is-FieldType)
-    where t1__' := <pp-one-Z(prettyprint-BaseType)> t1__
-
-  prettyprint-FieldType :
-    t1__ -> [ H(
-                [SOpt(HS(), "0")]
-              , [t1__']
-              )
-            ]
-    where not(is-FieldType)
-    where t1__' := <pp-one-Z(prettyprint-ObjectType)> t1__
-
-  prettyprint-FieldType :
-    t1__ -> [ H(
-                [SOpt(HS(), "0")]
-              , [t1__']
-              )
-            ]
-    where not(is-FieldType)
-    where t1__' := <pp-one-Z(prettyprint-ArrayType)> t1__
-
-  prettyprint-BaseType :
-    Byte() -> [ H(
-                  [SOpt(HS(), "0")]
-                , [S("B")]
-                )
-              ]
-
-  is-BaseType =
-    ?Byte()
-
-  prettyprint-BaseType :
-    Char() -> [ H(
-                  [SOpt(HS(), "0")]
-                , [S("C")]
-                )
-              ]
-
-  is-BaseType =
-    ?Char()
-
-  prettyprint-BaseType :
-    Double() -> [ H(
-                    [SOpt(HS(), "0")]
-                  , [S("D")]
-                  )
-                ]
-
-  is-BaseType =
-    ?Double()
-
-  prettyprint-BaseType :
-    Float() -> [ H(
-                   [SOpt(HS(), "0")]
-                 , [S("F")]
-                 )
-               ]
-
-  is-BaseType =
-    ?Float()
-
-  prettyprint-BaseType :
-    Int() -> [ H(
-                 [SOpt(HS(), "0")]
-               , [S("I")]
-               )
-             ]
-
-  is-BaseType =
-    ?Int()
-
-  prettyprint-BaseType :
-    Long() -> [ H(
-                  [SOpt(HS(), "0")]
-                , [S("J")]
-                )
-              ]
-
-  is-BaseType =
-    ?Long()
-
-  prettyprint-BaseType :
-    Short() -> [ H(
-                   [SOpt(HS(), "0")]
-                 , [S("S")]
-                 )
-               ]
-
-  is-BaseType =
-    ?Short()
-
-  prettyprint-BaseType :
-    Boolean() -> [ H(
-                     [SOpt(HS(), "0")]
-                   , [S("Z")]
-                   )
-                 ]
-
-  is-BaseType =
-    ?Boolean()
-
-  prettyprint-ComponentType :
-    t1__ -> [ H(
-                [SOpt(HS(), "0")]
-              , [t1__']
-              )
-            ]
-    where not(is-ComponentType)
-    where t1__' := <pp-one-Z(prettyprint-FieldType)> t1__
-
   is-FieldDescriptor =
     fail
 
@@ -223,25 +98,10 @@ strategies
   is-ReturnDescriptor =
     fail
 
-  is-FieldType =
-    fail
-
-  is-BaseType =
-    fail
-
-  is-ComponentType =
-    fail
-
 
 strategies
   prettyprint-example =
     prettyprint-MethodDescriptor
-
-  prettyprint-example =
-    prettyprint-ObjectType
-
-  prettyprint-example =
-    prettyprint-ArrayType
 
   prettyprint-MethodDescriptor :
     JBCMethodDesc(t1__, t2__) -> [ H(
@@ -259,36 +119,5 @@ strategies
   is-MethodDescriptor =
     ?JBCMethodDesc(_, _)
 
-  prettyprint-ObjectType :
-    Reference(t1__) -> [ H(
-                           [SOpt(HS(), "0")]
-                         , [ S("L")
-                           , t1__'
-                           , S(";")
-                           ]
-                         )
-                       ]
-    with t1__' := <pp-one-Z(prettyprint-ClassRef)> t1__
-
-  is-ObjectType =
-    ?Reference(_)
-
-  prettyprint-ArrayType :
-    Array(t1__) -> [ H(
-                       [SOpt(HS(), "0")]
-                     , [S("["), t1__']
-                     )
-                   ]
-    with t1__' := <pp-one-Z(prettyprint-ComponentType)> t1__
-
-  is-ArrayType =
-    ?Array(_)
-
   is-MethodDescriptor =
-    fail
-
-  is-ObjectType =
-    fail
-
-  is-ArrayType =
     fail

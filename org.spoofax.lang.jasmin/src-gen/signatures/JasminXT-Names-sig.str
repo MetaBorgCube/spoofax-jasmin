@@ -44,3 +44,9 @@ signature
     LongName    : BaseTypeName
     ShortName   : BaseTypeName
     BooleanName : BaseTypeName
+
+  constructors
+    Reference : ClassRef -> ObjectType
+
+  constructors
+     : ObjectType -> FieldType

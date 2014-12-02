@@ -1,5 +1,5 @@
 module JasminXT-Objects
-imports JasminXT-Names JasminXT-Numbers JasminXT-Descriptors
+imports JasminXT-Names JasminXT-Numbers JasminXT-Types
 
 exports
   context-free start-symbols

@@ -1,0 +1,21 @@
+module JasminXT-Types
+
+context-free syntax
+
+  BaseType.Byte    = [B]
+  BaseType.Char    = [C]
+  BaseType.Double  = [D]
+  BaseType.Float   = [F]
+  BaseType.Int     = [I]
+  BaseType.Long    = [J]
+  BaseType.Short   = [S]
+  BaseType.Boolean = [Z]
+
+  FieldType = BaseType
+  FieldType = ArrayType
+
+  ComponentType = FieldType
+
+syntax
+
+  ArrayType-CF.Array = "[" ComponentType-CF
