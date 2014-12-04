@@ -9,34 +9,8 @@ menus
   
   menu: "Syntax"
                                                                                                                             
-    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (meta) (source)  
-    action: "Show analysed syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (meta)
-  
-  menu: "Analysis"
-        
-    action: "Reset and reanalyze"  = debug-reanalyze (meta)   
-
-    submenu: "Show Index"
-      action: "Project"            = debug-index-project (openeditor) (meta)
-      action: "Partition"          = debug-index-partition (openeditor) (meta)
-    end
-    
-    submenu: "Show Tasks"
-      action: "Project"            = debug-task-project (openeditor) (meta)
-      action: "Partition"          = debug-task-partition (openeditor) (meta)
-      action: "Selection"          = debug-task-selection (openeditor) (meta)
-    end
-    
-    submenu: "Show Analysis"
-      action: "Project"            = debug-project (openeditor) (meta)
-      action: "Partition"          = debug-partition (openeditor) (meta)
-    end
-    
-    // submenu: "Constraints"
-    //   action: "Collect"			   = debug-collect-file-constraints (openeditor) (realtime) (meta)
-    //   action: "Solve"			   = debug-collect-solve-constraints (openeditor) (realtime) (meta)
-    //   action: "Test solve"		   = debug-solve-test-constraints (openeditor) (realtime) (meta)
-    // end
+    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (source)  
+    action: "Show analysed syntax (for selection)" = debug-show-aterm (openeditor)
   
   menu: "JVM"
  
