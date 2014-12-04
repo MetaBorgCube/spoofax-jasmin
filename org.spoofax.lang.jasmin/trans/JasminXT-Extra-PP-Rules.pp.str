@@ -8,6 +8,12 @@ imports
   src-gen/pp/JasminXT-Names-pp
 
 rules
+  
+  pp-Jasmin-string =
+    prettyprint-SDF-start-symbols
+    ; !V([], <id>)
+    ; box2text-string(|120)
+ 
 // "(" <ParameterDescriptor-CF>* ")" <ReturnDescriptor-CF> -> <MethodDescriptor-CF> {"JBCMethodDesc"}
   prettyprint-MethodDescriptor:
     JBCMethodDesc(pd*, rd) -> [ H(
