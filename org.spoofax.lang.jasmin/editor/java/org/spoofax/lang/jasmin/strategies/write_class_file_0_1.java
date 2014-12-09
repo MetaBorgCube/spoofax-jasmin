@@ -35,13 +35,8 @@ public class write_class_file_0_1 extends Strategy {
                 final String workingDir = agent.getWorkingDir();
                 final String fullPath = workingDir + "/" + path;
                 final File fullDir = new File(fullPath).getParentFile();
-
-                context.getIOAgent().printError(path);
-                context.getIOAgent().printError(workingDir);
-                context.getIOAgent().printError(fullPath);
-                context.getIOAgent().printError("" + fullDir.mkdirs());
-
-                OutputStream fileOutputStream = context.getIOAgent().openFileOutputStream(path);
+                fullDir.mkdirs();
+                OutputStream fileOutputStream = agent.openFileOutputStream(path);
                 fileOutputStream.write(bt);
                 fileOutputStream.close();
                 return current;
