@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.spoofax.interpreter.library.IOAgent;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.strategoxt.lang.Context;
 import org.strategoxt.lang.Strategy;
@@ -30,8 +31,16 @@ public class write_class_file_0_1 extends Strategy {
             return null;
         } else {
             try {
+                final IOAgent agent = context.getIOAgent();
+                final String workingDir = agent.getWorkingDir();
+                final String fullPath = workingDir + "/" + path;
+                final File fullDir = new File(fullPath).getParentFile();
+
                 context.getIOAgent().printError(path);
-                new File(path).mkdirs();
+                context.getIOAgent().printError(workingDir);
+                context.getIOAgent().printError(fullPath);
+                context.getIOAgent().printError("" + fullDir.mkdirs());
+
                 OutputStream fileOutputStream = context.getIOAgent().openFileOutputStream(path);
                 fileOutputStream.write(bt);
                 fileOutputStream.close();
