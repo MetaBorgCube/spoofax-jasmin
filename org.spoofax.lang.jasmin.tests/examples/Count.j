@@ -46,7 +46,11 @@
        invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
 
        ; decrement the counter and loop
-       iinc 2 -1
+       iload_2
+       bipush 1
+       isub
+       istore_2
+       
        iload_2
        ifne Loop 
 
