@@ -158,6 +158,10 @@ public class ClassGenerator {
                 Label labelTo = getOrAddLabel(labels, javaStringAt(instrAppl, 4));
                 mv.visitLocalVariable(javaStringAt(instrAppl, 0), javaStringAt(instrAppl, 1),
                     javaStringOrNoneAt(instrAppl, 2), labelFrom, labelTo, javaIntAt(instrAppl, 5));
+            } else if(hasConstructor(instrAppl, "Line", 1)) {
+            	// TODO: dummy label, should generate a label for next instruction?
+            	Label labelStart = new Label();
+            	mv.visitLineNumber(javaIntAt(instrAppl, 0), labelStart);
             } else if(hasConstructor(instrAppl, "Insn", 1)) {
                 mv.visitInsn(javaIntAt(instrAppl, 0));
             } else if(hasConstructor(instrAppl, "IntInsn", 2)) {

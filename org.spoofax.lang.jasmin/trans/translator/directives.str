@@ -12,6 +12,7 @@ signature
 		Maxs	:	Int * Int -> Instruction
 		TryCatch:	String * String * String * String -> Instruction
 		LocalVar:	String * String * String * String * String * Int -> Instruction
+		Line    :   Int -> Instruction
 	
 rules
 	jasmin-directive-to-asm:
@@ -25,6 +26,10 @@ rules
 	 	where
 	 		index := <to-int> ind
 	 	;	desc := <jasmin-fieldtype-to-descriptor> fdesc
+	jasmin-directive-to-asm:
+		JBCLine(l) -> Line(line)
+		where
+			line := <to-int> l
 
 	collect-maxs:
 		l			->	result
