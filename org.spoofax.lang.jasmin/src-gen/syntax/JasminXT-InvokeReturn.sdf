@@ -23,5 +23,5 @@ exports
     CONTENTCOMPLETE -> Instruction {cons("COMPLETION-Instruction")}
 
   lexical restrictions
-    "invokenonvirtual" "invokevirtual" "invokestatic" "invokeinterface" "ret"
-    "ret_w" -/- ~[\ \t]
+    "invokenonvirtual" "invokevirtual" "invokestatic" "invokeinterface" "return"
+    "ireturn" "lreturn" "freturn" "dreturn" "areturn" "ret" "ret_w" -/- ~[\ \t]

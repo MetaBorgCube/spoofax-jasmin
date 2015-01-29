@@ -24,10 +24,6 @@ context-free syntax
   Instruction.RET   = [ret [VarRef]]
   Instruction.RET_W = [ret_w [VarRef]]
 
-lexical restrictions
-  "invokenonvirtual"
-  "invokevirtual"
-  "invokestatic"
-  "invokeinterface"
-  "ret"
-  "ret_w" -/- ~[\ \t]
+template options
+
+  keyword -/- ~[\ \t]
