@@ -1,0 +1,61 @@
+module src-gen/ds-signatures/JasminXT-Names-sig
+
+imports src-gen/ds-signatures/JasminXT-Strings-sig src-gen/ds-signatures/JasminXT-Numbers-sig src-gen/ds-signatures/JasminXT-Descriptors-sig
+
+signature
+    sorts
+      Identifier
+      SQIdentifier
+      QualifiedName
+      LabelName
+      FileName
+      ClassName
+      AttributeName
+      AnnotationName
+      FieldName
+      MethodName
+      VarName
+      ClassRef
+      VarRef
+      LabelRef
+      FRef
+      MRef
+      BaseTypeName
+      FieldType
+    constructors
+      __String2Identifier__ : String -> Identifier {implicit}
+      __String2SQIdentifier__ : String -> SQIdentifier {implicit}
+      __String2QualifiedName__ : String -> QualifiedName {implicit}
+      __String2LabelName__ : String -> LabelName {implicit}
+    constructors
+      __String2FileName__ : String -> FileName {implicit}
+      __QualifiedName2ClassName__ : QualifiedName -> ClassName {implicit}
+      __Identifier2AttributeName__ : Identifier -> AttributeName {implicit}
+      __Identifier2AnnotationName__ : Identifier -> AnnotationName {implicit}
+      __Identifier2FieldName__ : Identifier -> FieldName {implicit}
+      __Identifier2MethodName__ : Identifier -> MethodName {implicit}
+      Init : MethodName 
+      __SQIdentifier2VarName__ : SQIdentifier -> VarName {implicit}
+    constructors
+      CRef : ClassName -> ClassRef 
+      VarNum : Int_ -> VarRef 
+      LabelRef : LabelName -> LabelRef 
+      Absolute : Int_ -> LabelRef 
+      FRef : FieldName -> FRef 
+      MRef : MethodName -> MRef 
+    constructors
+      JBCFieldRef : ClassRef * FRef * FieldDescriptor -> FieldRef 
+      JBCMethodRef : ClassRef * MRef * MethodDescriptor -> MethodRef 
+    constructors
+      ByteName : BaseTypeName 
+      CharName : BaseTypeName 
+      DoubleName : BaseTypeName 
+      FloatName : BaseTypeName 
+      IntName : BaseTypeName 
+      LongName : BaseTypeName 
+      ShortName : BaseTypeName 
+      BooleanName : BaseTypeName 
+    constructors
+      Reference : ClassRef -> ObjectType 
+    constructors
+      __ObjectType2FieldType__ : ObjectType -> FieldType {implicit}

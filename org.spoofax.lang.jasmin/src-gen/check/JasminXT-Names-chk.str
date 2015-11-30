@@ -1,0 +1,481 @@
+module src-gen/check/JasminXT-Names-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Names-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/check/JasminXT-Strings-chk
+  src-gen/check/JasminXT-Numbers-chk
+  src-gen/check/JasminXT-Descriptors-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Identifier
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-SQIdentifier
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-QualifiedName
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-LabelName
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-MethodName
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-ClassRef
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-VarRef
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-LabelRef
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-FRef
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-MRef
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-BaseTypeName
+
+
+strategies
+  jasmin-check-Identifier =
+    is-string
+
+  jasmin-check-SQIdentifier =
+    is-string
+
+  jasmin-check-QualifiedName =
+    is-string
+
+  jasmin-check-LabelName =
+    is-string
+
+  jasmin-check-example =
+    jasmin-check-Identifier
+
+  jasmin-check-example =
+    jasmin-check-SQIdentifier
+
+  jasmin-check-example =
+    jasmin-check-QualifiedName
+
+  jasmin-check-example =
+    jasmin-check-LabelName
+
+  jasmin-check-Identifier :
+    amb([h|hs]) -> <check-Identifier> h
+
+  jasmin-check-SQIdentifier :
+    amb([h|hs]) -> <check-SQIdentifier> h
+
+  jasmin-check-QualifiedName :
+    amb([h|hs]) -> <check-QualifiedName> h
+
+  jasmin-check-LabelName :
+    amb([h|hs]) -> <check-LabelName> h
+
+  error-Identifier =
+    debug(!"Unexpected constructor. Expected string from sort Identifier instead. ")
+
+  error-SQIdentifier =
+    debug(!"Unexpected constructor. Expected string from sort SQIdentifier instead. ")
+
+  error-QualifiedName =
+    debug(!"Unexpected constructor. Expected string from sort QualifiedName instead. ")
+
+  error-LabelName =
+    debug(!"Unexpected constructor. Expected string from sort LabelName instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-FileName
+
+  jasmin-check-example =
+    jasmin-check-ClassName
+
+  jasmin-check-example =
+    jasmin-check-AttributeName
+
+  jasmin-check-example =
+    jasmin-check-AnnotationName
+
+  jasmin-check-example =
+    jasmin-check-FieldName
+
+  jasmin-check-example =
+    jasmin-check-MethodName
+
+  jasmin-check-example =
+    jasmin-check-VarName
+
+  jasmin-check-FileName :
+    t1__ -> <id>
+    where not(is-FileName-with-constructor)
+    where <(check-String <+ error-String)> t1__
+
+  jasmin-check-ClassName :
+    t1__ -> <id>
+    where not(is-ClassName-with-constructor)
+    where <(check-QualifiedName <+ error-QualifiedName)> t1__
+
+  jasmin-check-AttributeName :
+    t1__ -> <id>
+    where not(is-AttributeName-with-constructor)
+    where <(check-Identifier <+ error-Identifier)> t1__
+
+  jasmin-check-AnnotationName :
+    t1__ -> <id>
+    where not(is-AnnotationName-with-constructor)
+    where <(check-Identifier <+ error-Identifier)> t1__
+
+  jasmin-check-FieldName :
+    t1__ -> <id>
+    where not(is-FieldName-with-constructor)
+    where <(check-Identifier <+ error-Identifier)> t1__
+
+  jasmin-check-MethodName :
+    t1__ -> <id>
+    where not(is-MethodName-with-constructor)
+    where <(check-Identifier <+ error-Identifier)> t1__
+
+  jasmin-check-MethodName :
+    Init() -> <id>
+
+  is-MethodName-with-constructor =
+    ?Init()
+
+  jasmin-check-VarName :
+    t1__ -> <id>
+    where not(is-VarName-with-constructor)
+    where <(check-SQIdentifier <+ error-SQIdentifier)> t1__
+
+  is-FileName-with-constructor =
+    fail
+
+  is-ClassName-with-constructor =
+    fail
+
+  is-AttributeName-with-constructor =
+    fail
+
+  is-AnnotationName-with-constructor =
+    fail
+
+  is-FieldName-with-constructor =
+    fail
+
+  is-MethodName-with-constructor =
+    fail
+
+  is-VarName-with-constructor =
+    fail
+
+  jasmin-check-FileName :
+    amb([h|hs]) -> <check-FileName> h
+
+  jasmin-check-ClassName :
+    amb([h|hs]) -> <check-ClassName> h
+
+  jasmin-check-AttributeName :
+    amb([h|hs]) -> <check-AttributeName> h
+
+  jasmin-check-AnnotationName :
+    amb([h|hs]) -> <check-AnnotationName> h
+
+  jasmin-check-FieldName :
+    amb([h|hs]) -> <check-FieldName> h
+
+  jasmin-check-MethodName :
+    amb([h|hs]) -> <check-MethodName> h
+
+  jasmin-check-VarName :
+    amb([h|hs]) -> <check-VarName> h
+
+  error-FileName =
+    debug(!"Unexpected constructor. Expected constructor from sort FileName instead. ")
+
+  error-ClassName =
+    debug(!"Unexpected constructor. Expected constructor from sort ClassName instead. ")
+
+  error-AttributeName =
+    debug(!"Unexpected constructor. Expected constructor from sort AttributeName instead. ")
+
+  error-AnnotationName =
+    debug(!"Unexpected constructor. Expected constructor from sort AnnotationName instead. ")
+
+  error-FieldName =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldName instead. ")
+
+  error-MethodName =
+    debug(!"Unexpected constructor. Expected constructor from sort MethodName instead. ")
+
+  error-VarName =
+    debug(!"Unexpected constructor. Expected constructor from sort VarName instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-ClassRef
+
+  jasmin-check-example =
+    jasmin-check-VarRef
+
+  jasmin-check-example =
+    jasmin-check-LabelRef
+
+  jasmin-check-example =
+    jasmin-check-FRef
+
+  jasmin-check-example =
+    jasmin-check-MRef
+
+  jasmin-check-ClassRef :
+    CRef(t1__) -> <id>
+    with <(check-ClassName <+ error-ClassName)> t1__
+
+  is-ClassRef-with-constructor =
+    ?CRef(_)
+
+  jasmin-check-VarRef :
+    VarNum(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-VarRef-with-constructor =
+    ?VarNum(_)
+
+  jasmin-check-LabelRef :
+    LabelRef(t1__) -> <id>
+    with <(check-LabelName <+ error-LabelName)> t1__
+
+  is-LabelRef-with-constructor =
+    ?LabelRef(_)
+
+  jasmin-check-LabelRef :
+    Absolute(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-LabelRef-with-constructor =
+    ?Absolute(_)
+
+  jasmin-check-FRef :
+    FRef(t1__) -> <id>
+    with <(check-FieldName <+ error-FieldName)> t1__
+
+  is-FRef-with-constructor =
+    ?FRef(_)
+
+  jasmin-check-MRef :
+    MRef(t1__) -> <id>
+    with <(check-MethodName <+ error-MethodName)> t1__
+
+  is-MRef-with-constructor =
+    ?MRef(_)
+
+  is-ClassRef-with-constructor =
+    fail
+
+  is-VarRef-with-constructor =
+    fail
+
+  is-LabelRef-with-constructor =
+    fail
+
+  is-FRef-with-constructor =
+    fail
+
+  is-MRef-with-constructor =
+    fail
+
+  jasmin-check-ClassRef :
+    amb([h|hs]) -> <check-ClassRef> h
+
+  jasmin-check-VarRef :
+    amb([h|hs]) -> <check-VarRef> h
+
+  jasmin-check-LabelRef :
+    amb([h|hs]) -> <check-LabelRef> h
+
+  jasmin-check-FRef :
+    amb([h|hs]) -> <check-FRef> h
+
+  jasmin-check-MRef :
+    amb([h|hs]) -> <check-MRef> h
+
+  error-ClassRef =
+    debug(!"Unexpected constructor. Expected constructor from sort ClassRef instead. ")
+
+  error-VarRef =
+    debug(!"Unexpected constructor. Expected constructor from sort VarRef instead. ")
+
+  error-LabelRef =
+    debug(!"Unexpected constructor. Expected constructor from sort LabelRef instead. ")
+
+  error-FRef =
+    debug(!"Unexpected constructor. Expected constructor from sort FRef instead. ")
+
+  error-MRef =
+    debug(!"Unexpected constructor. Expected constructor from sort MRef instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-FieldRef
+
+  jasmin-check-example =
+    jasmin-check-MethodRef
+
+  jasmin-check-FieldRef :
+    JBCFieldRef(t1__, t2__, t3__) -> <id>
+    with <(check-ClassRef <+ error-ClassRef)> t1__
+    with <(check-FRef <+ error-FRef)> t2__
+    with <(check-FieldDescriptor <+ error-FieldDescriptor)> t3__
+
+  is-FieldRef-with-constructor =
+    ?JBCFieldRef(_, _, _)
+
+  jasmin-check-MethodRef :
+    JBCMethodRef(t1__, t2__, t3__) -> <id>
+    with <(check-ClassRef <+ error-ClassRef)> t1__
+    with <(check-MRef <+ error-MRef)> t2__
+    with <(check-MethodDescriptor <+ error-MethodDescriptor)> t3__
+
+  is-MethodRef-with-constructor =
+    ?JBCMethodRef(_, _, _)
+
+  is-FieldRef-with-constructor =
+    fail
+
+  is-MethodRef-with-constructor =
+    fail
+
+  jasmin-check-FieldRef :
+    amb([h|hs]) -> <check-FieldRef> h
+
+  jasmin-check-MethodRef :
+    amb([h|hs]) -> <check-MethodRef> h
+
+  error-FieldRef =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldRef instead. ")
+
+  error-MethodRef =
+    debug(!"Unexpected constructor. Expected constructor from sort MethodRef instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-BaseTypeName
+
+  jasmin-check-BaseTypeName :
+    ByteName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?ByteName()
+
+  jasmin-check-BaseTypeName :
+    CharName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?CharName()
+
+  jasmin-check-BaseTypeName :
+    DoubleName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?DoubleName()
+
+  jasmin-check-BaseTypeName :
+    FloatName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?FloatName()
+
+  jasmin-check-BaseTypeName :
+    IntName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?IntName()
+
+  jasmin-check-BaseTypeName :
+    LongName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?LongName()
+
+  jasmin-check-BaseTypeName :
+    ShortName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?ShortName()
+
+  jasmin-check-BaseTypeName :
+    BooleanName() -> <id>
+
+  is-BaseTypeName-with-constructor =
+    ?BooleanName()
+
+  is-BaseTypeName-with-constructor =
+    fail
+
+  jasmin-check-BaseTypeName :
+    amb([h|hs]) -> <check-BaseTypeName> h
+
+  error-BaseTypeName =
+    debug(!"Unexpected constructor. Expected constructor from sort BaseTypeName instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-ObjectType
+
+  jasmin-check-ObjectType :
+    Reference(t1__) -> <id>
+    with <(check-ClassRef <+ error-ClassRef)> t1__
+
+  is-ObjectType-with-constructor =
+    ?Reference(_)
+
+  is-ObjectType-with-constructor =
+    fail
+
+  jasmin-check-ObjectType :
+    amb([h|hs]) -> <check-ObjectType> h
+
+  error-ObjectType =
+    debug(!"Unexpected constructor. Expected constructor from sort ObjectType instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-FieldType
+
+  jasmin-check-FieldType :
+    t1__ -> <id>
+    where not(is-FieldType-with-constructor)
+    where <(check-ObjectType <+ error-ObjectType)> t1__
+
+  is-FieldType-with-constructor =
+    fail
+
+  jasmin-check-FieldType :
+    amb([h|hs]) -> <check-FieldType> h
+
+  error-FieldType =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldType instead. ")

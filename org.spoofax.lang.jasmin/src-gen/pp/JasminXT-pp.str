@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-sig
 
 
@@ -64,3 +65,9 @@ strategies
 
   is-JasminFile =
     fail
+
+  prettyprint-Start :
+    amb([h|hs]) -> <prettyprint-Start> h
+
+  prettyprint-JasminFile :
+    amb([h|hs]) -> <prettyprint-JasminFile> h

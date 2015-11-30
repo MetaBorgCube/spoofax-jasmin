@@ -26,114 +26,114 @@ rules // relations
 rules // rules
   
   create-push-type-task(|ctx) :
-    IFEQ(_) -> <task-create-id(|ctx,[x181])> x181
+    IFEQ(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IFLT(_) -> <task-create-id(|ctx,[x181])> x181
+    IFLT(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IFLE(_) -> <task-create-id(|ctx,[x181])> x181
+    IFLE(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IFNE(_) -> <task-create-id(|ctx,[x181])> x181
+    IFNE(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IFGT(_) -> <task-create-id(|ctx,[x181])> x181
+    IFGT(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IFGE(_) -> <task-create-id(|ctx,[x181])> x181
+    IFGE(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IFNULL(_) -> <task-create-id(|ctx,[x181])> x181
+    IFNULL(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IFNONNULL(_) -> <task-create-id(|ctx,[x181])> x181
+    IFNONNULL(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ICMPEQ(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ICMPEQ(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ICMPLT(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ICMPLT(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ICMPLE(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ICMPLE(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ICMPNE(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ICMPNE(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ICMPGT(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ICMPGT(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ICMPGE(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ICMPGE(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ACMPEQ(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ACMPEQ(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    IF_ACMPNE(_) -> <task-create-id(|ctx,[x181])> x181
+    IF_ACMPNE(_) -> <task-create-id(|ctx,[x50])> x50
     where 
-      x181 := <type-is(|ctx)> []
+      x50 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    Table(_, _, _) -> <task-create-id(|ctx,[x182])> x182
+    Table(_, _, _) -> <task-create-id(|ctx,[x51])> x51
     where 
-      x182 := <type-is(|ctx)> []
+      x51 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    Lookup(_, _) -> <task-create-id(|ctx,[x182])> x182
+    Lookup(_, _) -> <task-create-id(|ctx,[x51])> x51
     where 
-      x182 := <type-is(|ctx)> []
+      x51 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    GOTO(_) -> <task-create-id(|ctx,[x183])> x183
+    GOTO(_) -> <task-create-id(|ctx,[x52])> x52
     where 
-      x183 := <type-is(|ctx)> []
+      x52 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    GOTO_W(_) -> <task-create-id(|ctx,[x183])> x183
+    GOTO_W(_) -> <task-create-id(|ctx,[x52])> x52
     where 
-      x183 := <type-is(|ctx)> []
+      x52 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    JSR(_) -> <task-create-id(|ctx,[x184])> x184
+    JSR(_) -> <task-create-id(|ctx,[x53])> x53
     where 
-      x184 := <type-is(|ctx)> [ADDRESS()]
+      x53 := <type-is(|ctx)> [ADDRESS()]
   
   create-push-type-task(|ctx) :
-    JSR_W(_) -> <task-create-id(|ctx,[x184])> x184
+    JSR_W(_) -> <task-create-id(|ctx,[x53])> x53
     where 
-      x184 := <type-is(|ctx)> [ADDRESS()]
+      x53 := <type-is(|ctx)> [ADDRESS()]
   
 
 rules // projections

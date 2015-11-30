@@ -1,0 +1,11 @@
+module src-gen/ds-signatures/JasminXT-sig
+
+imports src-gen/ds-signatures/JasminXT-Whitespace-sig src-gen/ds-signatures/JasminXT-Header-sig src-gen/ds-signatures/JasminXT-Fields-sig src-gen/ds-signatures/JasminXT-Methods-sig
+
+signature
+    sorts
+      Start
+      JasminFile
+    constructors
+      __JasminFile2Start__ : JasminFile -> Start {implicit}
+      JBCFile : JasminHeader * List(Field) * List(Method) -> JasminFile 

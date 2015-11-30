@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Annotations-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Annotations-sig
 
 
@@ -163,3 +164,9 @@ strategies
 
   is-AnnotationField =
     fail
+
+  prettyprint-Annotation :
+    amb([h|hs]) -> <prettyprint-Annotation> h
+
+  prettyprint-AnnotationField :
+    amb([h|hs]) -> <prettyprint-AnnotationField> h

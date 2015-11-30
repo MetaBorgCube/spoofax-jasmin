@@ -26,14 +26,14 @@ rules // relations
 rules // rules
   
   create-push-type-task(|ctx) :
-    POP() -> <task-create-id(|ctx,[x246])> x246
+    POP() -> <task-create-id(|ctx,[x114])> x114
     where 
-      x246 := <type-is(|ctx)> []
+      x114 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    POP2() -> <task-create-id(|ctx,[x247])> x247
+    POP2() -> <task-create-id(|ctx,[x115])> x115
     where 
-      x247 := <type-is(|ctx)> []
+      x115 := <type-is(|ctx)> []
   
 
 rules // projections

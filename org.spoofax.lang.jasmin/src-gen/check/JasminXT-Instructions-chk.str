@@ -1,0 +1,92 @@
+module src-gen/check/JasminXT-Instructions-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Instructions-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Arithmetic-sig
+  src-gen/signatures/JasminXT-Control-sig
+  src-gen/signatures/JasminXT-Conversion-sig
+  src-gen/signatures/JasminXT-Exceptions-sig
+  src-gen/signatures/JasminXT-LoadStore-sig
+  src-gen/signatures/JasminXT-InvokeReturn-sig
+  src-gen/signatures/JasminXT-Objects-sig
+  src-gen/signatures/JasminXT-Stack-sig
+  src-gen/signatures/JasminXT-Synchronisation-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+imports
+  src-gen/check/JasminXT-Arithmetic-chk
+  src-gen/check/JasminXT-Control-chk
+  src-gen/check/JasminXT-Conversion-chk
+  src-gen/check/JasminXT-Exceptions-chk
+  src-gen/check/JasminXT-LoadStore-chk
+  src-gen/check/JasminXT-InvokeReturn-chk
+  src-gen/check/JasminXT-Objects-chk
+  src-gen/check/JasminXT-Stack-chk
+  src-gen/check/JasminXT-Synchronisation-chk
+  src-gen/check/JasminXT-Numbers-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Instruction
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-PCInstruction
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-Instruction
+
+  jasmin-check-example =
+    jasmin-check-PCInstruction
+
+  jasmin-check-Instruction :
+    NOP() -> <id>
+
+  is-Instruction-with-constructor =
+    ?NOP()
+
+  jasmin-check-Instruction :
+    BREAKPOINT() -> <id>
+
+  is-Instruction-with-constructor =
+    ?BREAKPOINT()
+
+  jasmin-check-PCInstruction :
+    PC(t1__, t2__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+    with <(check-Instruction <+ error-Instruction)> t2__
+
+  is-PCInstruction-with-constructor =
+    ?PC(_, _)
+
+  jasmin-check-PCInstruction :
+    t1__ -> <id>
+    where not(is-PCInstruction-with-constructor)
+    where <(check-Instruction <+ error-Instruction)> t1__
+
+  is-Instruction-with-constructor =
+    fail
+
+  is-PCInstruction-with-constructor =
+    fail
+
+  jasmin-check-Instruction :
+    amb([h|hs]) -> <check-Instruction> h
+
+  jasmin-check-PCInstruction :
+    amb([h|hs]) -> <check-PCInstruction> h
+
+  error-Instruction =
+    debug(!"Unexpected constructor. Expected constructor from sort Instruction instead. ")
+
+  error-PCInstruction =
+    debug(!"Unexpected constructor. Expected constructor from sort PCInstruction instead. ")

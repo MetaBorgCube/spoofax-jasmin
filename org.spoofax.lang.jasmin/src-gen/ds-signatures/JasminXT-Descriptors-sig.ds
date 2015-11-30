@@ -1,0 +1,18 @@
+module src-gen/ds-signatures/JasminXT-Descriptors-sig
+
+imports src-gen/ds-signatures/JasminXT-Types-sig
+
+signature
+    sorts
+      FieldDescriptor
+      ParameterDescriptor
+      AnnotationDescriptor
+      ReturnDescriptor
+    constructors
+      JBCFieldDesc : FieldType -> FieldDescriptor 
+      __FieldType2ParameterDescriptor__ : FieldType -> ParameterDescriptor {implicit}
+      __FieldType2AnnotationDescriptor__ : FieldType -> AnnotationDescriptor {implicit}
+      __FieldType2ReturnDescriptor__ : FieldType -> ReturnDescriptor {implicit}
+      Void : ReturnDescriptor 
+    constructors
+      JBCMethodDesc : List(ParameterDescriptor) * ReturnDescriptor -> MethodDescriptor 

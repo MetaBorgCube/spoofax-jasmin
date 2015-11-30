@@ -1,0 +1,126 @@
+module src-gen/check/JasminXT-Descriptors-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Types-sig
+
+
+imports
+  src-gen/check/JasminXT-Types-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-FieldDescriptor
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-ReturnDescriptor
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-BaseType
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-FieldDescriptor
+
+  jasmin-check-example =
+    jasmin-check-ParameterDescriptor
+
+  jasmin-check-example =
+    jasmin-check-AnnotationDescriptor
+
+  jasmin-check-example =
+    jasmin-check-ReturnDescriptor
+
+  jasmin-check-FieldDescriptor :
+    JBCFieldDesc(t1__) -> <id>
+    with <(check-FieldType <+ error-FieldType)> t1__
+
+  is-FieldDescriptor-with-constructor =
+    ?JBCFieldDesc(_)
+
+  jasmin-check-ParameterDescriptor :
+    t1__ -> <id>
+    where not(is-ParameterDescriptor-with-constructor)
+    where <(check-FieldType <+ error-FieldType)> t1__
+
+  jasmin-check-AnnotationDescriptor :
+    t1__ -> <id>
+    where not(is-AnnotationDescriptor-with-constructor)
+    where <(check-FieldType <+ error-FieldType)> t1__
+
+  jasmin-check-ReturnDescriptor :
+    t1__ -> <id>
+    where not(is-ReturnDescriptor-with-constructor)
+    where <(check-FieldType <+ error-FieldType)> t1__
+
+  jasmin-check-ReturnDescriptor :
+    Void() -> <id>
+
+  is-ReturnDescriptor-with-constructor =
+    ?Void()
+
+  is-FieldDescriptor-with-constructor =
+    fail
+
+  is-ParameterDescriptor-with-constructor =
+    fail
+
+  is-AnnotationDescriptor-with-constructor =
+    fail
+
+  is-ReturnDescriptor-with-constructor =
+    fail
+
+  jasmin-check-FieldDescriptor :
+    amb([h|hs]) -> <check-FieldDescriptor> h
+
+  jasmin-check-ParameterDescriptor :
+    amb([h|hs]) -> <check-ParameterDescriptor> h
+
+  jasmin-check-AnnotationDescriptor :
+    amb([h|hs]) -> <check-AnnotationDescriptor> h
+
+  jasmin-check-ReturnDescriptor :
+    amb([h|hs]) -> <check-ReturnDescriptor> h
+
+  error-FieldDescriptor =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldDescriptor instead. ")
+
+  error-ParameterDescriptor =
+    debug(!"Unexpected constructor. Expected constructor from sort ParameterDescriptor instead. ")
+
+  error-AnnotationDescriptor =
+    debug(!"Unexpected constructor. Expected constructor from sort AnnotationDescriptor instead. ")
+
+  error-ReturnDescriptor =
+    debug(!"Unexpected constructor. Expected constructor from sort ReturnDescriptor instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-MethodDescriptor
+
+  jasmin-check-MethodDescriptor :
+    JBCMethodDesc(t1__, t2__) -> <id>
+    with <map(check-ParameterDescriptor <+ error-ParameterDescriptor)> t1__
+    with <(check-ReturnDescriptor <+ error-ReturnDescriptor)> t2__
+
+  is-MethodDescriptor-with-constructor =
+    ?JBCMethodDesc(_, _)
+
+  is-MethodDescriptor-with-constructor =
+    fail
+
+  jasmin-check-MethodDescriptor :
+    amb([h|hs]) -> <check-MethodDescriptor> h
+
+  error-MethodDescriptor =
+    debug(!"Unexpected constructor. Expected constructor from sort MethodDescriptor instead. ")

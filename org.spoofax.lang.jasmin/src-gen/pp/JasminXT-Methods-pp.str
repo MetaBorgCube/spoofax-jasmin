@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Methods-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Methods-sig
 
 
@@ -148,6 +149,12 @@ strategies
   is-MethodAccess =
     fail
 
+  prettyprint-Method :
+    amb([h|hs]) -> <prettyprint-Method> h
+
+  prettyprint-MethodAccess :
+    amb([h|hs]) -> <prettyprint-MethodAccess> h
+
 
 strategies
   prettyprint-example =
@@ -199,3 +206,9 @@ strategies
 
   is-Label =
     fail
+
+  prettyprint-Statement :
+    amb([h|hs]) -> <prettyprint-Statement> h
+
+  prettyprint-Label :
+    amb([h|hs]) -> <prettyprint-Label> h

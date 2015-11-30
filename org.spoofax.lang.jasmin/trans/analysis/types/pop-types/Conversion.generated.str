@@ -26,79 +26,79 @@ rules // relations
 rules // rules
   
   create-pop-type-task(|ctx) :
-    I2L() -> <task-create-id(|ctx,[x157])> x157
+    I2L() -> <task-create-id(|ctx,[x20])> x20
     where 
-      x157 := <type-is(|ctx)> [Int()]
+      x20 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    I2F() -> <task-create-id(|ctx,[x157])> x157
+    I2F() -> <task-create-id(|ctx,[x20])> x20
     where 
-      x157 := <type-is(|ctx)> [Int()]
+      x20 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    I2D() -> <task-create-id(|ctx,[x157])> x157
+    I2D() -> <task-create-id(|ctx,[x20])> x20
     where 
-      x157 := <type-is(|ctx)> [Int()]
+      x20 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    I2B() -> <task-create-id(|ctx,[x157])> x157
+    I2B() -> <task-create-id(|ctx,[x20])> x20
     where 
-      x157 := <type-is(|ctx)> [Int()]
+      x20 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    I2S() -> <task-create-id(|ctx,[x157])> x157
+    I2S() -> <task-create-id(|ctx,[x20])> x20
     where 
-      x157 := <type-is(|ctx)> [Int()]
+      x20 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    I2C() -> <task-create-id(|ctx,[x157])> x157
+    I2C() -> <task-create-id(|ctx,[x20])> x20
     where 
-      x157 := <type-is(|ctx)> [Int()]
+      x20 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    L2F() -> <task-create-id(|ctx,[x158])> x158
+    L2F() -> <task-create-id(|ctx,[x21])> x21
     where 
-      x158 := <type-is(|ctx)> [Long()]
+      x21 := <type-is(|ctx)> [Long()]
   
   create-pop-type-task(|ctx) :
-    L2D() -> <task-create-id(|ctx,[x158])> x158
+    L2D() -> <task-create-id(|ctx,[x21])> x21
     where 
-      x158 := <type-is(|ctx)> [Long()]
+      x21 := <type-is(|ctx)> [Long()]
   
   create-pop-type-task(|ctx) :
-    L2I() -> <task-create-id(|ctx,[x158])> x158
+    L2I() -> <task-create-id(|ctx,[x21])> x21
     where 
-      x158 := <type-is(|ctx)> [Long()]
+      x21 := <type-is(|ctx)> [Long()]
   
   create-pop-type-task(|ctx) :
-    F2D() -> <task-create-id(|ctx,[x159])> x159
+    F2D() -> <task-create-id(|ctx,[x22])> x22
     where 
-      x159 := <type-is(|ctx)> [Float()]
+      x22 := <type-is(|ctx)> [Float()]
   
   create-pop-type-task(|ctx) :
-    F2I() -> <task-create-id(|ctx,[x159])> x159
+    F2I() -> <task-create-id(|ctx,[x22])> x22
     where 
-      x159 := <type-is(|ctx)> [Float()]
+      x22 := <type-is(|ctx)> [Float()]
   
   create-pop-type-task(|ctx) :
-    F2L() -> <task-create-id(|ctx,[x159])> x159
+    F2L() -> <task-create-id(|ctx,[x22])> x22
     where 
-      x159 := <type-is(|ctx)> [Float()]
+      x22 := <type-is(|ctx)> [Float()]
   
   create-pop-type-task(|ctx) :
-    D2I() -> <task-create-id(|ctx,[x160])> x160
+    D2I() -> <task-create-id(|ctx,[x23])> x23
     where 
-      x160 := <type-is(|ctx)> [Double()]
+      x23 := <type-is(|ctx)> [Double()]
   
   create-pop-type-task(|ctx) :
-    D2L() -> <task-create-id(|ctx,[x160])> x160
+    D2L() -> <task-create-id(|ctx,[x23])> x23
     where 
-      x160 := <type-is(|ctx)> [Double()]
+      x23 := <type-is(|ctx)> [Double()]
   
   create-pop-type-task(|ctx) :
-    D2F() -> <task-create-id(|ctx,[x160])> x160
+    D2F() -> <task-create-id(|ctx,[x23])> x23
     where 
-      x160 := <type-is(|ctx)> [Double()]
+      x23 := <type-is(|ctx)> [Double()]
   
 
 rules // projections

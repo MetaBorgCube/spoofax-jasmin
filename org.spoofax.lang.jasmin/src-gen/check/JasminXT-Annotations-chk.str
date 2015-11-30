@@ -1,0 +1,106 @@
+module src-gen/check/JasminXT-Annotations-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Annotations-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/check/JasminXT-Strings-chk
+  src-gen/check/JasminXT-Numbers-chk
+  src-gen/check/JasminXT-Names-chk
+  src-gen/check/JasminXT-Descriptors-chk
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-Annotation
+
+  jasmin-check-example =
+    jasmin-check-AnnotationField
+
+  jasmin-check-Annotation :
+    RuntimeVisible(t1__, t2__) -> <id>
+    with <(check-ClassName <+ error-ClassName)> t1__
+    with <map(check-AnnotationField <+ error-AnnotationField)> t2__
+
+  is-Annotation-with-constructor =
+    ?RuntimeVisible(_, _)
+
+  jasmin-check-Annotation :
+    RuntimeInvisible(t1__, t2__) -> <id>
+    with <(check-ClassName <+ error-ClassName)> t1__
+    with <map(check-AnnotationField <+ error-AnnotationField)> t2__
+
+  is-Annotation-with-constructor =
+    ?RuntimeInvisible(_, _)
+
+  jasmin-check-Annotation :
+    RuntimeVisibleParam(t1__, t2__, t3__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+    with <(check-ClassName <+ error-ClassName)> t2__
+    with <map(check-AnnotationField <+ error-AnnotationField)> t3__
+
+  is-Annotation-with-constructor =
+    ?RuntimeVisibleParam(_, _, _)
+
+  jasmin-check-Annotation :
+    RuntimeInvisibleParam(t1__, t2__, t3__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+    with <(check-ClassName <+ error-ClassName)> t2__
+    with <map(check-AnnotationField <+ error-AnnotationField)> t3__
+
+  is-Annotation-with-constructor =
+    ?RuntimeInvisibleParam(_, _, _)
+
+  jasmin-check-Annotation :
+    AnnotationDefault(t1__, t2__) -> <id>
+    with <(check-AnnotationName <+ error-AnnotationName)> t1__
+    with <map(check-Constant <+ error-Constant)> t2__
+
+  is-Annotation-with-constructor =
+    ?AnnotationDefault(_, _)
+
+  jasmin-check-AnnotationField :
+    AnnotationField(t1__, t2__, t3__) -> <id>
+    with <(check-AnnotationName <+ error-AnnotationName)> t1__
+    with <(check-AnnotationDescriptor <+ error-AnnotationDescriptor)> t2__
+    with <map(check-Constant <+ error-Constant)> t3__
+
+  is-AnnotationField-with-constructor =
+    ?AnnotationField(_, _, _)
+
+  jasmin-check-AnnotationField :
+    NestedAnnotation(t1__, t2__) -> <id>
+    with <(check-AnnotationName <+ error-AnnotationName)> t1__
+    with <(check-Annotation <+ error-Annotation)> t2__
+
+  is-AnnotationField-with-constructor =
+    ?NestedAnnotation(_, _)
+
+  is-Annotation-with-constructor =
+    fail
+
+  is-AnnotationField-with-constructor =
+    fail
+
+  jasmin-check-Annotation :
+    amb([h|hs]) -> <check-Annotation> h
+
+  jasmin-check-AnnotationField :
+    amb([h|hs]) -> <check-AnnotationField> h
+
+  error-Annotation =
+    debug(!"Unexpected constructor. Expected constructor from sort Annotation instead. ")
+
+  error-AnnotationField =
+    debug(!"Unexpected constructor. Expected constructor from sort AnnotationField instead. ")

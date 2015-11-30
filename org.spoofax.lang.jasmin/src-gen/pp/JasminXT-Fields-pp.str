@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Fields-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Fields-sig
 
 
@@ -294,3 +295,18 @@ strategies
 
   is-FieldAccess =
     fail
+
+  prettyprint-Field :
+    amb([h|hs]) -> <prettyprint-Field> h
+
+  prettyprint-FieldAttribute :
+    amb([h|hs]) -> <prettyprint-FieldAttribute> h
+
+  prettyprint-FieldSignatureSpec :
+    amb([h|hs]) -> <prettyprint-FieldSignatureSpec> h
+
+  prettyprint-InitialValue :
+    amb([h|hs]) -> <prettyprint-InitialValue> h
+
+  prettyprint-FieldAccess :
+    amb([h|hs]) -> <prettyprint-FieldAccess> h

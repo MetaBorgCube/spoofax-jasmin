@@ -1,0 +1,31 @@
+module src-gen/ds-signatures/JasminXT-Fields-sig
+
+imports src-gen/ds-signatures/JasminXT-Names-sig src-gen/ds-signatures/JasminXT-Numbers-sig src-gen/ds-signatures/JasminXT-Strings-sig src-gen/ds-signatures/JasminXT-Descriptors-sig src-gen/ds-signatures/JasminXT-Annotations-sig
+
+signature
+    sorts
+      Field
+      FieldAttribute
+      FieldSignatureSpec
+      InitialValue
+      FieldAccess
+    constructors
+      JBCField : List(FieldAccess) * FieldName * FieldDescriptor * FieldSignatureSpec * InitialValue -> Field 
+      JBCExtField : List(FieldAccess) * FieldName * FieldDescriptor * FieldSignatureSpec * InitialValue * List(FieldAttribute) -> Field 
+      JBCSignature : String -> FieldAttribute 
+      JBCDeprecated : FieldAttribute 
+      JBCAttribute : AttributeName * FileName -> FieldAttribute 
+      JBCAnnotation : Annotation -> FieldAttribute 
+      FieldSig : String -> FieldSignatureSpec 
+      None : FieldSignatureSpec 
+      InitVal : Constant -> InitialValue 
+      None : InitialValue 
+      PUBLIC : FieldAccess 
+      PRIVATE : FieldAccess 
+      PROTECTED : FieldAccess 
+      STATIC : FieldAccess 
+      FINAL : FieldAccess 
+      VOLATILE : FieldAccess 
+      TRANSIENT : FieldAccess 
+      FPSTRICT : FieldAccess 
+      SYNTHETIC : FieldAccess 

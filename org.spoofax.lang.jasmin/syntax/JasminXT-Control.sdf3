@@ -43,11 +43,11 @@ context-free syntax
 
   Instruction.Table  = [tableswitch [Int]
   [{TableEntry "\n\t"}*]
-	default[]: [LabelRef]]
+	default: [LabelRef]]
 	
   Instruction.Lookup = [lookupswitch
   [{LookupEntry "\n\t"}*]
-	default[]: [LabelRef]]
+	default: [LabelRef]]
 
   TableEntry        = LabelRef
   LookupEntry.NPAIR = [[Int]: [LabelRef]]
@@ -57,6 +57,10 @@ context-free syntax
 
   Instruction.JSR   = [jsr [LabelRef]]
   Instruction.JSR_W = [jsr_w [LabelRef]]
+  
+template options
+
+  tokenize : ":"  
 
 lexical restrictions
  "ifeq"

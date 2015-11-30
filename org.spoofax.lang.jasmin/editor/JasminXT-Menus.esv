@@ -13,9 +13,9 @@ menus
     action: "Show analysed syntax (for selection)" = debug-show-aterm (openeditor)
   
   menu: "JVM"
- 
-    action: "Generate class file" 	= generate-class (source)    
-    action: "Translate jasmin to asm" 	= translate-class (source)    
-    action: "Execute"				= execute-class (source) (openeditor)
+    
+    action: "Generate ASM Aterm" 	                        = translate-class (source)  
+    action: "Generate class file on disk"    	            = generate-class (source)    
+    action: "Generate class file on disk and execute"    	= generate-and-execute-class (source) (openeditor)
 
     

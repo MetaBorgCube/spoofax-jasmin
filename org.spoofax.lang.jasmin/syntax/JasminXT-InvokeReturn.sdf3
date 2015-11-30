@@ -26,4 +26,4 @@ context-free syntax
 
 template options
 
-  keyword -/- ~[\ \t]
+  keyword -/- ~[\ \t\n\r\;]

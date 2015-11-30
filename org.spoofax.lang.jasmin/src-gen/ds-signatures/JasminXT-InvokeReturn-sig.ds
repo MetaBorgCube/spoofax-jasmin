@@ -1,0 +1,20 @@
+module src-gen/ds-signatures/JasminXT-InvokeReturn-sig
+
+imports src-gen/ds-signatures/JasminXT-Names-sig src-gen/ds-signatures/JasminXT-Descriptors-sig src-gen/ds-signatures/JasminXT-Numbers-sig
+
+signature
+    sorts
+      Instruction
+    constructors
+      INVOKESPECIAL : MethodRef -> Instruction 
+      INVOKEVIRTUAL : MethodRef -> Instruction 
+      INVOKESTATIC : MethodRef -> Instruction 
+      INVOKEINTERFACE : MethodRef * Int_ -> Instruction 
+      RETURN : Instruction 
+      IRETURN : Instruction 
+      LRETURN : Instruction 
+      FRETURN : Instruction 
+      DRETURN : Instruction 
+      ARETURN : Instruction 
+      RET : VarRef -> Instruction 
+      RET_W : VarRef -> Instruction 

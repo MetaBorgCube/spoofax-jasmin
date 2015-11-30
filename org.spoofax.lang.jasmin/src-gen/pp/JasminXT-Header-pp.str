@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Header-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Header-sig
 
 
@@ -98,6 +99,9 @@ strategies
 
   is-JasminHeader =
     fail
+
+  prettyprint-JasminHeader :
+    amb([h|hs]) -> <prettyprint-JasminHeader> h
 
 
 strategies
@@ -203,6 +207,18 @@ strategies
 
   is-SourceSpec =
     fail
+
+  prettyprint-BytecodeSpec :
+    amb([h|hs]) -> <prettyprint-BytecodeSpec> h
+
+  prettyprint-MajorVersion :
+    amb([h|hs]) -> <prettyprint-MajorVersion> h
+
+  prettyprint-MinorVersion :
+    amb([h|hs]) -> <prettyprint-MinorVersion> h
+
+  prettyprint-SourceSpec :
+    amb([h|hs]) -> <prettyprint-SourceSpec> h
 
 
 strategies
@@ -334,6 +350,18 @@ strategies
   is-ImplementsSpec =
     fail
 
+  prettyprint-ClassSpec :
+    amb([h|hs]) -> <prettyprint-ClassSpec> h
+
+  prettyprint-ClassAccess :
+    amb([h|hs]) -> <prettyprint-ClassAccess> h
+
+  prettyprint-SuperSpec :
+    amb([h|hs]) -> <prettyprint-SuperSpec> h
+
+  prettyprint-ImplementsSpec :
+    amb([h|hs]) -> <prettyprint-ImplementsSpec> h
+
 
 strategies
   prettyprint-example =
@@ -406,6 +434,15 @@ strategies
 
   is-DebugSpec =
     fail
+
+  prettyprint-SignatureSpec :
+    amb([h|hs]) -> <prettyprint-SignatureSpec> h
+
+  prettyprint-EnclosingSpec :
+    amb([h|hs]) -> <prettyprint-EnclosingSpec> h
+
+  prettyprint-DebugSpec :
+    amb([h|hs]) -> <prettyprint-DebugSpec> h
 
 
 strategies
@@ -568,3 +605,21 @@ strategies
 
   is-OuterName =
     fail
+
+  prettyprint-InnerClassSpec :
+    amb([h|hs]) -> <prettyprint-InnerClassSpec> h
+
+  prettyprint-InnerInterfaceSpec :
+    amb([h|hs]) -> <prettyprint-InnerInterfaceSpec> h
+
+  prettyprint-InnerClassAccess :
+    amb([h|hs]) -> <prettyprint-InnerClassAccess> h
+
+  prettyprint-InnerClassName :
+    amb([h|hs]) -> <prettyprint-InnerClassName> h
+
+  prettyprint-InnerName :
+    amb([h|hs]) -> <prettyprint-InnerName> h
+
+  prettyprint-OuterName :
+    amb([h|hs]) -> <prettyprint-OuterName> h

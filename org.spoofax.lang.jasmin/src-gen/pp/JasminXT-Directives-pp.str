@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Directives-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Directives-sig
 
 
@@ -377,3 +378,18 @@ strategies
 
   is-VerificationType =
     fail
+
+  prettyprint-Directive :
+    amb([h|hs]) -> <prettyprint-Directive> h
+
+  prettyprint-StackDirOffset :
+    amb([h|hs]) -> <prettyprint-StackDirOffset> h
+
+  prettyprint-StackDirLocalVar :
+    amb([h|hs]) -> <prettyprint-StackDirLocalVar> h
+
+  prettyprint-StackDirStackVar :
+    amb([h|hs]) -> <prettyprint-StackDirStackVar> h
+
+  prettyprint-VerificationType :
+    amb([h|hs]) -> <prettyprint-VerificationType> h

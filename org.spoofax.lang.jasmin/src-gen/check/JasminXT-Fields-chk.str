@@ -1,0 +1,221 @@
+module src-gen/check/JasminXT-Fields-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Fields-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+  src-gen/signatures/JasminXT-Annotations-sig
+
+
+imports
+  src-gen/check/JasminXT-Names-chk
+  src-gen/check/JasminXT-Numbers-chk
+  src-gen/check/JasminXT-Strings-chk
+  src-gen/check/JasminXT-Descriptors-chk
+  src-gen/check/JasminXT-Annotations-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Field
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-Field
+
+  jasmin-check-example =
+    jasmin-check-FieldAttribute
+
+  jasmin-check-example =
+    jasmin-check-FieldSignatureSpec
+
+  jasmin-check-example =
+    jasmin-check-InitialValue
+
+  jasmin-check-example =
+    jasmin-check-FieldAccess
+
+  jasmin-check-Field :
+    JBCField(t1__, t2__, t3__, t4__, t5__) -> <id>
+    with <map(check-FieldAccess <+ error-FieldAccess)> t1__
+    with <(check-FieldName <+ error-FieldName)> t2__
+    with <(check-FieldDescriptor <+ error-FieldDescriptor)> t3__
+    with <(check-FieldSignatureSpec <+ error-FieldSignatureSpec)> t4__
+    with <(check-InitialValue <+ error-InitialValue)> t5__
+
+  is-Field-with-constructor =
+    ?JBCField(_, _, _, _, _)
+
+  jasmin-check-Field :
+    JBCExtField(t1__, t2__, t3__, t4__, t5__, t6__) -> <id>
+    with <map(check-FieldAccess <+ error-FieldAccess)> t1__
+    with <(check-FieldName <+ error-FieldName)> t2__
+    with <(check-FieldDescriptor <+ error-FieldDescriptor)> t3__
+    with <(check-FieldSignatureSpec <+ error-FieldSignatureSpec)> t4__
+    with <(check-InitialValue <+ error-InitialValue)> t5__
+    with <map(check-FieldAttribute <+ error-FieldAttribute)> t6__
+
+  is-Field-with-constructor =
+    ?JBCExtField(_, _, _, _, _, _)
+
+  jasmin-check-FieldAttribute :
+    JBCSignature(t1__) -> <id>
+    with <(check-String <+ error-String)> t1__
+
+  is-FieldAttribute-with-constructor =
+    ?JBCSignature(_)
+
+  jasmin-check-FieldAttribute :
+    JBCDeprecated() -> <id>
+
+  is-FieldAttribute-with-constructor =
+    ?JBCDeprecated()
+
+  jasmin-check-FieldAttribute :
+    JBCAttribute(t1__, t2__) -> <id>
+    with <(check-AttributeName <+ error-AttributeName)> t1__
+    with <(check-FileName <+ error-FileName)> t2__
+
+  is-FieldAttribute-with-constructor =
+    ?JBCAttribute(_, _)
+
+  jasmin-check-FieldAttribute :
+    JBCAnnotation(t1__) -> <id>
+    with <(check-Annotation <+ error-Annotation)> t1__
+
+  is-FieldAttribute-with-constructor =
+    ?JBCAnnotation(_)
+
+  jasmin-check-FieldSignatureSpec :
+    FieldSig(t1__) -> <id>
+    with <(check-String <+ error-String)> t1__
+
+  is-FieldSignatureSpec-with-constructor =
+    ?FieldSig(_)
+
+  jasmin-check-FieldSignatureSpec :
+    None() -> <id>
+
+  is-FieldSignatureSpec-with-constructor =
+    ?None()
+
+  jasmin-check-InitialValue :
+    InitVal(t1__) -> <id>
+    with <(check-Constant <+ error-Constant)> t1__
+
+  is-InitialValue-with-constructor =
+    ?InitVal(_)
+
+  jasmin-check-InitialValue :
+    None() -> <id>
+
+  is-InitialValue-with-constructor =
+    ?None()
+
+  jasmin-check-FieldAccess :
+    PUBLIC() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?PUBLIC()
+
+  jasmin-check-FieldAccess :
+    PRIVATE() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?PRIVATE()
+
+  jasmin-check-FieldAccess :
+    PROTECTED() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?PROTECTED()
+
+  jasmin-check-FieldAccess :
+    STATIC() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?STATIC()
+
+  jasmin-check-FieldAccess :
+    FINAL() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?FINAL()
+
+  jasmin-check-FieldAccess :
+    VOLATILE() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?VOLATILE()
+
+  jasmin-check-FieldAccess :
+    TRANSIENT() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?TRANSIENT()
+
+  jasmin-check-FieldAccess :
+    FPSTRICT() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?FPSTRICT()
+
+  jasmin-check-FieldAccess :
+    SYNTHETIC() -> <id>
+
+  is-FieldAccess-with-constructor =
+    ?SYNTHETIC()
+
+  is-Field-with-constructor =
+    fail
+
+  is-FieldAttribute-with-constructor =
+    fail
+
+  is-FieldSignatureSpec-with-constructor =
+    fail
+
+  is-InitialValue-with-constructor =
+    fail
+
+  is-FieldAccess-with-constructor =
+    fail
+
+  jasmin-check-Field :
+    amb([h|hs]) -> <check-Field> h
+
+  jasmin-check-FieldAttribute :
+    amb([h|hs]) -> <check-FieldAttribute> h
+
+  jasmin-check-FieldSignatureSpec :
+    amb([h|hs]) -> <check-FieldSignatureSpec> h
+
+  jasmin-check-InitialValue :
+    amb([h|hs]) -> <check-InitialValue> h
+
+  jasmin-check-FieldAccess :
+    amb([h|hs]) -> <check-FieldAccess> h
+
+  error-Field =
+    debug(!"Unexpected constructor. Expected constructor from sort Field instead. ")
+
+  error-FieldAttribute =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldAttribute instead. ")
+
+  error-FieldSignatureSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldSignatureSpec instead. ")
+
+  error-InitialValue =
+    debug(!"Unexpected constructor. Expected constructor from sort InitialValue instead. ")
+
+  error-FieldAccess =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldAccess instead. ")

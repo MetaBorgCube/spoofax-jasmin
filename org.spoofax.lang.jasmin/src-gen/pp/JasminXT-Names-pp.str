@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Names-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Names-sig
 
 
@@ -77,6 +78,18 @@ strategies
 
   prettyprint-example =
     prettyprint-LabelName
+
+  prettyprint-Identifier :
+    amb([h|hs]) -> <prettyprint-Identifier> h
+
+  prettyprint-SQIdentifier :
+    amb([h|hs]) -> <prettyprint-SQIdentifier> h
+
+  prettyprint-QualifiedName :
+    amb([h|hs]) -> <prettyprint-QualifiedName> h
+
+  prettyprint-LabelName :
+    amb([h|hs]) -> <prettyprint-LabelName> h
 
 
 strategies
@@ -195,6 +208,27 @@ strategies
   is-VarName =
     fail
 
+  prettyprint-FileName :
+    amb([h|hs]) -> <prettyprint-FileName> h
+
+  prettyprint-ClassName :
+    amb([h|hs]) -> <prettyprint-ClassName> h
+
+  prettyprint-AttributeName :
+    amb([h|hs]) -> <prettyprint-AttributeName> h
+
+  prettyprint-AnnotationName :
+    amb([h|hs]) -> <prettyprint-AnnotationName> h
+
+  prettyprint-FieldName :
+    amb([h|hs]) -> <prettyprint-FieldName> h
+
+  prettyprint-MethodName :
+    amb([h|hs]) -> <prettyprint-MethodName> h
+
+  prettyprint-VarName :
+    amb([h|hs]) -> <prettyprint-VarName> h
+
 
 strategies
   prettyprint-example =
@@ -293,6 +327,21 @@ strategies
   is-MRef =
     fail
 
+  prettyprint-ClassRef :
+    amb([h|hs]) -> <prettyprint-ClassRef> h
+
+  prettyprint-VarRef :
+    amb([h|hs]) -> <prettyprint-VarRef> h
+
+  prettyprint-LabelRef :
+    amb([h|hs]) -> <prettyprint-LabelRef> h
+
+  prettyprint-FRef :
+    amb([h|hs]) -> <prettyprint-FRef> h
+
+  prettyprint-MRef :
+    amb([h|hs]) -> <prettyprint-MRef> h
+
 
 strategies
   prettyprint-example =
@@ -342,6 +391,12 @@ strategies
 
   is-MethodRef =
     fail
+
+  prettyprint-FieldRef :
+    amb([h|hs]) -> <prettyprint-FieldRef> h
+
+  prettyprint-MethodRef :
+    amb([h|hs]) -> <prettyprint-MethodRef> h
 
 
 strategies
@@ -431,6 +486,9 @@ strategies
   is-BaseTypeName =
     fail
 
+  prettyprint-BaseTypeName :
+    amb([h|hs]) -> <prettyprint-BaseTypeName> h
+
 
 strategies
   prettyprint-example =
@@ -453,6 +511,9 @@ strategies
   is-ObjectType =
     fail
 
+  prettyprint-ObjectType :
+    amb([h|hs]) -> <prettyprint-ObjectType> h
+
 
 strategies
   prettyprint-example =
@@ -469,3 +530,6 @@ strategies
 
   is-FieldType =
     fail
+
+  prettyprint-FieldType :
+    amb([h|hs]) -> <prettyprint-FieldType> h

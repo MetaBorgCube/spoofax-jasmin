@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Objects-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Objects-sig
 
 
@@ -338,3 +339,9 @@ strategies
 
   is-Instruction =
     fail
+
+  prettyprint-ANewArrayArg :
+    amb([h|hs]) -> <prettyprint-ANewArrayArg> h
+
+  prettyprint-Instruction :
+    amb([h|hs]) -> <prettyprint-Instruction> h

@@ -26,54 +26,54 @@ rules // relations
 rules // rules
   
   create-push-type-task(|ctx) :
-    NEW(cr) -> <task-create-id(|ctx,[x238])> x238
+    NEW(cr) -> <task-create-id(|ctx,[x106])> x106
     where 
-      x238 := <type-is(|ctx)> [cr]
+      x106 := <type-is(|ctx)> [cr]
   
   create-push-type-task(|ctx) :
-    NEWARRAY(ct) -> <task-create-id(|ctx,[x239])> x239
+    NEWARRAY(ct) -> <task-create-id(|ctx,[x107])> x107
     where 
-      x239 := <type-is(|ctx)> [Array(ct)]
+      x107 := <type-is(|ctx)> [Array(ct)]
   
   create-push-type-task(|ctx) :
-    ANEWARRAY(ct) -> <task-create-id(|ctx,[x239])> x239
+    ANEWARRAY(ct) -> <task-create-id(|ctx,[x107])> x107
     where 
-      x239 := <type-is(|ctx)> [Array(ct)]
+      x107 := <type-is(|ctx)> [Array(ct)]
   
   create-push-type-task(|ctx) :
-    MULTIANEWARRAY(ct, _) -> <task-create-id(|ctx,[x239])> x239
+    MULTIANEWARRAY(ct, _) -> <task-create-id(|ctx,[x107])> x107
     where 
-      x239 := <type-is(|ctx)> [Array(ct)]
+      x107 := <type-is(|ctx)> [Array(ct)]
   
   create-push-type-task(|ctx) :
-    GETFIELD(JBCFieldRef(_, _, JBCFieldDesc(ft))) -> <task-create-id(|ctx,[x240])> x240
+    GETFIELD(JBCFieldRef(_, _, JBCFieldDesc(ft))) -> <task-create-id(|ctx,[x108])> x108
     where 
-      x240 := <type-is(|ctx)> [ft]
+      x108 := <type-is(|ctx)> [ft]
   
   create-push-type-task(|ctx) :
-    GETSTATIC(JBCFieldRef(_, _, JBCFieldDesc(ft))) -> <task-create-id(|ctx,[x241])> x241
+    GETSTATIC(JBCFieldRef(_, _, JBCFieldDesc(ft))) -> <task-create-id(|ctx,[x109])> x109
     where 
-      x241 := <type-is(|ctx)> [ft]
+      x109 := <type-is(|ctx)> [ft]
   
   create-push-type-task(|ctx) :
-    PUTFIELD(_) -> <task-create-id(|ctx,[x242])> x242
+    PUTFIELD(_) -> <task-create-id(|ctx,[x110])> x110
     where 
-      x242 := <type-is(|ctx)> []
+      x110 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    PUTSTATIC(_) -> <task-create-id(|ctx,[x242])> x242
+    PUTSTATIC(_) -> <task-create-id(|ctx,[x110])> x110
     where 
-      x242 := <type-is(|ctx)> []
+      x110 := <type-is(|ctx)> []
   
   create-push-type-task(|ctx) :
-    ARRAYLENGTH() -> <task-create-id(|ctx,[x243])> x243
+    ARRAYLENGTH() -> <task-create-id(|ctx,[x111])> x111
     where 
-      x243 := <type-is(|ctx)> [Int()]
+      x111 := <type-is(|ctx)> [Int()]
   
   create-push-type-task(|ctx) :
-    INSTANCEOF(cr) -> <task-create-id(|ctx,[x244])> x244
+    INSTANCEOF(cr) -> <task-create-id(|ctx,[x112])> x112
     where 
-      x244 := <type-is(|ctx)> [Boolean()]
+      x112 := <type-is(|ctx)> [Boolean()]
   
 
 rules // projections

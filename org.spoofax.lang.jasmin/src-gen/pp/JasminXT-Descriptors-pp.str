@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Descriptors-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Descriptors-sig
 
 
@@ -98,6 +99,18 @@ strategies
   is-ReturnDescriptor =
     fail
 
+  prettyprint-FieldDescriptor :
+    amb([h|hs]) -> <prettyprint-FieldDescriptor> h
+
+  prettyprint-ParameterDescriptor :
+    amb([h|hs]) -> <prettyprint-ParameterDescriptor> h
+
+  prettyprint-AnnotationDescriptor :
+    amb([h|hs]) -> <prettyprint-AnnotationDescriptor> h
+
+  prettyprint-ReturnDescriptor :
+    amb([h|hs]) -> <prettyprint-ReturnDescriptor> h
+
 
 strategies
   prettyprint-example =
@@ -121,3 +134,6 @@ strategies
 
   is-MethodDescriptor =
     fail
+
+  prettyprint-MethodDescriptor :
+    amb([h|hs]) -> <prettyprint-MethodDescriptor> h

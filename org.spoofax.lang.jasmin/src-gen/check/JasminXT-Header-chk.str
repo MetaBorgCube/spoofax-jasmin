@@ -1,0 +1,487 @@
+module src-gen/check/JasminXT-Header-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Header-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+  src-gen/signatures/JasminXT-Descriptors-sig
+
+
+imports
+  src-gen/check/JasminXT-Names-chk
+  src-gen/check/JasminXT-Numbers-chk
+  src-gen/check/JasminXT-Strings-chk
+  src-gen/check/JasminXT-Descriptors-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-JasminHeader
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-JasminHeader
+
+  jasmin-check-JasminHeader :
+    JBCHeader(
+      t1__
+    , t2__
+    , t3__
+    , t4__
+    , t5__
+    , t6__
+    , t7__
+    , t8__
+    , t9__
+    , t10__
+    ) -> <id>
+    with <(check-BytecodeSpec <+ error-BytecodeSpec)> t1__
+    with <(check-SourceSpec <+ error-SourceSpec)> t2__
+    with <(check-ClassSpec <+ error-ClassSpec)> t3__
+    with <(check-SuperSpec <+ error-SuperSpec)> t4__
+    with <map(check-ImplementsSpec <+ error-ImplementsSpec)> t5__
+    with <(check-SignatureSpec <+ error-SignatureSpec)> t6__
+    with <(check-EnclosingSpec <+ error-EnclosingSpec)> t7__
+    with <map(check-DebugSpec <+ error-DebugSpec)> t8__
+    with <map(check-InnerClassSpec <+ error-InnerClassSpec)> t9__
+    with <map(check-InnerInterfaceSpec <+ error-InnerInterfaceSpec)> t10__
+
+  is-JasminHeader-with-constructor =
+    ?JBCHeader(_, _, _, _, _, _, _, _, _, _)
+
+  is-JasminHeader-with-constructor =
+    fail
+
+  jasmin-check-JasminHeader :
+    amb([h|hs]) -> <check-JasminHeader> h
+
+  error-JasminHeader =
+    debug(!"Unexpected constructor. Expected constructor from sort JasminHeader instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-BytecodeSpec
+
+  jasmin-check-example =
+    jasmin-check-MajorVersion
+
+  jasmin-check-example =
+    jasmin-check-MinorVersion
+
+  jasmin-check-example =
+    jasmin-check-SourceSpec
+
+  jasmin-check-BytecodeSpec :
+    JBCVersion(t1__, t2__) -> <id>
+    with <(check-MajorVersion <+ error-MajorVersion)> t1__
+    with <(check-MinorVersion <+ error-MinorVersion)> t2__
+
+  is-BytecodeSpec-with-constructor =
+    ?JBCVersion(_, _)
+
+  jasmin-check-BytecodeSpec :
+    None() -> <id>
+
+  is-BytecodeSpec-with-constructor =
+    ?None()
+
+  jasmin-check-MajorVersion :
+    Major(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-MajorVersion-with-constructor =
+    ?Major(_)
+
+  jasmin-check-MinorVersion :
+    Minor(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-MinorVersion-with-constructor =
+    ?Minor(_)
+
+  jasmin-check-MinorVersion :
+    None() -> <id>
+
+  is-MinorVersion-with-constructor =
+    ?None()
+
+  jasmin-check-SourceSpec :
+    JBCSource(t1__) -> <id>
+    with <(check-String <+ error-String)> t1__
+
+  is-SourceSpec-with-constructor =
+    ?JBCSource(_)
+
+  jasmin-check-SourceSpec :
+    None() -> <id>
+
+  is-SourceSpec-with-constructor =
+    ?None()
+
+  is-BytecodeSpec-with-constructor =
+    fail
+
+  is-MajorVersion-with-constructor =
+    fail
+
+  is-MinorVersion-with-constructor =
+    fail
+
+  is-SourceSpec-with-constructor =
+    fail
+
+  jasmin-check-BytecodeSpec :
+    amb([h|hs]) -> <check-BytecodeSpec> h
+
+  jasmin-check-MajorVersion :
+    amb([h|hs]) -> <check-MajorVersion> h
+
+  jasmin-check-MinorVersion :
+    amb([h|hs]) -> <check-MinorVersion> h
+
+  jasmin-check-SourceSpec :
+    amb([h|hs]) -> <check-SourceSpec> h
+
+  error-BytecodeSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort BytecodeSpec instead. ")
+
+  error-MajorVersion =
+    debug(!"Unexpected constructor. Expected constructor from sort MajorVersion instead. ")
+
+  error-MinorVersion =
+    debug(!"Unexpected constructor. Expected constructor from sort MinorVersion instead. ")
+
+  error-SourceSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort SourceSpec instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-ClassSpec
+
+  jasmin-check-example =
+    jasmin-check-ClassAccess
+
+  jasmin-check-example =
+    jasmin-check-SuperSpec
+
+  jasmin-check-example =
+    jasmin-check-ImplementsSpec
+
+  jasmin-check-ClassSpec :
+    JBCClass(t1__, t2__) -> <id>
+    with <map(check-ClassAccess <+ error-ClassAccess)> t1__
+    with <(check-ClassName <+ error-ClassName)> t2__
+
+  is-ClassSpec-with-constructor =
+    ?JBCClass(_, _)
+
+  jasmin-check-ClassSpec :
+    JBCInterface(t1__, t2__) -> <id>
+    with <map(check-ClassAccess <+ error-ClassAccess)> t1__
+    with <(check-ClassName <+ error-ClassName)> t2__
+
+  is-ClassSpec-with-constructor =
+    ?JBCInterface(_, _)
+
+  jasmin-check-ClassAccess :
+    PUBLIC() -> <id>
+
+  is-ClassAccess-with-constructor =
+    ?PUBLIC()
+
+  jasmin-check-ClassAccess :
+    FINAL() -> <id>
+
+  is-ClassAccess-with-constructor =
+    ?FINAL()
+
+  jasmin-check-ClassAccess :
+    INTERFACE() -> <id>
+
+  is-ClassAccess-with-constructor =
+    ?INTERFACE()
+
+  jasmin-check-ClassAccess :
+    ABSTRACT() -> <id>
+
+  is-ClassAccess-with-constructor =
+    ?ABSTRACT()
+
+  jasmin-check-ClassAccess :
+    SUPER() -> <id>
+
+  is-ClassAccess-with-constructor =
+    ?SUPER()
+
+  jasmin-check-SuperSpec :
+    JBCSuper(t1__) -> <id>
+    with <(check-ClassName <+ error-ClassName)> t1__
+
+  is-SuperSpec-with-constructor =
+    ?JBCSuper(_)
+
+  jasmin-check-ImplementsSpec :
+    JBCImplements(t1__) -> <id>
+    with <(check-ClassName <+ error-ClassName)> t1__
+
+  is-ImplementsSpec-with-constructor =
+    ?JBCImplements(_)
+
+  is-ClassSpec-with-constructor =
+    fail
+
+  is-ClassAccess-with-constructor =
+    fail
+
+  is-SuperSpec-with-constructor =
+    fail
+
+  is-ImplementsSpec-with-constructor =
+    fail
+
+  jasmin-check-ClassSpec :
+    amb([h|hs]) -> <check-ClassSpec> h
+
+  jasmin-check-ClassAccess :
+    amb([h|hs]) -> <check-ClassAccess> h
+
+  jasmin-check-SuperSpec :
+    amb([h|hs]) -> <check-SuperSpec> h
+
+  jasmin-check-ImplementsSpec :
+    amb([h|hs]) -> <check-ImplementsSpec> h
+
+  error-ClassSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort ClassSpec instead. ")
+
+  error-ClassAccess =
+    debug(!"Unexpected constructor. Expected constructor from sort ClassAccess instead. ")
+
+  error-SuperSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort SuperSpec instead. ")
+
+  error-ImplementsSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort ImplementsSpec instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-SignatureSpec
+
+  jasmin-check-example =
+    jasmin-check-EnclosingSpec
+
+  jasmin-check-example =
+    jasmin-check-DebugSpec
+
+  jasmin-check-SignatureSpec :
+    JBCSignature(t1__) -> <id>
+    with <(check-String <+ error-String)> t1__
+
+  is-SignatureSpec-with-constructor =
+    ?JBCSignature(_)
+
+  jasmin-check-SignatureSpec :
+    None() -> <id>
+
+  is-SignatureSpec-with-constructor =
+    ?None()
+
+  jasmin-check-EnclosingSpec :
+    JBCEnclosing(t1__) -> <id>
+    with <(check-MethodDescriptor <+ error-MethodDescriptor)> t1__
+
+  is-EnclosingSpec-with-constructor =
+    ?JBCEnclosing(_)
+
+  jasmin-check-EnclosingSpec :
+    None() -> <id>
+
+  is-EnclosingSpec-with-constructor =
+    ?None()
+
+  jasmin-check-DebugSpec :
+    JBCDebug(t1__) -> <id>
+    with <(check-String <+ error-String)> t1__
+
+  is-DebugSpec-with-constructor =
+    ?JBCDebug(_)
+
+  is-SignatureSpec-with-constructor =
+    fail
+
+  is-EnclosingSpec-with-constructor =
+    fail
+
+  is-DebugSpec-with-constructor =
+    fail
+
+  jasmin-check-SignatureSpec :
+    amb([h|hs]) -> <check-SignatureSpec> h
+
+  jasmin-check-EnclosingSpec :
+    amb([h|hs]) -> <check-EnclosingSpec> h
+
+  jasmin-check-DebugSpec :
+    amb([h|hs]) -> <check-DebugSpec> h
+
+  error-SignatureSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort SignatureSpec instead. ")
+
+  error-EnclosingSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort EnclosingSpec instead. ")
+
+  error-DebugSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort DebugSpec instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-InnerClassSpec
+
+  jasmin-check-example =
+    jasmin-check-InnerInterfaceSpec
+
+  jasmin-check-example =
+    jasmin-check-InnerClassAccess
+
+  jasmin-check-example =
+    jasmin-check-InnerClassName
+
+  jasmin-check-example =
+    jasmin-check-InnerName
+
+  jasmin-check-example =
+    jasmin-check-OuterName
+
+  jasmin-check-InnerClassSpec :
+    JBCInnerClass(t1__, t2__, t3__, t4__) -> <id>
+    with <(check-InnerClassAccess <+ error-InnerClassAccess)> t1__
+    with <(check-InnerClassName <+ error-InnerClassName)> t2__
+    with <(check-InnerName <+ error-InnerName)> t3__
+    with <(check-OuterName <+ error-OuterName)> t4__
+
+  is-InnerClassSpec-with-constructor =
+    ?JBCInnerClass(_, _, _, _)
+
+  jasmin-check-InnerInterfaceSpec :
+    JBCInnerInterface(t1__, t2__, t3__, t4__) -> <id>
+    with <(check-InnerClassAccess <+ error-InnerClassAccess)> t1__
+    with <(check-InnerClassName <+ error-InnerClassName)> t2__
+    with <(check-InnerName <+ error-InnerName)> t3__
+    with <(check-OuterName <+ error-OuterName)> t4__
+
+  is-InnerInterfaceSpec-with-constructor =
+    ?JBCInnerInterface(_, _, _, _)
+
+  jasmin-check-InnerClassAccess :
+    t1__ -> <id>
+    where not(is-InnerClassAccess-with-constructor)
+    where <(check-ClassAccess <+ error-ClassAccess)> t1__
+
+  jasmin-check-InnerClassAccess :
+    None() -> <id>
+
+  is-InnerClassAccess-with-constructor =
+    ?None()
+
+  jasmin-check-InnerClassName :
+    t1__ -> <id>
+    where not(is-InnerClassName-with-constructor)
+    where <(check-ClassName <+ error-ClassName)> t1__
+
+  jasmin-check-InnerClassName :
+    None() -> <id>
+
+  is-InnerClassName-with-constructor =
+    ?None()
+
+  jasmin-check-InnerName :
+    InnerNameSpec(t1__) -> <id>
+    with <map(check-ClassName <+ error-ClassName)> t1__
+
+  is-InnerName-with-constructor =
+    ?InnerNameSpec(_)
+
+  jasmin-check-InnerName :
+    None() -> <id>
+
+  is-InnerName-with-constructor =
+    ?None()
+
+  jasmin-check-OuterName :
+    OuterNameSpec(t1__) -> <id>
+    with <(check-ClassName <+ error-ClassName)> t1__
+
+  is-OuterName-with-constructor =
+    ?OuterNameSpec(_)
+
+  jasmin-check-OuterName :
+    None() -> <id>
+
+  is-OuterName-with-constructor =
+    ?None()
+
+  is-InnerClassSpec-with-constructor =
+    fail
+
+  is-InnerInterfaceSpec-with-constructor =
+    fail
+
+  is-InnerClassAccess-with-constructor =
+    fail
+
+  is-InnerClassName-with-constructor =
+    fail
+
+  is-InnerName-with-constructor =
+    fail
+
+  is-OuterName-with-constructor =
+    fail
+
+  jasmin-check-InnerClassSpec :
+    amb([h|hs]) -> <check-InnerClassSpec> h
+
+  jasmin-check-InnerInterfaceSpec :
+    amb([h|hs]) -> <check-InnerInterfaceSpec> h
+
+  jasmin-check-InnerClassAccess :
+    amb([h|hs]) -> <check-InnerClassAccess> h
+
+  jasmin-check-InnerClassName :
+    amb([h|hs]) -> <check-InnerClassName> h
+
+  jasmin-check-InnerName :
+    amb([h|hs]) -> <check-InnerName> h
+
+  jasmin-check-OuterName :
+    amb([h|hs]) -> <check-OuterName> h
+
+  error-InnerClassSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort InnerClassSpec instead. ")
+
+  error-InnerInterfaceSpec =
+    debug(!"Unexpected constructor. Expected constructor from sort InnerInterfaceSpec instead. ")
+
+  error-InnerClassAccess =
+    debug(!"Unexpected constructor. Expected constructor from sort InnerClassAccess instead. ")
+
+  error-InnerClassName =
+    debug(!"Unexpected constructor. Expected constructor from sort InnerClassName instead. ")
+
+  error-InnerName =
+    debug(!"Unexpected constructor. Expected constructor from sort InnerName instead. ")
+
+  error-OuterName =
+    debug(!"Unexpected constructor. Expected constructor from sort OuterName instead. ")

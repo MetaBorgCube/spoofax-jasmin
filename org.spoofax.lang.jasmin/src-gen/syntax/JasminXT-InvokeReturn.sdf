@@ -24,4 +24,5 @@ exports
 
   lexical restrictions
     "invokenonvirtual" "invokevirtual" "invokestatic" "invokeinterface" "return"
-    "ireturn" "lreturn" "freturn" "dreturn" "areturn" "ret" "ret_w" -/- ~[\ \t]
+    "ireturn" "lreturn" "freturn" "dreturn" "areturn" "ret" "ret_w"
+    -/- ~[\ \t\n\r\;]

@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Numbers-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Numbers-sig
 
 
@@ -30,6 +31,15 @@ strategies
   prettyprint-example =
     prettyprint-Int
 
+  prettyprint-Double :
+    amb([h|hs]) -> <prettyprint-Double> h
+
+  prettyprint-Float :
+    amb([h|hs]) -> <prettyprint-Float> h
+
+  prettyprint-Int :
+    amb([h|hs]) -> <prettyprint-Int> h
+
 
 strategies
   prettyprint-NegInt =
@@ -37,6 +47,9 @@ strategies
 
   prettyprint-example =
     prettyprint-NegInt
+
+  prettyprint-NegInt :
+    amb([h|hs]) -> <prettyprint-NegInt> h
 
 
 strategies
@@ -78,3 +91,6 @@ strategies
 
   is-Constant =
     fail
+
+  prettyprint-Constant :
+    amb([h|hs]) -> <prettyprint-Constant> h

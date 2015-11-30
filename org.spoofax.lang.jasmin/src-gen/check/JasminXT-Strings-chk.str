@@ -1,0 +1,74 @@
+module src-gen/check/JasminXT-Strings-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Strings-sig
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-String
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Constant
+
+
+strategies
+  jasmin-check-String =
+    is-string
+
+  jasmin-check-StringChar =
+    is-string
+
+  jasmin-check-HexDigit =
+    is-string
+
+  jasmin-check-example =
+    jasmin-check-String
+
+  jasmin-check-example =
+    jasmin-check-StringChar
+
+  jasmin-check-example =
+    jasmin-check-HexDigit
+
+  jasmin-check-String :
+    amb([h|hs]) -> <check-String> h
+
+  jasmin-check-StringChar :
+    amb([h|hs]) -> <check-StringChar> h
+
+  jasmin-check-HexDigit :
+    amb([h|hs]) -> <check-HexDigit> h
+
+  error-String =
+    debug(!"Unexpected constructor. Expected string from sort String instead. ")
+
+  error-StringChar =
+    debug(!"Unexpected constructor. Expected string from sort StringChar instead. ")
+
+  error-HexDigit =
+    debug(!"Unexpected constructor. Expected string from sort HexDigit instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-Constant
+
+  jasmin-check-Constant :
+    String(t1__) -> <id>
+    with <(check-String <+ error-String)> t1__
+
+  is-Constant-with-constructor =
+    ?String(_)
+
+  is-Constant-with-constructor =
+    fail
+
+  jasmin-check-Constant :
+    amb([h|hs]) -> <check-Constant> h
+
+  error-Constant =
+    debug(!"Unexpected constructor. Expected constructor from sort Constant instead. ")

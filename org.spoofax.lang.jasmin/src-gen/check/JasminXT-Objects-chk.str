@@ -1,0 +1,233 @@
+module src-gen/check/JasminXT-Objects-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Objects-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Types-sig
+
+
+imports
+  src-gen/check/JasminXT-Names-chk
+  src-gen/check/JasminXT-Numbers-chk
+  src-gen/check/JasminXT-Types-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Instruction
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-ANewArrayArg
+
+  jasmin-check-example =
+    jasmin-check-Instruction
+
+  jasmin-check-Instruction :
+    NEW(t1__) -> <id>
+    with <(check-ClassRef <+ error-ClassRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?NEW(_)
+
+  jasmin-check-Instruction :
+    NEWARRAY(t1__) -> <id>
+    with <(check-BaseTypeName <+ error-BaseTypeName)> t1__
+
+  is-Instruction-with-constructor =
+    ?NEWARRAY(_)
+
+  jasmin-check-Instruction :
+    ANEWARRAY(t1__) -> <id>
+    with <(check-ANewArrayArg <+ error-ANewArrayArg)> t1__
+
+  is-Instruction-with-constructor =
+    ?ANEWARRAY(_)
+
+  jasmin-check-ANewArrayArg :
+    t1__ -> <id>
+    where not(is-ANewArrayArg-with-constructor)
+    where <(check-ClassRef <+ error-ClassRef)> t1__
+
+  jasmin-check-ANewArrayArg :
+    t1__ -> <id>
+    where not(is-ANewArrayArg-with-constructor)
+    where <(check-ArrayType <+ error-ArrayType)> t1__
+
+  jasmin-check-Instruction :
+    MULTIANEWARRAY(t1__, t2__) -> <id>
+    with <(check-ArrayType <+ error-ArrayType)> t1__
+    with <(check-Int <+ error-Int)> t2__
+
+  is-Instruction-with-constructor =
+    ?MULTIANEWARRAY(_, _)
+
+  jasmin-check-Instruction :
+    GETFIELD(t1__) -> <id>
+    with <(check-FieldRef <+ error-FieldRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?GETFIELD(_)
+
+  jasmin-check-Instruction :
+    PUTFIELD(t1__) -> <id>
+    with <(check-FieldRef <+ error-FieldRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?PUTFIELD(_)
+
+  jasmin-check-Instruction :
+    GETSTATIC(t1__) -> <id>
+    with <(check-FieldRef <+ error-FieldRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?GETSTATIC(_)
+
+  jasmin-check-Instruction :
+    PUTSTATIC(t1__) -> <id>
+    with <(check-FieldRef <+ error-FieldRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?PUTSTATIC(_)
+
+  jasmin-check-Instruction :
+    IALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?IALOAD()
+
+  jasmin-check-Instruction :
+    LALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LALOAD()
+
+  jasmin-check-Instruction :
+    BALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?BALOAD()
+
+  jasmin-check-Instruction :
+    CALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?CALOAD()
+
+  jasmin-check-Instruction :
+    SALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?SALOAD()
+
+  jasmin-check-Instruction :
+    FALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FALOAD()
+
+  jasmin-check-Instruction :
+    DALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DALOAD()
+
+  jasmin-check-Instruction :
+    AALOAD() -> <id>
+
+  is-Instruction-with-constructor =
+    ?AALOAD()
+
+  jasmin-check-Instruction :
+    IASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?IASTORE()
+
+  jasmin-check-Instruction :
+    LASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LASTORE()
+
+  jasmin-check-Instruction :
+    BASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?BASTORE()
+
+  jasmin-check-Instruction :
+    CASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?CASTORE()
+
+  jasmin-check-Instruction :
+    SASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?SASTORE()
+
+  jasmin-check-Instruction :
+    FASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FASTORE()
+
+  jasmin-check-Instruction :
+    DASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DASTORE()
+
+  jasmin-check-Instruction :
+    AASTORE() -> <id>
+
+  is-Instruction-with-constructor =
+    ?AASTORE()
+
+  jasmin-check-Instruction :
+    ARRAYLENGTH() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ARRAYLENGTH()
+
+  jasmin-check-Instruction :
+    CHECKCAST(t1__) -> <id>
+    with <(check-ClassRef <+ error-ClassRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?CHECKCAST(_)
+
+  jasmin-check-Instruction :
+    INSTANCEOF(t1__) -> <id>
+    with <(check-ClassRef <+ error-ClassRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?INSTANCEOF(_)
+
+  is-ANewArrayArg-with-constructor =
+    fail
+
+  is-Instruction-with-constructor =
+    fail
+
+  jasmin-check-ANewArrayArg :
+    amb([h|hs]) -> <check-ANewArrayArg> h
+
+  jasmin-check-Instruction :
+    amb([h|hs]) -> <check-Instruction> h
+
+  error-ANewArrayArg =
+    debug(!"Unexpected constructor. Expected constructor from sort ANewArrayArg instead. ")
+
+  error-Instruction =
+    debug(!"Unexpected constructor. Expected constructor from sort Instruction instead. ")

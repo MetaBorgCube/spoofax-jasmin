@@ -24,6 +24,7 @@ rules
 			filename := <guarantee-extension(|"class")> path
 		where
 			<write-class-file(|filename)> <jasmin-file-to-asm-class> ast;
+			<refresh-workspace-file> filename;
 			result := None()
 			
 	translate-class:
@@ -41,6 +42,20 @@ rules
 			cname := <class-name ; string-replace(|"/",".")> ast ;
 			cpath := <concat-strings> [project-path, "/", <dirname> path] ;
 			<execute-java(|cpath) ; process-output> cname => result
+	
+	generate-and-execute-class:
+		(selected, position, ast, path, project-path) -> (filename, result)
+		with
+			class-filename := <guarantee-extension(|"class")> path;
+			filename := <guarantee-extension(|"result.txt")> path
+		with
+			<write-class-file(|class-filename)> <jasmin-file-to-asm-class> ast;
+			<refresh-workspace-file> class-filename;
+			cname := <class-name ; string-replace(|"/",".")> ast ;
+			cpath := <concat-strings> [project-path, "/", <dirname> path] ;
+			<execute-java(|cpath) ; process-output> cname => result
+			
+				
 		
 	
 	process-output: Output(result, "") -> result

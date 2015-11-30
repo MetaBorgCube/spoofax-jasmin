@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Arithmetic-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Arithmetic-sig
 
 
@@ -498,3 +499,9 @@ strategies
 
   is-Instruction =
     fail
+
+  prettyprint-Amount :
+    amb([h|hs]) -> <prettyprint-Amount> h
+
+  prettyprint-Instruction :
+    amb([h|hs]) -> <prettyprint-Instruction> h

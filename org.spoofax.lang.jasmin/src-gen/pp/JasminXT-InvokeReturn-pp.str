@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-InvokeReturn-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-InvokeReturn-sig
 
 
@@ -160,3 +161,6 @@ strategies
 
   is-Instruction =
     fail
+
+  prettyprint-Instruction :
+    amb([h|hs]) -> <prettyprint-Instruction> h

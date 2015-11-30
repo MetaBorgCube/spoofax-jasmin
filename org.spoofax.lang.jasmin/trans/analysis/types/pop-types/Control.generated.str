@@ -26,104 +26,104 @@ rules // relations
 rules // rules
   
   create-pop-type-task(|ctx) :
-    IFEQ(_) -> <task-create-id(|ctx,[x147])> x147
+    IFEQ(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IFLT(_) -> <task-create-id(|ctx,[x147])> x147
+    IFLT(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IFLE(_) -> <task-create-id(|ctx,[x147])> x147
+    IFLE(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IFNE(_) -> <task-create-id(|ctx,[x147])> x147
+    IFNE(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IFGT(_) -> <task-create-id(|ctx,[x147])> x147
+    IFGT(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IFGE(_) -> <task-create-id(|ctx,[x147])> x147
+    IFGE(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IFNULL(_) -> <task-create-id(|ctx,[x147])> x147
+    IFNULL(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IFNONNULL(_) -> <task-create-id(|ctx,[x147])> x147
+    IFNONNULL(_) -> <task-create-id(|ctx,[x15])> x15
     where 
-      x147 := <type-is(|ctx)> [Int()]
+      x15 := <type-is(|ctx)> [Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ICMPEQ(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ICMPEQ(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ICMPLT(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ICMPLT(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ICMPLE(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ICMPLE(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ICMPNE(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ICMPNE(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ICMPGT(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ICMPGT(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ICMPGE(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ICMPGE(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ACMPEQ(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ACMPEQ(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    IF_ACMPNE(_) -> <task-create-id(|ctx,[x148])> x148
+    IF_ACMPNE(_) -> <task-create-id(|ctx,[x16])> x16
     where 
-      x148 := <type-is(|ctx)> [Int(), Int()]
+      x16 := <type-is(|ctx)> [Int(), Int()]
   
   create-pop-type-task(|ctx) :
-    GOTO(_) -> <task-create-id(|ctx,[x149])> x149
+    GOTO(_) -> <task-create-id(|ctx,[x17])> x17
     where 
-      x149 := <type-is(|ctx)> []
+      x17 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    GOTO_W(_) -> <task-create-id(|ctx,[x149])> x149
+    GOTO_W(_) -> <task-create-id(|ctx,[x17])> x17
     where 
-      x149 := <type-is(|ctx)> []
+      x17 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    JSR(_) -> <task-create-id(|ctx,[x149])> x149
+    JSR(_) -> <task-create-id(|ctx,[x17])> x17
     where 
-      x149 := <type-is(|ctx)> []
+      x17 := <type-is(|ctx)> []
   
   create-pop-type-task(|ctx) :
-    JSR_W(_) -> <task-create-id(|ctx,[x149])> x149
+    JSR_W(_) -> <task-create-id(|ctx,[x17])> x17
     where 
-      x149 := <type-is(|ctx)> []
+      x17 := <type-is(|ctx)> []
   
 
 rules // projections

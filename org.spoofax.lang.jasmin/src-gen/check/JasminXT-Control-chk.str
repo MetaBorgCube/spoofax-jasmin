@@ -1,0 +1,295 @@
+module src-gen/check/JasminXT-Control-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Control-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+
+
+imports
+  src-gen/check/JasminXT-Names-chk
+  src-gen/check/JasminXT-Numbers-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Instruction
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-LabelRef
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-RelOffset
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Target
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-TableEntry
+
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-LookupEntry
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-RelOffset
+
+  jasmin-check-example =
+    jasmin-check-Target
+
+  jasmin-check-RelOffset :
+    RelativeFwd(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-RelOffset-with-constructor =
+    ?RelativeFwd(_)
+
+  jasmin-check-RelOffset :
+    RelativeBwd(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-RelOffset-with-constructor =
+    ?RelativeBwd(_)
+
+  jasmin-check-Target :
+    t1__ -> <id>
+    where not(is-Target-with-constructor)
+    where <(check-LabelRef <+ error-LabelRef)> t1__
+
+  jasmin-check-Target :
+    t1__ -> <id>
+    where not(is-Target-with-constructor)
+    where <(check-RelOffset <+ error-RelOffset)> t1__
+
+  is-RelOffset-with-constructor =
+    fail
+
+  is-Target-with-constructor =
+    fail
+
+  jasmin-check-RelOffset :
+    amb([h|hs]) -> <check-RelOffset> h
+
+  jasmin-check-Target :
+    amb([h|hs]) -> <check-Target> h
+
+  error-RelOffset =
+    debug(!"Unexpected constructor. Expected constructor from sort RelOffset instead. ")
+
+  error-Target =
+    debug(!"Unexpected constructor. Expected constructor from sort Target instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-TableEntry
+
+  jasmin-check-example =
+    jasmin-check-LookupEntry
+
+  jasmin-check-example =
+    jasmin-check-Instruction
+
+  jasmin-check-Instruction :
+    IFEQ(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFEQ(_)
+
+  jasmin-check-Instruction :
+    IFLT(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFLT(_)
+
+  jasmin-check-Instruction :
+    IFLE(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFLE(_)
+
+  jasmin-check-Instruction :
+    IFNE(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFNE(_)
+
+  jasmin-check-Instruction :
+    IFGT(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFGT(_)
+
+  jasmin-check-Instruction :
+    IFGE(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFGE(_)
+
+  jasmin-check-Instruction :
+    IFNULL(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFNULL(_)
+
+  jasmin-check-Instruction :
+    IFNONNULL(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IFNONNULL(_)
+
+  jasmin-check-Instruction :
+    IF_ICMPEQ(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ICMPEQ(_)
+
+  jasmin-check-Instruction :
+    IF_ICMPLT(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ICMPLT(_)
+
+  jasmin-check-Instruction :
+    IF_ICMPLE(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ICMPLE(_)
+
+  jasmin-check-Instruction :
+    IF_ICMPNE(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ICMPNE(_)
+
+  jasmin-check-Instruction :
+    IF_ICMPGT(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ICMPGT(_)
+
+  jasmin-check-Instruction :
+    IF_ICMPGE(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ICMPGE(_)
+
+  jasmin-check-Instruction :
+    IF_ACMPEQ(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ACMPEQ(_)
+
+  jasmin-check-Instruction :
+    IF_ACMPNE(t1__) -> <id>
+    with <(check-Target <+ error-Target)> t1__
+
+  is-Instruction-with-constructor =
+    ?IF_ACMPNE(_)
+
+  jasmin-check-Instruction :
+    Table(t1__, t2__, t3__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+    with <map(check-TableEntry <+ error-TableEntry)> t2__
+    with <(check-LabelRef <+ error-LabelRef)> t3__
+
+  is-Instruction-with-constructor =
+    ?Table(_, _, _)
+
+  jasmin-check-Instruction :
+    Lookup(t1__, t2__) -> <id>
+    with <map(check-LookupEntry <+ error-LookupEntry)> t1__
+    with <(check-LabelRef <+ error-LabelRef)> t2__
+
+  is-Instruction-with-constructor =
+    ?Lookup(_, _)
+
+  jasmin-check-TableEntry :
+    t1__ -> <id>
+    where not(is-TableEntry-with-constructor)
+    where <(check-LabelRef <+ error-LabelRef)> t1__
+
+  jasmin-check-LookupEntry :
+    NPAIR(t1__, t2__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+    with <(check-LabelRef <+ error-LabelRef)> t2__
+
+  is-LookupEntry-with-constructor =
+    ?NPAIR(_, _)
+
+  jasmin-check-Instruction :
+    GOTO(t1__) -> <id>
+    with <(check-LabelRef <+ error-LabelRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?GOTO(_)
+
+  jasmin-check-Instruction :
+    GOTO_W(t1__) -> <id>
+    with <(check-LabelRef <+ error-LabelRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?GOTO_W(_)
+
+  jasmin-check-Instruction :
+    JSR(t1__) -> <id>
+    with <(check-LabelRef <+ error-LabelRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?JSR(_)
+
+  jasmin-check-Instruction :
+    JSR_W(t1__) -> <id>
+    with <(check-LabelRef <+ error-LabelRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?JSR_W(_)
+
+  is-TableEntry-with-constructor =
+    fail
+
+  is-LookupEntry-with-constructor =
+    fail
+
+  is-Instruction-with-constructor =
+    fail
+
+  jasmin-check-TableEntry :
+    amb([h|hs]) -> <check-TableEntry> h
+
+  jasmin-check-LookupEntry :
+    amb([h|hs]) -> <check-LookupEntry> h
+
+  jasmin-check-Instruction :
+    amb([h|hs]) -> <check-Instruction> h
+
+  error-TableEntry =
+    debug(!"Unexpected constructor. Expected constructor from sort TableEntry instead. ")
+
+  error-LookupEntry =
+    debug(!"Unexpected constructor. Expected constructor from sort LookupEntry instead. ")
+
+  error-Instruction =
+    debug(!"Unexpected constructor. Expected constructor from sort Instruction instead. ")

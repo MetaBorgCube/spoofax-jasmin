@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Control-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Control-sig
 
 
@@ -88,6 +89,12 @@ strategies
 
   is-Target =
     fail
+
+  prettyprint-RelOffset :
+    amb([h|hs]) -> <prettyprint-RelOffset> h
+
+  prettyprint-Target :
+    amb([h|hs]) -> <prettyprint-Target> h
 
 
 strategies
@@ -384,3 +391,12 @@ strategies
 
   is-Instruction =
     fail
+
+  prettyprint-TableEntry :
+    amb([h|hs]) -> <prettyprint-TableEntry> h
+
+  prettyprint-LookupEntry :
+    amb([h|hs]) -> <prettyprint-LookupEntry> h
+
+  prettyprint-Instruction :
+    amb([h|hs]) -> <prettyprint-Instruction> h

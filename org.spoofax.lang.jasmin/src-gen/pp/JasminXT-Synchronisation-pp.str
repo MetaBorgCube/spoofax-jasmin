@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Synchronisation-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Synchronisation-sig
 
 
@@ -37,3 +38,6 @@ strategies
 
   is-Instruction =
     fail
+
+  prettyprint-Instruction :
+    amb([h|hs]) -> <prettyprint-Instruction> h

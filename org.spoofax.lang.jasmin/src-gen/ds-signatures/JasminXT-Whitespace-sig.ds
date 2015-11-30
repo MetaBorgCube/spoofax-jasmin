@@ -1,0 +1,7 @@
+module src-gen/ds-signatures/JasminXT-Whitespace-sig
+
+signature
+    sorts
+      EOF
+    constructors
+      __String2EOF__ : String -> EOF {implicit}

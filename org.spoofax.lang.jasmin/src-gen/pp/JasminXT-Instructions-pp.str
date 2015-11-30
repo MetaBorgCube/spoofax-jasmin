@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Instructions-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Instructions-sig
 
 
@@ -93,3 +94,9 @@ strategies
 
   is-PCInstruction =
     fail
+
+  prettyprint-Instruction :
+    amb([h|hs]) -> <prettyprint-Instruction> h
+
+  prettyprint-PCInstruction :
+    amb([h|hs]) -> <prettyprint-PCInstruction> h

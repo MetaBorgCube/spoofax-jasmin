@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Strings-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Strings-sig
 
 
@@ -33,6 +34,15 @@ strategies
   prettyprint-example =
     prettyprint-HexDigit
 
+  prettyprint-String :
+    amb([h|hs]) -> <prettyprint-String> h
+
+  prettyprint-StringChar :
+    amb([h|hs]) -> <prettyprint-StringChar> h
+
+  prettyprint-HexDigit :
+    amb([h|hs]) -> <prettyprint-HexDigit> h
+
 
 strategies
   prettyprint-example =
@@ -51,3 +61,6 @@ strategies
 
   is-Constant =
     fail
+
+  prettyprint-Constant :
+    amb([h|hs]) -> <prettyprint-Constant> h

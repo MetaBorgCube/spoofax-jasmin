@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Types-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Types-sig
 
 
@@ -132,6 +133,15 @@ strategies
   is-ComponentType =
     fail
 
+  prettyprint-BaseType :
+    amb([h|hs]) -> <prettyprint-BaseType> h
+
+  prettyprint-FieldType :
+    amb([h|hs]) -> <prettyprint-FieldType> h
+
+  prettyprint-ComponentType :
+    amb([h|hs]) -> <prettyprint-ComponentType> h
+
 
 strategies
   prettyprint-example =
@@ -150,3 +160,6 @@ strategies
 
   is-ArrayType =
     fail
+
+  prettyprint-ArrayType :
+    amb([h|hs]) -> <prettyprint-ArrayType> h

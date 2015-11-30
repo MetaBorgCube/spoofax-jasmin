@@ -1,0 +1,41 @@
+module src-gen/ds-signatures/JasminXT-Control-sig
+
+imports src-gen/ds-signatures/JasminXT-Names-sig src-gen/ds-signatures/JasminXT-Numbers-sig
+
+signature
+    sorts
+      RelOffset
+      Target
+      TableEntry
+      LookupEntry
+      Instruction
+    constructors
+      RelativeFwd : Int_ -> RelOffset 
+      RelativeBwd : Int_ -> RelOffset 
+      __LabelRef2Target__ : LabelRef -> Target {implicit}
+      __RelOffset2Target__ : RelOffset -> Target {implicit}
+    constructors
+      IFEQ : Target -> Instruction 
+      IFLT : Target -> Instruction 
+      IFLE : Target -> Instruction 
+      IFNE : Target -> Instruction 
+      IFGT : Target -> Instruction 
+      IFGE : Target -> Instruction 
+      IFNULL : Target -> Instruction 
+      IFNONNULL : Target -> Instruction 
+      IF_ICMPEQ : Target -> Instruction 
+      IF_ICMPLT : Target -> Instruction 
+      IF_ICMPLE : Target -> Instruction 
+      IF_ICMPNE : Target -> Instruction 
+      IF_ICMPGT : Target -> Instruction 
+      IF_ICMPGE : Target -> Instruction 
+      IF_ACMPEQ : Target -> Instruction 
+      IF_ACMPNE : Target -> Instruction 
+      Table : Int_ * List(TableEntry) * LabelRef -> Instruction 
+      Lookup : List(LookupEntry) * LabelRef -> Instruction 
+      __LabelRef2TableEntry__ : LabelRef -> TableEntry {implicit}
+      NPAIR : Int_ * LabelRef -> LookupEntry 
+      GOTO : LabelRef -> Instruction 
+      GOTO_W : LabelRef -> Instruction 
+      JSR : LabelRef -> Instruction 
+      JSR_W : LabelRef -> Instruction 

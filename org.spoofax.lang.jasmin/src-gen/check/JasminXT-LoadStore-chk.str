@@ -1,0 +1,557 @@
+module src-gen/check/JasminXT-LoadStore-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-LoadStore-sig
+
+
+imports
+  src-gen/signatures/JasminXT-Names-sig
+  src-gen/signatures/JasminXT-Numbers-sig
+  src-gen/signatures/JasminXT-Strings-sig
+
+
+imports
+  src-gen/check/JasminXT-Names-chk
+  src-gen/check/JasminXT-Numbers-chk
+  src-gen/check/JasminXT-Strings-chk
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Instruction
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-Instruction
+
+  jasmin-check-Instruction :
+    BIPUSH(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-Instruction-with-constructor =
+    ?BIPUSH(_)
+
+  jasmin-check-Instruction :
+    SIPUSH(t1__) -> <id>
+    with <(check-Int <+ error-Int)> t1__
+
+  is-Instruction-with-constructor =
+    ?SIPUSH(_)
+
+  jasmin-check-Instruction :
+    ICONST_M1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ICONST_M1()
+
+  jasmin-check-Instruction :
+    ICONST_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ICONST_0()
+
+  jasmin-check-Instruction :
+    ICONST_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ICONST_1()
+
+  jasmin-check-Instruction :
+    ICONST_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ICONST_2()
+
+  jasmin-check-Instruction :
+    ICONST_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ICONST_3()
+
+  jasmin-check-Instruction :
+    ICONST_4() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ICONST_4()
+
+  jasmin-check-Instruction :
+    ICONST_5() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ICONST_5()
+
+  jasmin-check-Instruction :
+    LCONST_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LCONST_0()
+
+  jasmin-check-Instruction :
+    LCONST_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LCONST_1()
+
+  jasmin-check-Instruction :
+    FCONST_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FCONST_0()
+
+  jasmin-check-Instruction :
+    FCONST_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FCONST_1()
+
+  jasmin-check-Instruction :
+    FCONST_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FCONST_2()
+
+  jasmin-check-Instruction :
+    DCONST_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DCONST_0()
+
+  jasmin-check-Instruction :
+    DCONST_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DCONST_1()
+
+  jasmin-check-Instruction :
+    ACONST_NULL() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ACONST_NULL()
+
+  jasmin-check-Instruction :
+    LDC(t1__) -> <id>
+    with <(check-Constant <+ error-Constant)> t1__
+
+  is-Instruction-with-constructor =
+    ?LDC(_)
+
+  jasmin-check-Instruction :
+    LDC_W(t1__) -> <id>
+    with <(check-Constant <+ error-Constant)> t1__
+
+  is-Instruction-with-constructor =
+    ?LDC_W(_)
+
+  jasmin-check-Instruction :
+    LDC2_W(t1__) -> <id>
+    with <(check-Constant <+ error-Constant)> t1__
+
+  is-Instruction-with-constructor =
+    ?LDC2_W(_)
+
+  is-Instruction-with-constructor =
+    fail
+
+  jasmin-check-Instruction :
+    amb([h|hs]) -> <check-Instruction> h
+
+  error-Instruction =
+    debug(!"Unexpected constructor. Expected constructor from sort Instruction instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-Instruction
+
+  jasmin-check-Instruction :
+    ILOAD(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ILOAD(_)
+
+  jasmin-check-Instruction :
+    LLOAD(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?LLOAD(_)
+
+  jasmin-check-Instruction :
+    FLOAD(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?FLOAD(_)
+
+  jasmin-check-Instruction :
+    DLOAD(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?DLOAD(_)
+
+  jasmin-check-Instruction :
+    ALOAD(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ALOAD(_)
+
+  jasmin-check-Instruction :
+    ILOAD_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ILOAD_W(_)
+
+  jasmin-check-Instruction :
+    LLOAD_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?LLOAD_W(_)
+
+  jasmin-check-Instruction :
+    FLOAD_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?FLOAD_W(_)
+
+  jasmin-check-Instruction :
+    DLOAD_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?DLOAD_W(_)
+
+  jasmin-check-Instruction :
+    ALOAD_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ALOAD_W(_)
+
+  jasmin-check-Instruction :
+    ILOAD_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ILOAD_0()
+
+  jasmin-check-Instruction :
+    ILOAD_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ILOAD_1()
+
+  jasmin-check-Instruction :
+    ILOAD_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ILOAD_2()
+
+  jasmin-check-Instruction :
+    ILOAD_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ILOAD_3()
+
+  jasmin-check-Instruction :
+    ALOAD_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ALOAD_0()
+
+  jasmin-check-Instruction :
+    ALOAD_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ALOAD_1()
+
+  jasmin-check-Instruction :
+    ALOAD_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ALOAD_2()
+
+  jasmin-check-Instruction :
+    ALOAD_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ALOAD_3()
+
+  jasmin-check-Instruction :
+    LLOAD_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LLOAD_0()
+
+  jasmin-check-Instruction :
+    LLOAD_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LLOAD_1()
+
+  jasmin-check-Instruction :
+    LLOAD_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LLOAD_2()
+
+  jasmin-check-Instruction :
+    LLOAD_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LLOAD_3()
+
+  jasmin-check-Instruction :
+    DLOAD_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DLOAD_0()
+
+  jasmin-check-Instruction :
+    DLOAD_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DLOAD_1()
+
+  jasmin-check-Instruction :
+    DLOAD_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DLOAD_2()
+
+  jasmin-check-Instruction :
+    DLOAD_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DLOAD_3()
+
+  jasmin-check-Instruction :
+    FLOAD_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FLOAD_0()
+
+  jasmin-check-Instruction :
+    FLOAD_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FLOAD_1()
+
+  jasmin-check-Instruction :
+    FLOAD_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FLOAD_2()
+
+  jasmin-check-Instruction :
+    FLOAD_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FLOAD_3()
+
+  jasmin-check-Instruction :
+    ISTORE(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ISTORE(_)
+
+  jasmin-check-Instruction :
+    LSTORE(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?LSTORE(_)
+
+  jasmin-check-Instruction :
+    FSTORE(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?FSTORE(_)
+
+  jasmin-check-Instruction :
+    DSTORE(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?DSTORE(_)
+
+  jasmin-check-Instruction :
+    ASTORE(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ASTORE(_)
+
+  jasmin-check-Instruction :
+    ISTORE_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ISTORE_W(_)
+
+  jasmin-check-Instruction :
+    LSTORE_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?LSTORE_W(_)
+
+  jasmin-check-Instruction :
+    FSTORE_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?FSTORE_W(_)
+
+  jasmin-check-Instruction :
+    DSTORE_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?DSTORE_W(_)
+
+  jasmin-check-Instruction :
+    ASTORE_W(t1__) -> <id>
+    with <(check-VarRef <+ error-VarRef)> t1__
+
+  is-Instruction-with-constructor =
+    ?ASTORE_W(_)
+
+  jasmin-check-Instruction :
+    ISTORE_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ISTORE_0()
+
+  jasmin-check-Instruction :
+    ISTORE_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ISTORE_1()
+
+  jasmin-check-Instruction :
+    ISTORE_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ISTORE_2()
+
+  jasmin-check-Instruction :
+    ISTORE_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ISTORE_3()
+
+  jasmin-check-Instruction :
+    ASTORE_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ASTORE_0()
+
+  jasmin-check-Instruction :
+    ASTORE_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ASTORE_1()
+
+  jasmin-check-Instruction :
+    ASTORE_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ASTORE_2()
+
+  jasmin-check-Instruction :
+    ASTORE_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?ASTORE_3()
+
+  jasmin-check-Instruction :
+    LSTORE_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LSTORE_0()
+
+  jasmin-check-Instruction :
+    LSTORE_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LSTORE_1()
+
+  jasmin-check-Instruction :
+    LSTORE_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LSTORE_2()
+
+  jasmin-check-Instruction :
+    LSTORE_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?LSTORE_3()
+
+  jasmin-check-Instruction :
+    FSTORE_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FSTORE_0()
+
+  jasmin-check-Instruction :
+    FSTORE_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FSTORE_1()
+
+  jasmin-check-Instruction :
+    FSTORE_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FSTORE_2()
+
+  jasmin-check-Instruction :
+    FSTORE_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?FSTORE_3()
+
+  jasmin-check-Instruction :
+    DSTORE_0() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DSTORE_0()
+
+  jasmin-check-Instruction :
+    DSTORE_1() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DSTORE_1()
+
+  jasmin-check-Instruction :
+    DSTORE_2() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DSTORE_2()
+
+  jasmin-check-Instruction :
+    DSTORE_3() -> <id>
+
+  is-Instruction-with-constructor =
+    ?DSTORE_3()
+
+  is-Instruction-with-constructor =
+    fail
+
+  jasmin-check-Instruction :
+    amb([h|hs]) -> <check-Instruction> h
+
+  error-Instruction =
+    debug(!"Unexpected constructor. Expected constructor from sort Instruction instead. ")

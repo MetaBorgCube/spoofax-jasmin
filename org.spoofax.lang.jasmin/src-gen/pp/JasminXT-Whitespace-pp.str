@@ -3,6 +3,7 @@ module src-gen/pp/JasminXT-Whitespace-pp
 imports
   libstratego-gpp
   runtime/tmpl/pp
+  libstratego-sglr
   src-gen/signatures/JasminXT-Whitespace-sig
 
 
@@ -12,3 +13,6 @@ strategies
 
   prettyprint-example =
     prettyprint-EOF
+
+  prettyprint-EOF :
+    amb([h|hs]) -> <prettyprint-EOF> h

@@ -1,0 +1,129 @@
+module src-gen/check/JasminXT-Types-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Types-sig
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-BaseType
+
+  jasmin-check-example =
+    jasmin-check-FieldType
+
+  jasmin-check-example =
+    jasmin-check-ComponentType
+
+  jasmin-check-BaseType :
+    Byte() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Byte()
+
+  jasmin-check-BaseType :
+    Char() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Char()
+
+  jasmin-check-BaseType :
+    Double() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Double()
+
+  jasmin-check-BaseType :
+    Float() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Float()
+
+  jasmin-check-BaseType :
+    Int() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Int()
+
+  jasmin-check-BaseType :
+    Long() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Long()
+
+  jasmin-check-BaseType :
+    Short() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Short()
+
+  jasmin-check-BaseType :
+    Boolean() -> <id>
+
+  is-BaseType-with-constructor =
+    ?Boolean()
+
+  jasmin-check-FieldType :
+    t1__ -> <id>
+    where not(is-FieldType-with-constructor)
+    where <(check-BaseType <+ error-BaseType)> t1__
+
+  jasmin-check-FieldType :
+    t1__ -> <id>
+    where not(is-FieldType-with-constructor)
+    where <(check-ArrayType <+ error-ArrayType)> t1__
+
+  jasmin-check-ComponentType :
+    t1__ -> <id>
+    where not(is-ComponentType-with-constructor)
+    where <(check-FieldType <+ error-FieldType)> t1__
+
+  is-BaseType-with-constructor =
+    fail
+
+  is-FieldType-with-constructor =
+    fail
+
+  is-ComponentType-with-constructor =
+    fail
+
+  jasmin-check-BaseType :
+    amb([h|hs]) -> <check-BaseType> h
+
+  jasmin-check-FieldType :
+    amb([h|hs]) -> <check-FieldType> h
+
+  jasmin-check-ComponentType :
+    amb([h|hs]) -> <check-ComponentType> h
+
+  error-BaseType =
+    debug(!"Unexpected constructor. Expected constructor from sort BaseType instead. ")
+
+  error-FieldType =
+    debug(!"Unexpected constructor. Expected constructor from sort FieldType instead. ")
+
+  error-ComponentType =
+    debug(!"Unexpected constructor. Expected constructor from sort ComponentType instead. ")
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-ArrayType
+
+  jasmin-check-ArrayType :
+    Array(t1__) -> <id>
+    with <(check-ComponentType <+ error-ComponentType)> t1__
+
+  is-ArrayType-with-constructor =
+    ?Array(_)
+
+  is-ArrayType-with-constructor =
+    fail
+
+  jasmin-check-ArrayType :
+    amb([h|hs]) -> <check-ArrayType> h
+
+  error-ArrayType =
+    debug(!"Unexpected constructor. Expected constructor from sort ArrayType instead. ")

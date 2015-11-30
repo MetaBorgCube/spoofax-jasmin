@@ -1,0 +1,13 @@
+module src-gen/ds-signatures/JasminXT-Instructions-sig
+
+imports src-gen/ds-signatures/JasminXT-Arithmetic-sig src-gen/ds-signatures/JasminXT-Control-sig src-gen/ds-signatures/JasminXT-Conversion-sig src-gen/ds-signatures/JasminXT-Exceptions-sig src-gen/ds-signatures/JasminXT-LoadStore-sig src-gen/ds-signatures/JasminXT-InvokeReturn-sig src-gen/ds-signatures/JasminXT-Objects-sig src-gen/ds-signatures/JasminXT-Stack-sig src-gen/ds-signatures/JasminXT-Synchronisation-sig src-gen/ds-signatures/JasminXT-Numbers-sig
+
+signature
+    sorts
+      Instruction
+      PCInstruction
+    constructors
+      NOP : Instruction 
+      BREAKPOINT : Instruction 
+      PC : Int_ * Instruction -> PCInstruction 
+      __Instruction2PCInstruction__ : Instruction -> PCInstruction {implicit}

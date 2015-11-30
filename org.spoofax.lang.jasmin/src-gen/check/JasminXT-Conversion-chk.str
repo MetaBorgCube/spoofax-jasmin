@@ -1,0 +1,116 @@
+module src-gen/check/JasminXT-Conversion-chk
+
+imports
+  libstratego-gpp
+  runtime/tmpl/pp
+  libstratego-sglr
+  src-gen/signatures/JasminXT-Conversion-sig
+
+
+strategies
+  jasmin-check-SDF-start-symbols =
+    jasmin-check-Instruction
+
+
+strategies
+  jasmin-check-example =
+    jasmin-check-Instruction
+
+  jasmin-check-Instruction :
+    I2L() -> <id>
+
+  is-Instruction-with-constructor =
+    ?I2L()
+
+  jasmin-check-Instruction :
+    I2F() -> <id>
+
+  is-Instruction-with-constructor =
+    ?I2F()
+
+  jasmin-check-Instruction :
+    I2D() -> <id>
+
+  is-Instruction-with-constructor =
+    ?I2D()
+
+  jasmin-check-Instruction :
+    L2F() -> <id>
+
+  is-Instruction-with-constructor =
+    ?L2F()
+
+  jasmin-check-Instruction :
+    L2D() -> <id>
+
+  is-Instruction-with-constructor =
+    ?L2D()
+
+  jasmin-check-Instruction :
+    F2D() -> <id>
+
+  is-Instruction-with-constructor =
+    ?F2D()
+
+  jasmin-check-Instruction :
+    I2B() -> <id>
+
+  is-Instruction-with-constructor =
+    ?I2B()
+
+  jasmin-check-Instruction :
+    I2S() -> <id>
+
+  is-Instruction-with-constructor =
+    ?I2S()
+
+  jasmin-check-Instruction :
+    I2C() -> <id>
+
+  is-Instruction-with-constructor =
+    ?I2C()
+
+  jasmin-check-Instruction :
+    L2I() -> <id>
+
+  is-Instruction-with-constructor =
+    ?L2I()
+
+  jasmin-check-Instruction :
+    F2I() -> <id>
+
+  is-Instruction-with-constructor =
+    ?F2I()
+
+  jasmin-check-Instruction :
+    F2L() -> <id>
+
+  is-Instruction-with-constructor =
+    ?F2L()
+
+  jasmin-check-Instruction :
+    D2I() -> <id>
+
+  is-Instruction-with-constructor =
+    ?D2I()
+
+  jasmin-check-Instruction :
+    D2L() -> <id>
+
+  is-Instruction-with-constructor =
+    ?D2L()
+
+  jasmin-check-Instruction :
+    D2F() -> <id>
+
+  is-Instruction-with-constructor =
+    ?D2F()
+
+  is-Instruction-with-constructor =
+    fail
+
+  jasmin-check-Instruction :
+    amb([h|hs]) -> <check-Instruction> h
+
+  error-Instruction =
+    debug(!"Unexpected constructor. Expected constructor from sort Instruction instead. ")
