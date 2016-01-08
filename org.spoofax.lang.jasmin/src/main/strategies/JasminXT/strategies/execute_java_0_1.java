@@ -37,7 +37,10 @@ public class execute_java_0_1 extends Strategy {
 
         try {
             Process process = new ProcessBuilder("java", "-cp", ((IStrategoString) path).stringValue(), ((IStrategoString) current).stringValue()).start();
-            process.waitFor(10, TimeUnit.SECONDS);
+            
+            if (!process.waitFor(10, TimeUnit.SECONDS)) {
+                process.destroyForcibly();
+            }
 
             // For some reason, without this call waitFor sometimes hangs?
             process.exitValue();
