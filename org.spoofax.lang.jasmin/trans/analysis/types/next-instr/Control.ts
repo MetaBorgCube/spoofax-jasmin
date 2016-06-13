@@ -1,7 +1,7 @@
 module types/next-instr/Control
 
 imports
-  include/JasminXT
+  signatures/-
   analysis/types/constraints
 
 type rules

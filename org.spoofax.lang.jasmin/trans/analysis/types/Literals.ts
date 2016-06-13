@@ -1,6 +1,6 @@
 module types/Literals
 
-imports include/JasminXT
+imports signatures/-
 
 type rules
 	Int(i) : Int()

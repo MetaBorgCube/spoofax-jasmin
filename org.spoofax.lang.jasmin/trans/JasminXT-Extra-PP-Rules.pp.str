@@ -1,8 +1,8 @@
 module JasminXT-Extra-PP-Rules.pp
 
 imports
-  include/JasminXT    // jasmin AST nodes
-  lib/runtime/tmpl/pp // pp-* strategies
+  signatures/-    // jasmin AST nodes
+  runtime/tmpl/pp // pp-* strategies
   libstratego-gpp     // box language AST nodes
   src-gen/pp/JasminXT-Descriptors-pp
   src-gen/pp/JasminXT-Names-pp

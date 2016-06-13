@@ -1,8 +1,8 @@
 module analysis/types/collect-constraints
 
 imports
-  include/JasminXT
-  analysis/names/properties
+  signatures/-
+  names/analysis/names/properties
   analysis/types/constraints
   runtime/nabl/-
   runtime/task/-

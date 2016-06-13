@@ -1,9 +1,9 @@
 module analysis/names/check
 
 imports
-  include/JasminXT
+  signatures/-
   analysis/types/constraints
-  analysis/names/binding
+  names/analysis/names/binding
   runtime/nabl/-
   runtime/task/-
   runtime/types/-

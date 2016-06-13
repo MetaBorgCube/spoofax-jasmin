@@ -1,7 +1,7 @@
 module editor/builders
 
 imports
-	lib/editor-common.generated
+	stratego/metaborg
 	analysis/names/project	
 	syntax/ASM
 	trans/translator/-

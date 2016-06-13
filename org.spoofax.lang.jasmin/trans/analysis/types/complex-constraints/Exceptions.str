@@ -1,8 +1,8 @@
 module analysis/types/complex-constraints/Exceptions
 
 imports
-  include/JasminXT
-  analysis/names/properties
+  signatures/-
+  names/analysis/names/properties
   analysis/types/constraints
 
 rules

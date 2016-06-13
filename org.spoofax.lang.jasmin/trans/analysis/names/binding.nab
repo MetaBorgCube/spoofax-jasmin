@@ -2,7 +2,7 @@ module analysis/names/binding
 
 imports
 
-	include/JasminXT
+	signatures/-
 	
 namespaces
 

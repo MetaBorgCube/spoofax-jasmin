@@ -1,8 +1,0 @@
-module JasminXT-Completions
-
-imports src-gen/completions/JasminXT-esv
-
-completions
-
-  completion proposer : editor-complete
-  

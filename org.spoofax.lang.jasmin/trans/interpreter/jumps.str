@@ -2,7 +2,7 @@ module interpreter/jumps
 
 imports 
 	
-	include/JasminXT
+	signatures/-
 	interpreter/state
 	
 rules

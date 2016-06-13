@@ -1,7 +1,7 @@
 module analysis/name/project
 
 imports
-	include/JasminXT
+	signatures/-
 	
 rules
 	

@@ -1,15 +1,8 @@
 /.cache
 /bin
+/src-gen
+/target
 
-/include
-/lib/runtime
-/lib-refactoring
-
-/editor/*.generated.*
-
-/syntax/*.sdf
-/syntax/*/*.sdf
-
-/target/
-/utils/
-/.cache/
+/.classpath
+/.project
+/.settings

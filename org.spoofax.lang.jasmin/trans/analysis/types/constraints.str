@@ -1,4 +1,4 @@
-module trans/analysis/types/constraints
+module analysis/types/constraints
 	
 signature
   constructors

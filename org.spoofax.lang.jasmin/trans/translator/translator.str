@@ -1,7 +1,7 @@
 module translator
 
 imports
-	include/JasminXT
+	signatures/-
 	syntax/ASM
 	trans/translator/directives
 	trans/translator/flags

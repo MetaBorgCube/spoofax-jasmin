@@ -1,7 +1,7 @@
 module types/pop-types/Instructions
 
 imports
-	include/JasminXT
+	signatures/-
 	analysis/types/constraints
 
 type rules

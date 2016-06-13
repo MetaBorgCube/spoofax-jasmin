@@ -30,7 +30,7 @@ signature
 		MultiANewArrayInsn	:	String * Int -> OpInstruction
 
 imports
-	include/JasminXT
+	signatures/-
 	syntax/ASM
 	trans/translator/translator
 	

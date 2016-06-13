@@ -1,8 +1,8 @@
 module types/store-properties
 
 imports
-  include/JasminXT
-  analysis/names/properties
+  signatures/-
+  names/analysis/names/properties
   runtime/nabl/-
   runtime/task/-
   runtime/types/-

@@ -1,0 +1,24 @@
+module Main
+
+imports
+
+  Syntax
+  Analysis
+  Menus
+
+language
+                  
+  description   : "Spoofax editor for the JasminXT assembler"
+  url           : https://github.com/metaborg/spoofax-JasminXT
+                  
+  extensions    : j
+
+  provider : lib/asm-5.0.1.jar
+  provider : lib/asm-analysis-5.0.1.jar
+  provider : lib/asm-commons-5.0.1.jar
+  provider : lib/asm-tree-5.0.1.jar
+  provider : lib/asm-util-5.0.1.jar
+  provider : lib/asm-xml-5.0.1.jar
+  provider : target/metaborg/stratego.ctree
+  provider : target/metaborg/stratego-javastrat.jar
+  

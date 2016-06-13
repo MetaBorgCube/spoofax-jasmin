@@ -1,0 +1,10 @@
+module Analysis
+
+language
+
+  observer : editor-analyze (multifile)
+  context  : taskengine
+  
+references
+
+  reference _ : editor-resolve

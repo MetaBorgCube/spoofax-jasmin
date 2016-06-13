@@ -1,7 +1,7 @@
 module types/push-types/Exceptions
 
 imports
-  include/JasminXT
+  signatures/-
   analysis/types/constraints
 
 // type rules

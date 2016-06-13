@@ -1,6 +1,6 @@
 module interpreter/state
 
-imports include/JasminXT
+imports signatures/-
 
 signature constructors
 	

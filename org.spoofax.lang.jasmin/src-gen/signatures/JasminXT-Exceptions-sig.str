@@ -1,5 +1,0 @@
-module src-gen/signatures/JasminXT-Exceptions-sig
-
-signature
-  constructors
-    ATHROW : Instruction

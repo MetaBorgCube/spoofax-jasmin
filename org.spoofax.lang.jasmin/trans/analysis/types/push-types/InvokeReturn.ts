@@ -1,7 +1,7 @@
 module types/push-types/InvokeReturn
 
 imports
-  include/JasminXT
+  signatures/-
   analysis/types/constraints
 
 type rules

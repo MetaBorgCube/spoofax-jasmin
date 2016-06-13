@@ -1,7 +1,7 @@
 module types/push-types/Arithmetic
 
 imports
-  include/JasminXT
+  signatures/-
   analysis/types/constraints
 
 type rules

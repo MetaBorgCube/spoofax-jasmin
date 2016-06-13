@@ -1,7 +1,7 @@
 module types/pop-types/Conversion
 
 imports
-	include/JasminXT
+	signatures/-
 	analysis/types/constraints
 
 type rules

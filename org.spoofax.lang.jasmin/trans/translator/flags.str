@@ -1,7 +1,7 @@
 module translator/flags
 
 imports
-	include/JasminXT
+	signatures/-
 
 rules	
 	bitwise-or:

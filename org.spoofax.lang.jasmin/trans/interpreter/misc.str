@@ -2,7 +2,7 @@ module interpreter/misc
 
 imports
 	
-	include/JasminXT
+	signatures/-
 	interpreter/state
 	
 rules

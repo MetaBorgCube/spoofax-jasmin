@@ -1,7 +1,7 @@
 module analysis/types/solve-constraints
 
 imports
-	include/JasminXT
+	signatures/-
 	runtime/nabl/-
 	runtime/task/-
   	runtime/types/-

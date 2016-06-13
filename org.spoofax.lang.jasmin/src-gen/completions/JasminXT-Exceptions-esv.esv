@@ -1,5 +1,0 @@
-module src-gen/completions/JasminXT-Exceptions-esv
-
-completions
-  completion template Instruction : "athrow" =
-    "athrow"  
