@@ -40,7 +40,7 @@ rules
 			filename := <guarantee-extension(|"result.txt")> path
 		with
 			cname := <class-name ; string-replace(|"/",".")> ast ;
-			cpath := <concat-strings> [project-path, "/", <dirname> path] ;
+			cpath := <concat-strings; prim("local_path")> [project-path, "/", <dirname> path] ;
 			<execute-java(|cpath) ; process-output> cname => result
 	
 	generate-and-execute-class:
