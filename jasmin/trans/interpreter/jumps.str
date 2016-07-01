@@ -1,0 +1,133 @@
+module interpreter/jumps
+
+imports 
+	
+	signatures/-
+	interpreter/state
+	
+rules
+	
+	step(|state): JBCLabel(_) -> <next> state
+			
+	step(|state): GOTO(LabelRef(l)) -> <goto(|l)> state
+	
+rules // comparison with 0
+	
+	step(|state): IFEQ(LabelRef(l)) -> state'
+		where
+			<top> state => Int(v) ;
+			<eq> (v, "0") 
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+			
+	step(|state): IFNE(LabelRef(l)) -> state'
+		where
+			<top> state => Int(v) ;
+			<not(eq)> (v, "0")
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+
+	step(|state): IFGE(LabelRef(l)) -> state'
+		where
+			<top> state => Int(v) ;
+			<geqS> (v, "0") 
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+			
+	step(|state): IFGT(LabelRef(l)) -> state'
+		where
+			<top> state => Int(v) ;
+			<gtS> (v, "0")
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+	
+	step(|state): IFLE(LabelRef(l)) -> state'
+		where
+			<top> state => Int(v) ;
+			<leqS> (v, "0") 
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+			
+	step(|state): IFLT(LabelRef(l)) -> state'
+		where
+			<top> state => Int(v) ;
+			<ltS> (v, "0")
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+
+rules // comparison with null
+	
+	step(|state): IFNULL(LabelRef(l)) -> state'
+		where
+			<top> state => Ref(r) ;
+			<eq> (r, NULL()) 
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+			
+	step(|state): IFNONNULL(LabelRef(l)) -> state'
+		where
+			<top> state => Int(r) ;
+			<not(eq)> (r, NULL())
+				< <pop ; goto(|l)> state => state' 
+				+ <pop ; next> state => state'
+	
+rules // integer comparison
+	
+	step(|state): IF_ICMPEQ(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Int(v1), Int(v2)) ;
+			<eq> (v2, v1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+			
+	step(|state): IF_ICMPNE(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Int(v1), Int(v2)) ;
+			<not(eq)> (v2, v1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+			
+	step(|state): IF_ICMPGE(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Int(v1), Int(v2)) ;
+			<geqS> (v2, v1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+			
+	step(|state): IF_ICMPGT(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Int(v1), Int(v2)) ;
+			<gtS> (v2, v1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+	
+	step(|state): IF_ICMPLE(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Int(v1), Int(v2)) ;
+			<leqS> (v2, v1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+			
+	step(|state): IF_ICMPLT(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Int(v1), Int(v2)) ;
+			<ltS> (v2, v1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+	
+rules // reference comparison
+	
+	step(|state): IF_ACMPEQ(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Ref(r1), Ref(r2)) ;
+			<eq> (r2, r1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+			
+	step(|state): IF_ACMPNE(LabelRef(l)) -> state'
+		where
+			<top(|2)> state => (Ref(r1), Ref(r2)) ;
+			<not(eq)> (r2, r1) 
+				< <pop(|2) ; goto(|l)> state => state' 
+				+ <pop(|2) ; next> state => state'
+			

@@ -1,0 +1,105 @@
+module JasminXT-LoadStore-Test
+
+language JasminXT
+start symbol Instruction
+
+// basics
+test bipush [[bipush 0]] parse succeeds
+test sipush [[sipush 0]] parse succeeds
+
+test iconst_m1 [[iconst_m1]] parse succeeds
+test iconst_0  [[iconst_0]] parse succeeds
+test iconst_1  [[iconst_1]] parse succeeds
+test iconst_2  [[iconst_2]] parse succeeds
+test iconst_3  [[iconst_3]] parse succeeds
+test iconst_4  [[iconst_4]] parse succeeds
+test iconst_5  [[iconst_5]] parse succeeds
+  
+test lconst_0 [[lconst_0]] parse succeeds
+test lconst_1 [[lconst_1]] parse succeeds
+  
+test fconst_0 [[fconst_0]] parse succeeds
+test fconst_1 [[fconst_1]] parse succeeds
+test fconst_2 [[fconst_2]] parse succeeds
+  
+test dconst_0 [[dconst_0]] parse succeeds
+test dconst_1 [[dconst_1]] parse succeeds
+  
+test aconst_null [[aconst_null]] parse succeeds
+  
+test ldc    [[ldc    0]] parse succeeds
+test ldc2_w [[ldc2_w 0]] parse succeeds
+      
+test iload [[iload 0]] parse succeeds
+test lload [[lload 0]] parse succeeds
+test fload [[fload 0]] parse succeeds
+test dload [[dload 0]] parse succeeds
+test aload [[aload 0]] parse succeeds
+  
+test iload_0 [[iload_0]] parse succeeds
+test iload_1 [[iload_1]] parse succeeds
+test iload_2 [[iload_2]] parse succeeds
+test iload_3 [[iload_3]] parse succeeds
+    
+test aload_0 [[aload_0]] parse succeeds
+test aload_1 [[aload_1]] parse succeeds
+test aload_2 [[aload_2]] parse succeeds
+test aload_3 [[aload_3]] parse succeeds
+    
+test lload_0 [[lload_0]] parse succeeds
+test lload_1 [[lload_1]] parse succeeds
+test lload_2 [[lload_2]] parse succeeds
+test lload_3 [[lload_3]] parse succeeds
+    
+test dload_0 [[dload_0]] parse succeeds
+test dload_1 [[dload_1]] parse succeeds
+test dload_2 [[dload_2]] parse succeeds
+test dload_3 [[dload_3]] parse succeeds
+    
+test fload_0 [[fload_0]] parse succeeds
+test fload_1 [[fload_1]] parse succeeds
+test fload_2 [[fload_2]] parse succeeds
+test fload_3 [[fload_3]] parse succeeds
+    
+test istore [[istore 0]] parse succeeds
+test lstore [[lstore 0]] parse succeeds
+test fstore [[fstore 0]] parse succeeds
+test dstore [[dstore 0]] parse succeeds
+test astore [[astore 0]] parse succeeds
+  
+test istore_0 [[istore_0]] parse succeeds
+test istore_1 [[istore_1]] parse succeeds
+test istore_2 [[istore_2]] parse succeeds
+test istore_3 [[istore_3]] parse succeeds
+    
+test astore_0 [[astore_0]] parse succeeds
+test astore_1 [[astore_1]] parse succeeds
+test astore_2 [[astore_2]] parse succeeds
+test astore_3 [[astore_3]] parse succeeds
+    
+test lstore_0 [[lstore_0]] parse succeeds
+test lstore_1 [[lstore_1]] parse succeeds
+test lstore_2 [[lstore_2]] parse succeeds
+test lstore_3 [[lstore_3]] parse succeeds
+    
+test fstore_0 [[fstore_0]] parse succeeds
+test fstore_1 [[fstore_1]] parse succeeds
+test fstore_2 [[fstore_2]] parse succeeds
+test fstore_3 [[fstore_3]] parse succeeds
+    
+test dstore_0 [[dstore_0]] parse succeeds
+test dstore_1 [[dstore_1]] parse succeeds
+test dstore_2 [[dstore_2]] parse succeeds
+test dstore_3 [[dstore_3]] parse succeeds
+
+// follow restrictions
+test iload argument without space separation  [[iload0]]  parse fails
+test lload argument without space separation  [[lload0]]  parse fails
+test fload argument without space separation  [[fload0]]  parse fails
+test dload argument without space separation  [[dload0]]  parse fails
+test aload argument without space separation  [[aload0]]  parse fails
+test istore argument without space separation [[istore0]] parse fails
+test lstore argument without space separation [[lstore0]] parse fails
+test fstore argument without space separation [[fstore0]] parse fails
+test dstore argument without space separation [[dstore0]] parse fails
+test astore argument without space separation [[astore0]] parse fails

@@ -1,0 +1,10 @@
+module JasminXT-Arithmetic-Amount-Test
+
+language JasminXT
+start symbol Amount
+
+test single digit [[2]] parse succeeds
+test two digits [[24]] parse succeeds
+test negative number [[-12]] parse succeeds
+
+test explicit + at start [[+12]] parse fails

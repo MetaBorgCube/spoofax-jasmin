@@ -1,0 +1,21 @@
+module interpreter/misc
+
+imports
+	
+	signatures/-
+	interpreter/state
+	
+rules
+
+	step(|state): NOP() -> <next> state
+		
+	step(|state): DUP() -> <push(|top) ; next> state
+		where
+			<top> state => top
+	
+	step(|state): SWAP() -> <pop(|2) ; push(|v1) ; push(|v2) ; next> state
+		where
+			<top(|2)> state => [v1, v2]
+			
+	step(|state): POP() -> <pop ; next> state
+	

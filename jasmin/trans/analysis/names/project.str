@@ -1,0 +1,9 @@
+module analysis/name/project
+
+imports
+	signatures/-
+	
+rules
+	
+	class-name: JBCFile(JBCHeader(_, _, JBCClass(_, name), _, _, _, _, _, _, _), _, _) -> name
+	

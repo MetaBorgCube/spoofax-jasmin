@@ -1,0 +1,11 @@
+module outliner
+
+imports
+
+  signatures/-
+  runtime/editor/-
+
+rules
+  
+  outline-expand-to-level = !3
+  

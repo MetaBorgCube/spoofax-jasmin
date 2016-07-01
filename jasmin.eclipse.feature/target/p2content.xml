@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='2'>
+  <unit id='jasmin.eclipse.feature.feature.group' version='1.0.0.qualifier' singleton='false'>
+    <update id='jasmin.eclipse.feature.feature.group' range='[0.0.0,1.0.0.qualifier)' severity='0'/>
+    <properties size='7'>
+      <property name='org.eclipse.equinox.p2.name' value='JasminXT'/>
+      <property name='org.eclipse.equinox.p2.description' value='Eclipse editor for JasminXT, an assembler for the Java Virtual Machine.'/>
+      <property name='org.eclipse.equinox.p2.description.url' value='https://github.com/MetaBorgCube/spoofax-jasmin/'/>
+      <property name='org.eclipse.equinox.p2.type.group' value='true'/>
+      <property name='maven-groupId' value='org.metaborg'/>
+      <property name='maven-artifactId' value='jasmin.eclipse.feature'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+    <provides size='1'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='jasmin.eclipse.feature.feature.group' version='1.0.0.qualifier'/>
+    </provides>
+    <requires size='4'>
+      <required namespace='org.eclipse.equinox.p2.iu' name='org.metaborg.spoofax.eclipse.feature.feature.group' range='[2.0.0.20160701-074619-master,2.0.0.20160701-074619-master]' optional='true'/>
+      <required namespace='org.eclipse.equinox.p2.iu' name='org.metaborg.spoofax.eclipse.meta.feature.feature.group' range='[2.0.0.20160701-074619-master,2.0.0.20160701-074619-master]' optional='true'/>
+      <required namespace='org.eclipse.equinox.p2.iu' name='jasmin.eclipse' range='[1.0.0.qualifier,1.0.0.qualifier]'/>
+      <required namespace='org.eclipse.equinox.p2.iu' name='jasmin.eclipse.feature.feature.jar' range='[1.0.0.qualifier,1.0.0.qualifier]'>
+        <filter>
+          (org.eclipse.update.install.features=true)
+        </filter>
+      </required>
+    </requires>
+    <touchpoint id='null' version='0.0.0'/>
+    <licenses size='1'>
+      <license uri='' url=''>
+        JasminXT license information&#xA;      &#xA;This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the full license texts for more details. JasminXT&amp;apos;s code is licensed under the GNU Lesser General Public License (LGPL).
+      </license>
+    </licenses>
+  </unit>
+  <unit id='jasmin.eclipse.feature.feature.jar' version='1.0.0.qualifier'>
+    <properties size='6'>
+      <property name='org.eclipse.equinox.p2.name' value='JasminXT'/>
+      <property name='org.eclipse.equinox.p2.description' value='Eclipse editor for JasminXT, an assembler for the Java Virtual Machine.'/>
+      <property name='org.eclipse.equinox.p2.description.url' value='https://github.com/MetaBorgCube/spoofax-jasmin/'/>
+      <property name='maven-groupId' value='org.metaborg'/>
+      <property name='maven-artifactId' value='jasmin.eclipse.feature'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+    <provides size='3'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='jasmin.eclipse.feature.feature.jar' version='1.0.0.qualifier'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='feature' version='1.0.0'/>
+      <provided namespace='org.eclipse.update.feature' name='jasmin.eclipse.feature' version='1.0.0.qualifier'/>
+    </provides>
+    <filter>
+      (org.eclipse.update.install.features=true)
+    </filter>
+    <artifacts size='1'>
+      <artifact classifier='org.eclipse.update.feature' id='jasmin.eclipse.feature' version='1.0.0.qualifier'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='zipped'>
+          true
+        </instruction>
+      </instructions>
+    </touchpointData>
+    <licenses size='1'>
+      <license uri='' url=''>
+        JasminXT license information&#xA;      &#xA;This software is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the full license texts for more details. JasminXT&amp;apos;s code is licensed under the GNU Lesser General Public License (LGPL).
+      </license>
+    </licenses>
+  </unit>
+</units>

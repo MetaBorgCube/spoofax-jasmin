@@ -1,0 +1,14 @@
+module constants
+
+imports
+	
+	signatures/-
+	interpreter/state
+	
+rules
+			
+	step(|state): ICONST_0() -> <push(|Int("0")) ; next> state
+	step(|state): ICONST_1() -> <push(|Int("1")) ; next> state
+	step(|state): LDC(i) -> <push(|Int(i)) ; next> state
+	
+

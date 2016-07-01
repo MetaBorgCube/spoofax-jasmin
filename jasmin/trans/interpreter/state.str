@@ -1,0 +1,61 @@
+module interpreter/state
+
+imports signatures/-
+
+signature constructors
+	
+	JBCState	: List(Frame) * Heap -> State	
+	
+	JBCFrame	: MethodRef * List(Instruction) * PC * Stack * Locals -> Frame
+				: Int -> PC
+	
+	JBCStack	: List(Value) -> Stack
+	Int			: String -> Value
+	Ref			: RefValue -> Value
+	NULL		: RefValue
+				: String -> RefValue
+				
+	JBCLocals	: List(Value) -> Locals
+				
+	JBCHeap		: List(HeapEntry) -> Heap
+				: String * HeapElement -> HeapEntry
+				
+	Array		: ComponentType * List(Value) -> HeapElement
+	Object		: ClassName * List(Slot) -> HeapElement
+				: FieldName * Value -> Slot
+							
+strategies // manipulate PC in top-most frame
+	
+	next = JBCState([JBCFrame(id, id, inc, id, id)|id], id)
+	
+	goto(|l) = JBCState([JBCFrame(id, ?is, <getfirst(?(<id>,l))> is, id, id)|id], id)
+	
+strategies // manipulate stack in top-most frame 
+		
+	push(|v) = JBCState([JBCFrame(id, id, id, JBCStack(![v|<id>]), id)|id], id)
+
+	pop(|n) = JBCState([JBCFrame(id, id, id, JBCStack(drop(|n)), id)|id], id)
+
+	pop = pop(|1)
+	
+	top(|n) = ?JBCState([JBCFrame(_, _, _, JBCStack(<take(|n)>), _)|_], _)
+	
+	top = top(|1)
+
+strategies // manipulate local variables in top-most frame
+		
+	load(|n) = ?JBCState([JBCFrame(_, _, _, _, JBCLocals(<at-index(id|<string-to-int> n)>))|_], _) 
+	store(|n, v) = JBCState([JBCFrame(id, id, id, JBCStack(at-index(!v|<string-to-int> n)), id)|id], id)
+	
+strategies // manipulate heap
+	
+	resolve(|r) = ?JBCState(_, JBCHeap(<id>)) ; <lookup> (r, <id>)
+	alloc(|v) = where(<newname> "ref" => r) ; JBCState([JBCFrame(id, id, id, JBCStack(![Ref(r)|<id>]), id)|id], JBCHeap(![(r,v)|<id>]))
+	update(|r, v) = JBCState(id, JBCHeap(update-key-value(|r, v)))
+	
+	update-key-value(|r, v) = fetch(?(r, _) ; !(r, v))
+	
+strategies // manipulate frames
+	
+	drop-frame = not(top) ; JBCState(Tl, id)
+	

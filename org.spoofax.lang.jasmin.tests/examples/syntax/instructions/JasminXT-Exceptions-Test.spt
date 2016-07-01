@@ -1,6 +1,0 @@
-module JasminXT-Exceptions-Test
-
-language JasminXT
-start symbol Instruction
-
-test athrow [[athrow]] parse succeeds

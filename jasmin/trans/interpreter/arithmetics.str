@@ -1,0 +1,24 @@
+module arithmetics
+
+imports
+	
+	signatures/-
+	interpreter/state
+	
+rules
+			
+	step(|state): IADD() -> <pop(|2) ; push(|r) ; next> state
+		where
+			<top(|2)> state => [Int(v1), Int(v2)] ;
+			<addS> (v2, v1) => r 
+
+	step(|state): ISUB() -> <pop(|2) ; push(|r) ; next> state
+		where
+			<top(|2)> state => [Int(v1), Int(v2)] ;
+			<subtS> (v2, v1) => r 
+		
+	step(|state): IMUL() -> <pop(|2) ; push(|r) ; next> state
+		where
+			<top(|2)> state => [Int(v1), Int(v2)] ;
+			<mulS> (v2, v1) => r 
+

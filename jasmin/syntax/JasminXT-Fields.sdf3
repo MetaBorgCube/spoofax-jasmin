@@ -1,0 +1,54 @@
+module JasminXT-Fields
+
+imports
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+  JasminXT-Descriptors
+  JasminXT-Annotations
+
+context-free start-symbols
+  Field
+	
+context-free syntax
+  Field.JBCField    = [.field [{FieldAccess " "}*] [FieldName] [FieldDescriptor] [FieldSignatureSpec] [InitialValue]]
+  Field.JBCExtField = [.field [{FieldAccess " "}*] [FieldName] [FieldDescriptor] [FieldSignatureSpec] [InitialValue]
+	[{FieldAttribute "\n\t"}*]
+.end field]
+  
+  FieldAttribute.JBCSignature  = [.signature [String]] 
+  FieldAttribute.JBCDeprecated = [.deprecated]
+  FieldAttribute.JBCAttribute  = [.attribute [AttributeName] [FileName]]
+  FieldAttribute.JBCAnnotation = Annotation
+
+  FieldSignatureSpec.FieldSig = [signature [String]]
+  FieldSignatureSpec.None     = []
+
+  InitialValue.InitVal = [= [Constant]]
+  InitialValue.None    = []
+
+  FieldAccess.PUBLIC    = [public]
+  FieldAccess.PRIVATE   = [private]
+  FieldAccess.PROTECTED = [protected]
+  FieldAccess.STATIC    = [static]
+  FieldAccess.FINAL     = [final]
+  FieldAccess.VOLATILE  = [volatile]
+  FieldAccess.TRANSIENT = [transient]
+  FieldAccess.FPSTRICT  = [fpstrict]
+  FieldAccess.SYNTHETIC = [synthetic]
+
+// Keep newlines out of one-line instructions
+lexical restrictions
+  ".field" 
+  ".end"
+  ".signature" 
+  ".deprecated"
+  "signature"
+  "="
+  "public" 	
+  "private" 	
+  "protected" 
+  "static" 	
+  "final"		
+  "volatile"	
+  "transient"		-/- ~[\ \t]

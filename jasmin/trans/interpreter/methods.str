@@ -1,0 +1,18 @@
+module interpreter/methods
+
+imports 
+	
+	signatures/-
+	interpreter/state
+	
+rules
+	
+	step(|state): RETURN() -> <drop-frame ; next> state
+	
+	step(|state): IRETURN() -> <pop ; drop-frame ; push(|Int(v)) ; next> state
+		where
+			<top> state => Int(v)
+			
+	step(|state): ARETURN() -> <pop ; drop-frame ; push(|Ref(r)) ; next> state
+		where
+			<top> state => Ref(r)

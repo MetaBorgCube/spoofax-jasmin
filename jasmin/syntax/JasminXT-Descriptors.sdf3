@@ -1,0 +1,19 @@
+module JasminXT-Descriptors
+
+imports JasminXT-Types
+
+context-free start-symbols
+  FieldDescriptor
+  ReturnDescriptor
+  BaseType
+
+context-free syntax
+  FieldDescriptor.JBCFieldDesc = FieldType
+
+  ParameterDescriptor   = FieldType
+  AnnotationDescriptor  = FieldType // NB: This is a guess
+  ReturnDescriptor      = FieldType
+  ReturnDescriptor.Void = [V]
+  
+syntax // avoid whitespaces in method descriptors, reference types, array types	
+  MethodDescriptor-CF.JBCMethodDesc = "(" ParameterDescriptor-CF* ")" ReturnDescriptor-CF

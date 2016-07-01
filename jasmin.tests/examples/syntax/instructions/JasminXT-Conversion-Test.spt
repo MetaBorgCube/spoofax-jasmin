@@ -1,0 +1,22 @@
+module JasminXT-Conversion-Test
+
+language JasminXT
+start symbol Target
+
+test i2l [[i2l]] parse succeeds
+test i2f [[i2f]] parse succeeds
+test i2d [[i2d]] parse succeeds
+test l2f [[l2f]] parse succeeds
+test l2d [[l2d]] parse succeeds
+test f2d [[f2d]] parse succeeds
+           
+test int2byte  [[int2byte]]  parse succeeds
+test int2short [[int2short]] parse succeeds
+test int2char  [[int2char]]  parse succeeds
+           
+test l2i [[l2i]] parse succeeds
+test f2i [[f2i]] parse succeeds
+test f2l [[f2l]] parse succeeds
+test d2i [[d2i]] parse succeeds
+test d2l [[d2l]] parse succeeds
+test d2f [[d2f]] parse succeeds

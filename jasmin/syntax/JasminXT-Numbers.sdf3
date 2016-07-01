@@ -1,0 +1,20 @@
+module JasminXT-Numbers
+
+context-free start-symbols
+  Int
+
+lexical syntax
+  Double = Int "." Int "d"
+  Float = Int "." Int
+  Int = [0-9]+
+
+lexical syntax
+  NegInt = "-" Int // Used in Amount (JasminXT-Arithmetic), don't expose in Constant!
+
+lexical restrictions
+  Int -/- [0-9]
+
+context-free syntax
+  Constant.Double = Double
+  Constant.Float = Float
+  Constant.Int = Int

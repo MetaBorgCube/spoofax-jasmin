@@ -1,6 +1,0 @@
-module JasminXT-Descriptors-Return-Test
-
-language JasminXT
-start symbol ReturnDescriptor
-
-test void return descriptor [[V]] parse to Void()

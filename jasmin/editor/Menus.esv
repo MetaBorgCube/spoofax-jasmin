@@ -1,0 +1,14 @@
+module Menus
+
+menus
+  
+  menu: "Syntax"
+                                                                                                                            
+    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (source)  
+    action: "Show analysed syntax (for selection)" = debug-show-aterm (openeditor)
+  
+  menu: "JVM"
+    
+    action: "Generate ASM Aterm" 	                        = translate-class (source)  
+    action: "Generate class file on disk"    	            = generate-class (source)    
+    action: "Generate class file on disk and execute"    	= generate-and-execute-class (source) (openeditor)

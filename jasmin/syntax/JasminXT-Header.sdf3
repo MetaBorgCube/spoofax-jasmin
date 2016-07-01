@@ -1,0 +1,94 @@
+module JasminXT-Header
+
+imports
+  JasminXT-Names
+  JasminXT-Numbers
+  JasminXT-Strings
+  JasminXT-Descriptors
+
+context-free start-symbols
+  JasminHeader
+
+context-free syntax // header
+  JasminHeader.JBCHeader = [[BytecodeSpec]
+[SourceSpec]
+[ClassSpec]
+[SuperSpec]
+[{ImplementsSpec "\n"}*]
+[SignatureSpec]
+[EnclosingSpec]
+[{DebugSpec "\n"}*]
+[{InnerClassSpec "\n"}*]
+[{InnerInterfaceSpec "\n"}*]]
+
+context-free syntax
+  BytecodeSpec.JBCVersion = [.bytecode [MajorVersion] [MinorVersion]]
+  BytecodeSpec.None       = []
+
+  MajorVersion.Major = Int
+  MinorVersion.Minor = [.[Int]]
+  MinorVersion.None  = []
+
+  SourceSpec.JBCSource = [.source [String]]
+  SourceSpec.None      = []
+
+context-free syntax
+  ClassSpec.JBCClass     = [.class [{ClassAccess " "}*] [ClassName]]
+  ClassSpec.JBCInterface = [.interface [{ClassAccess " "}*] [ClassName]]
+
+  ClassAccess.PUBLIC    = [public]
+  ClassAccess.FINAL     = [final]
+  ClassAccess.INTERFACE = [interface]
+  ClassAccess.ABSTRACT  = [abstract]
+  ClassAccess.SUPER     = [super]
+
+  SuperSpec.JBCSuper = [.super [ClassName]]
+
+  ImplementsSpec.JBCImplements = [.implements [ClassName]]
+
+context-free syntax
+  SignatureSpec.JBCSignature = [.signature [String]]
+  SignatureSpec.None         = []
+
+  EnclosingSpec.JBCEnclosing = [.enclosing method [MethodDescriptor]]
+  EnclosingSpec.None         = []
+  
+  DebugSpec.JBCDebug = [.debug [String]]
+  
+context-free syntax
+  InnerClassSpec.JBCInnerClass = [.inner class [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
+  InnerInterfaceSpec.JBCInnerInterface = [.inner interface [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
+  
+  InnerClassAccess = ClassAccess
+  InnerClassAccess.None = []
+  
+  InnerClassName = ClassName
+  InnerClassName.None = []
+  
+  InnerName.InnerNameSpec = [inner [{ClassName "$"}+]]
+  InnerName.None = []
+  
+  OuterName.OuterNameSpec = [outer [ClassName]]
+  OuterName.None = []
+
+// Keep newlines out of one-line instructions
+lexical restrictions
+  ".bytecode"
+  ".source"
+  ".class"     
+  ".interface" 
+  "public" 
+  "final" 
+  "interface"
+  "abstract" 
+  "super" 	
+  ".super" 		
+  ".implements" 		
+  ".signature" 
+  ".enclosing" 
+  // "method" // because JasminXT-Methods.sdf3 uses 'method' at the end of a line
+  ".deprecated"
+  ".inner"
+  "class"
+  "inner"
+  "outer"		-/- ~[\ \t]

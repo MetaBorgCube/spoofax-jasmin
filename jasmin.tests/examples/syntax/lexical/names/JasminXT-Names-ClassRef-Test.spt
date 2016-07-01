@@ -1,0 +1,6 @@
+module JasminXT-Names-ClassName-Test
+
+language JasminXT
+start symbol ClassRef
+
+test class name as qualified name [[java/lang/String]] parse to CRef("java/lang/String")
