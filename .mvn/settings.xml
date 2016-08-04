@@ -3,7 +3,7 @@
   xmlns="http://maven.apache.org/SETTINGS/1.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"
->
+  >
   <profiles>
     <profile>
       <id>add-metaborg-release-repos</id>
@@ -45,17 +45,17 @@
             <enabled>true</enabled>
           </snapshots>
         </repository>
-		<repository>
-			<id>spoofax-eclipse-repo</id>
-			<url>http://download.spoofax.org/update/nightly/</url>
-			<layout>p2</layout>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
+        <repository>
+          <id>spoofax-eclipse-repo</id>
+          <url>http://download.spoofax.org/update/nightly/</url>
+          <layout>p2</layout>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
       </repositories>
       <pluginRepositories>
         <pluginRepository>

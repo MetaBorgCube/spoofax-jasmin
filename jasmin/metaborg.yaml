@@ -1,9 +1,9 @@
 ---
 id: org.metaborg:jasmin:1.0.0-SNAPSHOT
-name: JasminXT
-metaborgVersion: 2.0.0-SNAPSHOT
+name: jasmin
 dependencies:
   compile:
+  - org.metaborg:org.metaborg.meta.lang.stratego:${metaborgVersion}
   - org.metaborg:org.metaborg.meta.lang.esv:${metaborgVersion}
   - org.metaborg:org.metaborg.meta.lang.template:${metaborgVersion}
   - org.metaborg:org.metaborg.meta.lang.nabl:${metaborgVersion}
