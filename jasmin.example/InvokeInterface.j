@@ -1,7 +1,7 @@
 ; --- Copyright Jonathan Meyer 1996. All rights reserved. -----------------
-; File:      jasmin/examples/InvokeInterface.j
-; Author:    Jonathan Meyer, 10 July 1996
-; Purpose:   Example of using invokeinterface
+; File:   jasmin/examples/InvokeInterface.j
+; Author:  Jonathan Meyer, 10 July 1996
+; Purpose:  Example of using invokeinterface
 ; -------------------------------------------------------------------------
 ;
 ; Demonstrates invoking an interface method
@@ -12,9 +12,9 @@
 
 ; standard initializer
 .method public <init>()V
-   aload_0
-   invokenonvirtual java/lang/Object/<init>()V
-   return
+  aload_0
+  invokenonvirtual java/lang/Object/<init>()V
+  return
 .end method
 
 ;
@@ -24,22 +24,22 @@
 ;
 
 .method public example(Ljava/util/Enumeration;)V
-    .limit stack 1
-    .limit locals 3
+  .limit stack 1
+  .limit locals 3
 
-    ; push local variable 1 (the Enumeration object)
-    aload_1
+  ; push local variable 1 (the Enumeration object)
+  aload_1
 
-    ; now call the hasMoreElements() interface method.
-    invokeinterface java/util/Enumeration/hasMoreElements()Z 1
+  ; now call the hasMoreElements() interface method.
+  invokeinterface java/util/Enumeration/hasMoreElements()Z 1
 
-    ; store the integer result in local variable 2
-    istore_2
+  ; store the integer result in local variable 2
+  istore_2
 
-    ; done
-    return
+  ; done
+  return
 .end method
 
 .method public static main([Ljava/lang/String;)V
-    return
+  return
 .end method

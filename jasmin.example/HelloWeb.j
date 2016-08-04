@@ -29,63 +29,62 @@
 .class public HelloWeb
 .super java/applet/Applet
 
-.field private font Ljava/awt/Font; 
-
+.field private font Ljava/awt/Font;
 
 ; my init() method - allocate a font and assign it to this.font.
- 
+
 .method public init()V
-    .limit stack 5
+  .limit stack 5
 
-    ; Create a new Font and call its constructor with
-    ; "Helvetica", 1 (i.e. Font.BOLD), and 48.
+  ; Create a new Font and call its constructor with
+  ; "Helvetica", 1 (i.e. Font.BOLD), and 48.
 
-    new java/awt/Font
-    dup
-    ldc "Helvetica"
-    iconst_1
-    bipush 48
-    invokenonvirtual java/awt/Font/<init>(Ljava/lang/String;II)V
+  new java/awt/Font
+  dup
+  ldc "Helvetica"
+  iconst_1
+  bipush 48
+  invokenonvirtual java/awt/Font/<init>(Ljava/lang/String;II)V
 
-    ; now store the Font on the stack in this.font
-    aload_0
-    swap
-    putfield HelloWeb/font Ljava/awt/Font;
+  ; now store the Font on the stack in this.font
+  aload_0
+  swap
+  putfield HelloWeb/font Ljava/awt/Font;
 
-    ; done
-    return
+  ; done
+  return
 .end method
 
 ; my paint() method - draws the string "Hello World!" using this.font.
 
 .method public paint(Ljava/awt/Graphics;)V
-    .limit stack 4
-    .limit locals 2
+  .limit stack 4
+  .limit locals 2
 
-    ; local variable 0 holds <this>
-    ; local variable 1 holds the java.awt.Graphics instance ('g').
+  ; local variable 0 holds <this>
+  ; local variable 1 holds the java.awt.Graphics instance ('g').
 
-    ; g.setFont(this.font);
-    aload_1
-    aload_0
-    getfield HelloWeb/font Ljava/awt/Font;
-    invokevirtual java/awt/Graphics/setFont(Ljava/awt/Font;)V
+  ; g.setFont(this.font);
+  aload_1
+  aload_0
+  getfield HelloWeb/font Ljava/awt/Font;
+  invokevirtual java/awt/Graphics/setFont(Ljava/awt/Font;)V
 
-    ; g.drawString("Hello Web!", 25, 50);
-    aload_1
-    ldc "Hello Web!"
-    bipush 25
-    bipush 50
-    invokevirtual java/awt/Graphics/drawString(Ljava/lang/String;II)V
+  ; g.drawString("Hello Web!", 25, 50);
+  aload_1
+  ldc "Hello Web!"
+  bipush 25
+  bipush 50
+  invokevirtual java/awt/Graphics/drawString(Ljava/lang/String;II)V
 
-    ; done
-    return
+  ; done
+  return
 .end method
 
 
 ; standard constructor
 .method public <init>()V
-    aload_0
-    invokenonvirtual java/applet/Applet/<init>()V
-    return
+  aload_0
+  invokenonvirtual java/applet/Applet/<init>()V
+  return
 .end method

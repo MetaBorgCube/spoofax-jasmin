@@ -1,0 +1,8 @@
+module JasminXT-Names-VarRef-Test
+
+language JasminXT
+start symbol VarRef
+
+test int varnum [[5]] parse to VarNum("5")
+// This was in the old SDF2 grammar, but is not mentioned in the Jasmin documentation
+//test varname [[variable]] parse to VarRef("variable")

@@ -4,8 +4,6 @@
 ; Purpose:   Catching and throwing exceptions
 ; -------------------------------------------------------------------------
 
-
-
 ;
 ; Simple test for checkcast instruction
 ;
@@ -13,23 +11,22 @@
 .class examples/Checkcast
 .super java/lang/Object
 
-;
 ; standard initializer
 .method public <init>()V
-   aload_0
-   invokenonvirtual java/lang/Object/<init>()V
-   return
+ aload_0
+ invokenonvirtual java/lang/Object/<init>()V
+ return
 .end method
 
 .method public static main()V
-   .limit stack 2
+ .limit stack 2
 
-   ; push System.out onto the stack
-   getstatic java/lang/System/out Ljava/io/PrintStream;
+ ; push System.out onto the stack
+ getstatic java/lang/System/out Ljava/io/PrintStream;
 
-   ; check that it is a PrintStream
-   checkcast java/io/PrintStream
+ ; check that it is a PrintStream
+ checkcast java/io/PrintStream
 
-   ; done
-   return
+ ; done
+ return
 .end method

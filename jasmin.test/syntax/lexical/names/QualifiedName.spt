@@ -3,7 +3,6 @@ module JasminXT-Names-QualifiedName-Test
 language JasminXT
 start symbol QualifiedName
 
-test empty [[]] parse fails
 test single identifier [[test]] parse succeeds
 test single / [[/]] parse fails
 test id with / [[bla/]] parse fails

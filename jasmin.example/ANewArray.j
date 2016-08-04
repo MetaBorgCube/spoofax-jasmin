@@ -12,44 +12,44 @@
 .super java/lang/Object
 
 .method public <init>()V
-   aload_0
-   invokenonvirtual java/lang/Object/<init>()V
-   return
+ aload_0
+ invokenonvirtual java/lang/Object/<init>()V
+ return
 .end method
 
 .method public static main([Ljava/lang/String;)V
-   .limit stack 4
-   .limit locals 2
-   .var 1 is 'ret' [Ljava/lang/String; from start to end
-   
-    ;
-    ; Allocates an array like:
-    ;      String x[][] = new String[2][5]
-    ;
+ .limit stack 4
+ .limit locals 2
+ .var 1 is 'ret' [Ljava/lang/String; from start to end
 
-    ; Allocate spine for array and store it in local var 1
-    ; (i.e. String[2][])
+  ;
+  ; Allocates an array like:
+  ;      String x[][] = new String[2][5]
+  ;
 
-    start:
-    iconst_2
-    anewarray [Ljava/lang/String;
-    astore_1
+  ; Allocate spine for array and store it in local var 1
+  ; (i.e. String[2][])
 
-    ; allocate first array of String[5] and store it in index 0
-    aload_1
-    iconst_0
-    bipush 5
-    anewarray java/lang/String
-    aastore
+  start:
+  iconst_2
+  anewarray [Ljava/lang/String;
+  astore_1
 
-    ; allocate second array of String[5] and store it in index 1
-    aload_1
-    iconst_1
-    bipush 5
-    anewarray java/lang/String
-    aastore
+  ; allocate first array of String[5] and store it in index 0
+  aload_1
+  iconst_0
+  bipush 5
+  anewarray java/lang/String
+  aastore
 
-    ; done ...
-    end:
-    return
+  ; allocate second array of String[5] and store it in index 1
+  aload_1
+  iconst_1
+  bipush 5
+  anewarray java/lang/String
+  aastore
+
+  ; done ...
+  end:
+  return
 .end method

@@ -15,22 +15,22 @@
 ; specify the initializer method (as for HelloWorld)
 
 .method public <init>()V
-    ; just call Object's initializer
-    aload_0
-    invokenonvirtual java/lang/Object/<init>()V
-    return
+  ; just call Object's initializer
+  aload_0
+  invokenonvirtual java/lang/Object/<init>()V
+  return
 .end method
 
 ; specify the "main" method - this throws an uncaught exception
 
 .method public static main([Ljava/lang/String;)V
-    .limit stack 2
+  .limit stack 2
 
-    new java/lang/Exception
-    dup
-    invokenonvirtual java/lang/Exception/<init>()V
-    athrow
+  new java/lang/Exception
+  dup
+  invokenonvirtual java/lang/Exception/<init>()V
+  athrow
 
-    ; without this the verifier might complain ...
-    return
+  ; without this the verifier might complain ...
+  return
 .end method
