@@ -18,17 +18,9 @@
     <update label="Jasmin editor" url="http://download.spoofax.org/update/jasmin"/>
   </url>
 
-  <includes
-    id="org.metaborg.spoofax.eclipse.feature"
-    version="0.0.0"
-    optional="false"
-    search-location="both"
-  />
+  <plugin id="jasmin.eclipse" version="0.0.0" unpack="true"/>
 
-  <plugin
-    id="jasmin.eclipse"
-    download-size="0"
-    install-size="0"
-    version="0.0.0"
-  />
+  <requires>
+    <import feature="org.metaborg.spoofax.eclipse.feature"/>
+  </requires>
 </feature>

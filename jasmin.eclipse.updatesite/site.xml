@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
    <feature url="features/jasmin.eclipse.feature_1.0.0.qualifier.jar" id="jasmin.eclipse.feature" version="1.0.0.qualifier">
-      <category name="Jasmin"/>
+      <category name="jasmin"/>
    </feature>
-   <category-def name="Jasmin" label="Jasmin">
+   <category-def name="jasmin" label="Jasmin">
       <description>
          Spoofax editor for Jasmin, an assembler for the Java Virtual Machine.
       </description>
