@@ -2,14 +2,11 @@ package jasmin.strategies;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.IOUtils;
 import org.spoofax.interpreter.terms.IStrategoString;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
@@ -41,27 +38,29 @@ public class execute_java_0_1 extends Strategy {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ByteArrayOutputStream err = new ByteArrayOutputStream();
 
-            // For some reason, without this call waitFor sometimes hangs?
-            process.exitValue();
+        System.setOut(new PrintStream(out));
+        System.setErr(new PrintStream(err));
 
-            String out = IOUtils.toString(process.getInputStream());
-            String err = IOUtils.toString(process.getErrorStream());
+        try {
+            // load class
+            File file = new File(((IStrategoString) path).stringValue());
+            URLClassLoader loader = new URLClassLoader(new URL[] { file.toURI().toURL() });
+            Class<?> cls = loader.loadClass(((IStrategoString) current).stringValue());
 
-            return factory.makeAppl(
-                factory.makeConstructor("Output", 2),
-                factory.makeString(out),
-                factory.makeString(err)
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            // invoke main method
+            Method method = cls.getDeclaredMethod("main", new Class[] { String[].class });
+            method.invoke(null, (Object) new String[0]);
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
-        return factory.makeAppl(
-            factory.makeConstructor("Output", 2),
-            factory.makeString("An error occurred while executing java"),
-            factory.makeString("An error occurred while executing java")
-        );
+        // reset system streams
+        System.setErr(origErr);
+        System.setOut(origOut);
+
+        // return output collected in both temporary streams
+        ITermFactory factory = context.getFactory();
+        return factory.makeAppl(factory.makeConstructor("Output", 2), factory.makeString(out.toString()),
+            factory.makeString(err.toString()));
     }
 }
