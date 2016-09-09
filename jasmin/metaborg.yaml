@@ -8,6 +8,7 @@ dependencies:
   - org.metaborg:org.metaborg.meta.lang.nabl:${metaborgVersion}
   - org.metaborg:org.metaborg.meta.lang.ts:${metaborgVersion}
   source:
+  - org.metaborg:meta.lib.spoofax:${metaborgVersion}
   - org.metaborg:org.metaborg.meta.lib.analysis:${metaborgVersion}
   java:
   - org.ow2.asm:asm:5.0.1
