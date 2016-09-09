@@ -1,0 +1,8 @@
+---
+id: org.metaborg:jasmin.example:1.0.0-SNAPSHOT
+name: jasmin
+dependencies:
+  compile:
+  - org.metaborg:jasmin:1.0.0-SNAPSHOT
+build:
+  useBuildSystemSpec: true
