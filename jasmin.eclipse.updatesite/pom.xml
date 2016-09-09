@@ -28,7 +28,7 @@
     </repository>
     <repository>
       <id>metaborg-snapshot-repo</id>
-      <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+      <url>http://artifacts.metaborg.org/content/repositories/in4303/</url>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -62,7 +62,7 @@
     </pluginRepository>
     <pluginRepository>
       <id>metaborg-snapshot-repo</id>
-      <url>http://artifacts.metaborg.org/content/repositories/snapshots/</url>
+      <url>http://artifacts.metaborg.org/content/repositories/in4303/</url>
       <releases>
         <enabled>false</enabled>
       </releases>
