@@ -25,8 +25,8 @@ rules
                                   ]
                                 )
                               ]
-    where pd' := <pp-H-list(prettyprint-ParameterDescriptor|" ")> pd*
-        ; rd' := <pp-one-Z(prettyprint-ReturnDescriptor)> rd
+    where pd' := <pp-H-list(prettyprint-jasmin-ParameterDescriptor|" ")> pd*
+        ; rd' := <pp-one-Z(prettyprint-jasmin-ReturnDescriptor)> rd
 // "L" <ClassRef-CF> ";" -> <ObjectType-CF> {"Reference"}
   prettyprint-ObjectType:
     Reference(cr) -> [ H(
@@ -37,7 +37,7 @@ rules
                          ]
                        )
                      ]
-    where cr' := <pp-one-Z(prettyprint-ClassRef)> cr
+    where cr' := <pp-one-Z(prettyprint-jasmin-ClassRef)> cr
 // "[" <ComponentType-CF> -> <ArrayType-CF>  {"Array"}
   prettyprint-ArrayType:
     Array(ct) -> [ H(
@@ -47,7 +47,7 @@ rules
                      ]
                    )
                  ]
-    where ct' := <pp-one-Z(prettyprint-ComponentType)> ct
+    where ct' := <pp-one-Z(prettyprint-jasmin-ComponentType)> ct
 // <ClassRef-CF> "/" <FRef-CF> <LAYOUT?-CF> <FieldDescriptor-CF>  -> <FieldRef-CF>  {"JBCFieldRef"}
   prettyprint-FieldRef:
     JBCFieldRef(cr, fr, fd) -> [ H(
@@ -59,9 +59,9 @@ rules
                                    ]
                                  )
                                ]
-    where cr' := <pp-one-Z(prettyprint-ClassRef)> cr
-        ; fr' := <pp-one-Z(prettyprint-FRef)> fr
-        ; fd' := <pp-one-Z(prettyprint-FieldDescriptor)> fd
+    where cr' := <pp-one-Z(prettyprint-jasmin-ClassRef)> cr
+        ; fr' := <pp-one-Z(prettyprint-jasmin-FRef)> fr
+        ; fd' := <pp-one-Z(prettyprint-jasmin-FieldDescriptor)> fd
 // <ClassRef-CF> "/" <MRef-CF> <LAYOUT?-CF> <MethodDescriptor-CF> -> <MethodRef-CF> {"JBCMethodRef"}
   prettyprint-MethodRef:
     JBCMethodRef(cr, mr, md) -> [ H(
@@ -73,6 +73,6 @@ rules
                                    ]
                                  )
                                ]
-    where cr' := <pp-one-Z(prettyprint-ClassRef)> cr
-        ; mr' := <pp-one-Z(prettyprint-MRef)> mr
+    where cr' := <pp-one-Z(prettyprint-jasmin-ClassRef)> cr
+        ; mr' := <pp-one-Z(prettyprint-jasmin-MRef)> mr
         ; md' := <pp-one-Z(prettyprint-MethodDescriptor)> md

@@ -19,11 +19,11 @@ strategies
   html-escape = is-string ; string-replace(|"&", "&amp;") ; string-replace(|"<", "&lt;") ; string-replace(|">", "&gt;")
   
   abox2text = box2text-string(|10000)
-  pp-ClassName  = strip-annos ; prettyprint-ClassName  ; abox2text <+ !"PRETTYPRINTFAILURE"
-  pp-MethodName = strip-annos ; prettyprint-MethodName ; abox2text; html-escape <+ !"PRETTYPRINTFAILURE"
-  pp-FieldName  = strip-annos ; prettyprint-FieldName  ; abox2text <+ !"PRETTYPRINTFAILURE"
-  pp-ParameterDescriptors = map(prettyprint-ParameterDescriptor ; abox2text);concat-strings <+ !"PRETTYPRINTFAILURE"
-  pp-ReturnDescriptor = prettyprint-ReturnDescriptor ; abox2text <+ !"PRETTYPRINTFAILURE"
+  pp-ClassName  = strip-annos ; prettyprint-jasmin-ClassName  ; abox2text <+ !"PRETTYPRINTFAILURE"
+  pp-MethodName = strip-annos ; prettyprint-jasmin-MethodName ; abox2text; html-escape <+ !"PRETTYPRINTFAILURE"
+  pp-FieldName  = strip-annos ; prettyprint-jasmin-FieldName  ; abox2text <+ !"PRETTYPRINTFAILURE"
+  pp-ParameterDescriptors = map(prettyprint-jasmin-ParameterDescriptor ; abox2text);concat-strings <+ !"PRETTYPRINTFAILURE"
+  pp-ReturnDescriptor = prettyprint-jasmin-ReturnDescriptor ; abox2text <+ !"PRETTYPRINTFAILURE"
   
 rules
   // Undefined reference errors
