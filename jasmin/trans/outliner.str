@@ -3,9 +3,8 @@ module outliner
 imports
 
   signatures/-
-  runtime/editor/-
+  libspoofax/editor/outline
 
 rules
-  
+
   outline-expand-to-level = !3
-  

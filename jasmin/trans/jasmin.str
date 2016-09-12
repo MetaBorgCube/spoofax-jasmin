@@ -15,7 +15,7 @@ imports
   runtime/index/-
   runtime/properties/-
   runtime/types/-
-  runtime/tmpl/pp
+  libspoofax/sdf/pp
 
   JasminXT-Extra-PP-Rules.pp
   pp/-
