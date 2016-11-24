@@ -39,9 +39,9 @@ rules
 		with
 			filename := <guarantee-extension(|"result.txt")> path
 		with
-			cname := <class-name ; string-replace(|"/",".")> ast ;
-			cpath := <concat-strings; prim("local_path")> [project-path, "/", <dirname> path] ;
-			<execute-java(|cpath) ; process-output> cname => result
+			cname := <class-name ; string-replace(|"/",".")> ast;
+			cpath := <concat-strings; prim("local_path")> [project-path, "/", <dirname> path];
+			<execute-java(|cpath); process-output> cname => result
 	
 	generate-and-execute-class:
 		(selected, position, ast, path, project-path) -> (filename, result)
@@ -51,9 +51,9 @@ rules
 		with
 			<write-class-file(|class-filename)> <jasmin-file-to-asm-class> ast;
 			<refresh-workspace-file> class-filename;
-			cname := <class-name ; string-replace(|"/",".")> ast ;
-			cpath := <concat-strings> [project-path, "/", <dirname> path] ;
-			<execute-java(|cpath) ; process-output> cname => result
+			cname := <class-name ; string-replace(|"/",".")> ast;
+			cpath := <concat-strings; prim("local_path")> [project-path, "/", <dirname> path];
+			<execute-java(|cpath); process-output> cname => result
 			
 				
 		

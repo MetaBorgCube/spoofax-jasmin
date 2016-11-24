@@ -12,4 +12,5 @@ menus
     
     action: "Generate ASM Aterm" 	                        = translate-class (source)  
     action: "Generate class file on disk"    	            = generate-class (source)    
+    action: "Execute class file"                          = execute-class (source) (openeditor)
     action: "Generate class file on disk and execute"    	= generate-and-execute-class (source) (openeditor)
