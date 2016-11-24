@@ -9,6 +9,12 @@ imports
 
 rules
   
+  editor-show-formatted:
+    (selected, position, ast, path, project-path) -> (filename, result)
+    with
+      filename := <guarantee-extension(|".pp.j")> path;
+      result   := <pp-Jasmin-string> selected
+  
   pp-Jasmin-string =
     prettyprint-SDF-start-symbols
     ; !V([], <id>)

@@ -4,8 +4,9 @@ menus
   
   menu: "Syntax"
                                                                                                                             
-    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (source)  
+    action: "Show abstract syntax (for selection)" = debug-show-aterm (openeditor) (realtime) (source)     
     action: "Show analysed syntax (for selection)" = debug-show-aterm (openeditor)
+    action: "Format" = editor-show-formatted (openeditor) 
   
   menu: "JVM"
     
