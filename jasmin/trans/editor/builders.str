@@ -8,16 +8,6 @@ imports
 	
 rules
 	
-	// Generates the Java class file
-	/*generate-class:
-		(selected, position, ast, path, project-path) -> None()
-		with
-			parentdir := <dirname> path ;
-			<try(call)> ("java", ["-jar", $[[<project-path>]/lib/jasmin.jar], "-d", parentdir, path])
-		where
-			cfname := <concat-strings ; guarantee-extension(|"class")> [project-path, "/", <dirname> path, "/", <class-name> ast] ;
-			<refresh-workspace-file> cfname*/
-			
 	generate-class:
 		(selected, position, ast, path, project-path) -> None()
 		where
@@ -70,5 +60,4 @@ signature constructors
 strategies
 	
 	external execute-java(|path)
-	external execute-jasmin(|)
 	external write-class-file(|fname)

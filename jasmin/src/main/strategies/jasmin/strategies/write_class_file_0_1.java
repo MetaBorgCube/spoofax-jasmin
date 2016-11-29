@@ -1,6 +1,7 @@
 package jasmin.strategies;
 
-import static org.spoofax.interpreter.core.Tools.*;
+import static org.spoofax.interpreter.core.Tools.asJavaString;
+import static org.spoofax.interpreter.core.Tools.isTermString;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +13,8 @@ import org.strategoxt.lang.Context;
 import org.strategoxt.lang.Strategy;
 
 public class write_class_file_0_1 extends Strategy {
-
     public static write_class_file_0_1 instance = new write_class_file_0_1();
+
 
     @Override public IStrategoTerm invoke(Context context, IStrategoTerm current, IStrategoTerm fname) {
         String path = null;
