@@ -61,7 +61,7 @@
     </repository>
     <repository>
       <id>spoofax-eclipse-repo</id>
-      <url>http://download.spoofax.org/update/nightly/</url>
+      <url>http://buildfarm.metaborg.org/view/Spoofax/job/metaborg/job/spoofax-releng/job/in4303/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/site/</url>
       <layout>p2</layout>
       <releases>
         <enabled>false</enabled>
