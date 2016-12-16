@@ -6,7 +6,10 @@ import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.IOUtils;
 import org.spoofax.interpreter.terms.IStrategoString;
 import org.spoofax.interpreter.terms.IStrategoTerm;
 import org.spoofax.interpreter.terms.ITermFactory;
@@ -26,41 +29,42 @@ import org.strategoxt.lang.Strategy;
  * @see InteropRegisterer This class registers java_strategy_0_0 for use.
  */
 public class execute_java_0_1 extends Strategy {
-
     public static execute_java_0_1 instance = new execute_java_0_1();
 
     @Override public IStrategoTerm invoke(Context context, IStrategoTerm current, IStrategoTerm path) {
-        // remember system streams
-        PrintStream origOut = System.out;
-        PrintStream origErr = System.err;
-
-        // create temporary streams to collect output
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ByteArrayOutputStream err = new ByteArrayOutputStream();
-
-        System.setOut(new PrintStream(out));
-        System.setErr(new PrintStream(err));
+        ITermFactory factory = context.getFactory();
 
         try {
-            // load class
-            File file = new File(((IStrategoString) path).stringValue());
-            URLClassLoader loader = new URLClassLoader(new URL[] { file.toURI().toURL() });
-            Class<?> cls = loader.loadClass(((IStrategoString) current).stringValue());
+            Process process = new ProcessBuilder("java", "-cp", ((IStrategoString) path).stringValue(), ((IStrategoString) current).stringValue()).start();
+            process.waitFor(10, TimeUnit.SECONDS);
 
-            // invoke main method
-            Method method = cls.getDeclaredMethod("main", new Class[] { String[].class });
-            method.invoke(null, (Object) new String[0]);
-        } catch(Exception e) {
+            // For some reason, without this call waitFor sometimes hangs?
+            process.exitValue();
+
+            String out = IOUtils.toString(process.getInputStream());
+            String err = IOUtils.toString(process.getErrorStream());
+
+            return factory.makeAppl(
+                factory.makeConstructor("Output", 2),
+                factory.makeString(out),
+                factory.makeString(err)
+            );
+        } catch (IOException e) {
             e.printStackTrace();
+
+            return factory.makeAppl(
+                factory.makeConstructor("Output", 2),
+                factory.makeString("An IOException occurred while executing java: " + e.getMessage()),
+                factory.makeString("An IOException occurred while executing java: " + e.getMessage())
+            );
+        } catch (InterruptedException e) {
+             e.printStackTrace();
+
+            return factory.makeAppl(
+                factory.makeConstructor("Output", 2),
+                factory.makeString("An InterruptedException occurred while executing java: " + e.getMessage()),
+                factory.makeString("An InterruptedException occurred while executing java: " + e.getMessage())
+            );
         }
-
-        // reset system streams
-        System.setErr(origErr);
-        System.setOut(origOut);
-
-        // return output collected in both temporary streams
-        ITermFactory factory = context.getFactory();
-        return factory.makeAppl(factory.makeConstructor("Output", 2), factory.makeString(out.toString()),
-            factory.makeString(err.toString()));
     }
 }
