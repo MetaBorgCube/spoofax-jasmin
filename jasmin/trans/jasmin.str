@@ -19,6 +19,7 @@ imports
 
   JasminXT-Extra-PP-Rules.pp
   pp/-
+  pp
   outliner
 
 imports

@@ -33,7 +33,7 @@ lexical restrictions
   LabelName  -/- ~[\=\:\.\"\-\ \t\n\r]
 
 context-free syntax
-  FileName        = String
+  FileName        = STRING
   ClassName       = QualifiedName
   AttributeName   = Identifier
   AnnotationName  = Identifier

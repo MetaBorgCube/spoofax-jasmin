@@ -20,7 +20,7 @@ context-free syntax
   Directive.JBCVarDecl     = [.var [Int] is [VarName] [FieldDescriptor] from [LabelRef] to [LabelRef]]
   Directive.JBCThrows      = [.throws [ClassRef]]
   Directive.JBCCatch       = [.catch [ClassRef] from [LabelRef] to [LabelRef] using [LabelRef]]
-  Directive.JBCSignature   = [.signature [String]]
+  Directive.JBCSignature   = [.signature [STRING]]
   Directive.JBCStack       = [.stack
   	[StackDirOffset]
   	[{StackDirLocalVar "\n\t"}*]

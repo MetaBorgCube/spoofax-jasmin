@@ -16,12 +16,12 @@ context-free syntax
 	[{FieldAttribute "\n\t"}*]
 .end field]
   
-  FieldAttribute.JBCSignature  = [.signature [String]] 
+  FieldAttribute.JBCSignature  = [.signature [STRING]] 
   FieldAttribute.JBCDeprecated = [.deprecated]
   FieldAttribute.JBCAttribute  = [.attribute [AttributeName] [FileName]]
   FieldAttribute.JBCAnnotation = Annotation
 
-  FieldSignatureSpec.FieldSig = [signature [String]]
+  FieldSignatureSpec.FieldSig = [signature [STRING]]
   FieldSignatureSpec.None     = []
 
   InitialValue.InitVal = [= [Constant]]
