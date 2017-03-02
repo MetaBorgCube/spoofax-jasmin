@@ -29,7 +29,7 @@ context-free syntax
   MinorVersion.Minor = [.[Int]]
   MinorVersion.None  = []
 
-  SourceSpec.JBCSource = [.source [String]]
+  SourceSpec.JBCSource = [.source [STRING]]
   SourceSpec.None      = []
 
 context-free syntax
@@ -47,13 +47,13 @@ context-free syntax
   ImplementsSpec.JBCImplements = [.implements [ClassName]]
 
 context-free syntax
-  SignatureSpec.JBCSignature = [.signature [String]]
+  SignatureSpec.JBCSignature = [.signature [STRING]]
   SignatureSpec.None         = []
 
   EnclosingSpec.JBCEnclosing = [.enclosing method [MethodDescriptor]]
   EnclosingSpec.None         = []
   
-  DebugSpec.JBCDebug = [.debug [String]]
+  DebugSpec.JBCDebug = [.debug [STRING]]
   
 context-free syntax
   InnerClassSpec.JBCInnerClass = [.inner class [InnerClassAccess] [InnerClassName] [InnerName] [OuterName]]
