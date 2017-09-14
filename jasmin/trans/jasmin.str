@@ -7,7 +7,7 @@ imports
 
 imports
 
-  stratego/metaborg
+  libspoofax/core/language
 
   runtime/analysis/-
   runtime/nabl/-

@@ -1,7 +1,6 @@
 module editor/builders
 
 imports
-	stratego/metaborg
 	analysis/names/project	
 	syntax/ASM
 	trans/translator/-
@@ -24,7 +23,6 @@ rules
 			filename := <guarantee-extension(|"class")> path
 		where
 			<write-class-file(|filename)> <jasmin-file-to-asm-class> ast;
-			<refresh-workspace-file> filename;
 			result := None()
 			
 	translate-class:
@@ -50,7 +48,6 @@ rules
 			filename := <guarantee-extension(|"result.txt")> path
 		with
 			<write-class-file(|class-filename)> <jasmin-file-to-asm-class> ast;
-			<refresh-workspace-file> class-filename;
 			cname := <class-name ; string-replace(|"/",".")> ast;
 			cpath := <concat-strings; prim("local_path")> [project-path, "/", <dirname> path];
 			<execute-java(|cpath); process-output> cname => result
