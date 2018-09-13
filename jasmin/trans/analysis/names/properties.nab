@@ -3,7 +3,8 @@ module analysis/names/properties
 imports
 
 	signatures/-
-	analysis/types/constraints
+	analysis/types/-
+	analysis/names/binding
 
 properties
 	pop-type   of Label : List(Type)

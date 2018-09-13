@@ -48,7 +48,7 @@ rules
 	process-output: Output(result, "") -> result
 
 	process-output: Output(result, error) -> $[[result] Runtime error: [error]]
-		where not (<""> error)
+		where not (<?""> error)
 		
 signature constructors
 	
