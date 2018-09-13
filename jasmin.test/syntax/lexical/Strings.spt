@@ -1,7 +1,7 @@
 module jasmin-Strings-Test
 
 language jasmin
-start symbol String
+start symbol STRING
 
 test empty String [[""]] parse succeeds
 test one char as String [["a"]] parse succeeds
