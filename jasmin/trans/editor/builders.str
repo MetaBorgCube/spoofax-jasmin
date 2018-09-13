@@ -10,9 +10,13 @@ rules
 	generate-class:
 		(selected, position, ast, path, project-path) -> None()
 		where
-			filename := <guarantee-extension(|"class")> path
+		    asm-ast@ASMClass(_, _, class-name, _, _, _, _, _) := <jasmin-file-to-asm-class> ast;
+		    path-init* := <string-tokenize(|['/','\']); init> path;
+		    path-end* := [class-name];
+		    path' := <separate-by(|"/");concat-strings> [path-init*, path-end*];
+			filename := <guarantee-extension(|"class")> path'
 		where
-			<write-class-file(|filename)> <jasmin-file-to-asm-class> ast;
+			<write-class-file(|filename)> asm-ast;
 			result := None()
 			
 	translate-class:
@@ -34,10 +38,14 @@ rules
 	generate-and-execute-class:
 		(selected, position, ast, path, project-path) -> (filename, result)
 		with
-			class-filename := <guarantee-extension(|"class")> path;
+		    asm-ast@ASMClass(_, _, class-name, _, _, _, _, _) := <jasmin-file-to-asm-class> ast;
+		    path-init* := <string-tokenize(|['/','\']); init> path;
+		    path-end* := [class-name];
+		    path' := <separate-by(|"/");concat-strings> [path-init*, path-end*];
+			class-filename := <guarantee-extension(|"class")> path';
 			filename := <guarantee-extension(|"result.txt")> path
 		with
-			<write-class-file(|class-filename)> <jasmin-file-to-asm-class> ast;
+			<write-class-file(|class-filename)> asm-ast;
 			cname := <class-name ; string-replace(|"/",".")> ast;
 			cpath := <concat-strings; prim("local_path")> [project-path, "/", <dirname> path];
 			<execute-java(|cpath); process-output> cname => result
