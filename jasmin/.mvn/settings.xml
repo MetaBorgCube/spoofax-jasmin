@@ -37,7 +37,7 @@
       <repositories>
         <repository>
           <id>metaborg-snapshot-repo</id>
-          <url>http://artifacts.metaborg.org/content/repositories/in4303/</url>
+          <url>http://artifacts.metaborg.org/content/repositories/cs4200/</url>
           <releases>
             <enabled>false</enabled>
           </releases>
@@ -49,7 +49,7 @@
       <pluginRepositories>
         <pluginRepository>
           <id>metaborg-snapshot-repo</id>
-          <url>http://artifacts.metaborg.org/content/repositories/in4303/</url>
+          <url>http://artifacts.metaborg.org/content/repositories/cs4200/</url>
           <releases>
             <enabled>false</enabled>
           </releases>
