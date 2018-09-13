@@ -1,6 +1,6 @@
-module JasminXT-Names-LabelRef-Test
+module jasmin-Names-LabelRef-Test
 
-language JasminXT
+language jasmin
 start symbol LabelRef
 
 test label if statement [[ifLabel]] parse to LabelRef("ifLabel")

@@ -1,6 +1,6 @@
-module JasminXT-Stack-Test
+module jasmin-Stack-Test
 
-language JasminXT
+language jasmin
 start symbol Instruction
 
 test pop     [[pop]]     parse succeeds

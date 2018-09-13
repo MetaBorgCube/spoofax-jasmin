@@ -1,6 +1,6 @@
-module JasminXT-Names-FRef-Test
+module jasmin-Names-FRef-Test
 
-language JasminXT
+language jasmin
 start symbol FRef
 
 test fref [[fieldreference]] parse to FRef("fieldreference")

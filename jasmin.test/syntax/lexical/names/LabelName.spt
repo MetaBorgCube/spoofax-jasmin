@@ -1,6 +1,6 @@
-module JasminXT-Names-LabelName-Test
+module jasmin-Names-LabelName-Test
 
-language JasminXT
+language jasmin
 start symbol LabelName
 
 test correct label [[hello]] parse succeeds

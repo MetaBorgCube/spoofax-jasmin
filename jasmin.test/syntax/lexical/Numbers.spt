@@ -1,6 +1,6 @@
-module JasminXT-Numbers-Test
+module jasmin-Numbers-Test
 
-language JasminXT
+language jasmin
 start symbol Int
 
 test single digit [[2]] parse succeeds

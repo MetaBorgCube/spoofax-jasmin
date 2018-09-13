@@ -1,6 +1,6 @@
-module JasminXT-Header-Test
+module jasmin-Header-Test
 
-language JasminXT
+language jasmin
 start symbol JasminHeader
 
 test header minimal [[.class public Foo .super Bar]] parse succeeds

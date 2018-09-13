@@ -1,6 +1,6 @@
-module JasminXT-Names-QualifiedName-Test
+module jasmin-Names-QualifiedName-Test
 
-language JasminXT
+language jasmin
 start symbol QualifiedName
 
 test single identifier [[test]] parse succeeds

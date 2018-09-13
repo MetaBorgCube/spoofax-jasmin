@@ -1,6 +1,6 @@
-module JasminXT-Directives-Test
+module jasmin-Directives-Test
 
-language JasminXT
+language jasmin
 start symbol Directive
 
 test stack limit [[.limit stack 10]] parse succeeds

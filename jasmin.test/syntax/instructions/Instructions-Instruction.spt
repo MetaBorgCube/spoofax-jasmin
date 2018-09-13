@@ -1,6 +1,6 @@
-module JasminXT-Instructions-Instruction-Test
+module jasmin-Instructions-Instruction-Test
 
-language JasminXT
+language jasmin
 start symbol Instruction
 
 

@@ -1,7 +1,7 @@
-module JasminXT-Strings-Test
+module jasmin-Strings-Test
 
-language JasminXT
-start symbol STRING
+language jasmin
+start symbol String
 
 test empty String [[""]] parse succeeds
 test one char as String [["a"]] parse succeeds

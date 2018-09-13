@@ -1,6 +1,6 @@
-module JasminXT-Names-MethodName-Test
+module jasmin-Names-MethodName-Test
 
-language JasminXT
+language jasmin
 start symbol MethodName
 
 test init methodname [[<init>]] parse to Init()

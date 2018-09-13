@@ -1,6 +1,6 @@
-module JasminXT-LoadStore-Test
+module jasmin-LoadStore-Test
 
-language JasminXT
+language jasmin
 start symbol Instruction
 
 // basics

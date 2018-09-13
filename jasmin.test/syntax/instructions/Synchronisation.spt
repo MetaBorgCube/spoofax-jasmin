@@ -1,6 +1,6 @@
-module JasminXT-Synchronisation-Test
+module jasmin-Synchronisation-Test
 
-language JasminXT
+language jasmin
 start symbol Instruction
 
 test monitorenter [[monitorenter]] parse succeeds

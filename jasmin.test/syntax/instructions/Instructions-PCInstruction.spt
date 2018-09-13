@@ -1,6 +1,6 @@
-module JasminXT-Instructions-PCInstruction-Test
+module jasmin-Instructions-PCInstruction-Test
 
-language JasminXT
+language jasmin
 start symbol PCInstruction
 
 test simple instruction [[nop]] parse succeeds

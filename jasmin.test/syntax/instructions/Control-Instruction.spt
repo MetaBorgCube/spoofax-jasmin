@@ -1,6 +1,6 @@
-module JasminXT-Arithmetic-Instruction-Test
+module jasmin-Arithmetic-Instruction-Test
 
-language JasminXT
+language jasmin
 start symbol Instruction
 
 // basics

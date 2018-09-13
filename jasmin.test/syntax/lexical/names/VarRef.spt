@@ -1,6 +1,6 @@
-module JasminXT-Names-VarRef-Test
+module jasmin-Names-VarRef-Test
 
-language JasminXT
+language jasmin
 start symbol VarRef
 
 test int varnum [[5]] parse to VarNum("5")

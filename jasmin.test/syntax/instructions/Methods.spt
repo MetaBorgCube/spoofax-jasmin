@@ -1,6 +1,6 @@
-module JasminXT-Methods-Test
+module jasmin-Methods-Test
 
-language JasminXT
+language jasmin
 start symbol Instruction  
 
 test invokenonvirtual [[invokenonvirtual Class/<init>()V]] parse succeeds

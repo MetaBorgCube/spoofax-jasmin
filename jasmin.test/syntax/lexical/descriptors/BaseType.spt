@@ -1,6 +1,6 @@
-module JasminXT-Descriptors-BaseType-Test
+module jasmin-Descriptors-BaseType-Test
 
-language JasminXT
+language jasmin
 start symbol BaseType
 
 test byte base descriptor [[B]] parse to Byte()

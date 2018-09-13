@@ -1,6 +1,6 @@
-module JasminXT-Arithmetic-Amount-Test
+module jasmin-Arithmetic-Amount-Test
 
-language JasminXT
+language jasmin
 start symbol Amount
 
 test single digit [[2]] parse succeeds

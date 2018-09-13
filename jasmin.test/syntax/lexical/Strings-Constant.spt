@@ -1,6 +1,6 @@
-module JasminXT-Strings-Test
+module jasmin-Strings-Test
 
-language JasminXT
+language jasmin
 start symbol Constant
 
 test constant string [["hellogoodbye"]] parse succeeds

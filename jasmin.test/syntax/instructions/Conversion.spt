@@ -1,6 +1,6 @@
-module JasminXT-Conversion-Test
+module jasmin-Conversion-Test
 
-language JasminXT
+language jasmin
 start symbol Target
 
 test i2l [[i2l]] parse succeeds

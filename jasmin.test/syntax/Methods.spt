@@ -1,6 +1,6 @@
-module JasminXT-Methods-Test
+module jasmin-Methods-Test
 
-language JasminXT
+language jasmin
 start symbol Method
 
 test method minimal [[.method public private test()Z .end method]] parse succeeds

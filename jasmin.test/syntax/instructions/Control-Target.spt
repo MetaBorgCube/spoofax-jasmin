@@ -1,6 +1,6 @@
-module JasminXT-Arithmetic-Target-Test
+module jasmin-Arithmetic-Target-Test
 
-language JasminXT
+language jasmin
 start symbol Target
 
 // basics

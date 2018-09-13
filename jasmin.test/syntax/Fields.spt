@@ -1,6 +1,6 @@
-module JasminXT-Fields-Test
+module jasmin-Fields-Test
 
-language JasminXT
+language jasmin
 start symbol Field
 
 //JBCField

@@ -1,6 +1,6 @@
-module JasminXT-Names-BaseTypeName-Test
+module jasmin-Names-BaseTypeName-Test
 
-language JasminXT
+language jasmin
 start symbol BaseTypeName
 
 test byte name [[byte]] parse to ByteName()

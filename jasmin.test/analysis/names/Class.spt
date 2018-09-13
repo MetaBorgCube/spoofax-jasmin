@@ -1,6 +1,6 @@
 module class-names-test
 
-language JasminXT
+language jasmin
 start symbol Start
 
 test new Simple [[

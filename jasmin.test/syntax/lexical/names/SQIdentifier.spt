@@ -1,6 +1,6 @@
-module JasminXT-Names-SQIdentifier-Test
+module jasmin-Names-SQIdentifier-Test
 
-language JasminXT
+language jasmin
 start symbol SQIdentifier
 
 test id without quotes [[ident]] parse succeeds

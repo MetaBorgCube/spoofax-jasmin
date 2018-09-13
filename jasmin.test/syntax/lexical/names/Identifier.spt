@@ -1,6 +1,6 @@
-module JasminXT-Names-Identifier-Test
+module jasmin-Names-Identifier-Test
 
-language JasminXT
+language jasmin
 start symbol Identifier
 
 test id starting with cap [[Test]] parse succeeds
