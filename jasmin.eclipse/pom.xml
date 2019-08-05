@@ -41,7 +41,7 @@
   <repositories>
     <repository>
       <id>metaborg-release-repo</id>
-      <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+      <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -51,7 +51,7 @@
     </repository>
     <repository>
       <id>metaborg-snapshot-repo</id>
-      <url>http://artifacts.metaborg.org/content/repositories/cs4200/</url>
+      <url>https://artifacts.metaborg.org/content/repositories/cs4200/</url>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -61,7 +61,7 @@
     </repository>
     <repository>
       <id>spoofax-eclipse-repo</id>
-      <url>http://buildfarm.metaborg.org/view/Spoofax/job/metaborg/job/spoofax-releng/job/cs4200/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/site/</url>
+      <url>https://buildfarm.metaborg.org/job/metaborg/job/spoofax-releng/job/cs4200/lastSuccessfulBuild/artifact/dist/spoofax/eclipse/site/</url>
       <layout>p2</layout>
       <releases>
         <enabled>false</enabled>
@@ -75,7 +75,7 @@
   <pluginRepositories>
     <pluginRepository>
       <id>metaborg-release-repo</id>
-      <url>http://artifacts.metaborg.org/content/repositories/releases/</url>
+      <url>https://artifacts.metaborg.org/content/repositories/releases/</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -85,7 +85,7 @@
     </pluginRepository>
     <pluginRepository>
       <id>metaborg-snapshot-repo</id>
-      <url>http://artifacts.metaborg.org/content/repositories/cs4200/</url>
+      <url>https://artifacts.metaborg.org/content/repositories/cs4200/</url>
       <releases>
         <enabled>false</enabled>
       </releases>
