@@ -2,7 +2,7 @@
 @Library('metaborg.jenkins.pipeline@develop') _
 
 spoofaxCoreLanguagePipeline(
-  upstreamProjects: ['/metaborg/spoofax-releng/cs4200'], 
+  upstreamProjects: ['/metaborg/spoofax-releng/master'], 
   mavenGlobalSettingsFilePath: '.mvn/settings.xml',
   slack: true
 )
