@@ -4,6 +4,5 @@
 spoofaxCoreLanguagePipeline(
   upstreamProjects: ['/metaborg/spoofax-releng/cs4200'], 
   mavenGlobalSettingsFilePath: '.mvn/settings.xml',
-  slack: true,
-  slackChannel: "#cs4200"
+  slack: true
 )
