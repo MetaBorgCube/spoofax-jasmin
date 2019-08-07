@@ -3,5 +3,5 @@
 
 spoofaxCoreLanguagePipeline(
   upstreamProjects: ['/metaborg/spoofax-releng/cs4200'],
-  slack: true
+  slack: false
 )
