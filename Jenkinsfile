@@ -1,5 +1,5 @@
 #!groovy
-@Library('metaborg.jenkins.pipeline@develop') _
+@Library('metaborg.jenkins.pipeline') _
 
 spoofaxCoreLanguagePipeline(
   upstreamProjects: ['/metaborg/spoofax-releng/master'],
