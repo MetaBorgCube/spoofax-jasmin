@@ -28,7 +28,7 @@ strategies // manipulate PC in top-most frame
 	
 	next = JBCState([JBCFrame(id, id, inc, id, id)|id], id)
 	
-	goto(|l) = JBCState([JBCFrame(id, ?is, <getfirst(?(<id>,l))> is, id, id)|id], id)
+	goto(|l) = JBCState([JBCFrame(id, ?'is, <getfirst(?(<id>,l))> 'is, id, id)|id], id)
 	
 strategies // manipulate stack in top-most frame 
 		
