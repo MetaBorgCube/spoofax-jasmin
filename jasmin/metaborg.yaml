@@ -24,6 +24,8 @@ pardonedLanguages:
 - NameBindingLanguage
 - TypeSystemLanguage
 language:
+  sdf:
+    sdf2table: c
   stratego:
     format: ctree
     args:

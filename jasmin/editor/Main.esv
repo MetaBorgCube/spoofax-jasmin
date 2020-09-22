@@ -20,5 +20,5 @@ language
   provider : lib/asm-util-5.0.1.jar
   provider : lib/asm-xml-5.0.1.jar
   provider : target/metaborg/stratego.ctree
-  provider : target/metaborg/stratego-javastrat.jar
+  provider : target/metaborg/stratego.jar
   
